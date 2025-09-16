@@ -34,21 +34,10 @@ INPUT /usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def
-INPUT /usr/share/texlive/texmf-dist/tex/generic/babel-italian/italian.ldf
-INPUT /usr/share/texlive/texmf-dist/tex/generic/babel-italian/italian.ldf
-INPUT /usr/share/texlive/texmf-dist/tex/generic/babel-italian/italian.ldf
-INPUT /usr/share/texlive/texmf-dist/tex/generic/babel-italian/italian.ldf
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+INPUT /usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+INPUT /usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+INPUT /usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
@@ -271,21 +260,6 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.cfg
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.cfg
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.cfg
-INPUT /usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.cfg
 INPUT /usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
@@ -1084,6 +1058,16 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/pgfopts/pgfopts.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/pgfopts/pgfopts.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/elocalloc/elocalloc.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/elocalloc/elocalloc.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/elocalloc/elocalloc.sty
@@ -1287,6 +1271,19 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
@@ -1512,6 +1509,62 @@ INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ts1-lmr12.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
+INPUT ./images/interrupt_timeline.png
+INPUT ./images/interrupt_timeline.png
+INPUT images/interrupt_timeline.png
+INPUT ./images/interrupt_timeline.png
+INPUT ./images/interrupt_timeline.png
+INPUT ./images/Interrupt-drive_IO _Cycle.png
+INPUT ./images/Interrupt-drive_IO _Cycle.png
+INPUT images/Interrupt-drive_IO _Cycle.png
+INPUT ./images/Interrupt-drive_IO _Cycle.png
+INPUT ./images/Interrupt-drive_IO _Cycle.png
+INPUT ./images/storage_hieracacy.png
+INPUT ./images/storage_hieracacy.png
+INPUT images/storage_hieracacy.png
+INPUT ./images/storage_hieracacy.png
+INPUT ./images/storage_hieracacy.png
+INPUT ./images/computer_works2.png
+INPUT ./images/computer_works2.png
+INPUT images/computer_works2.png
+INPUT ./images/computer_works2.png
+INPUT ./images/computer_works2.png
+INPUT ./images/user_kernel.png
+INPUT ./images/user_kernel.png
+INPUT images/user_kernel.png
+INPUT ./images/user_kernel.png
+INPUT ./images/user_kernel.png
+INPUT ./images/migration_data.png
+INPUT ./images/migration_data.png
+INPUT images/migration_data.png
+INPUT ./images/migration_data.png
+INPUT ./images/migration_data.png
+INPUT ./images/Screenshot from 2025-09-16 16-10-00.png
+INPUT ./images/Screenshot from 2025-09-16 16-10-00.png
+INPUT images/Screenshot from 2025-09-16 16-10-00.png
+INPUT ./images/Screenshot from 2025-09-16 16-10-00.png
+INPUT ./images/Screenshot from 2025-09-16 16-10-00.png
+INPUT ./images/Dual_Core_Design.png
+INPUT ./images/Dual_Core_Design.png
+INPUT images/Dual_Core_Design.png
+INPUT ./images/Dual_Core_Design.png
+INPUT ./images/Dual_Core_Design.png
+INPUT ./images/Symmetric _Multiprocessing_Architecture.png
+INPUT ./images/Symmetric _Multiprocessing_Architecture.png
+INPUT images/Symmetric _Multiprocessing_Architecture.png
+INPUT ./images/Symmetric _Multiprocessing_Architecture.png
+INPUT ./images/Symmetric _Multiprocessing_Architecture.png
+INPUT ./images/NUMA.png
+INPUT ./images/NUMA.png
+INPUT images/NUMA.png
+INPUT ./images/NUMA.png
+INPUT ./images/NUMA.png
+INPUT ./images/Clustered_System.png
+INPUT ./images/Clustered_System.png
+INPUT images/Clustered_System.png
+INPUT ./images/Clustered_System.png
+INPUT ./images/Clustered_System.png
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out
