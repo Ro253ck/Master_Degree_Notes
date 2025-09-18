@@ -1,0 +1,177 @@
+\chapter{Operating Systems Services}
+
+\section{Operating System Services}
+\begin{flushleft}
+    Operating systems provide an environment for execution of programs and services to programs and users. The principal services that an operating system provides are:
+    \begin{itemize}
+        \item \textbf{User Interfaces:} Almost all operating systems have a user interface (UI). The UI can be a command-line interface (CLI), in which the user types commands, or a graphical user interface (GUI), in which the user interacts with the system through graphical elements such as windows, icons, and menus, touch screens, etc.
+        \item \textbf{Program Execution:} The system must be able to load a program into memory and to run that program. The program must be able to end its execution, either normally or abnormally (indicating error).
+        \item \textbf{I/O Operations:} A program may require I/O, which involve a file or a device.
+        \item \textbf{File System Manipulation:} The file system provides the abstraction of a file, which is a collection of related information defined by its creator. The operating system must provide the mechanisms for creating, deleting, reading, writing, and manipulating files and directories.
+        \item \textbf{Communications:} Processes may exchange information, on the same computer or between computers over a network. The communication may be implemented through \emph{shared memory} or through \emph{message passing}.
+        \item \textbf{Error Detection:} The OS needs to be constantly aware of possible errors: in the CPU and memory hardware, in I/O devices, in the user program. The OS should take the appropriate action to ensure correct and consistent computing. \emph{Debugging} facilities can greatly enhance the user's and programmer's abilities to efficiently use the system.
+    \end{itemize}
+    Another set of OS functions exists for ensuring the efficient operation of the system itself via \emph{resource sharing}:
+    \begin{itemize}
+        \item \textbf{Resource Allocation:} When multiple users or multiple jobs run concurrently, resources must be allocated to each of them. If the resources are not sufficient to satisfy the needs of all users, the OS must have a method of deciding between conflicting requests.
+        \item \textbf{Logging:} To keep track of which users use the system, what resources they use, and how much time they use them, the OS must maintain a log of such information.
+        \item \textbf{Protection:} When multiple processes share the same computer, it is essential to ensure that one process does not interfere with another process or with the OS itself. Protection involves both hardware and software mechanisms that control access to system resources.
+        \item \textbf{Security:} Security of the system from outsiders is provided by means of passwords and similar techniques. The OS must ensure that external I/O devices (e.g., a modem) are protected from external interference.
+    \end{itemize}
+\end{flushleft}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/OS_services.png}
+    \caption{A View of Operating System Services}
+    \label{fig:os_services}
+\end{figure}
+
+\section{System Services}
+\begin{flushleft}
+    System programs provide a convenient environment for program development and execution. They can be divided into:
+    \begin{itemize}
+        \item \textbf{File Manipulation:} Create, delete, copy, rename, print, dump, list, and generally manipulate files and directories.
+        \item \textbf{Status Information:} Some programs ask the system for information such as date, time, available memory, disk space, and number of users. Others provide detailed performance, logging, and debugging information. Typically, these programs format and print the output to the terminal or other output devices. Some systems implement a \emph{registry}, used to store and retrieve configuration information.
+        \item \textbf{File Modification:} Text editors to create and modify files; special commands to search contents of files or perform transformations of the text.
+        \item \textbf{Programming Language Support:} Compilers, assemblers, debuggers, and interpreters may be provided by the system.
+        \item \textbf{Program Loading and Execution:} Absolute loaders, relocatable loaders, linkage editors, overlay-loaders, and debugging systems for higher-level and machine language programs.
+        \item \textbf{Communications:} Provide the mechanisms for creating virtual connections among processes, users, and computer systems. Allow users to send messages, browse web pages, send e-mails, log in remotely, or transfer files between machines.
+        \item \textbf{Background Services:} Launch at boot time. Some run during system startup and then terminate, while others remain active until shutdown. They provide facilities like disk checking, process scheduling, error logging, and printing. These programs run in user context (not kernel context) and are known as services, subsystems, or \emph{daemons}.
+        \item \textbf{Application Programs:} Do not pertain directly to the operating system. They are run by users (e.g., productivity software, games) and launched via command line, mouse click, or touchscreen input.
+    \end{itemize}
+    Most users’ view of the operating system is defined by these \textbf{system programs}, not by the actual system calls.
+\end{flushleft}
+
+\subsection{Linkers and Loaders}
+\begin{flushleft}
+    When source code is compiled, it is first translated into \textbf{object files}, which are typically relocatable. A relocatable object file is designed so that its code and data can be loaded into any physical memory address, without being fixed in advance.
+
+    The task of the \textbf{linker} is to combine these object files into a single \textbf{executable binary file}. During this process, the linker resolves external references (for example, function calls that are defined in another file) and incorporates necessary parts of system libraries. In this way, a complete program image is produced, ready to be loaded into memory.
+
+    The executable file, however, still resides on secondary storage. To be executed, it must be brought into main memory by the \textbf{loader}. The loader assigns the final memory addresses to the different parts of the program and adjusts code and data so that they can be correctly accessed during execution. This step is called \emph{relocation}.
+
+    Modern operating systems often rely on \textbf{dynamic linking} instead of including full copies of libraries inside each executable. With dynamic linking, libraries (Windows: \emph{DLLs}, Linux: \emph{shared objects, SOs}) are loaded into memory only once and shared by all programs that use them. This approach saves memory and makes it easier to update libraries without recompiling applications.
+
+    Finally, both object and executable files follow well-defined \textbf{standard formats} (such as ELF in Linux or PE in Windows). Thanks to these formats, the operating system can understand how to correctly load a program into memory and start its execution.
+\end{flushleft}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Linker_Loader.png}
+    \caption{The Role of the Linker and Loader}
+    \label{fig:linker_loader}
+\end{figure}
+
+\begin{flushleft}
+    In the examples below, we compare two very different approaches to system design.  
+    
+    A system with no operating system is typically single-tasking. Programs, often called sketches, are loaded via USB into flash memory. The entire system uses a single memory space, and a simple boot loader is responsible for loading the program at startup. When a program exits, control does not return to an operating system but instead to the sketch loop, which is executed again. In this environment, the program essentially becomes the system itself, with minimal support beyond the hardware and boot loader. This model is common in microcontrollers and embedded systems.
+    
+    In contrast, FreeBSD represents a more sophisticated design as a Unix variant that supports multitasking. When the system starts, users log in and invoke their choice of shell. The shell then executes the \texttt{fork()} system call to create a new process and uses \texttt{exec()} to load a program into that process. The shell may wait for the process to terminate or continue handling user commands in parallel. When a process terminates, it returns an exit code: a code of zero indicates that no error occurred, while a value greater than zero indicates an error condition. This model illustrates how modern multitasking operating systems manage processes, provide controlled execution, and report errors in a structured way.
+    \end{flushleft}
+    
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/FreeBSD.png}
+        \caption{Example: FreeBSD}
+        \label{fig:example_freebsd}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/Arduino.png}
+        \caption{Example: Arduino}
+        \label{fig:example_arduino}
+    \end{minipage}
+    \label{fig:dual_vs_symmetric}
+\end{figure}
+
+\section{System Calls}
+\begin{flushleft}
+    A compiled program cannot be executed by different operating system, the principal reason are:
+    \begin{itemize}
+        \item Different operating systems have different system calls.
+        \item Different \emph{Application Binary Interfaces} (ABIs), wich define how different components of binary code can interface for a given operating system on a given architecture, CPU, etc.
+        \item Different executable file formats.
+        \item Different ISA and hardware architectures. This example not depending on the operating system, but on the CPU architecture.
+    \end{itemize}
+    To solve this problem we have two principal methods:
+    \begin{itemize}
+        \item \textbf{interpreters:} we write code in a high-level language, and then we use an interpreter to execute the code. The interpreter is a program that reads the high-level code and translates it into machine code on-the-fly, allowing the same high-level code to run on different operating systems and architectures. This approach is common for scripting languages like Python, JavaScript, and Ruby.
+        \item \textbf{virtual machines:} a virtual machine (VM) is a software emulation of a physical computer that runs an operating system and applications. The VM provides a consistent environment for running programs, regardless of the underlying hardware and operating system. Examples of VMs include the Java Virtual Machine (JVM) and the .NET Common Language Runtime (CLR).
+    \end{itemize}
+
+
+    The programming interface to the services provided by the operating system is typically written in a high-level language such as C or C++. In most cases, these services are accessed by programs through a high-level Application Programming Interface (API) rather than by making direct use of system calls. The three most common APIs are the Win32 API for Windows, the POSIX API for POSIX-based systems (which include virtually all versions of UNIX, Linux, and macOS), and the Java API for the Java Virtual Machine (JVM). It is important to note that the system-call names used throughout this presentation are generic and may differ across specific implementations.
+\end{flushleft}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/SYC_example.png}
+        \caption{Example: System call for copy the contents of a file to another file}
+        \label{fig:example_syc}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/Standard_API.png}
+        \caption{Example: Read standard API}
+        \label{fig:Example standard api}
+    \end{minipage}
+    \label{fig:example_api}
+\end{figure}
+
+\subsection{System Call Implementation}
+\begin{flushleft}
+Typically, a number is associated with each system call. The system-call interface maintains a table indexed according to these numbers, which it uses to invoke the intended system call in the OS kernel. After execution, the interface returns the status of the system call along with any return values to the caller. The programmer does not need to know how the system call is implemented internally; it is sufficient to follow the API and understand what the operating system will do as a result of the call. Most details of the OS interface are hidden from the programmer by the API, and the entire process is managed by a run-time support library, which is a set of functions built into the libraries included with the compiler.
+\end{flushleft}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/API-SYC.png}
+    \caption{System Call Implementation}
+    \label{fig:api_syc}
+\end{figure}
+
+\subsection{System Call Parameter Passing}
+\begin{flushleft}
+    There are three general methods for passing parameters to the operating system when a system call is made:
+    \begin{itemize}
+        \item \textbf{Registers:} The parameters are stored in registers and passed to the OS kernel. This method is fast but limited by the number of available registers.
+        \item \textbf{Block or Table:} The parameters are stored in a block or table in memory, and the address of this block is passed to the OS kernel in a register. This method allows for more parameters to be passed but requires additional memory access.
+        \item \textbf{Stack:} The parameters are pushed onto the stack by the program and popped off the stack by the OS kernel. This method is flexible and can handle a variable number of parameters, but it may be slower due to stack operations.
+    \end{itemize}
+    The choice of parameter-passing method depends on factors such as the architecture of the CPU, the design of the operating system, and performance considerations.
+\end{flushleft}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/Parameter_passing_via_table.png}
+    \caption{Parameter Passing via a Block or Table}
+    \label{fig:parameter_passing}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/STD_C_example.png}
+    \caption{Standard C library Example}
+    \label{fig:standard_c_example}
+\end{figure}
+
+
+\subsection{Tracing System Calls}
+\begin{flushleft}
+On Linux, the \texttt{strace} command allows users to trace the system calls executed by a running process. Internally, \texttt{strace} relies on another system call, \texttt{ptrace}, which provides the ability to trace, and potentially modify, the system call invocations of a traced process. Rather than executing a system call directly, the traced process hands control over to the tracer. The tracer can then observe the sequence of system calls, monitor timings and performance, and even modify parameters or results while the process is running. This mechanism is particularly useful for debugging, performance analysis, and understanding the behavior of programs.
+\end{flushleft}
+
+\section{Operating Systems Design and Implementation}
