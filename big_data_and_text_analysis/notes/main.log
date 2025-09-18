@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  16 SEP 2025 21:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  18 SEP 2025 17:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -938,30 +938,30 @@ Package fancyhdr Warning: \fancyhead's `E' option without twoside option is usel
 
 Package fancyhdr Warning: \fancyhead's `E' option without twoside option is useless on input line 184.
 
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 211.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 217.
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count380
@@ -1016,7 +1016,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \c@lstlisting=\count386
-Package hyperref Info: Link coloring ON on input line 211.
+Package hyperref Info: Link coloring ON on input line 217.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -1026,21 +1026,21 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count387
 )
-LaTeX Info: Redefining \ref on input line 211.
-LaTeX Info: Redefining \pageref on input line 211.
-LaTeX Info: Redefining \nameref on input line 211.
+LaTeX Info: Redefining \ref on input line 217.
+LaTeX Info: Redefining \pageref on input line 217.
+LaTeX Info: Redefining \nameref on input line 217.
  (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
-LaTeX Info: Redefining \celsius on input line 211.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 211.
+LaTeX Info: Redefining \celsius on input line 217.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 217.
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 211.
-Package gensymb Info: Using \Omega for \ohm on input line 211.
+LaTeX Info: Redefining \ohm on input line 217.
+Package gensymb Info: Using \Omega for \ohm on input line 217.
 
 Package gensymb Warning: Not defining \micro.
 
@@ -1126,39 +1126,49 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.252 \newpage
+l.258 \newpage
                 % Per iniziare il contenuto in una nuova pagina [1
 
 ] (./sections/introduction.tex [2]
 Chapter 1.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 10.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 9.
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3
 
 ]
-<images/big_data_pipeline.png, id=77, 667.49374pt x 421.575pt>
+<images/big_data_pipeline.png, id=92, 667.49374pt x 421.575pt>
 File: images/big_data_pipeline.png Graphic file (type png)
 <use images/big_data_pipeline.png>
-Package pdftex.def Info: images/big_data_pipeline.png  used on input line 35.
+Package pdftex.def Info: images/big_data_pipeline.png  used on input line 34.
 (pdftex.def)             Requested size: 307.2929pt x 194.08122pt.
- [4] [5 <./images/big_data_pipeline.png>] [6]) [7] (./main.aux)
+ [4 <./images/big_data_pipeline.png>] [5]) (./sections/Data_Mining_And_ML.tex [6]
+Chapter 2.
+[7
+
+]
+<images/ML_pipeline.png, id=123, 956.57375pt x 582.175pt>
+File: images/ML_pipeline.png Graphic file (type png)
+<use images/ML_pipeline.png>
+Package pdftex.def Info: images/ML_pipeline.png  used on input line 48.
+(pdftex.def)             Requested size: 358.50317pt x 218.18184pt.
+ [8 <./images/ML_pipeline.png>] [9] [10]) [11] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: EC2D70C857FEFAA8DE15FE906FF0239D;790.
+(rerunfilecheck)             Checksum: 13743839B201F12D1040A3FB76A775EB;1491.
  ) 
 Here is how much of TeX's memory you used:
- 50957 strings out of 480236
- 1236760 string characters out of 5895675
- 1832240 words of memory out of 5000000
- 68098 multiletter control sequences out of 15000+600000
- 510284 words of font info for 59 fonts, out of 8000000 for 9000
+ 50999 strings out of 480236
+ 1237542 string characters out of 5895675
+ 1834240 words of memory out of 5000000
+ 68118 multiletter control sequences out of 15000+600000
+ 516264 words of font info for 61 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 88i,11n,117p,1676b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb>
-Output written on main.pdf (8 pages, 164942 bytes).
+ 88i,11n,117p,1676b,635s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
+Output written on main.pdf (12 pages, 282950 bytes).
 PDF statistics:
- 132 PDF objects out of 1000 (max. 8388607)
- 96 compressed objects within 1 object stream
- 23 named destinations out of 1000 (max. 500000)
- 154 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 222 PDF objects out of 1000 (max. 8388607)
+ 164 compressed objects within 2 object streams
+ 39 named destinations out of 1000 (max. 500000)
+ 183 words of extra memory for PDF output out of 10000 (max. 10000000)
 

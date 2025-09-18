@@ -1,0 +1,131 @@
+\chapter{Data Mining And Machine Learning}
+
+\begin{flushleft}
+    \textbf{Machine Learning:} develops system that learn from data and improve their performance without explicit programming. Model are automatically learned from data with minimal human intervention. The process is refined continuously based on experience and new information.\\
+    \textbf{Data Mining:} analyzes large dataset to extract useful knowledge, helping organizations solve problems, predict trends, reduce risk, and discorver opportunities.
+    If we really want to distinguish the two concepts, we could say that Machine Learning focuses more on how to obtain information, while Data Mining focuses more on what the information is used for.
+    But in practice, the two terms are often used interchangeably.
+\end{flushleft}
+
+
+\subsection{Bonferroni’s Principle}
+\begin{flushleft}
+A common data-mining problem is discovering unusual events hidden in massive datasets. However, even if the data is completely random, some events of interest will occur purely by chance. These occurrences are \textbf{bogus} and have no causal basis.  
+
+The Bonferroni correction provides a statistically sound way to avoid most false positives. By calculating the expected number of random occurrences, we can judge whether apparent patterns are likely meaningful or just random noise.  
+\end{flushleft}
+
+\subsection{Example: Detecting ``Evil-doers'' in Hotel Data}
+\begin{flushleft}
+Suppose there are believed to be some ``evil-doers,'' and we want to detect them. We assume that periodically, evil-doers gather at a hotel. The following assumptions define the problem size:
+\begin{compactitemize}
+    \item 1 billion potential people of interest.
+    \item Each person visits a hotel 1 day out of 100.
+    \item 100,000 hotels, each holding 100 people.
+    \item Data covers 1000 days.
+\end{compactitemize}
+
+We look for people appearing at the same hotel on two different days. Suppose, however, that there really are no evil-doers, i.e., everyone behaves randomly: each person independently decides to visit a hotel with probability $0.01$ on a given day and chooses one of 100,000 hotels at random.
+
+\textbf{Statistical calculation:}
+\begin{compactitemize}
+    \item Probability a person visits a hotel on any given day: $P(\text{visit per day}) = 0.01$
+    \item Probability two people both visit a hotel on the same day: $0.01^2 = 0.0001$
+    \item Probability they visit the same hotel on that day: $\frac{0.0001}{100,000} = 10^{-9}$
+    \item Probability they meet at the same hotel on two different days: $(10^{-9})^2 = 10^{-18}$
+    \item Number of possible pairs of people: $\binom{10^9}{2} \approx 5 \cdot 10^{17}$
+    \item Number of possible pairs of days: $\binom{1000}{2} \approx 5 \cdot 10^5$
+    \item Expected number of events that look like evil-doing: $5 \cdot 10^{17} \cdot 5 \cdot 10^5 \cdot 10^{-18} \approx 250,000$
+\end{compactitemize}
+
+Even though everyone behaves randomly, about 250,000 pairs appear to meet the ``evil-doer'' criterion. These pairs arise purely by chance due to the large dataset. 
+
+Now, suppose there really are only 10 pairs of actual evil-doers. The police would need to investigate a quarter of a million other pairs to find the real ones. Besides intruding on the lives of half a million innocent people, the workload makes this approach practically infeasible. This example illustrates the importance of statistical corrections (like Bonferroni) to avoid being misled by spurious patterns in massive datasets.
+\end{flushleft}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/ML_pipeline.png}
+    \caption{The ML Pipeline}
+    \label{fig:The ML Pipeline}
+\end{figure}
+
+\begin{flushleft}
+    The image above illustrates the pipeline of an ML model used in industry. The part above the line also includes the test phase. The main point to note is the arrow from "INPUT (serving) DATA" back to "INPUT DATA." This arrow shows how the data generated while the model is in use becomes new training data for the model itself. Note that not all the generated data will be added to the training set, but only a small portion.
+\end{flushleft}
+
+\section{Input: Concepts, Istance and Attributes}
+\begin{flushleft}
+    A model can be done various things, the principal are:
+    \begin{compactitemize}
+        \item \textbf{Classification:} Predicting a discrete class.
+        \item \textbf{Numeric Prediction (Regression):} Predicting a numeric quantity.
+        \item \textbf{Clustering:} Grouping a similar instance into clusters.
+        \item \textbf{Data Reduction:} to replace a large set of data with a smaller set that contains much of the important information.
+        \item \textbf{Association Learning:} detecting associations between features.
+        \item \textbf{Similarity Matching:} identifying similar individuals based on data known about them.
+        \item \textbf{Profiling:} characterizing the typical behavior of an inidvidual, group or population.
+        \item \textbf{Link Prediction:} predicting connections between data items.
+        \item \textbf{Casual Modeling:} to understand what events or actions actually influence others-
+        \item \textbf{Embeddings:} semantic vector rappresentation of data, where data points (such as word, images, or categorical variables) are encoded as continuos vectors in a multi-dimesional space.
+    \end{compactitemize}
+\end{flushleft}
+
+\subsection{Unsupervised VS Supervised Learning}
+\begin{flushleft}
+    To distinguish between supervised and unsupervised learning, we can consider two similar questions:
+    \begin{compactitemize}
+        \item \textbf{Unsupervised:} Do our customers naturally fall into different groups?
+        \item \textbf{Supervised:} Can we find groups of customers who have a particularly high likelihood of canceling their service soon after their contracts expire?
+    \end{compactitemize}
+    
+    In the first question, there isn't a specific purpose or target for separating the groups. When there is no such target, the data mining problem is referred to as \textbf{unsupervised}.\\
+    
+    In the second question, the separation of the groups is based on a condition or purpose. This type of problem is referred to as \textbf{supervised}.
+\end{flushleft}
+
+\subsection{Classification Learning}
+\begin{flushleft}
+Classification learning is a type of \textbf{supervised} learning. Example problems include weather data, contact lenses, irises, and labor negotiations.The model learns under the supervision provided by the actual outcomes of the training examples. Each outcome is called the \textbf{class} of the example.  
+
+Success is measured on test data for which class labels are known.
+\end{flushleft}
+
+\subsection{Numeric Prediction (Regression)}
+\begin{flushleft}
+Numeric prediction, also called \textbf{regression}, is a variant of classification learning where the “class” is numeric. This is also a \textbf{supervised} task. The model is provided with a target value and is trained to predict it. Success is measured on test data with known target values.
+\end{flushleft}
+
+\subsection{Clustering}
+\begin{flushleft}
+Clustering involves finding groups of items that naturally fall together, e.g., discovering whether customers form natural segments.  Clustering is an \textbf{unsupervised} task: the class of each example is unknown. Success is often measured subjectively, based on how useful the result appears to a human user.
+\end{flushleft}
+
+
+\subsection{Association Learning}
+\begin{flushleft}
+Association learning aims to discover patterns where multiple attributes occur together. Example problems include identifying which items are commonly purchased together.  
+
+Differences from classification learning:  
+\begin{compactitemize}
+    \item Can predict any attribute’s value, not just the class.  
+    \item Can predict more than one attribute at a time.  
+    \item This generates far more association rules than classification rules, so \textbf{constraints} are necessary.  
+    \item Constraints include minimum coverage (e.g., 80\% of the dataset) and minimum accuracy (e.g., 95\% accurate).  
+\end{compactitemize}
+\end{flushleft}
+
+\subsection{Issues in Flattening Data}
+\begin{flushleft}
+The process of flattening, called \textbf{denormalization}, involves joining multiple relations to create a single table.  
+
+Problems:  
+\begin{compactitemize}
+    \item Denormalization may produce spurious regularities that reflect the database structure rather than meaningful patterns.  
+    \item Example: ``supplier'' predicts ``supplier address.''  
+\end{compactitemize}
+\end{flushleft}
+
+\newpage
+\section{Output: Knowledge Rappresentation}
+
