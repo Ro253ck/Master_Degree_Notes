@@ -126,6 +126,95 @@ Problems:
 \end{compactitemize}
 \end{flushleft}
 
-\newpage
-\section{Output: Knowledge Rappresentation}
 
+
+\newpage
+\section{Output: Knowledge Representation}
+
+\subsection{Data Mining vs. Results Usage}
+\begin{flushleft}
+    There is an important distinction in data mining between:
+    \begin{compactitemize}
+        \item Mining data to find patterns and build models.
+        \item Using the results of data mining
+    \end{compactitemize}
+\end{flushleft}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/Data_Mining.png}
+    \caption{Data Mining}
+    \label{fig:Data Mining}
+\end{figure}
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+    \begin{flushleft}
+        \vspace{1.5cm}
+        Linear models represent functions with:
+            \begin{compactitemize}
+                \item \textbf{Inputs}: attribute values
+                \item \textbf{Output}: sum of weighted attribute values
+            \end{compactitemize}
+        The model determines optimal weight values. In two dimensions, this creates a straight line through data points.
+        
+        \textbf{Example}: $PRP = 37.06 + 2.47 \cdot CACH$
+        \end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.5\textwidth}
+    \vspace{0.5cm} % Aggiusta lo spazio verticale per allineare meglio l'immagine
+    \includegraphics[width=\textwidth]{images/linear_function.png}
+    \captionof{figure}{Linear Function}
+    \label{fig:Linear_Function}
+\end{minipage}
+
+\newpage
+\begin{flushleft}
+    For binary classification tasks:
+\begin{compactitemize}
+    \item The line separates two classes
+    \item \textbf{Decision boundary}: defines where classification changes from one class to another
+    \item Prediction rule: predict one class if output $\geq 0$, other class if output $< 0$
+\end{compactitemize}
+With multiple attributes, the decision boundary becomes a high-dimensional hyperplane.
+\end{flushleft}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/binary_classification.png}
+    \caption{Binary Classification}
+    \label{fig:Binary Classification}
+\end{figure}
+
+
+\subsection{Decision Trees}
+\begin{flushleft}
+    Decision trees work with a "divide-and-conquer" approach. Each node in the tree tests a specific attribute, typically by comparing its value to a constant. The leaves of the tree assign a classification or probability distribution to instances. To make predictions, we route an unknown instance down the tree following the test results.
+
+    When dealing with missing values, we need to consider whether the absence has significance. If it does, we treat "missing" as a separate value. If not, we split the instance into pieces weighted according to how training instances are distributed across branches.
+\end{flushleft}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/Trees.png}
+    \caption{Decision Trees}
+    \label{fig:Decision Trees}
+\end{figure}
+
+\subsection{Classification Rules}
+\begin{flushleft}
+    Classification rules offer a popular alternative to decision trees. Each rule has an \textbf{antecedent} (the pre-condition with a series of tests) and a \textbf{consequent} (the conclusion assigning classes or probabilities). Rules are typically combined with logical OR operations, though this can create conflicts when different rules suggest different conclusions.
+
+    Converting trees to rules is straightforward: create one rule for each leaf, where the antecedent contains conditions from the root to that leaf. This produces unambiguous rules that work regardless of execution order, but they're often unnecessarily complex and require pruning.
+\end{flushleft}
+
+\subsection{Instance-Based Learning}
+\begin{flushleft}
+    Instance-based learning represents the simplest form of machine learning through rote memorization. The system stores all training instances and, when facing a new case, searches for the most similar stored instance. This approach is called "lazy learning" because the real work happens during prediction rather than training.
+
+    For measuring similarity, we use distance functions. With numeric attributes, we typically use Euclidean distance after normalizing the data. For nominal attributes, the distance is 1 if values differ and 0 if they're equal. Often, we need to weight attributes differently based on their importance.
+\end{flushleft}
+
+\section{Algorithms: The Basic Methods}

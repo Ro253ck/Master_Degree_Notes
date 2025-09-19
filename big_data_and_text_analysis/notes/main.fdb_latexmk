@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1758209203 "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" "main.pdf" "main" 1758209204
+["pdflatex"] 1758288133 "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" "main.pdf" "main" 1758288134
   "/etc/texmf/web2c/texmf.cnf" 1755005415 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" 1758209147 7855 02dd7fce440e61ebb534818a341039fe ""
+  "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" 1758287739 7855 02dd7fce440e61ebb534818a341039fe ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -298,13 +298,17 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1755006347 128028 f533b797fba58d231669ea19e894e23e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1755006350 1407043 c2a0dfac83671ef2c3f07b1cdfd820bc ""
+  "images/Data_Mining.png" 1758285903 344462 414f5422f34a1f17d0c18ae1ad38152d ""
   "images/ML_pipeline.png" 1758204766 57356 87fc081adebc8086742269744995265b ""
+  "images/Trees.png" 1758288017 205059 0763d8c351ce4f5f02b1ceece9df338c ""
   "images/big_data_pipeline.png" 1758045761 67618 ee9217ade76246b07c41dd0ef0058af8 ""
-  "main.aux" 1758209204 4678 d86ed093db430d969d9e41113fa39ea2 "pdflatex"
-  "main.out" 1758209204 1491 13743839b201f12d1040a3fb76a775eb "pdflatex"
-  "main.tex" 1758209147 7855 02dd7fce440e61ebb534818a341039fe ""
-  "main.toc" 1758209204 2242 56baebe74e3cb191880f3e45b67724d9 "pdflatex"
-  "sections/Data_Mining_And_ML.tex" 1758209202 8705 73af82d1a1390d96f63b070d5099aadc ""
+  "images/binary_classification.png" 1758286515 82219 b512ca901771277dbb9f9c3e619a686c ""
+  "images/linear_function.png" 1758286116 56242 c0158811605b0393a90eba2fcbb62952 ""
+  "main.aux" 1758288134 6253 3f73711f1578b901d7600e9759683409 "pdflatex"
+  "main.out" 1758288134 1694 24c68f7b8f55a5d8641c6d7fd8dba152 "pdflatex"
+  "main.tex" 1758287739 7855 02dd7fce440e61ebb534818a341039fe ""
+  "main.toc" 1758288134 2701 8e963242ae5df9d5542d88fb12790c6a "pdflatex"
+  "sections/Data_Mining_And_ML.tex" 1758288132 12974 10ef4fa7b764f0390c37101c1f8bab1b ""
   "sections/introduction.tex" 1758208921 8856 5826ea5a3e9049287c12916a7957fd3a ""
   (generated)
   "main.aux"

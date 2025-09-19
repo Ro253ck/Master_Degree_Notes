@@ -22,4 +22,9 @@
 \contentsline {subsection}{\numberline {2.1.4}Clustering}{10}{subsection.2.1.4}%
 \contentsline {subsection}{\numberline {2.1.5}Association Learning}{10}{subsection.2.1.5}%
 \contentsline {subsection}{\numberline {2.1.6}Issues in Flattening Data}{10}{subsection.2.1.6}%
-\contentsline {section}{\numberline {2.2}Output: Knowledge Rappresentation}{11}{section.2.2}%
+\contentsline {section}{\numberline {2.2}Output: Knowledge Representation}{11}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Data Mining vs. Results Usage}{11}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Decision Trees}{12}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Classification Rules}{13}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Instance-Based Learning}{13}{subsection.2.2.4}%
+\contentsline {section}{\numberline {2.3}Algorithms: The Basic Methods}{13}{section.2.3}%
