@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  21 SEP 2025 19:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  21 SEP 2025 21:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1147,81 +1147,85 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3
 
 ]
-<images/AE.png, id=103, 563.10374pt x 503.8825pt>
+<images/AE.png, id=108, 563.10374pt x 503.8825pt>
 File: images/AE.png Graphic file (type png)
 <use images/AE.png>
 Package pdftex.def Info: images/AE.png  used on input line 44.
 (pdftex.def)             Requested size: 256.07481pt x 229.14388pt.
  [4] [5 <./images/AE.png>] [6] [7]
-<images/ex1.png, id=142, 569.12625pt x 554.07pt>
+<images/ex1.png, id=147, 569.12625pt x 554.07pt>
 File: images/ex1.png Graphic file (type png)
 <use images/ex1.png>
 Package pdftex.def Info: images/ex1.png  used on input line 137.
 (pdftex.def)             Requested size: 230.46576pt x 224.37175pt.
-<images/ex1_2.png, id=143, 524.96124pt x 567.11874pt>
+<images/ex1_2.png, id=148, 524.96124pt x 567.11874pt>
 File: images/ex1_2.png Graphic file (type png)
 <use images/ex1_2.png>
 Package pdftex.def Info: images/ex1_2.png  used on input line 143.
 (pdftex.def)             Requested size: 204.85672pt x 221.30522pt.
  [8] [9 <./images/ex1.png> <./images/ex1_2.png>] [10]
-<images/maze.png, id=170, 568.1225pt x 449.68pt>
+<images/maze.png, id=175, 568.1225pt x 449.68pt>
 File: images/maze.png Graphic file (type png)
 <use images/maze.png>
 Package pdftex.def Info: images/maze.png  used on input line 219.
 (pdftex.def)             Requested size: 153.64644pt x 121.6142pt.
-<images/maze_policy.png, id=171, 568.1225pt x 450.68375pt>
+<images/maze_policy.png, id=176, 568.1225pt x 450.68375pt>
 File: images/maze_policy.png Graphic file (type png)
 <use images/maze_policy.png>
 Package pdftex.def Info: images/maze_policy.png  used on input line 226.
 (pdftex.def)             Requested size: 153.64644pt x 121.88565pt.
-<images/maze_value.png, id=172, 556.0775pt x 440.64626pt>
+<images/maze_value.png, id=177, 556.0775pt x 440.64626pt>
 File: images/maze_value.png Graphic file (type png)
 <use images/maze_value.png>
 Package pdftex.def Info: images/maze_value.png  used on input line 238.
 (pdftex.def)             Requested size: 153.64644pt x 121.75296pt.
-<images/maze_model.png, id=173, 491.8375pt x 400.49625pt>
+<images/maze_model.png, id=178, 491.8375pt x 400.49625pt>
 File: images/maze_model.png Graphic file (type png)
 <use images/maze_model.png>
 Package pdftex.def Info: images/maze_model.png  used on input line 245.
 (pdftex.def)             Requested size: 153.64644pt x 125.11198pt.
  [11 <./images/maze.png> <./images/maze_policy.png> <./images/maze_value.png> <./images/maze_model.png>]
-<images/RL_agent_taxonomy.png, id=187, 602.25pt x 563.10374pt>
+<images/RL_agent_taxonomy.png, id=192, 602.25pt x 563.10374pt>
 File: images/RL_agent_taxonomy.png Graphic file (type png)
 <use images/RL_agent_taxonomy.png>
 Package pdftex.def Info: images/RL_agent_taxonomy.png  used on input line 281.
 (pdftex.def)             Requested size: 204.85672pt x 191.53867pt.
  [12] [13 <./images/RL_agent_taxonomy.png>]
-<images/prediction_ex.png, id=203, 965.6075pt x 373.395pt>
+<images/prediction_ex.png, id=208, 965.6075pt x 373.395pt>
 File: images/prediction_ex.png Graphic file (type png)
 <use images/prediction_ex.png>
 Package pdftex.def Info: images/prediction_ex.png  used on input line 338.
 (pdftex.def)             Requested size: 256.07481pt x 99.02327pt.
  [14]
-<images/controlo_ex.png, id=211, 942.52126pt x 350.30875pt>
+<images/controlo_ex.png, id=216, 942.52126pt x 350.30875pt>
 File: images/controlo_ex.png Graphic file (type png)
 <use images/controlo_ex.png>
 Package pdftex.def Info: images/controlo_ex.png  used on input line 354.
 (pdftex.def)             Requested size: 256.07481pt x 95.1726pt.
- [15 <./images/prediction_ex.png> <./images/controlo_ex.png>]) [16] (./main.aux)
+ [15 <./images/prediction_ex.png> <./images/controlo_ex.png>]) (./sections/markov_decision_process.tex [16]
+Chapter 2.
+) [17
+
+] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: AC4681EEB96E5B082E4E234A75F94690;2265.
+(rerunfilecheck)             Checksum: 60A7FE5EA013A28586726057CCB9352D;2430.
  ) 
 Here is how much of TeX's memory you used:
- 51086 strings out of 480236
- 1239153 string characters out of 5895675
+ 51094 strings out of 480236
+ 1239361 string characters out of 5895675
  1834240 words of memory out of 5000000
- 68172 multiletter control sequences out of 15000+600000
+ 68175 multiletter control sequences out of 15000+600000
  510284 words of font info for 59 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  88i,12n,117p,1668b,637s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (17 pages, 639635 bytes).
+Output written on main.pdf (18 pages, 640072 bytes).
 PDF statistics:
- 298 PDF objects out of 1000 (max. 8388607)
- 218 compressed objects within 3 object streams
- 70 named destinations out of 1000 (max. 500000)
- 239 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 307 PDF objects out of 1000 (max. 8388607)
+ 226 compressed objects within 3 object streams
+ 72 named destinations out of 1000 (max. 500000)
+ 247 words of extra memory for PDF output out of 10000 (max. 10000000)
 

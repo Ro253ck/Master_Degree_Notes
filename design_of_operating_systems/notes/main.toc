@@ -51,3 +51,14 @@
 \contentsline {subsection}{\numberline {2.3.2}System Call Parameter Passing}{26}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}Tracing System Calls}{27}{subsection.2.3.3}%
 \contentsline {section}{\numberline {2.4}Operating Systems Design and Implementation}{28}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Policy and Mechanism}{28}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Implementation}{28}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Operating System Structure}{29}{subsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.3.1}Monolithic Systems}{29}{subsubsection.2.4.3.1}%
+\contentsline {subsubsection}{\numberline {2.4.3.2}Layered Systems}{30}{subsubsection.2.4.3.2}%
+\contentsline {subsubsection}{\numberline {2.4.3.3}Microkernel Systems}{31}{subsubsection.2.4.3.3}%
+\contentsline {chapter}{\numberline {3}Processes}{33}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Process Concept}{33}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Process State}{34}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Process Control Block (PCB)}{35}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Threads}{36}{section.3.4}%

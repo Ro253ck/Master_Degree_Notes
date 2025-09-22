@@ -32,3 +32,4 @@
 \contentsline {section}{\numberline {1.9}Deep Reinforcement Learning}{15}{section.1.9}%
 \contentsline {subsection}{\numberline {1.9.1}Function Approximation with Neural Networks}{15}{subsection.1.9.1}%
 \contentsline {subsection}{\numberline {1.9.2}Challenges in Deep Reinforcement Learning}{16}{subsection.1.9.2}%
+\contentsline {chapter}{\numberline {2}Markov Decision Process}{17}{chapter.2}%

@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1758475539 "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" "main.pdf" "main" 1758475540
+["pdflatex"] 1758483482 "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" "main.pdf" "main" 1758483484
   "/etc/texmf/web2c/texmf.cnf" 1755005415 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" 1758375917 7848 77d0343680daa5f17e4662b9aa545f76 ""
+  "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" 1758483481 7897 7eb69617d54f807e32604a873320df44 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -305,11 +305,12 @@
   "images/maze_policy.png" 1758474242 27443 93ae9df965e6e792af0b3a739427bbb3 ""
   "images/maze_value.png" 1758474263 32366 8cf455b134c867d50833c8623786562e ""
   "images/prediction_ex.png" 1758475209 60296 c3377ab47247868799a5d5af8c54bbb7 ""
-  "main.aux" 1758475540 8926 54a70b210d516b2b3d13d2e9b6326eb0 "pdflatex"
-  "main.out" 1758475540 2265 ac4681eeb96e5b082e4e234a75f94690 "pdflatex"
-  "main.tex" 1758375917 7848 77d0343680daa5f17e4662b9aa545f76 ""
-  "main.toc" 1758475540 3173 f1ff45d6d1a8300fef33e5662ea952c5 "pdflatex"
+  "main.aux" 1758483484 9123 ddf844e14ac066802cabe9e655e9d6ba "pdflatex"
+  "main.out" 1758483484 2430 60a7fe5ea013a28586726057ccb9352d "pdflatex"
+  "main.tex" 1758483481 7897 7eb69617d54f807e32604a873320df44 ""
+  "main.toc" 1758483484 3253 65030f60f7c2cbbbf34e60668b66bfb8 "pdflatex"
   "sections/introduction.tex" 1758475539 30867 083f3aa7605fbfab7f827c55d76c54b0 ""
+  "sections/markov_decision_process.tex" 1758483458 33 cc99ea806c307a45e2943c4c025253a5 ""
   (generated)
   "main.aux"
   "main.log"

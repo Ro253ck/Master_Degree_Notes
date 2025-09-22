@@ -1560,6 +1560,10 @@ INPUT ./images/controlo_ex.png
 INPUT images/controlo_ex.png
 INPUT ./images/controlo_ex.png
 INPUT ./images/controlo_ex.png
+INPUT ./sections/markov_decision_process.tex
+INPUT sections/markov_decision_process.tex
+INPUT ./sections/markov_decision_process.tex
+INPUT sections/markov_decision_process.tex
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out

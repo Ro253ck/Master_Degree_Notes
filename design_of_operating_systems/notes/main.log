@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  18 SEP 2025 15:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  22 SEP 2025 21:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -938,7 +938,7 @@ Package fancyhdr Warning: \fancyhead's `E' option without twoside option is usel
 
 Package fancyhdr Warning: \fancyhead's `E' option without twoside option is useless on input line 184.
 
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 211.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 217.
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (./main.aux
@@ -951,24 +951,24 @@ LaTeX Warning: Label `fig:dual_vs_symmetric' multiply defined.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 211.
-LaTeX Font Info:    ... okay on input line 211.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 217.
+LaTeX Font Info:    ... okay on input line 217.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count380
@@ -1023,7 +1023,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \c@lstlisting=\count386
-Package hyperref Info: Link coloring ON on input line 211.
+Package hyperref Info: Link coloring ON on input line 217.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -1033,21 +1033,21 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count387
 )
-LaTeX Info: Redefining \ref on input line 211.
-LaTeX Info: Redefining \pageref on input line 211.
-LaTeX Info: Redefining \nameref on input line 211.
+LaTeX Info: Redefining \ref on input line 217.
+LaTeX Info: Redefining \pageref on input line 217.
+LaTeX Info: Redefining \nameref on input line 217.
  (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
-LaTeX Info: Redefining \celsius on input line 211.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 211.
+LaTeX Info: Redefining \celsius on input line 217.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 217.
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 211.
-Package gensymb Info: Using \Omega for \ohm on input line 211.
+LaTeX Info: Redefining \ohm on input line 217.
+Package gensymb Info: Using \Omega for \ohm on input line 217.
 
 Package gensymb Warning: Not defining \micro.
 
@@ -1133,7 +1133,7 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.252 \newpage
+l.258 \newpage
                 % Per iniziare il contenuto in una nuova pagina [1
 
 ] (./sections/introduction.tex [2]
@@ -1144,24 +1144,24 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3
 
 ] [4]
-<images/interrupt_timeline.png, id=109, 1169.36874pt x 501.875pt>
+<images/interrupt_timeline.png, id=134, 1169.36874pt x 501.875pt>
 File: images/interrupt_timeline.png Graphic file (type png)
 <use images/interrupt_timeline.png>
 Package pdftex.def Info: images/interrupt_timeline.png  used on input line 62.
 (pdftex.def)             Requested size: 409.72125pt x 175.84267pt.
  [5]
-<images/Interrupt-drive_IO _Cycle.png, id=118, 609.27625pt x 588.1975pt>
+<images/Interrupt-drive_IO _Cycle.png, id=143, 609.27625pt x 588.1975pt>
 File: images/Interrupt-drive_IO _Cycle.png Graphic file (type png)
 <use images/Interrupt-drive_IO _Cycle.png>
 Package pdftex.def Info: images/Interrupt-drive_IO _Cycle.png  used on input line 69.
 (pdftex.def)             Requested size: 256.07481pt x 247.22076pt.
  [6 <./images/interrupt_timeline.png> <./images/Interrupt-drive_IO _Cycle.png>] [7] [8]
-<images/storage_hieracacy.png, id=142, 1033.8625pt x 592.2125pt>
+<images/storage_hieracacy.png, id=168, 1033.8625pt x 592.2125pt>
 File: images/storage_hieracacy.png Graphic file (type png)
 <use images/storage_hieracacy.png>
 Package pdftex.def Info: images/storage_hieracacy.png  used on input line 131.
 (pdftex.def)             Requested size: 307.2929pt x 176.02048pt.
-<images/computer_works2.png, id=143, 1054.94125pt x 591.20876pt>
+<images/computer_works2.png, id=169, 1054.94125pt x 591.20876pt>
 File: images/computer_works2.png Graphic file (type png)
 <use images/computer_works2.png>
 Package pdftex.def Info: images/computer_works2.png  used on input line 143.
@@ -1173,41 +1173,41 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [9 <./images/storage_hieracacy.png> <./images/computer_works2.png>] [10]
-<images/user_kernel.png, id=158, 1182.4175pt x 364.36125pt>
+<images/user_kernel.png, id=184, 1182.4175pt x 364.36125pt>
 File: images/user_kernel.png Graphic file (type png)
 <use images/user_kernel.png>
 Package pdftex.def Info: images/user_kernel.png  used on input line 185.
 (pdftex.def)             Requested size: 307.2929pt x 94.69276pt.
  [11] [12 <./images/user_kernel.png>] [13] [14] [15]
-<images/migration_data.png, id=200, 852.18375pt x 131.49126pt>
+<images/migration_data.png, id=225, 852.18375pt x 131.49126pt>
 File: images/migration_data.png Graphic file (type png)
 <use images/migration_data.png>
 Package pdftex.def Info: images/migration_data.png  used on input line 289.
 (pdftex.def)             Requested size: 307.2929pt x 47.41505pt.
  [16 <./images/migration_data.png>]
-<images/Screenshot from 2025-09-16 16-10-00.png, id=209, 962.59625pt x 654.445pt>
+<images/Screenshot from 2025-09-16 16-10-00.png, id=234, 962.59625pt x 654.445pt>
 File: images/Screenshot from 2025-09-16 16-10-00.png Graphic file (type png)
 <use images/Screenshot from 2025-09-16 16-10-00.png>
 Package pdftex.def Info: images/Screenshot from 2025-09-16 16-10-00.png  used on input line 312.
 (pdftex.def)             Requested size: 256.07481pt x 174.09616pt.
  [17]
-<images/Dual_Core_Design.png, id=217, 566.115pt x 498.86375pt>
+<images/Dual_Core_Design.png, id=242, 566.115pt x 498.86375pt>
 File: images/Dual_Core_Design.png Graphic file (type png)
 <use images/Dual_Core_Design.png>
 Package pdftex.def Info: images/Dual_Core_Design.png  used on input line 331.
 (pdftex.def)             Requested size: 204.85672pt x 180.51947pt.
-<images/Symmetric _Multiprocessing_Architecture.png, id=218, 655.44875pt x 484.81125pt>
+<images/Symmetric _Multiprocessing_Architecture.png, id=243, 655.44875pt x 484.81125pt>
 File: images/Symmetric _Multiprocessing_Architecture.png Graphic file (type png)
 <use images/Symmetric _Multiprocessing_Architecture.png>
 Package pdftex.def Info: images/Symmetric _Multiprocessing_Architecture.png  used on input line 338.
 (pdftex.def)             Requested size: 204.85672pt x 151.52533pt.
  [18 <./images/Screenshot from 2025-09-16 16-10-00.png> <./images/Dual_Core_Design.png> <./images/Symmetric _Multiprocessing_Architecture.png>]
-<images/NUMA.png, id=230, 547.04375pt x 484.81125pt>
+<images/NUMA.png, id=255, 547.04375pt x 484.81125pt>
 File: images/NUMA.png Graphic file (type png)
 <use images/NUMA.png>
 Package pdftex.def Info: images/NUMA.png  used on input line 358.
 (pdftex.def)             Requested size: 204.85672pt x 181.55225pt.
-<images/Clustered_System.png, id=231, 825.0825pt x 463.7325pt>
+<images/Clustered_System.png, id=256, 825.0825pt x 463.7325pt>
 File: images/Clustered_System.png Graphic file (type png)
 <use images/Clustered_System.png>
 Package pdftex.def Info: images/Clustered_System.png  used on input line 365.
@@ -1217,13 +1217,13 @@ Chapter 2.
 [20
 
 ]
-<images/OS_services.png, id=245, 1540.75626pt x 774.895pt>
+<images/OS_services.png, id=270, 1540.75626pt x 774.895pt>
 File: images/OS_services.png Graphic file (type png)
 <use images/OS_services.png>
 Package pdftex.def Info: images/OS_services.png  used on input line 25.
 (pdftex.def)             Requested size: 409.72125pt x 206.05563pt.
  [21 <./images/OS_services.png>] [22]
-<images/Linker_Loader.png, id=257, 575.14874pt x 582.175pt>
+<images/Linker_Loader.png, id=282, 575.14874pt x 582.175pt>
 File: images/Linker_Loader.png Graphic file (type png)
 <use images/Linker_Loader.png>
 Package pdftex.def Info: images/Linker_Loader.png  used on input line 62.
@@ -1232,7 +1232,7 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 72
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [23 <./images/Linker_Loader.png>]
-<images/FreeBSD.png, id=264, 379.4175pt x 547.04375pt>
+<images/FreeBSD.png, id=289, 379.4175pt x 547.04375pt>
 File: images/FreeBSD.png Graphic file (type png)
 <use images/FreeBSD.png>
 Package pdftex.def Info: images/FreeBSD.png  used on input line 80.
@@ -1242,59 +1242,108 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--81
 []\T1/lmr/m/n/12 Figure 2.3: |Ex-am-ple:
  []
 
-<images/Arduino.png, id=265, 602.25pt x 517.935pt>
+<images/Arduino.png, id=290, 602.25pt x 517.935pt>
 File: images/Arduino.png Graphic file (type png)
 <use images/Arduino.png>
 Package pdftex.def Info: images/Arduino.png  used on input line 87.
 (pdftex.def)             Requested size: 204.85672pt x 176.17459pt.
 [24 <./images/FreeBSD.png> <./images/Arduino.png>]
-<images/SYC_example.png, id=275, 900.36375pt x 645.41125pt>
+<images/SYC_example.png, id=300, 900.36375pt x 645.41125pt>
 File: images/SYC_example.png Graphic file (type png)
 <use images/SYC_example.png>
 Package pdftex.def Info: images/SYC_example.png  used on input line 117.
 (pdftex.def)             Requested size: 256.07481pt x 183.56004pt.
-<images/Standard_API.png, id=276, 776.9025pt x 761.84625pt>
+<images/Standard_API.png, id=301, 776.9025pt x 761.84625pt>
 File: images/Standard_API.png Graphic file (type png)
 <use images/Standard_API.png>
 Package pdftex.def Info: images/Standard_API.png  used on input line 124.
 (pdftex.def)             Requested size: 230.46576pt x 225.99817pt.
  [25 <./images/SYC_example.png> <./images/Standard_API.png>]
-<images/API-SYC.png, id=285, 953.5625pt x 584.1825pt>
+<images/API-SYC.png, id=310, 953.5625pt x 584.1825pt>
 File: images/API-SYC.png Graphic file (type png)
 <use images/API-SYC.png>
 Package pdftex.def Info: images/API-SYC.png  used on input line 139.
 (pdftex.def)             Requested size: 307.2929pt x 188.26147pt.
-<images/Parameter_passing_via_table.png, id=286, 1062.97125pt x 576.1525pt>
+<images/Parameter_passing_via_table.png, id=311, 1062.97125pt x 576.1525pt>
 File: images/Parameter_passing_via_table.png Graphic file (type png)
 <use images/Parameter_passing_via_table.png>
 Package pdftex.def Info: images/Parameter_passing_via_table.png  used on input line 158.
 (pdftex.def)             Requested size: 307.2929pt x 166.56125pt.
  [26 <./images/API-SYC.png>]
-<images/STD_C_example.png, id=294, 775.89874pt x 797.98125pt>
+<images/STD_C_example.png, id=320, 775.89874pt x 797.98125pt>
 File: images/STD_C_example.png Graphic file (type png)
 <use images/STD_C_example.png>
 Package pdftex.def Info: images/STD_C_example.png  used on input line 166.
 (pdftex.def)             Requested size: 256.07481pt x 263.35898pt.
-) [27 <./images/Parameter_passing_via_table.png> <./images/STD_C_example.png>] [28] (./main.aux)
+ [27 <./images/Parameter_passing_via_table.png> <./images/STD_C_example.png>] [28] [29]
+<images/Traditional_unix_system_arch.png, id=342, 754.82pt x 463.7325pt>
+File: images/Traditional_unix_system_arch.png Graphic file (type png)
+<use images/Traditional_unix_system_arch.png>
+Package pdftex.def Info: images/Traditional_unix_system_arch.png  used on input line 234.
+(pdftex.def)             Requested size: 256.07481pt x 157.32024pt.
+<images/linux_system_architecture.png, id=343, 357.335pt x 541.02126pt>
+File: images/linux_system_architecture.png Graphic file (type png)
+<use images/linux_system_architecture.png>
+Package pdftex.def Info: images/linux_system_architecture.png  used on input line 241.
+(pdftex.def)             Requested size: 153.64644pt x 232.62634pt.
+ [30 <./images/Traditional_unix_system_arch.png> <./images/linux_system_architecture.png>]
+<images/layered_architecture.png, id=353, 511.9125pt x 500.87125pt>
+File: images/layered_architecture.png Graphic file (type png)
+<use images/layered_architecture.png>
+Package pdftex.def Info: images/layered_architecture.png  used on input line 263.
+(pdftex.def)             Requested size: 153.64644pt x 150.33131pt.
+ [31 <./images/layered_architecture.png>]
+<images/micro_kernel_system.png, id=361, 1080.035pt x 525.965pt>
+File: images/micro_kernel_system.png Graphic file (type png)
+<use images/micro_kernel_system.png>
+Package pdftex.def Info: images/micro_kernel_system.png  used on input line 281.
+(pdftex.def)             Requested size: 307.2929pt x 149.64476pt.
+) (./sections/Processes.tex [32 <./images/micro_kernel_system.png>]
+Chapter 3.
+<images/Process_in_memory.png, id=368, 363.3575pt x 577.15625pt>
+File: images/Process_in_memory.png Graphic file (type png)
+<use images/Process_in_memory.png>
+Package pdftex.def Info: images/Process_in_memory.png  used on input line 32.
+(pdftex.def)             Requested size: 102.42836pt x 162.69467pt.
+<images/Memory_layout_of_C_program.png, id=369, 1092.08pt x 544.0325pt>
+File: images/Memory_layout_of_C_program.png Graphic file (type png)
+<use images/Memory_layout_of_C_program.png>
+Package pdftex.def Info: images/Memory_layout_of_C_program.png  used on input line 39.
+(pdftex.def)             Requested size: 358.50317pt x 178.59323pt.
+[33
+
+]
+<images/process_states.png, id=374, 1087.06125pt x 457.71pt>
+File: images/process_states.png Graphic file (type png)
+<use images/process_states.png>
+Package pdftex.def Info: images/process_states.png  used on input line 60.
+(pdftex.def)             Requested size: 358.50317pt x 150.94699pt.
+ [34 <./images/Process_in_memory.png> <./images/Memory_layout_of_C_program.png> <./images/process_states.png>]
+<images/PCB.png, id=384, 334.24875pt x 533.995pt>
+File: images/PCB.png Graphic file (type png)
+<use images/PCB.png>
+Package pdftex.def Info: images/PCB.png  used on input line 100.
+(pdftex.def)             Requested size: 102.42836pt x 163.63823pt.
+ [35]) [36 <./images/PCB.png>] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D2EF953DB385C199AAEC46572E8D2BF2;1917.
+(rerunfilecheck)             Checksum: E075ED45569E3BCE0F7F95EAD48C1E02;2557.
  ) 
 Here is how much of TeX's memory you used:
- 51241 strings out of 480236
- 1243291 string characters out of 5895675
- 1833240 words of memory out of 5000000
- 68280 multiletter control sequences out of 15000+600000
+ 51348 strings out of 480236
+ 1246089 string characters out of 5895675
+ 1834240 words of memory out of 5000000
+ 68351 multiletter control sequences out of 15000+600000
  514864 words of font info for 61 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 88i,11n,117p,1677b,638s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 88i,12n,117p,1677b,642s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on main.pdf (29 pages, 1978085 bytes).
+Output written on main.pdf (37 pages, 2749073 bytes).
 PDF statistics:
- 359 PDF objects out of 1000 (max. 8388607)
- 258 compressed objects within 3 object streams
- 98 named destinations out of 1000 (max. 500000)
- 289 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 454 PDF objects out of 1000 (max. 8388607)
+ 328 compressed objects within 4 object streams
+ 123 named destinations out of 1000 (max. 500000)
+ 369 words of extra memory for PDF output out of 10000 (max. 10000000)
 

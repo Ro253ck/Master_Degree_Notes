@@ -208,6 +208,12 @@ urlcolor=blue,
 %    {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}} 
 \makeatother 
 
+
+\newenvironment{compactitemize}{
+\begin{itemize}[topsep=0pt, partopsep=0pt, itemsep=1pt, parsep=0pt]
+}{\end{itemize}}
+
+
 \begin{document}
 \begin{titlepage}
   \newgeometry{top=2cm, bottom=2cm, left=1.5cm, right=1.5cm} % imposta i margini solo per questa pagina
@@ -254,6 +260,7 @@ urlcolor=blue,
 \begin{flushleft}
     \input{sections/introduction.tex}
     \input{sections/Operating _Systems_Services.tex}
+    \input{sections/Processes.tex}
 \end{flushleft}
 
 \end{document}
