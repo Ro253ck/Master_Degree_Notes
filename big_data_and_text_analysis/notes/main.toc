@@ -28,3 +28,17 @@
 \contentsline {subsection}{\numberline {2.2.3}Classification Rules}{13}{subsection.2.2.3}%
 \contentsline {subsection}{\numberline {2.2.4}Instance-Based Learning}{13}{subsection.2.2.4}%
 \contentsline {section}{\numberline {2.3}Algorithms: The Basic Methods}{13}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Building a Decision Tree}{13}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Criteria for Attribute Selection}{14}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Entropy}{14}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Entropy of the Attribute Outlook}{14}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Computing Information Gain}{15}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}Highly-branching Attributes}{16}{subsection.2.3.6}%
+\contentsline {subsection}{\numberline {2.3.7}Gain Ratio}{16}{subsection.2.3.7}%
+\contentsline {subsection}{\numberline {2.3.8}Gain Ratios for Weather Data}{17}{subsection.2.3.8}%
+\contentsline {subsection}{\numberline {2.3.9}More on the Gain Ratio}{17}{subsection.2.3.9}%
+\contentsline {subsection}{\numberline {2.3.10}Regression via mathematical functions}{17}{subsection.2.3.10}%
+\contentsline {subsection}{\numberline {2.3.11}Error Computation Methods}{17}{subsection.2.3.11}%
+\contentsline {subsection}{\numberline {2.3.12}Weight Calculation in Linear Regression}{18}{subsection.2.3.12}%
+\contentsline {subsection}{\numberline {2.3.13}Class Probability Estimation and Logistic ``Regression''}{18}{subsection.2.3.13}%
+\contentsline {subsection}{\numberline {2.3.14}Logistic Regression: Technical Details}{19}{subsection.2.3.14}%

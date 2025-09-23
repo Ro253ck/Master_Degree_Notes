@@ -218,3 +218,221 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
 \end{flushleft}
 
 \section{Algorithms: The Basic Methods}
+
+\subsection{Building a Decision Tree}
+\begin{flushleft}
+    To build a decision tree we'll use the top down staryegy. The main steps are:
+    \begin{compactitemize}
+        \item Decison which attribute we'll use to split the data at time $t$.
+        \item Create the son nodes, obtained by splitting the data according to the attribute's values.
+        \item Repeat the process recursively for each son node, until a stopping criterion is met.
+    \end{compactitemize}
+
+    If the professor had been a good memory, he would remebered to put the dataset example in the slides, but he didn't. So we'll continue without the image dataset example:
+\end{flushleft}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/Attribute_selection.png}
+    \caption{Attribute Selection }
+    \label{fig:Attribute Selection }
+\end{figure}
+
+\subsection{Criteria for Attribute Selection}
+\begin{flushleft}
+    When building decision trees, determining which attribute to use for splitting the data is crucial. Our primary objective is to construct the smallest possible tree, which leads us to adopt a heuristic approach: choosing the attribute that produces the "purest" nodes. The most popular purity criterion is \emph{information gain}, which increases with the average purity of the resulting subsets. Therefore, our strategy is to select the attribute that provides the greatest information gain at each step of the tree construction process.
+\end{flushleft}
+
+
+\subsection{Entropy}
+\begin{flushleft}
+    The purity may be measured through the "information" needed to specify whether a new instance should be classified yes/no, given that the example reached the node.
+    
+    \begin{compactitemize}
+        \item Information is measured in bits
+        \item Entropy gives the information required in bits (can involve fractions of bits!)
+        \item Formula for computing the entropy:
+    \end{compactitemize}
+    
+    \begin{equation}
+    entropy(p_1, p_2, ..., p_n) = -p_1\log p_1 - p_2\log p_2 - ... - p_n\log p_n
+    \end{equation}
+\end{flushleft}
+
+\subsection{Entropy of the Attribute Outlook}
+\begin{flushleft}
+    \textbf{Outlook = Sunny:}\\
+    $info(2,3) = entropy(\frac{2}{5}, \frac{3}{5}) = -\frac{2}{5}\log(\frac{2}{5}) - \frac{3}{5}\log(\frac{3}{5}) = 0.971$ bits\\
+    
+    \textbf{Outlook = Overcast:}\\
+    $info(4,0) = entropy(1,0) = -1\log(1) - 0\log(0) = 0$ bits\\
+    
+    \textbf{Outlook = Rainy:}\\
+    $info(3,2) = entropy(\frac{3}{5}, \frac{2}{5}) = -\frac{2}{5}\log(\frac{2}{5}) - \frac{3}{5}\log(\frac{3}{5}) = 0.971$ bits\\
+    
+    \textbf{Expected information for attribute:}\\
+    $info(2,3; 4,0; 3,2) = (\frac{5}{14}) \times 0.971 + (\frac{4}{14}) \times 0 + (\frac{5}{14}) \times 0.971 = 0.693$ bits
+\end{flushleft}
+
+\subsection{Computing Information Gain}
+\begin{flushleft}
+    \textbf{Information gain:} information before splitting – information after splitting\\
+    
+    \begin{equation}
+    gain(Attribute) = info(before) - info(after)
+    \end{equation}
+    
+    Information gain for attributes from weather data:
+    \begin{compactitemize}
+        \item $gain(Outlook) = info([9,5]) - info([2,3],[4,0],[3,2]) = 0.940 - 0.693 = 0.247$ bits
+        \item $gain(Outlook) = 0.247$ bits
+        \item $gain(Temperature) = 0.029$ bits  
+        \item $gain(Humidity) = 0.152$ bits
+        \item $gain(Windy) = 0.048$ bits
+    \end{compactitemize}
+\end{flushleft}
+
+\begin{flushleft}
+    To obtain the final decision tree, we repeat the process recursively for each son node, until a stopping criterion is met. The stopping criteria can be, ad example, when all instances at a node belong to the same class, or when there are no remaining attributes to split on. 
+\end{flushleft}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/final_tree.png}
+    \caption{Final Decision Tree }
+    \label{fig:Final Decision Tree }
+\end{figure}
+
+
+\subsection{Highly-branching Attributes}
+\begin{flushleft}
+    Attributes with a large number of values can be problematic in decision tree construction. In the extreme case, consider an ID code attribute where each instance has a unique value. Such subsets are more likely to be pure simply because there is a large number of possible values, making information gain biased towards choosing attributes with many values. This bias may result in overfitting, leading to the selection of attributes that are non-optimal for prediction.
+    
+    For example, the entropy of split for ID code would be:
+    \begin{equation}
+        info_{ID\ code} = info(0,1) + info(0,1) + ... + info(0,1) = 0\ bits
+    \end{equation}
+    
+    
+    This makes information gain maximal for ID code (namely 0.940 bits), even though it provides no meaningful predictive power.
+\end{flushleft}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/id_code.png}
+    \caption{Final ID code examples }
+    \label{fig:ID code examples }
+\end{figure}
+
+
+\subsection{Gain Ratio}
+\begin{flushleft}
+    The gain ratio is a modification of information gain that reduces its bias towards attributes with many values. It takes both the number and size of branches into account when choosing an attribute, correcting information gain by considering the intrinsic information of a split.
+    
+    \textbf{Intrinsic information} represents the entropy of distribution of instances into branches - essentially, how much information we need to tell which branch an instance belongs to.
+    
+    \begin{equation}
+    gain\_ratio(attribute) = \frac{gain(attribute)}{intrinsic\_info(attribute)}
+    \end{equation}
+    
+    Example for ID code:
+    $info(1,1,...,1) = 14 \times (-\frac{1}{14} \times \log\frac{1}{14}) = 3.807\ bits$
+    $gain\_ratio(ID\ code) = \frac{0.940\ bits}{3.807\ bits} = 0.246$
+    
+    The value of the attribute decreases as intrinsic information gets larger, effectively penalizing attributes with many branches.
+\end{flushleft}
+
+\newpage
+\subsection{Gain Ratios for Weather Data}
+\begin{flushleft}
+    Calculating gain ratios for all attributes in the weather data:
+    
+    \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Attribute} & \textbf{Info} & \textbf{Gain} & \textbf{Split Info} & \textbf{Gain Ratio} \\
+    \hline
+    Outlook & 0.693 & 0.247 & info([5,4,5]) = 1.577 & 0.247/1.577 = 0.157 \\
+    Temperature & 0.911 & 0.029 & info([4,6,4]) = 1.557 & 0.029/1.557 = 0.019 \\
+    Humidity & 0.788 & 0.152 & info([7,7]) = 1.000 & 0.152/1 = 0.152 \\
+    Windy & 0.892 & 0.048 & info([8,6]) = 0.985 & 0.048/0.985 = 0.049 \\
+    \hline
+    \end{tabular}
+    \end{center}
+\end{flushleft}
+
+\subsection{More on the Gain Ratio}
+\begin{flushleft}
+    While "Outlook" still comes out as the top choice, the ID code would have an even greater gain ratio in this scenario. The standard fix is to implement an ad hoc test to prevent splitting on attributes of this type.
+    
+    However, gain ratio has its own problem: it may overcompensate by choosing an attribute simply because its intrinsic information is very low. The standard solution is to only consider attributes with greater than average information gain, ensuring that we don't select attributes with artificially inflated ratios due to very small intrinsic information values.
+\end{flushleft}
+
+\subsection{Regression via mathematical functions}
+\begin{flushleft}
+    In linear regression, the linear function estimates the numeric target value while the training data provide the actual target value. An intuitive notion of model fit is measuring how far away the estimated values are from the true values on the training data - in other words, how big is the error of the fitted model? We would like to minimize this error.
+    
+    \begin{equation}
+    x = w_0 + w_1 a_1 + w_2 a_2 + ... + w_k a_k
+    \end{equation}
+    
+    For a particular training dataset, we can compute this error for each individual data point and sum up the results. The model that fits the data best would be the model with the minimum sum of errors on the training data.
+\end{flushleft}
+
+\subsection{Error Computation Methods}
+\begin{flushleft}
+    There are many ways to compute the error between an estimated and an actual value. One approach is the absolute error: subtracting one from the other and taking the absolute value. However, standard linear regression uses the squares of these errors.
+    
+    Why do people use least squares regression without much thought to alternatives? It strongly penalizes very large errors. One might ask: why not take the fourth power of the errors and penalize large errors even more strongly? Importantly, any choice for the objective function has both advantages and drawbacks.
+    
+    For least squares regression, a serious drawback is that it is very sensitive to the data: erroneous or outlying data points can severely skew the resultant linear function.
+\end{flushleft}
+
+\subsection{Weight Calculation in Linear Regression}
+\begin{flushleft}
+    Weights are calculated from the training data. The predicted value for the first training instance $a^{(1)}$ (assuming each instance is extended with a constant attribute with value 1) is:
+    
+    \begin{equation}
+    w_0a_0^{(1)} + w_1a_1^{(1)} + w_2a_2^{(1)} + ... + w_ka_k^{(1)} = \sum_{j=0}^{k} w_ja_j^{(1)}
+    \end{equation}
+    
+    We choose $k+1$ coefficients to minimize the squared error on the training data. The squared error to be minimized is:
+    
+    \begin{equation}
+    \sum_{i=1}^{n} \left(x^{(i)} - \sum_{j=0}^{k} w_ja_j^{(i)}\right)^2
+    \end{equation}
+    
+    This formulation allows us to find the optimal weights that minimize the total squared error across all training instances.
+\end{flushleft}
+
+\subsection{Class Probability Estimation and Logistic ``Regression''}
+\begin{flushleft}
+    By choosing a different objective function, we can produce a model designed to give accurate estimates of class probability rather than just predicting class membership. The most common procedure for this purpose is logistic regression.
+    
+    One useful notion of the likelihood of an event is the odds. The odds of an event is the ratio of the probability of the event occurring to the probability of the event not occurring. If we cared about modeling some notion of likelihood, rather than the class membership probability specifically, we could model the log-odds with $f(x)$.
+    
+    \begin{equation}
+        f(x) = w_0 + w_1 a_1 + w_2 a_2 + \ldots + w_k a_k
+    \end{equation}
+    
+    This is exactly a logistic regression model: the same linear function $f(x)$ is used as a measure of the log-odds of the ``event'' of interest. Here, $f(x)$ is the model's estimation of the log-odds that $x$ belongs to the positive class. For example, the model might estimate the log-odds that a customer described by feature vector $x$ will leave the company when her contract expires.
+\end{flushleft}
+
+\subsection{Logistic Regression: Technical Details}
+\begin{flushleft}
+    In logistic regression, $p^+(x)$ represents the model's estimate of the probability of class membership of a data item represented by feature vector $x$. The class $+$ is whatever binary event we are modeling, and the estimated probability of the event not occurring is therefore $(1 - p^+(x))$.
+    
+    The fundamental relationship in logistic regression specifies that for a particular data item described by feature vector $x$, the log-odds of the class is equal to our linear function $f(x)$:
+    
+    \begin{equation}
+        \log\left(\frac{p^+(x)}{1 - p^+(x)}\right) = f(x)
+    \end{equation}
+    
+    Since we often want the estimated probability of class membership rather than the log-odds, we can solve for $p^+(x)$ by applying the logistic function, which transforms the linear output into a probability between 0 and 1.
+    The logistic function is defined as:
+    \begin{equation}
+        p^+(x) = \frac{1}{1 + e^{-f(x)}}
+    \end{equation}
+\end{flushleft}

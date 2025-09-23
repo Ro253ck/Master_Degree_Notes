@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  19 SEP 2025 15:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  23 SEP 2025 15:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1180,23 +1180,41 @@ File: images/Trees.png Graphic file (type png)
 <use images/Trees.png>
 Package pdftex.def Info: images/Trees.png  used on input line 201.
 (pdftex.def)             Requested size: 307.2929pt x 189.4438pt.
- [12 <./images/binary_classification.png> <./images/Trees.png>]) [13] (./main.aux)
+ [12 <./images/binary_classification.png> <./images/Trees.png>]
+<images/Attribute_selection.png, id=181, 826.08624pt x 648.4225pt>
+File: images/Attribute_selection.png Graphic file (type png)
+<use images/Attribute_selection.png>
+Package pdftex.def Info: images/Attribute_selection.png  used on input line 236.
+(pdftex.def)             Requested size: 307.2929pt x 241.2087pt.
+ [13] [14 <./images/Attribute_selection.png>]
+<images/final_tree.png, id=200, 454.69875pt x 294.09875pt>
+File: images/final_tree.png Graphic file (type png)
+<use images/final_tree.png>
+Package pdftex.def Info: images/final_tree.png  used on input line 302.
+(pdftex.def)             Requested size: 307.2929pt x 198.75938pt.
+ [15 <./images/final_tree.png>]
+<images/id_code.png, id=209, 754.82pt x 279.0425pt>
+File: images/id_code.png Graphic file (type png)
+<use images/id_code.png>
+Package pdftex.def Info: images/id_code.png  used on input line 324.
+(pdftex.def)             Requested size: 307.2929pt x 113.59917pt.
+ [16 <./images/id_code.png>] [17] [18]) [19] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 24C68F7B8F55A5D8641C6D7FD8DBA152;1694.
  ) 
 Here is how much of TeX's memory you used:
- 51043 strings out of 480236
- 1238555 string characters out of 5895675
- 1835240 words of memory out of 5000000
- 68147 multiletter control sequences out of 15000+600000
- 516264 words of font info for 61 fonts, out of 8000000 for 9000
+ 51102 strings out of 480236
+ 1239668 string characters out of 5895675
+ 1836240 words of memory out of 5000000
+ 68169 multiletter control sequences out of 15000+600000
+ 520526 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 88i,11n,117p,1676b,635s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
-Output written on main.pdf (14 pages, 946213 bytes).
+ 88i,12n,117p,1676b,635s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
+Output written on main.pdf (20 pages, 1141491 bytes).
 PDF statistics:
- 254 PDF objects out of 1000 (max. 8388607)
- 186 compressed objects within 2 object streams
- 50 named destinations out of 1000 (max. 500000)
- 211 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 324 PDF objects out of 1000 (max. 8388607)
+ 241 compressed objects within 3 object streams
+ 83 named destinations out of 1000 (max. 500000)
+ 226 words of extra memory for PDF output out of 10000 (max. 10000000)
 
