@@ -1,1 +1,12 @@
 \babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Logistic Regression and Optimizer}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Logistic Regression}{2}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Learning Logistic Regression}{3}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Example of binary Logistic Regression}{3}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Logistic Regression classification rule}{4}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Gradient Descent}{4}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}Mathematical explanation of the weight update}{6}{subsection.1.1.5}%
+\contentsline {section}{\numberline {1.2}Optimizers}{7}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Stochastic Gradient Descent (SGD)}{7}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Advanced Optimizer}{7}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}ADAM}{8}{subsection.1.2.3}%

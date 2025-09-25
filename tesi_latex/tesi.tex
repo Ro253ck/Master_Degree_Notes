@@ -9,8 +9,11 @@
 \usepackage{amsmath, amssymb, lmodern, varwidth, xcolor}
 \usepackage[makeroom]{cancel}
 
-%---------------------- Margini -------------------------------%
-\usepackage[inner=3cm,outer=3cm,top=1.8cm,bottom=1.8cm]{geometry}
+%---------------------- Margini con rilegatura ----------------%
+\usepackage[inner=3cm,outer=2.5cm,top=2.5cm,bottom=2.5cm,bindingoffset=1cm]{geometry}
+
+%---------------------- Microtype (aggiustamento testo) -------%
+\usepackage{microtype}
 
 %---------------------- Altri pacchetti -----------------------%
 \usepackage{array, enumitem, subfigure, graphicx, verbatim, listings, url}
@@ -74,26 +77,24 @@
 %---------------------- FANCYHDR: intestazioni capitolo -----%
 \usepackage{fancyhdr}
 
-% Ridefinisce \chaptermark per mostrare solo il nome del capitolo
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 
 \fancypagestyle{mainmatter}{%
     \fancyhf{} 
-    % Mostra solo il nome del capitolo su tutte le pagine principali
+    % Nome capitolo in alto
     \fancyhead[LE,RO]{\footnotesize{\leftmark}} 
-    \fancyfoot{}
-    \addtolength{\headwidth}{\marginparsep}
-    \addtolength{\headheight}{2.5pt}
-    \renewcommand{\headrulewidth}{0.3pt} % linea sotto header
+    % Numero pagina esterno in basso
+    \fancyfoot[LE,RO]{\thepage} 
+    \renewcommand{\headrulewidth}{0.3pt}
     \renewcommand{\footrulewidth}{0pt}
 }
 
-% Frontmatter (indice e pagina titolo) senza header/footer
 \fancypagestyle{frontmatter}{%
     \fancyhf{}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
 }
+
 
 % Pagine vuote senza numeri
 \makeatletter
@@ -134,6 +135,12 @@
   \end{center}
 \end{titlepage}
 
+
+\newenvironment{compactitemize}{
+\begin{itemize}[topsep=0pt, partopsep=0pt, itemsep=1.5pt, parsep=0pt]
+}{\end{itemize}}
+
+
 %---------------------- Indice -------------------------------%
 \pagestyle{frontmatter}
 \tableofcontents
@@ -154,18 +161,20 @@
 
 %---------------------- Ringraziamenti -----------------------%
 \newpage
-\section{Ringraziamenti}
-\begin{flushleft}
- Il mio primo e più sentito ringraziamento va al professore Calderara che è da subito stato molto disponibile nel seguirmi durante la realizzazione della tesi, e ringrazio ancora di più per aver accolto la mia idea di lavorare con gli algoritmi genetici e reti neurali, argomenti non affrontati durante la triennale, dandomi la possibilità di spingermi oltre.\\
- \vspace{0.5cm} 
- Un ringraziamento speciale va alla mia famiglia, che è stata il mio punto fermo durante tutto il percorso universitario. Grazie per avermi sempre sostenuto, incoraggiato e spronato a dare il massimo, anche nei momenti più difficili. Senza il vostro affetto, la vostra pazienza e la fiducia che avete riposto in me, non sarei mai riuscito a raggiungere questo traguardo.\\
- \vspace{0.5cm} 
- Non posso non ringraziare i miei colleghi con cui ho trascorso tanti momenti di studio e confronto, rendendo il percorso universitario più piacevole e stimolante.\\ In particolare vorrei ringraziare Giulia e Christian per essere stati sempre disponibili al confronto e alla discussione e per esserci stati fino all'ultimo momento, rendendo questo duro percorso molto più leggero.\\ Ringrazio anche il trio con cui ho passato i momenti più divertenti durante questo percorso, ovvero Rocco, Vincenzo e Marcello. Anche se nell'ultimo periodo eravate poco presenti a lezione, ho ricordi indelebili che porterò sempre con me.\\
- \vspace{0.5cm} 
- Un grande ringraziamento va ai miei amici di sempre, in particolare Giacomo, Alessandro ed Emilia, che mi hanno sempre sostenuto, seppur da lontano, e fatto compagnia durante questi intensi anni.\\
- \vspace{0.5cm} 
- A tutti voi, un grande grazie di cuore.
-\end{flushleft}
+\chapter*{Ringraziamenti}
+\thispagestyle{empty} % Rimuove intestazioni e numeri di pagina
+\addcontentsline{toc}{chapter}{Ringraziamenti} % Aggiunge ai segnalibri e all'indice
+
+Il mio primo e più sentito ringraziamento va al professore Calderara che è da subito stato molto disponibile nel seguirmi durante la realizzazione della tesi, e ringrazio ancora di più per aver accolto la mia idea di lavorare con gli algoritmi genetici e reti neurali, argomenti non affrontati durante la triennale, dandomi la possibilità di spingermi oltre.\\
+
+Un ringraziamento speciale va alla mia famiglia, che è stata il mio punto fermo durante tutto il percorso universitario. Grazie per avermi sempre sostenuto, incoraggiato e spronato a dare il massimo, anche nei momenti più difficili. Senza il vostro affetto, la vostra pazienza e la fiducia che avete riposto in me, non sarei mai riuscito a raggiungere questo traguardo.\\
+
+Non posso non ringraziare i miei colleghi con cui ho trascorso tanti momenti di studio e confronto, rendendo il percorso universitario più piacevole e stimolante.\\ In particolare vorrei ringraziare Giulia e Christian per essere stati sempre disponibili al confronto e alla discussione e per esserci stati fino all'ultimo momento, rendendo questo duro percorso molto più leggero.\\ Ringrazio anche il trio con cui ho passato i momenti più divertenti durante questo percorso, ovvero Rocco, Vincenzo e Marcello. Anche se nell'ultimo periodo eravate poco presenti a lezione, ho ricordi indelebili che porterò sempre con me.\\
+
+Un grande ringraziamento va ai miei amici di sempre, in particolare Giacomo, Alessandro ed Emilia, che mi hanno sempre sostenuto, seppur da lontano, e fatto compagnia durante questi intensi anni.\\
+
+A tutti voi, un grande grazie di cuore.
+\newpage
 
 
 %---------------------- Bibliografia -------------------------%

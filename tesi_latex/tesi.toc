@@ -14,6 +14,7 @@
 \contentsline {subsection}{\numberline {1.5.3}Metriche di valutazione}{6}{subsection.1.5.3}%
 \contentsline {section}{\numberline {1.6}Metodi classici di Machine Learning}{7}{section.1.6}%
 \contentsline {section}{\numberline {1.7}Conclusioni}{8}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Conclusioni}{8}{section.1.8}%
 \contentsline {chapter}{\numberline {2}Reti Neurali}{9}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Introduzione}{9}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Concetti Fondamentali delle Reti Neurali}{9}{section.2.2}%
@@ -42,12 +43,12 @@
 \contentsline {section}{\numberline {2.7}Overparametrizzazione delle Reti Neurali}{19}{section.2.7}%
 \contentsline {subsection}{\numberline {2.7.1}Il Paradosso della Generalizzazione}{19}{subsection.2.7.1}%
 \contentsline {subsection}{\numberline {2.7.2}Il Fenomeno del Double Descent}{20}{subsection.2.7.2}%
-\contentsline {subsection}{\numberline {2.7.3}Differenze tra Reti Piccole e Grandi}{20}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.3}Differenze tra Reti Piccole e Grandi}{21}{subsection.2.7.3}%
 \contentsline {subsubsection}{\numberline {2.7.3.1}Reti Piccole (Underparameterizzate)}{21}{subsubsection.2.7.3.1}%
 \contentsline {subsubsection}{\numberline {2.7.3.2}Reti Grandi (Overparameterizzate)}{21}{subsubsection.2.7.3.2}%
 \contentsline {subsection}{\numberline {2.7.4}Importanza del Metodo di Ricerca}{21}{subsection.2.7.4}%
 \contentsline {section}{\numberline {2.8}Conclusioni}{22}{section.2.8}%
-\contentsline {chapter}{\numberline {3}Algortimi Genetici}{23}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Algoritmi Genetici}{23}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Algoritmi Evolutivi}{23}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Algoritmi Genetici}{24}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Rappresentazione e Codifica}{24}{subsection.3.2.1}%
@@ -60,14 +61,14 @@
 \contentsline {subsection}{\numberline {3.2.4}Parametri e Tuning}{27}{subsection.3.2.4}%
 \contentsline {section}{\numberline {3.3}Metodi di Crossover per Codifica Reale}{27}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Crossover Aritmetico}{27}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Blend Crossover (BLX)}{28}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.2}Blend Crossover (BLX)}{27}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Simulated Binary Crossover (SBX)}{28}{subsection.3.3.3}%
 \contentsline {subsection}{\numberline {3.3.4}Confronto e Scelta del Metodo}{29}{subsection.3.3.4}%
 \contentsline {section}{\numberline {3.4}Rappresentazione di Reti Neurali attraverso i GA}{29}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Codifica dei Parametri di Rete}{29}{subsection.3.4.1}%
 \contentsline {subsection}{\numberline {3.4.2}Funzione di Fitness}{30}{subsection.3.4.2}%
 \contentsline {subsubsection}{\numberline {3.4.2.1}Metriche Basate sulla Loss}{30}{subsubsection.3.4.2.1}%
-\contentsline {subsubsection}{\numberline {3.4.2.2}Metriche Alternative Non Differenziabili}{31}{subsubsection.3.4.2.2}%
+\contentsline {subsubsection}{\numberline {3.4.2.2}Metriche Alternative Non Differenziabili}{30}{subsubsection.3.4.2.2}%
 \contentsline {subsection}{\numberline {3.4.3}Confronto con Metodi Gradient-Based}{31}{subsection.3.4.3}%
 \contentsline {section}{\numberline {3.5}Conclusioni}{32}{section.3.5}%
 \contentsline {chapter}{\numberline {4}Strumenti Utilizzati}{33}{chapter.4}%
@@ -77,13 +78,13 @@
 \contentsline {subsection}{\numberline {4.3.1}Concetti Fondamentali}{34}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}Definizione delle Reti Neurali}{35}{subsection.4.3.2}%
 \contentsline {subsection}{\numberline {4.3.3}Gestione dei Dati}{35}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Training e Ottimizzazione}{35}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.4}Training e Ottimizzazione}{36}{subsection.4.3.4}%
 \contentsline {subsection}{\numberline {4.3.5}Parallelismo e Computazione}{36}{subsection.4.3.5}%
 \contentsline {subsubsection}{\numberline {4.3.5.1}Parallelismo su CPU}{36}{subsubsection.4.3.5.1}%
-\contentsline {subsubsection}{\numberline {4.3.5.2}Parallelismo su GPU}{36}{subsubsection.4.3.5.2}%
+\contentsline {subsubsection}{\numberline {4.3.5.2}Parallelismo su GPU}{37}{subsubsection.4.3.5.2}%
 \contentsline {subsection}{\numberline {4.3.6}Considerazioni Finali}{37}{subsection.4.3.6}%
 \contentsline {section}{\numberline {4.4}DEAP}{37}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Concetti Fondamentali}{37}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.1}Concetti Fondamentali}{38}{subsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.4.2}Definizione di un Algoritmo Evolutivo}{38}{subsection.4.4.2}%
 \contentsline {subsection}{\numberline {4.4.3}Parallelismo e Computazione Distribuita}{39}{subsection.4.4.3}%
 \contentsline {subsection}{\numberline {4.4.4}Integrazione con PyTorch}{39}{subsection.4.4.4}%
@@ -92,14 +93,14 @@
 \contentsline {section}{\numberline {5.1}Struttura della rete e addestramento}{41}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Architettura di calcolo}{42}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Introduzione agli esperimenti}{42}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Allenamento con SGDM}{43}{section.5.4}%
+\contentsline {section}{\numberline {5.4}Allenamento con SGDM}{42}{section.5.4}%
 \contentsline {section}{\numberline {5.5}Allenamento con GA non parallelizzato}{43}{section.5.5}%
 \contentsline {subsection}{\numberline {5.5.1}Introduzione}{43}{subsection.5.5.1}%
 \contentsline {subsection}{\numberline {5.5.2}Esperimenti}{44}{subsection.5.5.2}%
 \contentsline {section}{\numberline {5.6}Allenamento con GA parallelizzato}{45}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Ottimizzazione GA e metodi gradient-based combinati}{46}{section.5.7}%
-\contentsline {section}{\numberline {5.8}L'algoritmo GASGDM}{47}{section.5.8}%
-\contentsline {section}{\numberline {5.9}L'Algoritmo GADAM}{48}{section.5.9}%
+\contentsline {section}{\numberline {5.7}Ottimizzazione GA e metodi gradient-based combinati}{45}{section.5.7}%
+\contentsline {section}{\numberline {5.8}L'algoritmo GASGDM}{46}{section.5.8}%
+\contentsline {section}{\numberline {5.9}L'Algoritmo GADAM}{47}{section.5.9}%
 \contentsline {subsection}{\numberline {5.9.1}Struttura dell'Algoritmo}{48}{subsection.5.9.1}%
 \contentsline {subsection}{\numberline {5.9.2}Operatori Genetici}{49}{subsection.5.9.2}%
 \contentsline {subsection}{\numberline {5.9.3}Evoluzione e Convergenza}{50}{subsection.5.9.3}%
@@ -111,4 +112,4 @@
 \contentsline {section}{\numberline {6.5}Allenamento con GASGDM}{56}{section.6.5}%
 \contentsline {section}{\numberline {6.6}Allenamento con GADAM}{58}{section.6.6}%
 \contentsline {chapter}{\numberline {7}Conclusioni}{61}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Ringraziamenti}{62}{section.7.1}%
+\contentsline {chapter}{Ringraziamenti}{63}{chapter*.27}%

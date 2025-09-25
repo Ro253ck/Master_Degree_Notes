@@ -1,21 +1,16 @@
 \chapter{Esperimenti}
 
 \section{Introduzione}
-\begin{flushleft}
-    In questo capitolo vengono presentati e analizzati in dettaglio i risultati degli esperimenti introdotti nel capitolo precedente, con l'obiettivo di valutare le prestazioni e l'efficacia dei diversi algoritmi di ottimizzazione applicati al training di reti neurali Multi-Layer Perceptron (MLP).
+In questo capitolo vengono presentati e analizzati in dettaglio i risultati degli esperimenti introdotti nel capitolo precedente, con l'obiettivo di valutare le prestazioni e l'efficacia dei diversi algoritmi di ottimizzazione applicati al training di reti neurali Multi-Layer Perceptron (MLP).
 La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistematica, al fine di garantire la comparabilità dei risultati e la validità delle conclusioni tratte. Gli esperimenti sono stati progettati per esplorare diverse dimensioni del problema di ottimizzazione: l'impatto della quantità di dati di training, l'influenza del numero di epoche, l'efficacia di approcci ibridi e i benefici della parallelizzazione.
-\end{flushleft}
 
 \section{Allenamento con SGDM}
-\begin{flushleft}
- L'allenamento della rete neurale MLP con SGDM, variando il numero di dati di training ha generato i risultai mostrati in tabella.
-\end{flushleft}
-
+ L'allenamento della rete neurale MLP con SGDM, variando il numero di dati di training, ha generato i risultati mostrati in tabella. 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Dati Training} & \textbf{Accuratezza} & \textbf{Loss} & \textbf{Tempo (s)} & \textbf{Epoche} \\
+\textbf{Dati Training} & \textbf{Accuracy} & \textbf{Loss} & \textbf{Tempo (s)} & \textbf{Epoche} \\
 \hline
 1000 & 87.44\% & 0.436481 & 1.84 & 25 \\
 \hline
@@ -31,15 +26,12 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \end{table}
 
 \newpage
-\begin{flushleft}
-    Nella seguente tabella sono mostrati i risultati aumentando il numero di epoche a 100.
-\end{flushleft}
-
+Nella seguente tabella sono mostrati i risultati aumentando il numero di epoche a 100.
 \begin{table}[htbp]
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Dati Training} & \textbf{Accuratezza} & \textbf{Loss} & \textbf{Tempo (s)} & \textbf{Epoche} \\
+\textbf{Dati Training} & \textbf{Accuracy} & \textbf{Loss} & \textbf{Tempo (s)} & \textbf{Epoche} \\
 \hline
 1000 & 88.85\% & 0.581697 & 7.45 & 100 \\
 \hline
@@ -55,19 +47,15 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \end{table}
 
 \section{Allenamento con GA}
-\begin{flushleft}
-    L'allenamento della rete neurale MLP con i GA, con vari metodi di crossover, utilizzando un numero di dati di training uguale ha 1000, ha generato i risultati mostrati in tabella.
+    L'allenamento della rete neurale MLP con i GA, con vari metodi di crossover, utilizzando un numero di dati di training pari a 1000, ha generato i risultati mostrati in tabella.
     Come già detto precedentemente il numero di dati di training è stato scelto pari a 1000, in quanto l'allenamento con GA risulta essere molto più lento rispetto a SGDM, ADAM e le loro versioni ibride.
-    Per questo motivo si è deciso di utilizzare un numero di dati di training più piccolo, per poter fare un confronto con gli altri metodi. Ovviamente questo comporta che bisogna comparare i risultati
+    Per questo motivo si è deciso di utilizzare un numero di dati di training più piccolo, per poter fare un confronto con gli altri metodi. Ovviamente questo comporta che bisogna confrontare i risultati
     ottenuti con GA con quelli ottenuti con SGDM con 1000 dati di training.
-\end{flushleft}
-
-
 \begin{table}[htbp]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-\textbf{Dati Training} & \textbf{Crossover} & \textbf{Accuratezza} & \textbf{Loss} & \textbf{Tempo (h)} & \textbf{Gen.} & \textbf{Pop.} \\
+\textbf{Dati Train} & \textbf{Cross.} & \textbf{Accuracy} & \textbf{Loss} & \textbf{Tempo (h)} & \textbf{Gen.} & \textbf{Pop.} \\
 \hline
 1000 & Aritmetico & 66\% & 1.3410 & 2.5 & 250 & 100 \\
 \hline
@@ -81,27 +69,20 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \label{tab:GA_results}
 \caption{Risultati allenamento GA}
 \end{table}
-    
-\begin{flushleft}
     Da questi esperimenti si può notare come il metodo di crossover più efficace sia stato il crossover blend, che ha portato ad una accuratezza del 74.90\% e una loss di 1.1595.
     C'è comunque da considerare, che seppur avendo tenuto lo stesso seed per tutti gli esperimenti, il GA è un algoritmo stocastico e quindi i risultati possono variare leggermente ad ogni esecuzione.
     Comunque si può notare come il GA non riesce a raggiungere le prestazioni di SGDM con 1000 dati di training, che ha portato ad una accuratezza dell'87.44\% e una loss di 0.436481.
     Questo è dovuto al fatto che il GA è un algoritmo di ottimizzazione globale, che cerca di esplorare tutto lo spazio delle soluzioni, ma non è molto efficace nel trovare soluzioni locali ottimali.
     Inoltre il tempo di allenamento è molto più lungo rispetto a SGDM, come si può notare dalla tabella, dove il tempo di allenamento con GA è di circa 2 ore, mentre con SGDM è di pochi secondi.
-    Da ora in poi si utilizzerà il crossover blend per gli esperimenti con GA, in quanto è quello che ha portato ai migliori risultati.
-\end{flushleft}
-
+    Da ora in poi, per gli esperimenti con GA, si utilizzerà il crossover blend, essendo il metodo che ha prodotto i risultati migliori.
 \section{Allenamento con GA parallelizzato}
-\begin{flushleft}
     L'implementazione della parallelizzazione per l'allenamento della rete attraverso algoritmi genetici (GA) ha prodotto significativi miglioramenti in termini di efficienza computazionale, come evidenziato dai risultati presentati nella tabella seguente.
     La strategia di parallelizzazione adottata prevede l'utilizzo di otto processi simultanei, corrispondenti al numero di core logici del calcolatore utilizzato per la sperimentazione. Questa configurazione rappresenta il punto di equilibrio ottimale tra sfruttamento delle risorse hardware disponibili e prevenzione della contesa eccessiva per le risorse di sistema.
-\end{flushleft}
-
 \begin{table}[htbp]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-\textbf{Dati Train.} & \textbf{Crossover} & \textbf{Accuratezza}& \textbf{Tempo (s)} & \textbf{Gen.} & \textbf{Pop.} & \textbf{Parallel.}\\
+\textbf{Dati Train.} & \textbf{Cross.} & \textbf{Accuracy}& \textbf{Tempo (s)} & \textbf{Gen.} & \textbf{Pop.} & \textbf{Parallel.}\\
 \hline
 1000 & Blend & 66.68\%  & 7662.46 & 200 & 100 & No\\
 \hline
@@ -112,33 +93,28 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \caption{Risultati allenamento GA}
 \end{table}
 
-\begin{flushleft}
     I dati sperimentali dimostrano chiaramente l'efficacia della parallelizzazione nell'ottimizzazione del processo di training. La versione parallelizzata dell'algoritmo ha conseguito una riduzione del tempo di esecuzione da 7662.46 secondi (circa 2.13 ore) a 4637.13 secondi (circa 1.29 ore), corrispondente a un miglioramento delle prestazioni del 39.5\% circa, mantenendo sostanzialmente invariata l'accuratezza del modello.
     L'efficacia della parallelizzazione è strettamente legata alle caratteristiche dell'architettura hardware utilizzata. L'impiego di otto processi paralleli, ha garantito un utilizzo ottimale delle risorse computazionali. È importante sottolineare che l'incremento del numero di processi oltre la capacità fisica del sistema tenderebbe a produrre un peggioramento delle prestazioni a causa della competizione per le risorse condivise.
     I risultati ottenuti suggeriscono un significativo potenziale di miglioramento delle prestazioni su architetture hardware più potenti. L'utilizzo di sistemi multi-core con un maggior numero di unità di elaborazione parallele potrebbe portare a riduzioni ancora più sostanziali dei tempi di training, sfruttando la natura intrinsecamente parallela degli algoritmi genetici.
-\end{flushleft}
-
 
 \section{Allenamento con GASGDM}
-\begin{flushleft}
     In questa sezione vengono presentati i miglioramenti ottenuti dall'utilizzo combinato di Algoritmo Genetico (GA) e Stochastic Gradient Descent with Momentum (SGDM), rispetto all'impiego del solo SGDM. 
     I test sono stati eseguiti su diverse partizioni del dataset, considerando set di training composti da 1.000, 5.000, 10.000 e 15.000 istanze. 
     I miglioramenti sono riportati nelle tabelle seguenti. È importante sottolineare che l'uso di GASGDM comporta un tempo di training maggiore rispetto al solo SGDM; tuttavia, questo è giustificato dal fatto che GASGDM è in grado di trovare soluzioni che SGDM non riuscirebbe a individuare nemmeno aumentando significativamente il numero di epoche.
-    
     Per questi esperimenti sono stati scelti i seguenti parametri per GA e SGDM:
-    \begin{itemize}
+    \begin{compactitemize}
         \item \textbf{Numero di generazioni}: 10
         \item \textbf{Popolazione}: 10
         \item \textbf{Numero di cicli GASGDM}: 3
         \item \textbf{Epoche SGDM}: 10
-    \end{itemize}
-\end{flushleft}
+    \end{compactitemize}
+
 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
+\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
 \hline
 1000 & SGDM & 88.80\% & 3.64 & 50 \\
 \hline
@@ -153,7 +129,7 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
+\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
 \hline
 5000 & SGDM & 94.33\% & 18.17 & 50 \\
 \hline
@@ -168,7 +144,7 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
+\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
 \hline
 10000 & SGDM & 96.11\% & 22.21 & 50 \\
 \hline
@@ -184,7 +160,7 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
     \centering
     \begin{tabular}{|c|c|c|c|c|}
     \hline
-    \textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
+    \textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
     \hline
     15000 & SGDM & 96.90\% & 33.60 & 50 \\
     \hline
@@ -194,18 +170,12 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
     \caption{Risultati dell'allenamento con GASGDM su 15.000 istanze di training}
     \label{tab:GASGDM_results_15000}
     \end{table}
-
-
-\begin{flushleft}
     Per valutare la capacità di GASGDM di superare i minimi locali dello SGDM, è stato eseguito un esperimento incrementando il numero di epoche di SGDM a 300 e 500, mentre il numero di cicli GASGDM è stato aumentato a 6 e le epoche SGDM a 20.
-\end{flushleft}
-    
-    
-\begin{table}[htbp]
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|c|}
     \hline
-    \textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
+    \textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy} & \textbf{Tempo (s)} & \textbf{Epoche SGDM} \\
     \hline
     15000 & SGDM & 97.00\% & 465.55 & 300 \\
     \hline
@@ -217,11 +187,9 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
     \caption{Confronto tra SGDM e GASGDM su 15.000 istanze con epoche SGDM aumentate}
     \label{tab:GASGDM_results2_15000}
     \end{table}
-
-\begin{flushleft}
     Dai risultati ottenuti emerge come l'efficacia dei metodi basati sul gradiente aumenti con l'incremento del numero di dati di training, consentendo di raggiungere buone soluzioni in tempi relativamente brevi. 
     Tuttavia, è importante sottolineare che GASGDM riesce a individuare soluzioni migliori rispetto al solo SGDM anche con un numero ridotto di epoche, dimostrando la sua capacità di superare minimi locali e ottimizzare in maniera più efficace.
-\end{flushleft}
+
 
 \begin{figure}[htbp]
     \centering
@@ -261,32 +229,23 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
     \caption{Accuratezza di SGDM vs GASGDM al variare della dimensione del dataset}
     \end{figure}
     
-
-
-
-\newpage
 \section{Allenamento con GADAM}
-\begin{flushleft}
-    Qua sono mostrati i miglioramenti, che l'utilizzo combinato di GA e ADAM ha portato nel trovare soluzioni migliori rispetto al solo utilizzo di adam, i test sono stati fatti su 
-    varie partizioni di dateset, in particolare è stato testato il comportamento su 1000, 5000, 10000 e 15000 istanze di training.
-    I miglioramenti sono mostrati in tabella, ovviamente c'è da considerare il tempo maggiore per fare il training con GADAM che però, è giustificato dal
-    fatto che trova una soluzione che altrimenti sarebbe impossibile trovate, anche aumentando notevolmente le epoche di ADAM.
-    
-    Per fare questi eseprimenti si è deciso di utilizzare i seguenti parametri per il GA e SGDM:
-    \begin{itemize}[itemsep=0.3em]
+    In questa sezione sono mostrati i miglioramenti ottenuti combinando GA e ADAM, che hanno permesso di trovare soluzioni migliori rispetto all’utilizzo del solo ADAM. I test sono stati fatti su 
+    varie partizioni di dataset, in particolare è stato testato il comportamento su 1000, 5000, 10000 e 15000 istanze di training.
+    I miglioramenti sono mostrati in tabella, ovviamente c'è da considerare il tempo maggiore per fare il training con GADAM, ciò è giustificato dal fatto che GADAM riesce a trovare soluzioni che altrimenti sarebbero impossibili da ottenere.
+    Per fare questi esperimenti si è deciso di utilizzare i seguenti parametri per il GA e SGDM:
+    \begin{compactitemize}
         \item \textbf{Numero di generazioni}: 10
         \item \textbf{Popolazione}: 5
         \item \textbf{Numero cicli GADAM}: variabile in base al numero di dati di training
         \item \textbf{Epoche ADAM}: 50
-    \end{itemize}
-\end{flushleft}
+    \end{compactitemize}
 
-\newpage
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza}& \textbf{Tempo (s)} & \textbf{Epoche GADAM}\\
+\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy}& \textbf{Tempo (s)} & \textbf{Epoche GADAM}\\
 \hline
 1000 & ADAM & 90.30\%  & 0.52 & 50 \\
 \hline
@@ -302,7 +261,7 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza}& \textbf{Tempo (s)} & \textbf{Epoche GADAM}\\
+\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy}& \textbf{Tempo (s)} & \textbf{Epoche GADAM}\\
 \hline
 5000 & ADAM & 95.20\%  & 25.80 & 50 \\
 \hline
@@ -318,7 +277,7 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza}& \textbf{Tempo (s)} & \textbf{Epoche GADAM}\\
+\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy}& \textbf{Tempo (s)} & \textbf{Epoche GADAM}\\
 \hline
 10000 & ADAM & 96.72\%  & 58.3 & 50 \\
 \hline
@@ -333,7 +292,7 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza}& \textbf{Tempo (s)} & \textbf{Epoche GADAM} \\
+\textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy}& \textbf{Tempo (s)} & \textbf{Epoche GADAM} \\
 \hline
 15000 & ADAM & 97.52\%  & 69.92 & 50 \\
 \hline
@@ -343,18 +302,12 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
 \label{tab:GADAM_results_15000}
 \caption{Risultati allenamento GADAM con 15000 istanze di training}
 \end{table}
-
-
-\begin{flushleft}
     Ora per dimostare che Adam è bloccato in un minimo locale vediamo come si comporta aumentando il numero di epoche a 100 e 200, mentre in GADAM abbiamo aumentato la popolazione a 10 individui.
-\end{flushleft}
-
-
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|}
     \hline
-    \textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuratezza}& \textbf{Tempo (s)} & \textbf{Epoche GADAM} \\
+    \textbf{Dati Train.} & \textbf{Metodo} & \textbf{Accuracy}& \textbf{Tempo (s)} & \textbf{Epoche GADAM} \\
     \hline
     15000 & ADAM & 97.42\%  & 146.41 & 100 \\
     \hline
@@ -366,10 +319,10 @@ La sperimentazione è stata condotta seguendo una metodologia rigorosa e sistema
     \label{tab:GADAM_results_15000_update}
     \caption{Risultati allenamento GADAM con 15000 istanze di training ma più epoche}
     \end{table}
-\begin{flushleft}
+
     Dai risultati ottenuti si può notare come GADAM sia riuscito a trovare soluzioni migliori rispetto al solo ADAM.
     Ovviamente il tempo di allenamento è maggiore, ma questo è giustificato dal fatto che GADAM riesce a trovare soluzioni che ADAM non riuscirebbe a trovare nemmeno aumentando notevolmente le epoche.
-\end{flushleft}
+
 
 \begin{figure}[htbp]
     \centering
