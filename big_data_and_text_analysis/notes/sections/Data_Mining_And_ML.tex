@@ -421,7 +421,6 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
 \end{flushleft}
 
 \subsection{Logistic Regression: Technical Details}
-\begin{flushleft}
     In logistic regression, $p^+(x)$ represents the model's estimate of the probability of class membership of a data item represented by feature vector $x$. The class $+$ is whatever binary event we are modeling, and the estimated probability of the event not occurring is therefore $(1 - p^+(x))$.
     
     The fundamental relationship in logistic regression specifies that for a particular data item described by feature vector $x$, the log-odds of the class is equal to our linear function $f(x)$:
@@ -435,4 +434,345 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     \begin{equation}
         p^+(x) = \frac{1}{1 + e^{-f(x)}}
     \end{equation}
-\end{flushleft}
+
+\subsection{Instance-Based Learning}
+For measuring similarity, we use distance functions. With numeric attributes, we typically use Euclidean distance after normalizing the data. For nominal attributes, the distance is 1 if values differ and 0 if they're equal. Often, we need to weight attributes differently based on their importance.
+
+    Training examples are stored in memory, and the distance function defines what's learned. Most instance-based schemes use Euclidean distance to measure similarity between instances. Given two instances $a^{(1)}$ and $a^{(2)}$ with $k$ attributes, the Euclidean distance is calculated as:
+
+    \begin{equation}
+    distance(a^{(1)}, a^{(2)}) = \sqrt{(a_1^{(1)} - a_1^{(2)})^2 + (a_2^{(1)} - a_2^{(2)})^2 + ... + (a_k^{(1)} - a_k^{(2)})^2}
+    \end{equation}
+
+    Note that taking the square root is not required when comparing distances, as the ordering remains the same. Another popular metric is the city-block (Manhattan) metric, which sums the absolute differences instead of squared differences.
+   
+    \textbf{Note:} We take the squared differences because we want to penalize large differences more than small ones. For example, a difference of 2 should be penalized more than twice a difference of 1.
+
+\subsection{Normalization}
+
+    Different attributes are often measured on different scales, which can cause problems when computing distances. Therefore, attributes need to be normalized to ensure fair comparison. For numeric attributes, we use the following normalization formula:
+
+    \begin{equation}
+    a_i = \frac{v_i - \min v_i}{\max v_i - \min v_i}
+    \end{equation}
+
+    where $v_i$ is the actual value of attribute $i$, and $\min v_i$ and $\max v_i$ are the minimum and maximum values of that attribute in the dataset, respectively. This normalization scales all numeric attributes to the range $[0,1]$.
+
+    For nominal attributes, the distance is either 0 (if values are equal) or 1 (if values differ). 
+
+    The usual policy for missing values is to assume they are maximally distant from all other values, which translates to a distance of 1 for normalized attributes.
+
+
+    \subsection{k-Nearest Neighbors (k-NN)}
+    The k-Nearest Neighbors algorithm is a fundamental instance-based learning method used for both classification and regression tasks. The basic procedure is straightforward:
+    \begin{compactitemize}
+        \item Given a new example whose target variable we want to predict, we scan through all the training examples.
+        \item We select several examples that are most similar to the new example (the "nearest neighbors").
+        \item We predict the new example's target value based on the nearest neighbors' known target values using a combining function.
+    \end{compactitemize}
+    
+    The combining function can be voting (for classification) or averaging (for regression), operating on the neighbors' known target values to produce a prediction.
+    
+    \subsubsection{k-NN for Classification}
+    
+    For classification tasks, the process works as follows:
+    \begin{compactitemize}
+        \item The label we want to predict is indicated by a "?".
+        \item The k nearest neighbors are retrieved and their known target variables (classes) are consulted.
+        \item A simple combining function is majority vote: the class that appears most frequently among the k neighbors is assigned to the new instance.
+    \end{compactitemize}
+    
+    For example, if we use 3-NN and retrieve three neighbors where two are positive and one is negative, majority voting would predict the positive class.
+    
+    \textbf{Probability Estimation:} Beyond simple classification, it's usually important to estimate the probability of class membership. k-NN can do this easily by computing the proportion of neighbors belonging to each class. In the example above, the probability of the positive class would be estimated as $\frac{2}{3}$.
+    
+    \subsubsection{Choosing k and Weighting Neighbors}
+    
+    \textbf{How many neighbors should be used?}
+    \begin{compactitemize}
+        \item Odd numbers are convenient for breaking ties in majority vote classification with two-class problems.
+        \item Nearest neighbor algorithms are referred to as k-NN, where k refers to the number of neighbors used (e.g., 3-NN).
+        \item The greater k is, the more the estimates are smoothed out among neighbors.
+        \item If we increase k to the maximum possible (k = n, the entire dataset), we would predict the average over the entire dataset for any example:
+        \begin{compactitemize}
+            \item For classification: predicting the majority class in the entire dataset.
+            \item For regression: predicting the average of all target values.
+        \end{compactitemize}
+    \end{compactitemize}
+    
+    \textbf{Should we treat all neighbors the same?}
+    
+    Different neighbors have different similarity to the example we're trying to predict, which should influence how they're used. The simple majority voting strategy ignores how close each neighbor is to the instance.
+    
+    Nearest-neighbor methods often use \textbf{weighted voting} or \textbf{similarity-moderated voting}, where each neighbor's contribution is scaled by its similarity to the query instance. A common approach is using the reciprocal of the square of the distance as the scaling weight:
+    
+    \begin{equation}
+    weight_i = \frac{1}{distance(x, x_i)^2}
+    \end{equation}
+    
+    This ensures that closer neighbors have more influence on the prediction than distant ones.
+    
+    \subsubsection{Geometric Interpretation and Overfitting}
+    
+    Although k-NN does not create an explicit decision boundary during training, there are implicit regions created by instance neighborhoods. These regions can be calculated by systematically probing points in the instance space, determining each point's classification, and constructing the boundary where classifications change.
+    
+    \textbf{Overfitting and Complexity Control:}
+    
+    The parameter k in a k-NN classifier acts as a complexity parameter that controls overfitting:
+    \begin{compactitemize}
+        \item \textbf{At one extreme (k = n):} We do not allow much complexity at all in our model. The n-NN model simply predicts the average value in the dataset for each case, resulting in an extremely simple model.
+        \item \textbf{At the other extreme (k = 1):} We get an extremely complex model that places complicated boundaries such that every training example will be in a region labeled by its own class. The 1-NN classifier is prone to overfitting, as it can be heavily influenced by outliers and noise in the training data.
+        \item \textbf{Intermediate values of k:} Provide a balance between model complexity and generalization ability.
+    \end{compactitemize}
+    
+    \textbf{How should one choose k?}
+    
+    The optimal value of k should be determined through experimental evaluation, typically using cross-validation on the training data to find the value that provides the best balance between bias and variance.
+
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/KKN.png}
+        \caption{Differences between 1-NN and 30-NN }
+        \label{fig:Difference_between_1-NN_and_30-NN }
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/scaler.png}
+        \caption{Important of the standard scaler }
+        \label{fig:Important_of_the_standard_scaler }
+    \end{figure}
+
+
+    \subsection{Clustering Techniques}
+
+    Clustering techniques are traditionally divided into two main categories: partitioning and hierarchical algorithms.
+    
+    \textbf{Partitioning algorithms} construct a partition of a database $D$ of $n$ objects into a set of $k$ clusters, where $k$ is an input parameter. The algorithm starts with an initial partition and uses an iterative strategy to optimize an objective function. Each cluster is typically represented by its centroid (gravity center).
+    
+    The procedure consists of two steps:
+    \begin{compactitemize}
+        \item Determine $k$ representatives that minimize the objective function
+        \item Assign each object to the cluster with the closest representative
+    \end{compactitemize}
+    
+    \textbf{Hierarchical algorithms} create a hierarchical decomposition of $D$ represented by a dendrogram (a tree structure). The dendrogram iteratively splits $D$ into smaller subsets until each subset consists of a single object. Each node in the tree represents a cluster. The dendrogram can be created:
+    \begin{compactitemize}
+        \item \textbf{Bottom-up} (agglomerative): from leaves to root by merging clusters
+        \item \textbf{Top-down} (divisive): from root to leaves by dividing clusters
+    \end{compactitemize}
+    
+    Unlike partitioning algorithms, hierarchical methods do not require $k$ as input.
+    
+    \subsubsection{Data Representation and Distance Metrics}
+    
+    A clustering dataset is a collection of points belonging to some space. In Euclidean spaces:
+    \begin{compactitemize}
+        \item Points are vectors of real numbers
+        \item Vector length = number of dimensions
+        \item Vector components = coordinates of points
+        \item Euclidean distance is the standard metric: $\sqrt{\sum_{i=1}^{d}(x_i - y_i)^2}$
+    \end{compactitemize}
+    
+    For non-Euclidean spaces, alternative distance measures include Jaccard distance, cosine distance, and Hamming distance.
+    
+    \subsubsection{Hierarchical Clustering Algorithm}
+    
+    The general procedure for hierarchical clustering:
+    \begin{enumerate}
+        \item Start with each point in its own cluster
+        \item Iteratively combine the two nearest clusters
+        \item Continue until a stopping criterion is met
+    \end{enumerate}
+    
+    Three key design decisions must be made:
+    
+    \textbf{1. Cluster Representation:} For Euclidean spaces, we typically use the centroid (average of all points in the cluster).
+    
+    \textbf{2. Inter-cluster Distance:} We measure distance between clusters using their centroids (though other methods exist, such as single-linkage or complete-linkage).
+    
+    \textbf{3. Stopping Criteria:}
+    \begin{compactitemize}
+        \item Stop at a predetermined number of clusters (if known a priori)
+        \item Stop when cluster quality falls below a threshold
+        \item Build the complete dendrogram and let the user choose the cut level
+    \end{compactitemize}
+    
+    \subsubsection{K-Means Algorithm}
+    
+    K-means is a popular partitioning algorithm that works as follows:
+    
+    \textbf{Algorithm:}
+    \begin{enumerate}
+        \item \textbf{Initialization:} Select $k$ initial points as cluster centers
+        \item \textbf{Assignment:} Assign each remaining point to the nearest centroid
+        \item \textbf{Update:} Recalculate centroids as the mean of assigned points
+        \item \textbf{Iterate:} Repeat steps 2-3 until convergence
+        \item \textbf{Refinement (optional):} Reassign all points to final centroids
+    \end{enumerate}
+    
+    The centroid of a cluster can migrate as points are assigned, but since only nearby points are typically assigned, the centroid tends not to move dramatically between iterations.
+    
+    \subsection{Density-Based Clustering}
+    
+    Density-based methods identify clusters as dense regions separated by sparse areas. They can detect arbitrary-shaped clusters and automatically identify noise points.
+    
+    \subsubsection{DBSCAN Algorithm}
+    
+    DBSCAN (Density-Based Spatial Clustering of Applications with Noise) uses two parameters:
+    \begin{compactitemize}
+        \item $\epsilon$ (Eps): maximum distance between neighbors
+        \item MinPts: minimum points to form a dense region
+    \end{compactitemize}
+    
+    \textbf{Core Concepts:}
+    \begin{compactitemize}
+        \item \textbf{Core points:} points with at least MinPts neighbors within $\epsilon$
+        \item \textbf{Border points:} non-core points within $\epsilon$ of a core point
+        \item \textbf{Noise points:} points that are neither core nor border points
+    \end{compactitemize}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/Point.png}
+        \caption{Point for DBSCAN }
+        \label{fig:Point_for_DBSCAN }
+    \end{figure}
+
+    
+    \textbf{Formal Definitions:}
+    
+    \textbf{Definition 1 (Eps-neighborhood):}
+    \begin{equation}
+    N_{Eps}(p) = \{q \in D \mid dist(p, q) \leq Eps\}
+    \end{equation}
+    
+    \textbf{Definition 2 (Directly density-reachable):} Point $p$ is directly density-reachable from $q$ if:
+    \begin{compactitemize}
+        \item $p \in N_{Eps}(q)$, and
+        \item $|N_{Eps}(q)| \geq MinPts$ (core point condition)
+    \end{compactitemize}
+    
+    Note: This relation is symmetric for core point pairs, but asymmetric for core-border pairs.
+
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/Def_1_2.png}
+        \caption{Definitions 1 and 2 for DBSCAN }
+        \label{fig:Definitions_1_and_2_for_DBSCAN }
+    \end{figure}
+    
+    \textbf{Definition 3 (Density-reachable):} Point $p$ is density-reachable from $q$ if there exists a chain $p_1 \rightarrow p_2 \rightarrow \ldots \rightarrow p_n$ where $p_1 = q$, $p_n = p$, and each $p_{i+1}$ is directly density-reachable from $p_i$. This relation is transitive but not symmetric.
+    
+    \textbf{Definition 4 (Density-connected):} Points $p$ and $q$ are density-connected if both are density-reachable from some point $o$. This relation is symmetric.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/Def_3_4.png}
+        \caption{Definitions 3 and 4 for DBSCAN }
+        \label{fig:Definitions_3_and_4_for_DBSCAN }
+    \end{figure}
+    
+
+    \textbf{Definition 5 (Cluster):} A cluster $C$ is a maximal set of density-connected points:
+    \begin{compactitemize}
+        \item \textbf{Maximality:} If $p \in C$ and $q$ is density-reachable from $p$, then $q \in C$
+        \item \textbf{Connectivity:} All points in $C$ are mutually density-connected
+    \end{compactitemize}
+    
+    \textbf{Definition 6 (Noise):} Points not belonging to any cluster: $noise = \{p \in D \mid \forall i: p \notin C_i\}$
+
+    
+    \textbf{DBSCAN Procedure:}
+    \begin{enumerate}
+        \item Choose parameters $\epsilon$ and MinPts
+        \item Select an arbitrary unvisited point
+        \item Find all points within $\epsilon$ distance
+        \item If fewer than MinPts neighbors: mark as noise (temporarily)
+        \item If at least MinPts neighbors: create new cluster with this core point
+        \item Recursively add all density-reachable points to the cluster
+        \item Repeat from step 2 until all points are visited
+        \item Finalize: noise points near clusters become border points
+    \end{enumerate}
+    
+    \subsubsection{HDBSCAN Algorithm}
+    
+    HDBSCAN (Hierarchical DBSCAN) extends DBSCAN by:
+    \begin{compactitemize}
+        \item Building a cluster hierarchy for all density levels
+        \item Extracting stable clusters using a stability measure
+        \item Not requiring a global $\epsilon$ parameter
+    \end{compactitemize}
+    
+    \textbf{Mutual Reachability Distance:}
+    
+    The core distance of point $x$ is the distance to its MinPts-th nearest neighbor:
+    \begin{equation}
+    d_{core}(x) = \text{distance to MinPts-th nearest neighbor}
+    \end{equation}
+    
+    The mutual reachability distance between points $x_p$ and $x_q$ is:
+    \begin{equation}
+    MRD(x_p, x_q) = \max\{d_{core}(x_p), d_{core}(x_q), d(x_p, x_q)\}
+    \end{equation}
+    
+    This metric improves robustness by ensuring sparse points (potential noise) maintain at least their core distance from others.
+    
+    \textbf{Algorithm Steps:}
+    
+    \textbf{1. Build Hierarchy:}
+    \begin{compactitemize}
+        \item Construct a graph with points as nodes and MRD as edge weights
+        \item Build a Minimum Spanning Tree (MST)
+        \item Sort edges by MRD to create a dendrogram
+    \end{compactitemize}
+    
+    \textbf{2. Condense Tree:} Simplify the hierarchy by pruning:
+    \begin{compactitemize}
+        \item Both children have $\geq$ MinPts $\rightarrow$ valid split
+        \item Both children have $<$ MinPts $\rightarrow$ cluster disappears
+        \item One child has $<$ MinPts $\rightarrow$ child becomes noise, parent continues
+    \end{compactitemize}
+    
+    \textbf{3. Select Clusters:}
+    \begin{compactitemize}
+        \item \textbf{Simple approach:} Select all leaf nodes (fine-grained clustering)
+        \item \textbf{EOM (Excess of Mass):} Select clusters that maximize total stability across the partition
+    \end{compactitemize}
+    
+    Stability measures how consistently a cluster exists across density levels—stable clusters form early, persist long, and retain many points.
+    
+    \subsection{Clustering Performance Evaluation}
+    
+    \subsubsection{Adjusted Rand Index}
+    
+    Measures similarity between two partitions (e.g., predicted vs. ground truth):
+    \begin{compactitemize}
+        \item Counts agreement on all pairs of points
+        \item Same cluster in both partitions $\rightarrow$ agreement
+        \item Different clusters in both $\rightarrow$ agreement
+        \item Otherwise $\rightarrow$ disagreement
+    \end{compactitemize}
+    
+    Values: 1 = perfect match, 0 = random labeling, $< 0$ = worse than random. The adjustment corrects for chance agreement.
+    
+    \subsubsection{Silhouette Coefficient}
+    
+    Internal validation metric (no ground truth needed). For each point $i$:
+    \begin{compactitemize}
+        \item $a(i)$ = average distance to points in same cluster (cohesion)
+        \item $b(i)$ = minimum average distance to points in other clusters (separation)
+    \end{compactitemize}
+    
+    Silhouette coefficient:
+    \begin{equation}
+    s(i) = \frac{b(i) - a(i)}{\max\{a(i), b(i)\}}
+    \end{equation}
+    
+    Range: $[-1, 1]$. High values indicate dense, well-separated clusters. Models with high average silhouette coefficients cluster similar samples together and keep dissimilar samples apart.
+
+
+
+\section{Data Preparation}

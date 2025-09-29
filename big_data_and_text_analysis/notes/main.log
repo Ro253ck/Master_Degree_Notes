@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  23 SEP 2025 15:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  29 SEP 2025 22:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1137,7 +1137,7 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3
 
 ]
-<images/big_data_pipeline.png, id=97, 667.49374pt x 421.575pt>
+<images/big_data_pipeline.png, id=102, 667.49374pt x 421.575pt>
 File: images/big_data_pipeline.png Graphic file (type png)
 <use images/big_data_pipeline.png>
 Package pdftex.def Info: images/big_data_pipeline.png  used on input line 34.
@@ -1147,18 +1147,18 @@ Chapter 2.
 [7
 
 ]
-<images/ML_pipeline.png, id=128, 956.57375pt x 582.175pt>
+<images/ML_pipeline.png, id=133, 956.57375pt x 582.175pt>
 File: images/ML_pipeline.png Graphic file (type png)
 <use images/ML_pipeline.png>
 Package pdftex.def Info: images/ML_pipeline.png  used on input line 48.
 (pdftex.def)             Requested size: 358.50317pt x 218.18184pt.
  [8 <./images/ML_pipeline.png>] [9] [10]
-<images/Data_Mining.png, id=157, 808.01875pt x 633.36626pt>
+<images/Data_Mining.png, id=162, 808.01875pt x 633.36626pt>
 File: images/Data_Mining.png Graphic file (type png)
 <use images/Data_Mining.png>
 Package pdftex.def Info: images/Data_Mining.png  used on input line 145.
 (pdftex.def)             Requested size: 307.2929pt x 240.87497pt.
-<images/linear_function.png, id=158, 601.24625pt x 508.90125pt>
+<images/linear_function.png, id=163, 601.24625pt x 508.90125pt>
 File: images/linear_function.png Graphic file (type png)
 <use images/linear_function.png>
 Package pdftex.def Info: images/linear_function.png  used on input line 167.
@@ -1170,51 +1170,78 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [11 <./images/Data_Mining.png> <./images/linear_function.png>]
-<images/binary_classification.png, id=169, 759.83875pt x 652.4375pt>
+<images/binary_classification.png, id=174, 759.83875pt x 652.4375pt>
 File: images/binary_classification.png Graphic file (type png)
 <use images/binary_classification.png>
 Package pdftex.def Info: images/binary_classification.png  used on input line 186.
 (pdftex.def)             Requested size: 153.64644pt x 131.92871pt.
-<images/Trees.png, id=170, 840.13875pt x 517.935pt>
+<images/Trees.png, id=175, 840.13875pt x 517.935pt>
 File: images/Trees.png Graphic file (type png)
 <use images/Trees.png>
 Package pdftex.def Info: images/Trees.png  used on input line 201.
 (pdftex.def)             Requested size: 307.2929pt x 189.4438pt.
  [12 <./images/binary_classification.png> <./images/Trees.png>]
-<images/Attribute_selection.png, id=181, 826.08624pt x 648.4225pt>
+<images/Attribute_selection.png, id=186, 826.08624pt x 648.4225pt>
 File: images/Attribute_selection.png Graphic file (type png)
 <use images/Attribute_selection.png>
 Package pdftex.def Info: images/Attribute_selection.png  used on input line 236.
 (pdftex.def)             Requested size: 307.2929pt x 241.2087pt.
  [13] [14 <./images/Attribute_selection.png>]
-<images/final_tree.png, id=200, 454.69875pt x 294.09875pt>
+<images/final_tree.png, id=205, 454.69875pt x 294.09875pt>
 File: images/final_tree.png Graphic file (type png)
 <use images/final_tree.png>
 Package pdftex.def Info: images/final_tree.png  used on input line 302.
 (pdftex.def)             Requested size: 307.2929pt x 198.75938pt.
  [15 <./images/final_tree.png>]
-<images/id_code.png, id=209, 754.82pt x 279.0425pt>
+<images/id_code.png, id=214, 754.82pt x 279.0425pt>
 File: images/id_code.png Graphic file (type png)
 <use images/id_code.png>
 Package pdftex.def Info: images/id_code.png  used on input line 324.
 (pdftex.def)             Requested size: 307.2929pt x 113.59917pt.
- [16 <./images/id_code.png>] [17] [18]) [19] (./main.aux)
+ [16 <./images/id_code.png>] [17] [18] [19] [20] [21]
+<images/KKN.png, id=268, 1185.42876pt x 461.725pt>
+File: images/KKN.png Graphic file (type png)
+<use images/KKN.png>
+Package pdftex.def Info: images/KKN.png  used on input line 535.
+(pdftex.def)             Requested size: 409.72125pt x 159.58415pt.
+<images/scaler.png, id=269, 1014.79124pt x 554.07pt>
+File: images/scaler.png Graphic file (type png)
+<use images/scaler.png>
+Package pdftex.def Info: images/scaler.png  used on input line 542.
+(pdftex.def)             Requested size: 460.93153pt x 251.66261pt.
+ [22 <./images/KKN.png> <./images/scaler.png>] [23] [24]
+<images/Point.png, id=302, 596.2275pt x 467.7475pt>
+File: images/Point.png Graphic file (type png)
+<use images/Point.png>
+Package pdftex.def Info: images/Point.png  used on input line 638.
+(pdftex.def)             Requested size: 256.07481pt x 200.89197pt.
+<images/Def_1_2.png, id=303, 702.625pt x 178.6675pt>
+File: images/Def_1_2.png Graphic file (type png)
+<use images/Def_1_2.png>
+Package pdftex.def Info: images/Def_1_2.png  used on input line 662.
+(pdftex.def)             Requested size: 358.50317pt x 91.16556pt.
+<images/Def_3_4.png, id=304, 700.6175pt x 164.615pt>
+File: images/Def_3_4.png Graphic file (type png)
+<use images/Def_3_4.png>
+Package pdftex.def Info: images/Def_3_4.png  used on input line 673.
+(pdftex.def)             Requested size: 358.50317pt x 84.23386pt.
+ [25 <./images/Point.png> <./images/Def_1_2.png>] [26 <./images/Def_3_4.png>] [27]) [28] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 24C68F7B8F55A5D8641C6D7FD8DBA152;1694.
+(rerunfilecheck)             Checksum: 6D37C1107D7DDF11EA78E2253CA5667B;1832.
  ) 
 Here is how much of TeX's memory you used:
- 51102 strings out of 480236
- 1239668 string characters out of 5895675
+ 51199 strings out of 480236
+ 1241293 string characters out of 5895675
  1836240 words of memory out of 5000000
- 68169 multiletter control sequences out of 15000+600000
+ 68207 multiletter control sequences out of 15000+600000
  520526 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  88i,12n,117p,1676b,635s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
-Output written on main.pdf (20 pages, 1141491 bytes).
+Output written on main.pdf (29 pages, 1855419 bytes).
 PDF statistics:
- 324 PDF objects out of 1000 (max. 8388607)
- 241 compressed objects within 3 object streams
- 83 named destinations out of 1000 (max. 500000)
- 226 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 431 PDF objects out of 1000 (max. 8388607)
+ 328 compressed objects within 4 object streams
+ 137 named destinations out of 1000 (max. 500000)
+ 259 words of extra memory for PDF output out of 10000 (max. 10000000)
 
