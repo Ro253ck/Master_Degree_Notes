@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  25 SEP 2025 23:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  30 SEP 2025 16:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1137,55 +1137,125 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2
 
 ] [3]
-<images/sigmoid.png, id=89, 738.76pt x 329.23pt>
+<images/sigmoid.png, id=114, 738.76pt x 329.23pt>
 File: images/sigmoid.png Graphic file (type png)
 <use images/sigmoid.png>
 Package pdftex.def Info: images/sigmoid.png  used on input line 86.
 (pdftex.def)             Requested size: 204.85672pt x 91.29459pt.
-<images/GD_start.png, id=91, 1344.02126pt x 682.55pt>
+<images/GD_start.png, id=116, 1344.02126pt x 682.55pt>
 File: images/GD_start.png Graphic file (type png)
 <use images/GD_start.png>
 Package pdftex.def Info: images/GD_start.png  used on input line 113.
 (pdftex.def)             Requested size: 230.46576pt x 117.03178pt.
-<images/GD_end.png, id=92, 1252.68pt x 692.5875pt>
+<images/GD_end.png, id=117, 1252.68pt x 692.5875pt>
 File: images/GD_end.png Graphic file (type png)
 <use images/GD_end.png>
 Package pdftex.def Info: images/GD_end.png  used on input line 120.
 (pdftex.def)             Requested size: 230.46576pt x 127.41861pt.
  [4 <./images/sigmoid.png>]
-<images/LR.png, id=104, 1188.44pt x 471.7625pt>
+<images/LR.png, id=129, 1188.44pt x 471.7625pt>
 File: images/LR.png Graphic file (type png)
 <use images/LR.png>
 Package pdftex.def Info: images/LR.png  used on input line 131.
 (pdftex.def)             Requested size: 409.72125pt x 162.64305pt.
-<images/convex_or_no.png, id=105, 1285.80376pt x 514.92375pt>
+<images/convex_or_no.png, id=130, 1285.80376pt x 514.92375pt>
 File: images/convex_or_no.png Graphic file (type png)
 <use images/convex_or_no.png>
 Package pdftex.def Info: images/convex_or_no.png  used on input line 140.
 (pdftex.def)             Requested size: 409.72125pt x 164.07968pt.
  [5 <./images/GD_start.png> <./images/GD_end.png> <./images/LR.png> <./images/convex_or_no.png>] [6]
-<images/ADAM.png, id=128, 706.64pt x 539.01375pt>
+<images/ADAM.png, id=153, 706.64pt x 539.01375pt>
 File: images/ADAM.png Graphic file (type png)
 <use images/ADAM.png>
 Package pdftex.def Info: images/ADAM.png  used on input line 224.
 (pdftex.def)             Requested size: 256.07481pt x 195.32784pt.
- [7 <./images/ADAM.png>]) [8] (./main.aux)
+ [7 <./images/ADAM.png>]) (./sections/MLP.tex [8]
+Chapter 2.
+<images/size_matter.png, id=174, 695.59875pt x 433.62pt>
+File: images/size_matter.png Graphic file (type png)
+<use images/size_matter.png>
+Package pdftex.def Info: images/size_matter.png  used on input line 10.
+(pdftex.def)             Requested size: 256.07481pt x 159.62967pt.
+[9
+
+ <./images/size_matter.png>]
+<images/cifrar_10.png, id=181, 726.715pt x 640.3925pt>
+File: images/cifrar_10.png Graphic file (type png)
+<use images/cifrar_10.png>
+Package pdftex.def Info: images/cifrar_10.png  used on input line 43.
+(pdftex.def)             Requested size: 256.07481pt x 225.65532pt.
+ [10 <./images/cifrar_10.png>]
+<images/linear_ex.png, id=193, 1475.5125pt x 552.0625pt>
+File: images/linear_ex.png Graphic file (type png)
+<use images/linear_ex.png>
+Package pdftex.def Info: images/linear_ex.png  used on input line 76.
+(pdftex.def)             Requested size: 409.72125pt x 153.29602pt.
+<images/log.png, id=194, 846.16125pt x 532.99126pt>
+File: images/log.png Graphic file (type png)
+<use images/log.png>
+Package pdftex.def Info: images/log.png  used on input line 107.
+(pdftex.def)             Requested size: 256.07481pt x 161.29744pt.
+ [11 <./images/linear_ex.png>] [12 <./images/log.png>]
+<images/neuron.png, id=218, 741.77126pt x 314.17375pt>
+File: images/neuron.png Graphic file (type png)
+<use images/neuron.png>
+Package pdftex.def Info: images/neuron.png  used on input line 165.
+(pdftex.def)             Requested size: 307.2929pt x 130.15436pt.
+<images/artificial_neuron.png, id=219, 746.79pt x 444.66125pt>
+File: images/artificial_neuron.png Graphic file (type png)
+<use images/artificial_neuron.png>
+Package pdftex.def Info: images/artificial_neuron.png  used on input line 180.
+(pdftex.def)             Requested size: 256.07481pt x 152.47197pt.
+ [13 <./images/neuron.png> <./images/artificial_neuron.png>]
+File: images/sigmoid.png Graphic file (type png)
+<use images/sigmoid.png>
+Package pdftex.def Info: images/sigmoid.png  used on input line 214.
+(pdftex.def)             Requested size: 256.07481pt x 114.11697pt.
+<images/tanh.png, id=228, 595.22375pt x 390.45876pt>
+File: images/tanh.png Graphic file (type png)
+<use images/tanh.png>
+Package pdftex.def Info: images/tanh.png  used on input line 234.
+(pdftex.def)             Requested size: 256.07481pt x 167.9774pt.
+ [14]
+<images/relu.png, id=239, 567.11874pt x 390.45876pt>
+File: images/relu.png Graphic file (type png)
+<use images/relu.png>
+Package pdftex.def Info: images/relu.png  used on input line 258.
+(pdftex.def)             Requested size: 256.07481pt x 176.31252pt.
+ [15 <./images/tanh.png> <./images/relu.png>]
+<images/NN.png, id=252, 952.55875pt x 539.01375pt>
+File: images/NN.png Graphic file (type png)
+<use images/NN.png>
+Package pdftex.def Info: images/NN.png  used on input line 283.
+(pdftex.def)             Requested size: 204.85672pt x 115.9186pt.
+<images/forward.png, id=253, 786.94pt x 414.54875pt>
+File: images/forward.png Graphic file (type png)
+<use images/forward.png>
+Package pdftex.def Info: images/forward.png  used on input line 313.
+(pdftex.def)             Requested size: 204.85672pt x 107.91296pt.
+ [16 <./images/NN.png>]
+<images/overF.png, id=263, 639.38875pt x 471.7625pt>
+File: images/overF.png Graphic file (type png)
+<use images/overF.png>
+Package pdftex.def Info: images/overF.png  used on input line 355.
+(pdftex.def)             Requested size: 256.07481pt x 188.9392pt.
+ [17 <./images/forward.png>]) [18 <./images/overF.png>] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6CD6F2810E28964C4B3AE1A4193B6DEC;473.
+(rerunfilecheck)             Checksum: 813C8313A36BCF830E0AE273E6AA0632;1516.
  ) 
 Here is how much of TeX's memory you used:
- 51035 strings out of 480236
- 1238269 string characters out of 5895675
+ 51190 strings out of 480236
+ 1241032 string characters out of 5895675
  1845240 words of memory out of 5000000
- 68142 multiletter control sequences out of 15000+600000
+ 68229 multiletter control sequences out of 15000+600000
  520526 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  88i,12n,117p,1663b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (9 pages, 834308 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (19 pages, 3051768 bytes).
 PDF statistics:
- 228 PDF objects out of 1000 (max. 8388607)
- 159 compressed objects within 2 object streams
- 49 named destinations out of 1000 (max. 500000)
- 163 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 372 PDF objects out of 1000 (max. 8388607)
+ 269 compressed objects within 3 object streams
+ 105 named destinations out of 1000 (max. 500000)
+ 258 words of extra memory for PDF output out of 10000 (max. 10000000)
 
