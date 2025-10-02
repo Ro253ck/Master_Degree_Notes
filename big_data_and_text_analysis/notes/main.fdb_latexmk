@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1759176297 "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" "main.pdf" "main" 1759176298
+["pdflatex"] 1759395261 "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" "main.pdf" "main" 1759395263
   "/etc/texmf/web2c/texmf.cnf" 1755005415 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" 1758287739 7855 02dd7fce440e61ebb534818a341039fe ""
+  "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" 1759395208 7823 d0956a5ff268091acb775104e90aebd9 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -314,12 +314,12 @@
   "images/id_code.png" 1758630207 44417 f28d89db19ad489c244a4ca3823e0501 ""
   "images/linear_function.png" 1758286116 56242 c0158811605b0393a90eba2fcbb62952 ""
   "images/scaler.png" 1759173120 316048 7c6bb9131ca9fd899afe9715fa7c06ca ""
-  "main.aux" 1759176298 12798 bb0175fa30326d87dccf2ffc5e25b3b0 "pdflatex"
-  "main.out" 1759176298 1832 6d37c1107d7ddf11ea78e2253ca5667b "pdflatex"
-  "main.tex" 1758287739 7855 02dd7fce440e61ebb534818a341039fe ""
-  "main.toc" 1759176298 5854 529ef968239ce8714e5d78b51067274a "pdflatex"
-  "sections/Data_Mining_And_ML.tex" 1759176297 43262 f66bd83742f222396c3aa6d2ba1413af ""
-  "sections/introduction.tex" 1758208921 8856 5826ea5a3e9049287c12916a7957fd3a ""
+  "main.aux" 1759395263 12794 961d74caa492f4346dcfda5f5f0078ea "pdflatex"
+  "main.out" 1759395263 1832 6d37c1107d7ddf11ea78e2253ca5667b "pdflatex"
+  "main.tex" 1759395208 7823 d0956a5ff268091acb775104e90aebd9 ""
+  "main.toc" 1759395263 5850 4661922e71e5a5a5d94954a1721a606f "pdflatex"
+  "sections/Data_Mining_And_ML.tex" 1759395259 42270 76c940130312b4866f0cb0cde0b47654 ""
+  "sections/introduction.tex" 1759395238 8536 7469af0eed7d5353728f8b3672ccb670 ""
   (generated)
   "main.aux"
   "main.log"

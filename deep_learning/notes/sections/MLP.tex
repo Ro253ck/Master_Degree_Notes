@@ -135,7 +135,7 @@ z =
 \end{bmatrix}
 \]
 
-\textbf{Note:} ThSoftmax transforms the scores into probabilities that sum to 1, but the relative ratios of the original scores are distorted because of the exponential, which emphasizes larger values and suppresses smaller ones.
+\textbf{Note:} The Softmax transforms the scores into probabilities that sum to 1, but the relative ratios of the original scores are distorted because of the exponential, which emphasizes larger values and suppresses smaller ones.
 
 In the softmax classifier, the scores of the linear function mapping 
 
@@ -352,11 +352,196 @@ noise, etc.).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/overF.png}
+    \includegraphics[width=0.3\textwidth]{images/overF.png}
     \caption{Trying different hyperparameters}
     \label{fig:overF}
 \end{figure}
 
+\section{Training a Deep Neural Network}
+The objective or loss function measures the quality of our mapping from input to output. This function has a form of this kind:
+\begin{equation}
+  L(\theta; x, y) = \frac{1}{N} \sum_{i} L_i(\theta; x_i, y_i) + \lambda \, \Omega(\theta)
+\end{equation}
+
+Where $N$ is the number of training examples, $\theta$ is the set of network parameters (weights and biases), and $\lambda$ weights the regularization's strenght. In particular:
+\begin{compactitemize}
+  \item The data term, computed as an average over individual examples, measures the goodness of model’s predictions w.r.t. data labels.
+  \item The regularization term depends only on the network parameters and has the role of mitigating the risk of overfitting. Examples are the L2 norm $\Omega(\theta) = \sum \theta^2$ or the L1 norm $\Omega(\theta) = \sum |\theta|$.
+\end{compactitemize}
+\vspace{0.2cm}
+In detail, the L1 norm encourages parameters to become exactly zero. This is useful because, when we use a large model to solve a simple problem, L1 regularization can automatically reduce the effective size of the model by driving some weights to zero, which induces sparsity. The drawback of L1 regularization is that it is not differentiable at zero; however, subgradient methods allow us to still use it in optimization.
+
+On the other hand, the L2 norm encourages parameters to be small, but not exactly zero. Unlike L1, L2 regularization is differentiable everywhere, which makes it compatible with standard gradient descent.
+
+\subsection{Choice of the Data Loss}
+
+The choice of the data loss depends on the task we want to solve. For classification, one common example is the \textit{hinge loss}:
+\[
+L_i = \sum_{j \neq y_i} \max \big( 0, f_j - f_{y_i} + 1 \big).
+\]
+
+Another widely used option is the \textit{softmax loss}:
+\[
+L_i = - \log \frac{e^{f_{y_i}}}{\sum_j e^{f_j}}.
+\]
+
+It is important to notice that the softmax loss is simply another way of writing the \textit{cross-entropy loss}. If we define the probability of class \(j\) as
+\[
+p_j = \frac{e^{f_j}}{\sum_k e^{f_k}},
+\]
+then the loss for a single training example becomes
+\[
+L_i = - \log p_{y_i},
+\]
+which is exactly the cross-entropy between the one-hot encoded ground truth label and the predicted probability distribution.
+
+For regression tasks, a common choice is the \textit{Mean Squared Error (MSE)}:
+\[
+L_i = \| f - y_i \|^2_2.
+\]
+
+These are just examples, since the objective function is heavily task-dependent and is often customized to meet the specific problem constraints.
+
+\subsection{Learning the Parameters}
+During training phase, we want to learn the set of network parameters which minimize the objective function on the training set. More formally, we want to solve the following optimization problem:
+\begin{equation}
+  \theta^* = \arg \min_\theta \; \frac{1}{N} \sum_i L_i(\theta; x_i, y_i) + \lambda \, \Omega(\theta)
+\end{equation}
+
+\subsection{BackPropagation}
+The algorithm used to compute the gradients of the loss functions with respect to its parameters is called backpropagation.
+This procedure is based on the \emph{chain rule} of calculus:
+\begin{equation}
+  \frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx}, \quad \text{where } z = f(g(x)), \; y = g(x)
+\end{equation}
+and proceeds backwards w.r.t the flow of computations performed to compute the loss itself.
+
+Backpropagation is a local process. Neurons are completely unaware of the complete topology of the network in which they are embedded.
+
+Indeed, in order for backpropagation to work, each neuron just need to be able to compute two things:
+\begin{compactitemize}
+  \item $\displaystyle \frac{\partial h_{i+1}}{\partial W_{i+1}}$: derivative of its output with respect to its weights.
+  \item $\displaystyle \frac{\partial h_{i+1}}{\partial h_i}$: derivative of its output with respect to its inputs.
+\end{compactitemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{images/output.png}
+  \caption{calculus of the output neuron}
+  \label{fig:overF}
+\end{figure}
+
+During backpropagation, the neuron will eventually discover the influence of its output value on the output of the whole network. 
+That is, it will receive the gradient 
+\[
+\frac{\partial L}{\partial h_{i+1}}
+\]
+which represents how the loss changes with respect to the neuron's output.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{images/calculus_generic.png}
+  \caption{calculus of the gradient of generic neuron}
+  \label{fig:overF}
+\end{figure}
+This gradient is then chained to local gradient and passed to previous neurons to continue the backpropagation flow.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/forward_pass.png}
+  \caption{Forward pass }
+  \label{fig:overF}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/backward_pass.png}
+  \caption{Backward pass }
+  \label{fig:overF}
+\end{figure}
 
 
+\subsection{Weights Initialization}
+When building a neural network, the way we initialize the weights plays a crucial role in
+ensuring that training proceeds correctly. If all weights were initialized to the same value
+(for example, all zeros), then every neuron in a given layer would compute the same output,
+receive the same gradient during backpropagation, and therefore undergo the exact same update.
+\textbf{This would make all neurons redundant}, preventing the network from learning useful
+and diverse features. This problem is known as the \textbf{symmetry problem}.
 
+To avoid this issue, it is common practice to initialize the weights with small random values
+centered around zero. Random initialization breaks the symmetry, ensuring that different
+neurons learn different representations of the data. Often, the distribution of these random
+values is scaled by the \textbf{fan-in} of each neuron (i.e., the number of input connections
+it receives), in order to keep the variance of activations under control as signals propagate
+through the network.
+
+On the other hand, biases are usually initialized to zero, since they do not suffer from the
+symmetry problem in the same way as weights. Proper initialization of weights and biases is
+thus an essential first step for stable and effective training of deep neural networks.
+
+\section{Regularization}
+
+Deep neural networks have a very high representational capacity. This is a desirable property,
+since it allows them to learn extremely complex functions and representations. However, the same
+capacity makes them prone to \textbf{overfitting}, especially if they are not properly regularized
+during training. Overfitting occurs when the network performs very well on the training data,
+but fails to generalize to unseen data.
+
+Besides traditional techniques such as \(L_1\) or \(L_2\) weight regularization, neural networks
+feature some very simple and yet extremely effective regularization strategies that are widely
+used in practice. Below we present three of the most common approaches.
+
+\subsection{Dropout}
+Dropout is a regularization technique peculiar to neural networks. During the training process,
+each neuron is randomly set to zero with a given probability \(p\). This means that at each training
+step, a different \textbf{sub-network} is effectively sampled and trained. As a result, the network
+does not rely excessively on any single neuron and is forced to learn more robust features.
+
+At test time, no dropout is applied. Instead, the full network is used but with appropriately scaled
+weights. This can be interpreted as taking the average prediction of the ensemble of all the sub-networks
+sampled during training.  
+\textbf{Key idea:} dropout acts as a form of implicit ensembling, improving generalization and reducing overfitting.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.2\textwidth]{images/dropout.png}
+  \caption{Dropout regularization}
+  \label{fig:overF}
+\end{figure}
+
+\subsection{Data Augmentation}
+The best way to improve the generalization of a machine learning model is to train it on more data.
+However, in practice, collecting additional labeled data is often expensive or infeasible. Data augmentation
+addresses this issue by generating new training samples from the existing dataset.
+
+This is achieved by applying label-preserving transformations to the input data \(x\). For example, in
+computer vision, one may apply rotations, flips, translations, crops, or changes in brightness and contrast.
+The label remains unchanged (e.g., a rotated cat image is still a cat), but the model is exposed to a more
+diverse set of training examples.  
+\textbf{Key idea:} data augmentation increases the effective size of the dataset, helping the network
+generalize better to unseen inputs.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.55\textwidth]{images/data_argumentation.png}
+  \caption{Data Augmentation}
+  \label{fig:overF}
+\end{figure}
+
+
+\subsection{Early Stopping}
+A common symptom of overfitting is that the training loss continues to decrease steadily, while the
+validation loss starts to increase after some point. This indicates that the network is memorizing the
+training data instead of learning features that generalize.
+
+Early stopping is a very simple yet effective strategy: we stop the training process as soon as the validation
+loss ceases to decrease. In practice, we do not stop immediately at the first increase. Instead, we wait for
+a fixed number of epochs (called \textbf{patience}) to verify that the validation loss is not improving.
+If no improvement is observed, training is terminated.  
+\textbf{Key idea:} early stopping prevents the model from overfitting by interrupting training at the point
+where generalization performance is optimal.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{images/early_stopping.png}
+  \caption{Early Stopping}
+  \label{fig:overF}
+\end{figure}

@@ -25,3 +25,12 @@
 \contentsline {subsection}{\numberline {2.4.1}Forward propagation}{16}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Representational Power}{17}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Setting Hyperparameters}{17}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Training a Deep Neural Network}{18}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Choice of the Data Loss}{18}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Learning the Parameters}{19}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}BackPropagation}{19}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}Weights Initialization}{20}{subsection.2.5.4}%
+\contentsline {section}{\numberline {2.6}Regularization}{21}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Dropout}{21}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Data Augmentation}{22}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Early Stopping}{22}{subsection.2.6.3}%

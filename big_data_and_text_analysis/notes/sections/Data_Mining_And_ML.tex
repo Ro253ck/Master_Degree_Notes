@@ -1,22 +1,22 @@
 \chapter{Data Mining And Machine Learning}
 
-\begin{flushleft}
+
     \textbf{Machine Learning:} develops system that learn from data and improve their performance without explicit programming. Model are automatically learned from data with minimal human intervention. The process is refined continuously based on experience and new information.\\
     \textbf{Data Mining:} analyzes large dataset to extract useful knowledge, helping organizations solve problems, predict trends, reduce risk, and discorver opportunities.
     If we really want to distinguish the two concepts, we could say that Machine Learning focuses more on how to obtain information, while Data Mining focuses more on what the information is used for.
     But in practice, the two terms are often used interchangeably.
-\end{flushleft}
+
 
 
 \subsection{Bonferroni’s Principle}
-\begin{flushleft}
+
 A common data-mining problem is discovering unusual events hidden in massive datasets. However, even if the data is completely random, some events of interest will occur purely by chance. These occurrences are \textbf{bogus} and have no causal basis.  
 
 The Bonferroni correction provides a statistically sound way to avoid most false positives. By calculating the expected number of random occurrences, we can judge whether apparent patterns are likely meaningful or just random noise.  
-\end{flushleft}
+
 
 \subsection{Example: Detecting ``Evil-doers'' in Hotel Data}
-\begin{flushleft}
+
 Suppose there are believed to be some ``evil-doers,'' and we want to detect them. We assume that periodically, evil-doers gather at a hotel. The following assumptions define the problem size:
 \begin{compactitemize}
     \item 1 billion potential people of interest.
@@ -41,7 +41,7 @@ We look for people appearing at the same hotel on two different days. Suppose, h
 Even though everyone behaves randomly, about 250,000 pairs appear to meet the ``evil-doer'' criterion. These pairs arise purely by chance due to the large dataset. 
 
 Now, suppose there really are only 10 pairs of actual evil-doers. The police would need to investigate a quarter of a million other pairs to find the real ones. Besides intruding on the lives of half a million innocent people, the workload makes this approach practically infeasible. This example illustrates the importance of statistical corrections (like Bonferroni) to avoid being misled by spurious patterns in massive datasets.
-\end{flushleft}
+
 
 \begin{figure}[H]
     \centering
@@ -50,12 +50,12 @@ Now, suppose there really are only 10 pairs of actual evil-doers. The police wou
     \label{fig:The ML Pipeline}
 \end{figure}
 
-\begin{flushleft}
+
     The image above illustrates the pipeline of an ML model used in industry. The part above the line also includes the test phase. The main point to note is the arrow from "INPUT (serving) DATA" back to "INPUT DATA." This arrow shows how the data generated while the model is in use becomes new training data for the model itself. Note that not all the generated data will be added to the training set, but only a small portion.
-\end{flushleft}
+
 
 \section{Input: Concepts, Istance and Attributes}
-\begin{flushleft}
+
     A model can be done various things, the principal are:
     \begin{compactitemize}
         \item \textbf{Classification:} Predicting a discrete class.
@@ -69,10 +69,10 @@ Now, suppose there really are only 10 pairs of actual evil-doers. The police wou
         \item \textbf{Casual Modeling:} to understand what events or actions actually influence others-
         \item \textbf{Embeddings:} semantic vector rappresentation of data, where data points (such as word, images, or categorical variables) are encoded as continuos vectors in a multi-dimesional space.
     \end{compactitemize}
-\end{flushleft}
+
 
 \subsection{Unsupervised VS Supervised Learning}
-\begin{flushleft}
+
     To distinguish between supervised and unsupervised learning, we can consider two similar questions:
     \begin{compactitemize}
         \item \textbf{Unsupervised:} Do our customers naturally fall into different groups?
@@ -82,28 +82,28 @@ Now, suppose there really are only 10 pairs of actual evil-doers. The police wou
     In the first question, there isn't a specific purpose or target for separating the groups. When there is no such target, the data mining problem is referred to as \textbf{unsupervised}.\\
     
     In the second question, the separation of the groups is based on a condition or purpose. This type of problem is referred to as \textbf{supervised}.
-\end{flushleft}
+
 
 \subsection{Classification Learning}
-\begin{flushleft}
+
 Classification learning is a type of \textbf{supervised} learning. Example problems include weather data, contact lenses, irises, and labor negotiations.The model learns under the supervision provided by the actual outcomes of the training examples. Each outcome is called the \textbf{class} of the example.  
 
 Success is measured on test data for which class labels are known.
-\end{flushleft}
+
 
 \subsection{Numeric Prediction (Regression)}
-\begin{flushleft}
+
 Numeric prediction, also called \textbf{regression}, is a variant of classification learning where the “class” is numeric. This is also a \textbf{supervised} task. The model is provided with a target value and is trained to predict it. Success is measured on test data with known target values.
-\end{flushleft}
+
 
 \subsection{Clustering}
-\begin{flushleft}
+
 Clustering involves finding groups of items that naturally fall together, e.g., discovering whether customers form natural segments.  Clustering is an \textbf{unsupervised} task: the class of each example is unknown. Success is often measured subjectively, based on how useful the result appears to a human user.
-\end{flushleft}
+
 
 
 \subsection{Association Learning}
-\begin{flushleft}
+
 Association learning aims to discover patterns where multiple attributes occur together. Example problems include identifying which items are commonly purchased together.  
 
 Differences from classification learning:  
@@ -113,10 +113,10 @@ Differences from classification learning:
     \item This generates far more association rules than classification rules, so \textbf{constraints} are necessary.  
     \item Constraints include minimum coverage (e.g., 80\% of the dataset) and minimum accuracy (e.g., 95\% accurate).  
 \end{compactitemize}
-\end{flushleft}
+
 
 \subsection{Issues in Flattening Data}
-\begin{flushleft}
+
 The process of flattening, called \textbf{denormalization}, involves joining multiple relations to create a single table.  
 
 Problems:  
@@ -124,7 +124,7 @@ Problems:
     \item Denormalization may produce spurious regularities that reflect the database structure rather than meaningful patterns.  
     \item Example: ``supplier'' predicts ``supplier address.''  
 \end{compactitemize}
-\end{flushleft}
+
 
 
 
@@ -132,13 +132,13 @@ Problems:
 \section{Output: Knowledge Representation}
 
 \subsection{Data Mining vs. Results Usage}
-\begin{flushleft}
+
     There is an important distinction in data mining between:
     \begin{compactitemize}
         \item Mining data to find patterns and build models.
         \item Using the results of data mining
     \end{compactitemize}
-\end{flushleft}
+
 
 \begin{figure}[H]
     \centering
@@ -149,7 +149,7 @@ Problems:
 
 \noindent
 \begin{minipage}[t]{0.45\textwidth}
-    \begin{flushleft}
+    
         \vspace{1.5cm}
         Linear models represent functions with:
             \begin{compactitemize}
@@ -159,7 +159,7 @@ Problems:
         The model determines optimal weight values. In two dimensions, this creates a straight line through data points.
         
         \textbf{Example}: $PRP = 37.06 + 2.47 \cdot CACH$
-        \end{flushleft}
+        
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.5\textwidth}
@@ -170,7 +170,7 @@ Problems:
 \end{minipage}
 
 \newpage
-\begin{flushleft}
+
     For binary classification tasks:
 \begin{compactitemize}
     \item The line separates two classes
@@ -178,7 +178,7 @@ Problems:
     \item Prediction rule: predict one class if output $\geq 0$, other class if output $< 0$
 \end{compactitemize}
 With multiple attributes, the decision boundary becomes a high-dimensional hyperplane.
-\end{flushleft}
+
 
 
 \begin{figure}[H]
@@ -190,11 +190,11 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
 
 
 \subsection{Decision Trees}
-\begin{flushleft}
+
     Decision trees work with a "divide-and-conquer" approach. Each node in the tree tests a specific attribute, typically by comparing its value to a constant. The leaves of the tree assign a classification or probability distribution to instances. To make predictions, we route an unknown instance down the tree following the test results.
 
     When dealing with missing values, we need to consider whether the absence has significance. If it does, we treat "missing" as a separate value. If not, we split the instance into pieces weighted according to how training instances are distributed across branches.
-\end{flushleft}
+
 
 \begin{figure}[H]
     \centering
@@ -204,23 +204,23 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
 \end{figure}
 
 \subsection{Classification Rules}
-\begin{flushleft}
+
     Classification rules offer a popular alternative to decision trees. Each rule has an \textbf{antecedent} (the pre-condition with a series of tests) and a \textbf{consequent} (the conclusion assigning classes or probabilities). Rules are typically combined with logical OR operations, though this can create conflicts when different rules suggest different conclusions.
 
     Converting trees to rules is straightforward: create one rule for each leaf, where the antecedent contains conditions from the root to that leaf. This produces unambiguous rules that work regardless of execution order, but they're often unnecessarily complex and require pruning.
-\end{flushleft}
+
 
 \subsection{Instance-Based Learning}
-\begin{flushleft}
+
     Instance-based learning represents the simplest form of machine learning through rote memorization. The system stores all training instances and, when facing a new case, searches for the most similar stored instance. This approach is called "lazy learning" because the real work happens during prediction rather than training.
 
     For measuring similarity, we use distance functions. With numeric attributes, we typically use Euclidean distance after normalizing the data. For nominal attributes, the distance is 1 if values differ and 0 if they're equal. Often, we need to weight attributes differently based on their importance.
-\end{flushleft}
+
 
 \section{Algorithms: The Basic Methods}
 
 \subsection{Building a Decision Tree}
-\begin{flushleft}
+
     To build a decision tree we'll use the top down staryegy. The main steps are:
     \begin{compactitemize}
         \item Decison which attribute we'll use to split the data at time $t$.
@@ -229,7 +229,7 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     \end{compactitemize}
 
     If the professor had been a good memory, he would remebered to put the dataset example in the slides, but he didn't. So we'll continue without the image dataset example:
-\end{flushleft}
+
 
 \begin{figure}[H]
     \centering
@@ -239,13 +239,13 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
 \end{figure}
 
 \subsection{Criteria for Attribute Selection}
-\begin{flushleft}
+
     When building decision trees, determining which attribute to use for splitting the data is crucial. Our primary objective is to construct the smallest possible tree, which leads us to adopt a heuristic approach: choosing the attribute that produces the "purest" nodes. The most popular purity criterion is \emph{information gain}, which increases with the average purity of the resulting subsets. Therefore, our strategy is to select the attribute that provides the greatest information gain at each step of the tree construction process.
-\end{flushleft}
+
 
 
 \subsection{Entropy}
-\begin{flushleft}
+
     The purity may be measured through the "information" needed to specify whether a new instance should be classified yes/no, given that the example reached the node.
     
     \begin{compactitemize}
@@ -257,10 +257,10 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     \begin{equation}
     entropy(p_1, p_2, ..., p_n) = -p_1\log p_1 - p_2\log p_2 - ... - p_n\log p_n
     \end{equation}
-\end{flushleft}
+
 
 \subsection{Entropy of the Attribute Outlook}
-\begin{flushleft}
+
     \textbf{Outlook = Sunny:}\\
     $info(2,3) = entropy(\frac{2}{5}, \frac{3}{5}) = -\frac{2}{5}\log(\frac{2}{5}) - \frac{3}{5}\log(\frac{3}{5}) = 0.971$ bits\\
     
@@ -272,10 +272,10 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     
     \textbf{Expected information for attribute:}\\
     $info(2,3; 4,0; 3,2) = (\frac{5}{14}) \times 0.971 + (\frac{4}{14}) \times 0 + (\frac{5}{14}) \times 0.971 = 0.693$ bits
-\end{flushleft}
+
 
 \subsection{Computing Information Gain}
-\begin{flushleft}
+
     \textbf{Information gain:} information before splitting – information after splitting\\
     
     \begin{equation}
@@ -290,11 +290,11 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
         \item $gain(Humidity) = 0.152$ bits
         \item $gain(Windy) = 0.048$ bits
     \end{compactitemize}
-\end{flushleft}
 
-\begin{flushleft}
+
+
     To obtain the final decision tree, we repeat the process recursively for each son node, until a stopping criterion is met. The stopping criteria can be, ad example, when all instances at a node belong to the same class, or when there are no remaining attributes to split on. 
-\end{flushleft}
+
 
 
 \begin{figure}[H]
@@ -306,7 +306,7 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
 
 
 \subsection{Highly-branching Attributes}
-\begin{flushleft}
+
     Attributes with a large number of values can be problematic in decision tree construction. In the extreme case, consider an ID code attribute where each instance has a unique value. Such subsets are more likely to be pure simply because there is a large number of possible values, making information gain biased towards choosing attributes with many values. This bias may result in overfitting, leading to the selection of attributes that are non-optimal for prediction.
     
     For example, the entropy of split for ID code would be:
@@ -316,7 +316,7 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     
     
     This makes information gain maximal for ID code (namely 0.940 bits), even though it provides no meaningful predictive power.
-\end{flushleft}
+
 
 
 \begin{figure}[H]
@@ -328,7 +328,7 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
 
 
 \subsection{Gain Ratio}
-\begin{flushleft}
+
     The gain ratio is a modification of information gain that reduces its bias towards attributes with many values. It takes both the number and size of branches into account when choosing an attribute, correcting information gain by considering the intrinsic information of a split.
     
     \textbf{Intrinsic information} represents the entropy of distribution of instances into branches - essentially, how much information we need to tell which branch an instance belongs to.
@@ -342,11 +342,11 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     $gain\_ratio(ID\ code) = \frac{0.940\ bits}{3.807\ bits} = 0.246$
     
     The value of the attribute decreases as intrinsic information gets larger, effectively penalizing attributes with many branches.
-\end{flushleft}
+
 
 \newpage
 \subsection{Gain Ratios for Weather Data}
-\begin{flushleft}
+
     Calculating gain ratios for all attributes in the weather data:
     
     \begin{center}
@@ -361,17 +361,17 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     \hline
     \end{tabular}
     \end{center}
-\end{flushleft}
+
 
 \subsection{More on the Gain Ratio}
-\begin{flushleft}
+
     While "Outlook" still comes out as the top choice, the ID code would have an even greater gain ratio in this scenario. The standard fix is to implement an ad hoc test to prevent splitting on attributes of this type.
     
     However, gain ratio has its own problem: it may overcompensate by choosing an attribute simply because its intrinsic information is very low. The standard solution is to only consider attributes with greater than average information gain, ensuring that we don't select attributes with artificially inflated ratios due to very small intrinsic information values.
-\end{flushleft}
+
 
 \subsection{Regression via mathematical functions}
-\begin{flushleft}
+
     In linear regression, the linear function estimates the numeric target value while the training data provide the actual target value. An intuitive notion of model fit is measuring how far away the estimated values are from the true values on the training data - in other words, how big is the error of the fitted model? We would like to minimize this error.
     
     \begin{equation}
@@ -379,19 +379,19 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     \end{equation}
     
     For a particular training dataset, we can compute this error for each individual data point and sum up the results. The model that fits the data best would be the model with the minimum sum of errors on the training data.
-\end{flushleft}
+
 
 \subsection{Error Computation Methods}
-\begin{flushleft}
+
     There are many ways to compute the error between an estimated and an actual value. One approach is the absolute error: subtracting one from the other and taking the absolute value. However, standard linear regression uses the squares of these errors.
     
     Why do people use least squares regression without much thought to alternatives? It strongly penalizes very large errors. One might ask: why not take the fourth power of the errors and penalize large errors even more strongly? Importantly, any choice for the objective function has both advantages and drawbacks.
     
     For least squares regression, a serious drawback is that it is very sensitive to the data: erroneous or outlying data points can severely skew the resultant linear function.
-\end{flushleft}
+
 
 \subsection{Weight Calculation in Linear Regression}
-\begin{flushleft}
+
     Weights are calculated from the training data. The predicted value for the first training instance $a^{(1)}$ (assuming each instance is extended with a constant attribute with value 1) is:
     
     \begin{equation}
@@ -405,10 +405,10 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     \end{equation}
     
     This formulation allows us to find the optimal weights that minimize the total squared error across all training instances.
-\end{flushleft}
+
 
 \subsection{Class Probability Estimation and Logistic ``Regression''}
-\begin{flushleft}
+
     By choosing a different objective function, we can produce a model designed to give accurate estimates of class probability rather than just predicting class membership. The most common procedure for this purpose is logistic regression.
     
     One useful notion of the likelihood of an event is the odds. The odds of an event is the ratio of the probability of the event occurring to the probability of the event not occurring. If we cared about modeling some notion of likelihood, rather than the class membership probability specifically, we could model the log-odds with $f(x)$.
@@ -418,7 +418,7 @@ With multiple attributes, the decision boundary becomes a high-dimensional hyper
     \end{equation}
     
     This is exactly a logistic regression model: the same linear function $f(x)$ is used as a measure of the log-odds of the ``event'' of interest. Here, $f(x)$ is the model's estimation of the log-odds that $x$ belongs to the positive class. For example, the model might estimate the log-odds that a customer described by feature vector $x$ will leave the company when her contract expires.
-\end{flushleft}
+
 
 \subsection{Logistic Regression: Technical Details}
     In logistic regression, $p^+(x)$ represents the model's estimate of the probability of class membership of a data item represented by feature vector $x$. The class $+$ is whatever binary event we are modeling, and the estimated probability of the event not occurring is therefore $(1 - p^+(x))$.

@@ -1503,7 +1503,6 @@ INPUT ./sections/introduction.tex
 INPUT sections/introduction.tex
 INPUT ./sections/introduction.tex
 INPUT sections/introduction.tex
-INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr10.tfm
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
@@ -1515,6 +1514,7 @@ INPUT images/big_data_pipeline.png
 INPUT ./images/big_data_pipeline.png
 INPUT ./images/big_data_pipeline.png
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr10.tfm
 INPUT ./sections/Data_Mining_And_ML.tex
 INPUT sections/Data_Mining_And_ML.tex
 INPUT ./sections/Data_Mining_And_ML.tex

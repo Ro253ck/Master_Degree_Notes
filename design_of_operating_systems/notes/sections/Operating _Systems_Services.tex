@@ -1,7 +1,7 @@
 \chapter{Operating Systems Services}
 
 \section{Operating System Services}
-\begin{flushleft}
+
     Operating systems provide an environment for execution of programs and services to programs and users. The principal services that an operating system provides are:
     \begin{itemize}
         \item \textbf{User Interfaces:} Almost all operating systems have a user interface (UI). The UI can be a command-line interface (CLI), in which the user types commands, or a graphical user interface (GUI), in which the user interacts with the system through graphical elements such as windows, icons, and menus, touch screens, etc.
@@ -18,7 +18,7 @@
         \item \textbf{Protection:} When multiple processes share the same computer, it is essential to ensure that one process does not interfere with another process or with the OS itself. Protection involves both hardware and software mechanisms that control access to system resources.
         \item \textbf{Security:} Security of the system from outsiders is provided by means of passwords and similar techniques. The OS must ensure that external I/O devices (e.g., a modem) are protected from external interference.
     \end{itemize}
-\end{flushleft}
+
 
 \begin{figure}[H]
     \centering
@@ -28,7 +28,7 @@
 \end{figure}
 
 \section{System Services}
-\begin{flushleft}
+
     System programs provide a convenient environment for program development and execution. They can be divided into:
     \begin{itemize}
         \item \textbf{File Manipulation:} Create, delete, copy, rename, print, dump, list, and generally manipulate files and directories.
@@ -41,10 +41,10 @@
         \item \textbf{Application Programs:} Do not pertain directly to the operating system. They are run by users (e.g., productivity software, games) and launched via command line, mouse click, or touchscreen input.
     \end{itemize}
     Most users’ view of the operating system is defined by these \textbf{system programs}, not by the actual system calls.
-\end{flushleft}
+
 
 \subsection{Linkers and Loaders}
-\begin{flushleft}
+
     When source code is compiled, it is first translated into \textbf{object files}, which are typically relocatable. A relocatable object file is designed so that its code and data can be loaded into any physical memory address, without being fixed in advance.
 
     The task of the \textbf{linker} is to combine these object files into a single \textbf{executable binary file}. During this process, the linker resolves external references (for example, function calls that are defined in another file) and incorporates necessary parts of system libraries. In this way, a complete program image is produced, ready to be loaded into memory.
@@ -54,7 +54,7 @@
     Modern operating systems often rely on \textbf{dynamic linking} instead of including full copies of libraries inside each executable. With dynamic linking, libraries (Windows: \emph{DLLs}, Linux: \emph{shared objects, SOs}) are loaded into memory only once and shared by all programs that use them. This approach saves memory and makes it easier to update libraries without recompiling applications.
 
     Finally, both object and executable files follow well-defined \textbf{standard formats} (such as ELF in Linux or PE in Windows). Thanks to these formats, the operating system can understand how to correctly load a program into memory and start its execution.
-\end{flushleft}
+
 
 
 \begin{figure}[H]
@@ -64,13 +64,13 @@
     \label{fig:linker_loader}
 \end{figure}
 
-\begin{flushleft}
+
     In the examples below, we compare two very different approaches to system design.  
     
     A system with no operating system is typically single-tasking. Programs, often called sketches, are loaded via USB into flash memory. The entire system uses a single memory space, and a simple boot loader is responsible for loading the program at startup. When a program exits, control does not return to an operating system but instead to the sketch loop, which is executed again. In this environment, the program essentially becomes the system itself, with minimal support beyond the hardware and boot loader. This model is common in microcontrollers and embedded systems.
     
     In contrast, FreeBSD represents a more sophisticated design as a Unix variant that supports multitasking. When the system starts, users log in and invoke their choice of shell. The shell then executes the \texttt{fork()} system call to create a new process and uses \texttt{exec()} to load a program into that process. The shell may wait for the process to terminate or continue handling user commands in parallel. When a process terminates, it returns an exit code: a code of zero indicates that no error occurred, while a value greater than zero indicates an error condition. This model illustrates how modern multitasking operating systems manage processes, provide controlled execution, and report errors in a structured way.
-    \end{flushleft}
+    
     
 
 \begin{figure}[H]
@@ -92,7 +92,7 @@
 \end{figure}
 
 \section{System Calls}
-\begin{flushleft}
+
     A compiled program cannot be executed by different operating system, the principal reason are:
     \begin{itemize}
         \item Different operating systems have different system calls.
@@ -108,7 +108,7 @@
 
 
     The programming interface to the services provided by the operating system is typically written in a high-level language such as C or C++. In most cases, these services are accessed by programs through a high-level Application Programming Interface (API) rather than by making direct use of system calls. The three most common APIs are the Win32 API for Windows, the POSIX API for POSIX-based systems (which include virtually all versions of UNIX, Linux, and macOS), and the Java API for the Java Virtual Machine (JVM). It is important to note that the system-call names used throughout this presentation are generic and may differ across specific implementations.
-\end{flushleft}
+
 
 \begin{figure}[H]
     \centering
@@ -129,9 +129,9 @@
 \end{figure}
 
 \subsection{System Call Implementation}
-\begin{flushleft}
+
 Typically, a number is associated with each system call. The system-call interface maintains a table indexed according to these numbers, which it uses to invoke the intended system call in the OS kernel. After execution, the interface returns the status of the system call along with any return values to the caller. The programmer does not need to know how the system call is implemented internally; it is sufficient to follow the API and understand what the operating system will do as a result of the call. Most details of the OS interface are hidden from the programmer by the API, and the entire process is managed by a run-time support library, which is a set of functions built into the libraries included with the compiler.
-\end{flushleft}
+
 
 
 \begin{figure}[H]
@@ -142,7 +142,7 @@ Typically, a number is associated with each system call. The system-call interfa
 \end{figure}
 
 \subsection{System Call Parameter Passing}
-\begin{flushleft}
+
     There are three general methods for passing parameters to the operating system when a system call is made:
     \begin{itemize}
         \item \textbf{Registers:} The parameters are stored in registers and passed to the OS kernel. This method is fast but limited by the number of available registers.
@@ -150,7 +150,7 @@ Typically, a number is associated with each system call. The system-call interfa
         \item \textbf{Stack:} The parameters are pushed onto the stack by the program and popped off the stack by the OS kernel. This method is flexible and can handle a variable number of parameters, but it may be slower due to stack operations.
     \end{itemize}
     The choice of parameter-passing method depends on factors such as the architecture of the CPU, the design of the operating system, and performance considerations.
-\end{flushleft}
+
 
 
 \begin{figure}[H]
@@ -170,20 +170,20 @@ Typically, a number is associated with each system call. The system-call interfa
 
 
 \subsection{Tracing System Calls}
-\begin{flushleft}
+
 On Linux, the \texttt{strace} command allows users to trace the system calls executed by a running process. Internally, \texttt{strace} relies on another system call, \texttt{ptrace}, which provides the ability to trace, and potentially modify, the system call invocations of a traced process. Rather than executing a system call directly, the traced process hands control over to the tracer. The tracer can then observe the sequence of system calls, monitor timings and performance, and even modify parameters or results while the process is running. This mechanism is particularly useful for debugging, performance analysis, and understanding the behavior of programs.
-\end{flushleft}
+
 
 \section{Operating Systems Design and Implementation}
-\begin{flushleft}
+
     The design of operating systems is not a "solvable" problem in the traditional sense, but some approaches have proven successful over time. The internal structure of different operating systems can vary widely, reflecting different design philosophies, target hardware, and intended use cases.
     
     The design process should begin by defining clear goals and specifications. These are significantly affected by the choice of hardware and the type of system being developed. Generally, OS design goals can be categorized into two main areas: \emph{user goals}  and \emph{system goals}. User goals focus on making the operating system convenient to use, easy to learn, reliable, safe, and fast, ensuring that the system meets the practical needs of its users. System goals, on the other hand, emphasize that the operating system should be easy to design, implement, and maintain, as well as flexible, reliable, error-free, and efficient, focusing on the development and maintenance aspects of the system.
     Specifying and designing an operating system is a highly creative task of software engineering, requiring careful consideration of trade-offs between competing requirements and constraints.
-\end{flushleft}
+
 
 \subsection{Policy and Mechanism}
-\begin{flushleft}
+
     A fundamental principle in operating system design is the separation of \textbf{policy} and \textbf{mechanism}. Policy defines \emph{what} needs to be done and represents the decision-making aspect of system management, while mechanism defines \emph{how} to do something and represents the implementation details and tools used to enforce policies.
     
     For example, consider CPU scheduling: the policy might state "interrupt the current process after every 100 ms to allow other processes to run," while the mechanism is the hardware timer that generates interrupts at specified intervals.
@@ -191,10 +191,10 @@ On Linux, the \texttt{strace} command allows users to trace the system calls exe
     The separation of policy from mechanism is an important design principle because it allows maximum flexibility when policy decisions need to be changed later. In the example above, if we decide to change the time slice from 100 ms to 200 ms, we only need to modify the policy parameter without changing the underlying timer mechanism.
     
     This separation provides several advantages: policies can be modified without changing the underlying mechanisms, different policies can use the same mechanisms, changes to policies don't require extensive system modifications, and the system can adapt to different requirements and environments more easily.
-\end{flushleft}
+
 
 \subsection{Implementation}
-\begin{flushleft}
+
     Operating systems can be implemented using many different programming languages, and the choice has evolved significantly over time. Early operating systems were written entirely in assembly language for maximum performance and direct hardware control. Later, system programming languages like Algol and PL/1 were introduced, and now modern systems are predominantly written in C and C++, with some components in other languages.
     
     Contemporary operating systems typically use a mix of programming languages, each chosen for specific purposes. The lowest levels still use assembly language for boot loaders and initialization code, context switching and interrupt handling, and hardware-specific operations that require direct hardware access. The main body of the operating system is written in C, which provides a good balance between performance and portability. System programs are implemented in C, C++, and various scripting languages like PERL, Python, and shell scripts, depending on their specific requirements and the level of performance needed.
@@ -202,10 +202,10 @@ On Linux, the \texttt{strace} command allows users to trace the system calls exe
     The trade-off between using high-level languages versus low-level languages involves several considerations. Higher-level languages make the operating system easier to port to other hardware architectures and generally result in more maintainable and readable code. However, they typically produce slower execution compared to assembly language or optimized C code. For most modern systems, the benefits of portability and maintainability outweigh the performance costs, especially as hardware has become more powerful.
     
     An interesting approach to overcome hardware limitations is emulation, which can allow an operating system to run on non-native hardware. This technique enables compatibility across different architectures but usually comes with significant performance overhead.
-\end{flushleft}
+
 
 \subsection{Operating System Structure}
-\begin{flushleft}
+
     The princpal way to structure an operating system are:
     \begin{compactitemize}
         \item \textbf{Monolitich}
@@ -214,17 +214,17 @@ On Linux, the \texttt{strace} command allows users to trace the system calls exe
         \item \textbf{Microkernel}
         \item \textbf{Hybrid}
     \end{compactitemize}
-\end{flushleft}
+
 
 \subsubsection{Monolithic Systems}
-\begin{flushleft}
+
     In a monolithic operating system, the entire OS is implemented as a single large process running in a single address space. All components of the OS, including the kernel, device drivers, file system management, and system call handling, are tightly integrated and can directly call each other. This design allows for efficient communication between components and can lead to high performance since there is no overhead associated with inter-process communication (IPC) or context switching between different modules.
     
     However, monolithic systems can be complex and difficult to maintain. The tight coupling of components means that changes in one part of the system can have unintended consequences in other parts. Debugging and updating the OS can be challenging, as a bug in one component can potentially crash the entire system. Additionally, monolithic systems may not be as flexible or portable as other designs, as they are often closely tied to specific hardware architectures.
     
     Examples of monolithic operating systems include early versions of Unix and Linux. These systems have evolved over time to incorporate modular elements, but their core architecture remains largely monolithic.
     The linux architecture is an example of a monolithic system that has been designed to be modular, allowing for easier maintenance and updates while still retaining the performance benefits of a monolithic design. It can be thinked as a dynamic linking in the compilation phase.
-\end{flushleft}
+
 
 
 \begin{figure}[H]
@@ -246,7 +246,7 @@ On Linux, the \texttt{strace} command allows users to trace the system calls exe
 \end{figure}
 
 \subsubsection{Layered Systems}
-\begin{flushleft}
+
     In a layered operating system, the OS is structured into a series of layers, each built on top of the one below it. Each layer provides a specific set of services and interacts only with the layers directly above and below it. This design promotes modularity and separation of concerns, making the system easier to understand, maintain, and modify.
     
     The lowest layer typically interacts directly with the hardware, while higher layers provide more abstract services to user applications. For example, one layer might handle memory management, while another layer manages file systems. Each layer can be developed and tested independently, which can lead to more reliable and robust systems.
@@ -256,7 +256,7 @@ On Linux, the \texttt{strace} command allows users to trace the system calls exe
     An example of a layered operating system is the THE (Technische Hogeschool Eindhoven) operating system developed in the 1960s. Modern operating systems like macOS also incorporate layered designs in certain components, although they may not be strictly layered throughout the entire system.
 
     For the network passionates, the reference is the stack TCP/IP, which is structured in layers, each with specific functions and protocols.
-\end{flushleft}
+
 
 \begin{figure}[H]
     \centering
@@ -266,7 +266,7 @@ On Linux, the \texttt{strace} command allows users to trace the system calls exe
 \end{figure}
 
 \subsubsection{Microkernel Systems}
-\begin{flushleft}
+
     A microkernel operating system is designed to minimize the amount of code running in kernel mode, with the goal of improving system stability, security, and maintainability. In a microkernel architecture, only the most essential functions of the operating system are implemented in the kernel, such as low-level address space management, thread management, and inter-process communication (IPC). Other services, such as device drivers, file systems, and network protocols, are implemented as user-space processes that communicate with the kernel via IPC mechanisms.
     
     This separation of concerns allows for greater modularity and flexibility. Since most of the OS services run in user space, they can be developed, tested, and updated independently of the kernel. If a user-space service crashes or misbehaves, it does not necessarily bring down the entire system, enhancing overall system reliability.
@@ -274,7 +274,7 @@ On Linux, the \texttt{strace} command allows users to trace the system calls exe
     However, microkernel systems can face performance challenges due to the overhead of context switching and IPC between user-space services and the kernel. The frequent communication between these components can lead to increased latency compared to monolithic systems where all components run in kernel space.
     
     Examples of microkernel operating systems include MINIX and GNU hurd. The Mach microkernel has also been influential in the development of other operating systems, such as NeXTSTEP and macOS.
-\end{flushleft}
+
 
 \begin{figure}[H]
     \centering

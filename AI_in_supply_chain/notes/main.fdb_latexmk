@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1758659162 "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" "main.pdf" "main" 1758659162
+["pdflatex"] 1759395154 "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" "main.pdf" "main" 1759395156
   "/etc/texmf/web2c/texmf.cnf" 1755005415 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" 1758650326 7898 74f6f7f60b2007f87ab02a28b12e4525 ""
+  "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" 1759395038 7855 3081a03d9a0cea5cc5cf6ecefc65262e ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -311,11 +311,12 @@
   "images/maze_value.png" 1758474263 32366 8cf455b134c867d50833c8623786562e ""
   "images/prediction_ex.png" 1758475209 60296 c3377ab47247868799a5d5af8c54bbb7 ""
   "images/student_chain.png" 1758636240 59552 c29a6b3bd99c576cdfc7a9dc089bf425 ""
-  "main.aux" 1758659162 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "main.out" 0 -1 0 "pdflatex"
-  "main.tex" 1758650326 7898 74f6f7f60b2007f87ab02a28b12e4525 ""
-  "sections/introduction.tex" 1758659161 30867 083f3aa7605fbfab7f827c55d76c54b0 ""
-  "sections/markov_decision_process.tex" 1758658677 19742 74ef88ef1a92c04c96ef71110abfb317 ""
+  "main.aux" 1759395156 12050 8a089c58747486327f6f98fb83fd87e7 "pdflatex"
+  "main.out" 1759395156 2910 cd27be16fcc894227e5ffe3682901383 "pdflatex"
+  "main.tex" 1759395038 7855 3081a03d9a0cea5cc5cf6ecefc65262e ""
+  "main.toc" 1759395156 4413 30efdcd27a0c215c0df2eb2947e6f4ea "pdflatex"
+  "sections/introduction.tex" 1759395153 29875 f1e2edf4f8d3b4386c0aaff6cba65b5f ""
+  "sections/markov_decision_process.tex" 1759395132 19292 f556e3714c37acdff54fcbd4385b40d9 ""
   (generated)
   "main.aux"
   "main.log"

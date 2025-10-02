@@ -1,7 +1,7 @@
 \chapter{Processes}
 
 \section{Process Concept}
-\begin{flushleft}
+
     In modern operating system we want this thing surely:
     \begin{compactitemize}
         \item \textbf{Multi-program}
@@ -23,7 +23,7 @@
         \item \textbf{Data section:} Contains global variables that persist throughout the program's execution
         \item \textbf{Heap:} Contains memory that is dynamically allocated during runtime
     \end{compactitemize}
-\end{flushleft} 
+ 
 
 \begin{figure}[H]
     \centering
@@ -44,7 +44,7 @@
 \end{figure}
 
 \section{Process State}
-\begin{flushleft}
+
     A process can be in a differrent state, that possible state changed by OS, but the principal are:
     \begin{compactitemize}
         \item \textbf{New:} The process is being created.
@@ -53,7 +53,7 @@
         \item \textbf{Ready:} The process is waiting to be assigned to a processor.
         \item \textbf{Terminated:} The process has finished execution.
     \end{compactitemize}
-\end{flushleft}
+
 
 \begin{figure}[H]
     \centering
@@ -62,7 +62,7 @@
     \label{fig:Process States}
 \end{figure}
 
-\begin{flushleft}
+
     In linux other states are present:
     \begin{compactitemize}
         \item \textbf{TASK-INTERRUPTIBLE:} Task is waiting and the wait can be interrupted by signals (a primitive of IPC).
@@ -72,10 +72,10 @@
         \item \textbf{EXIT-ZOMBIE:} The process is terminated, but its resources have not yet been deallocated. The process creator can still access its return state.
         \item \textbf{EXIT-DEAD:} The process is completely terminated, and all its resources have been deallocated.
     \end{compactitemize}
-\end{flushleft}
+
 
 \section{Process Control Block (PCB)}
-\begin{flushleft}
+
     The PCB is a data structure used by the operating system to store all the information about a process. It is also known as a process descriptor or task control block (TCB). The PCB contains all the information needed to manage and control the execution of a process, including:
     \begin{compactitemize}
         \item \textbf{Process ID (PID):} A unique identifier for the process.
@@ -93,8 +93,6 @@
 
 The PCB is essential for context switching, which is the process of saving the state of a currently running process and loading the state of another process. When a context switch occurs, the operating system saves the current process's PCB and loads the PCB of the next process to be executed. This allows multiple processes to share a single CPU effectively.
     
-\end{flushleft}
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.2\textwidth]{images/PCB.png}
@@ -103,3 +101,271 @@ The PCB is essential for context switching, which is the process of saving the s
 \end{figure}
 
 \section{Threads}
+The thread is the smallest unit of processing that can be scheduled by an operating system. It is a lightweight process that shares the same memory space and resources as other threads within the same process. In detail, the thread has need of:
+\begin{compactitemize}
+    \item \textbf{Per-Thread} program counter
+    \item \textbf{Per-Thread} Registers
+    \item \textbf{Per-Thread} Stack
+\end{compactitemize}
+The information shared among thread are:
+\begin{compactitemize}
+    \item \textbf{Per-process} memory info
+    \item \textbf{Per-process} open files
+\end{compactitemize}
+This things must be stored in the Process Control Block (PCB).
+
+\begin{lstlisting}[language=C, caption={Process Representation in Linux. Represented by the C structure \emph{task\_struct}}, label={lst:esempioC}]
+    pid t_pid; /* process identifier */
+    long state; /* state of the process */
+    unsigned int time_slice; /* scheduling information */
+    struct task_struct *parent; /* this 'process's parent */
+    struct list_head children; /* this 'process's children */
+    struct files_struct *files;/* list of open files */
+    struct mm_struct *mm; /* address space of this process */
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/task_structure.png}
+    \caption{Task Structure}
+    \label{fig:Task_Structure}
+\end{figure}
+
+\section{Process Scheduling}
+The \textbf{process scheduler} is responsible for selecting, among the available processes, 
+the one that will be executed next on a CPU core. 
+Its main goal is to \textbf{maximize CPU utilization} while ensuring that processes 
+can be switched onto the CPU quickly. 
+To achieve this, the system maintains a set of \textbf{scheduling queues}. 
+The \textbf{ready queue} contains all processes that reside in main memory and are 
+ready to execute, while the \textbf{wait queues} include processes that are waiting 
+for the occurrence of a specific event, such as an \textbf{I/O operation}. 
+During execution, processes \textbf{migrate dynamically} among these queues depending 
+on their state and the events they are waiting for.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/queues.png}
+        \caption{Ready and Wait Queues}
+        \label{fig:Ready_and_Wait_Queues}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/processes_scheduling.png}
+        \caption{Rappresenation of Processes Scheduling}
+        \label{fig:Rappresenation_of_Processes_Scheduling}
+    \end{minipage}
+    \label{fig:Processes_Scheduling}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/switch_process.png}
+    \caption{Process Switching}
+    \label{fig:Process_Switching}
+\end{figure}
+
+\section{Contex Switching}
+When the \textbf{CPU switches} from one process to another, the operating system 
+must save the state of the old process and load the saved state of the new one. 
+This procedure is known as a \textbf{context switch}. 
+The \textbf{context} of a process is represented within its \textbf{Process Control Block (PCB)}, 
+which stores all the information required to resume the process later. 
+Since the CPU performs no useful computation during a context switch, 
+the \textbf{switching time represents pure overhead}. 
+The complexity of the operating system and the structure of the PCB 
+directly influence the duration of this operation: the more complex the system, 
+the \textbf{longer the context switch}. 
+Additionally, the switching time depends on the available \textbf{hardware support}. 
+In some architectures, the hardware provides \textbf{multiple sets of registers per CPU}, 
+allowing several contexts to be loaded simultaneously and reducing the time required 
+for switching.
+
+\section{Process Creation}
+
+A \textbf{parent process} can create one or more \textbf{child processes}, which in turn 
+may generate additional processes, forming a hierarchical \textbf{tree of processes}. 
+Each process is generally identified and managed through a unique 
+\textbf{process identifier (PID)}.  
+
+When a process is created, different \textbf{resource sharing strategies} can be applied. 
+In some cases, the parent and its children share all available resources. 
+Alternatively, the children may share only a subset of the parent’s resources, 
+or, in other situations, parent and child processes may share no resources at all.  
+
+There are also multiple \textbf{execution strategies}. 
+Parent and child processes may execute concurrently, or the parent may 
+suspend its execution and \textbf{wait} until the child has terminated.  
+
+From the perspective of the \textbf{address space}, the newly created process may be a 
+duplicate of the parent, or it may have an entirely new program loaded into it.  
+
+In UNIX-like systems, two fundamental system calls manage process creation 
+and program execution: \textbf{fork()} and \textbf{exec()}.  
+These calls together form the basis of process management.  
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/process_creation.png}
+    \caption{Process Creation}
+    \label{fig:Process_Creation}
+\end{figure}
+
+
+\subsection{The \texttt{fork()} System Call}
+
+The \textbf{fork()} system call creates a new process, assigning it a \textbf{different PID} 
+with respect to its parent. During this operation, the child inherits resources 
+from the parent process, including the memory segments (\textbf{Text, Heap, and Stack}) 
+as well as open files, such as inter-process communication (IPC) endpoints.  
+
+Once the fork operation completes, both parent and child processes 
+\textbf{resume execution from the same instruction}, with the only distinction 
+being the \textbf{return value} of the \texttt{fork()} call.  
+This return value allows the system to distinguish whether the execution context 
+belongs to the parent or to the newly created child.  
+
+\subsection{The \texttt{exec()} System Call}
+
+The \textbf{exec()} system call replaces the memory space of the calling process 
+with a new program. During this procedure, the previous \textbf{data structures}, 
+including memory and open files, are wiped out. The new program is then 
+\textbf{mapped into memory} (typically through the \texttt{mmap()} mechanism) 
+and begins execution from its initial instruction.  
+
+While the classical combination of \textbf{fork()+exec()} provides great flexibility, 
+it is considered \textbf{inefficient}, since fork duplicates resources that are immediately 
+discarded by exec. To address this inefficiency, modern operating systems 
+offer the more flexible \textbf{clone()} system call, which enables a finer-grained 
+control over what resources are shared between parent and child processes.
+
+\section{Process Termination}
+
+A process normally terminates when it executes its last statement and requests 
+the operating system to delete it by invoking the \textbf{exit()} system call. 
+This call allows the process to return \textbf{status information} to its parent, 
+which can retrieve it by calling \textbf{wait()}. 
+Once the process terminates, the operating system \textbf{deallocates all resources} 
+associated with it.  
+
+In addition to voluntary termination, a \textbf{parent process} may explicitly 
+terminate the execution of one of its children using the \textbf{abort()} system call. 
+This can happen for several reasons: the child has exceeded its allocated resources, 
+the task assigned to it is no longer needed, or the parent process itself is 
+terminating, in which case the operating system may not allow the child 
+to continue independently.  
+
+Some operating systems enforce the rule that a child cannot exist if its parent 
+has already terminated. In such cases, when a process terminates, all of its 
+children are also terminated in a mechanism known as \textbf{cascading termination}. 
+This termination is initiated automatically by the operating system.  
+
+The parent process may wait for the termination of one of its children by calling 
+\textbf{wait()}, which returns the \textbf{PID} of the terminated process together 
+with its status information:  
+
+\begin{lstlisting}[language=C, caption={Waiting for a child process}, label={lst:waitExample}]
+pid = wait(&status);
+\end{lstlisting}
+
+If the parent does not call \texttt{wait()}, the terminated child process remains 
+in the system as a \textbf{zombie}. If the parent itself terminates without 
+waiting for its children, those children become \textbf{orphans}. 
+In Linux systems, orphan processes are automatically \textbf{re-parented} 
+to the \texttt{init} process, which is responsible for reaping them and freeing 
+their resources.
+
+\section{Interprocess Communication (IPC)}
+
+Processes may operate independently or \textbf{cooperate}. Cooperating processes need IPC mechanisms to:  
+
+\begin{compactitemize}
+    \item \textbf{share information},  
+    \item \textbf{speed up computation},  
+    \item \textbf{improve modularity},  
+    \item \textbf{simplify coordination}.
+\end{compactitemize}
+
+Two main IPC models exist: \textbf{shared memory} and \textbf{message passing}.  
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/comunication.png}
+    \caption{Difference between Shared Memory and Message Passing}
+    \label{fig:Difference_between_Shared_Memory_and_Message_Passing}
+\end{figure}
+
+
+\subsection{Shared Memory}
+
+In \textbf{shared memory}, multiple processes can access the same memory region. This model is highly efficient because processes can directly read and write to the memory without kernel intervention. However, \textbf{synchronization problems} arise when multiple processes attempt to access the shared data simultaneously.  
+
+A classical example is the \textbf{bounded-buffer producer-consumer problem}. The producer generates items and stores them in a fixed-size buffer, while the consumer retrieves items from it. Problems arise if:
+
+\begin{compactitemize}
+    \item The producer tries to write to a full buffer, leading to overwriting unconsumed data,  
+    \item The consumer tries to read from an empty buffer, leading to invalid or uninitialized data,  
+    \item Multiple producers or consumers simultaneously update shared indices or counters, causing \textbf{race conditions}.
+\end{compactitemize}
+
+Synchronization mechanisms, such as semaphores or mutexes, are required to avoid these issues.  
+
+\textbf{Producer process example:}
+\begin{lstlisting}[language=C]
+item next_produced;
+while (true) {
+    /* produce an item in next_produced */
+    while (((in + 1) % BUFFER_SIZE) == out)
+        ; /* busy wait if buffer full */
+    buffer[in] = next_produced;
+    in = (in + 1) % BUFFER_SIZE;
+}
+\end{lstlisting}
+
+\textbf{Consumer process example:}
+\begin{lstlisting}[language=C]
+item next_consumed;
+while (true) {
+    while (in == out)
+        ; /* busy wait if buffer empty */
+    next_consumed = buffer[out];
+    out = (out + 1) % BUFFER_SIZE;
+    /* consume the item in next_consumed */
+}
+\end{lstlisting}
+
+Notice that the increment of indices is not atomic, so in real systems, \textbf{mutual exclusion mechanisms} are needed to prevent data corruption when multiple producers or consumers exist.
+
+\subsection{Message Passing}
+
+Message passing allows processes to communicate without shared memory. Two operations are fundamental: \textbf{send(message)} and \textbf{receive(message)}.  
+
+Communication can be:
+
+\begin{compactitemize}
+    \item \textbf{Direct}, where processes explicitly name the sender and receiver,  
+    \item \textbf{Indirect}, where messages are sent to mailboxes (or ports) shared by multiple processes.  
+\end{compactitemize}
+
+Message passing can be \textbf{blocking} (synchronous) or \textbf{non-blocking} (asynchronous). Blocking ensures synchronization, while non-blocking allows the sender or receiver to continue without waiting.  
+
+\subsection{Pipes}
+
+\textbf{Pipes} are a simple mechanism for unidirectional communication between processes, typically used in a producer-consumer style.  
+
+\begin{compactitemize}
+    \item \textbf{Ordinary pipes} require a parent-child relationship. They are \textbf{unidirectional} and exist only as long as both processes are running. In this case if we want comunicati in both directions we need two pipes.
+    \item \textbf{Named pipes} (or FIFOs) are more flexible: communication is \textbf{bidirectional}, no parent-child relationship is required, and multiple unrelated processes can access the same pipe. Named pipes exist in the filesystem, allowing persistent references and more complex communication patterns.  
+\end{compactitemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/ordinary_pipe.png}
+    \caption{Ordinary Pipe}
+    \label{fig:Ordinary_Pipes}
+\end{figure}
+
+The most common example of named pipe in unix are the sockets, that are used for network communication, but also for local communication between processes on the same machine.

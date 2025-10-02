@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  22 SEP 2025 21:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  2 OCT 2025 19:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -948,6 +948,12 @@ LaTeX Warning: Label `fig:dual_vs_symmetric' multiply defined.
 
 LaTeX Warning: Label `fig:dual_vs_symmetric' multiply defined.
 
+
+LaTeX Warning: Label `fig:Process_in_Memory' multiply defined.
+
+
+LaTeX Warning: Label `fig:Process States' multiply defined.
+
 )
 \openout1 = `main.aux'.
 
@@ -1136,7 +1142,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
 l.258 \newpage
                 % Per iniziare il contenuto in una nuova pagina [1
 
-] (./sections/introduction.tex [2]
+] [2] (./sections/introduction.tex
 Chapter 1.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 12.
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
@@ -1144,24 +1150,24 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3
 
 ] [4]
-<images/interrupt_timeline.png, id=134, 1169.36874pt x 501.875pt>
+<images/interrupt_timeline.png, id=185, 1169.36874pt x 501.875pt>
 File: images/interrupt_timeline.png Graphic file (type png)
 <use images/interrupt_timeline.png>
 Package pdftex.def Info: images/interrupt_timeline.png  used on input line 62.
 (pdftex.def)             Requested size: 409.72125pt x 175.84267pt.
  [5]
-<images/Interrupt-drive_IO _Cycle.png, id=143, 609.27625pt x 588.1975pt>
+<images/Interrupt-drive_IO _Cycle.png, id=194, 609.27625pt x 588.1975pt>
 File: images/Interrupt-drive_IO _Cycle.png Graphic file (type png)
 <use images/Interrupt-drive_IO _Cycle.png>
 Package pdftex.def Info: images/Interrupt-drive_IO _Cycle.png  used on input line 69.
 (pdftex.def)             Requested size: 256.07481pt x 247.22076pt.
  [6 <./images/interrupt_timeline.png> <./images/Interrupt-drive_IO _Cycle.png>] [7] [8]
-<images/storage_hieracacy.png, id=168, 1033.8625pt x 592.2125pt>
+<images/storage_hieracacy.png, id=218, 1033.8625pt x 592.2125pt>
 File: images/storage_hieracacy.png Graphic file (type png)
 <use images/storage_hieracacy.png>
 Package pdftex.def Info: images/storage_hieracacy.png  used on input line 131.
 (pdftex.def)             Requested size: 307.2929pt x 176.02048pt.
-<images/computer_works2.png, id=169, 1054.94125pt x 591.20876pt>
+<images/computer_works2.png, id=219, 1054.94125pt x 591.20876pt>
 File: images/computer_works2.png Graphic file (type png)
 <use images/computer_works2.png>
 Package pdftex.def Info: images/computer_works2.png  used on input line 143.
@@ -1173,57 +1179,56 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [9 <./images/storage_hieracacy.png> <./images/computer_works2.png>] [10]
-<images/user_kernel.png, id=184, 1182.4175pt x 364.36125pt>
+<images/user_kernel.png, id=234, 1182.4175pt x 364.36125pt>
 File: images/user_kernel.png Graphic file (type png)
 <use images/user_kernel.png>
 Package pdftex.def Info: images/user_kernel.png  used on input line 185.
 (pdftex.def)             Requested size: 307.2929pt x 94.69276pt.
- [11] [12 <./images/user_kernel.png>] [13] [14] [15]
-<images/migration_data.png, id=225, 852.18375pt x 131.49126pt>
+ [11 <./images/user_kernel.png>] [12] [13] [14] [15]
+<images/migration_data.png, id=276, 852.18375pt x 131.49126pt>
 File: images/migration_data.png Graphic file (type png)
 <use images/migration_data.png>
 Package pdftex.def Info: images/migration_data.png  used on input line 289.
 (pdftex.def)             Requested size: 307.2929pt x 47.41505pt.
  [16 <./images/migration_data.png>]
-<images/Screenshot from 2025-09-16 16-10-00.png, id=234, 962.59625pt x 654.445pt>
+<images/Screenshot from 2025-09-16 16-10-00.png, id=285, 962.59625pt x 654.445pt>
 File: images/Screenshot from 2025-09-16 16-10-00.png Graphic file (type png)
 <use images/Screenshot from 2025-09-16 16-10-00.png>
 Package pdftex.def Info: images/Screenshot from 2025-09-16 16-10-00.png  used on input line 312.
 (pdftex.def)             Requested size: 256.07481pt x 174.09616pt.
- [17]
-<images/Dual_Core_Design.png, id=242, 566.115pt x 498.86375pt>
+ [17 <./images/Screenshot from 2025-09-16 16-10-00.png>]
+<images/Dual_Core_Design.png, id=294, 566.115pt x 498.86375pt>
 File: images/Dual_Core_Design.png Graphic file (type png)
 <use images/Dual_Core_Design.png>
 Package pdftex.def Info: images/Dual_Core_Design.png  used on input line 331.
 (pdftex.def)             Requested size: 204.85672pt x 180.51947pt.
-<images/Symmetric _Multiprocessing_Architecture.png, id=243, 655.44875pt x 484.81125pt>
+<images/Symmetric _Multiprocessing_Architecture.png, id=295, 655.44875pt x 484.81125pt>
 File: images/Symmetric _Multiprocessing_Architecture.png Graphic file (type png)
 <use images/Symmetric _Multiprocessing_Architecture.png>
 Package pdftex.def Info: images/Symmetric _Multiprocessing_Architecture.png  used on input line 338.
 (pdftex.def)             Requested size: 204.85672pt x 151.52533pt.
- [18 <./images/Screenshot from 2025-09-16 16-10-00.png> <./images/Dual_Core_Design.png> <./images/Symmetric _Multiprocessing_Architecture.png>]
-<images/NUMA.png, id=255, 547.04375pt x 484.81125pt>
+<images/NUMA.png, id=296, 547.04375pt x 484.81125pt>
 File: images/NUMA.png Graphic file (type png)
 <use images/NUMA.png>
 Package pdftex.def Info: images/NUMA.png  used on input line 358.
 (pdftex.def)             Requested size: 204.85672pt x 181.55225pt.
-<images/Clustered_System.png, id=256, 825.0825pt x 463.7325pt>
+<images/Clustered_System.png, id=297, 825.0825pt x 463.7325pt>
 File: images/Clustered_System.png Graphic file (type png)
 <use images/Clustered_System.png>
 Package pdftex.def Info: images/Clustered_System.png  used on input line 365.
 (pdftex.def)             Requested size: 256.07481pt x 143.9254pt.
-) (./sections/Operating _Systems_Services.tex [19 <./images/NUMA.png> <./images/Clustered_System.png>]
+) (./sections/Operating _Systems_Services.tex [18 <./images/Dual_Core_Design.png> <./images/Symmetric _Multiprocessing_Architecture.png>] [19 <./images/NUMA.png> <./images/Clustered_System.png>]
 Chapter 2.
 [20
 
 ]
-<images/OS_services.png, id=270, 1540.75626pt x 774.895pt>
+<images/OS_services.png, id=321, 1540.75626pt x 774.895pt>
 File: images/OS_services.png Graphic file (type png)
 <use images/OS_services.png>
 Package pdftex.def Info: images/OS_services.png  used on input line 25.
 (pdftex.def)             Requested size: 409.72125pt x 206.05563pt.
  [21 <./images/OS_services.png>] [22]
-<images/Linker_Loader.png, id=282, 575.14874pt x 582.175pt>
+<images/Linker_Loader.png, id=333, 575.14874pt x 582.175pt>
 File: images/Linker_Loader.png Graphic file (type png)
 <use images/Linker_Loader.png>
 Package pdftex.def Info: images/Linker_Loader.png  used on input line 62.
@@ -1232,7 +1237,7 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 72
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [23 <./images/Linker_Loader.png>]
-<images/FreeBSD.png, id=289, 379.4175pt x 547.04375pt>
+<images/FreeBSD.png, id=340, 379.4175pt x 547.04375pt>
 File: images/FreeBSD.png Graphic file (type png)
 <use images/FreeBSD.png>
 Package pdftex.def Info: images/FreeBSD.png  used on input line 80.
@@ -1242,108 +1247,219 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--81
 []\T1/lmr/m/n/12 Figure 2.3: |Ex-am-ple:
  []
 
-<images/Arduino.png, id=290, 602.25pt x 517.935pt>
+<images/Arduino.png, id=341, 602.25pt x 517.935pt>
 File: images/Arduino.png Graphic file (type png)
 <use images/Arduino.png>
 Package pdftex.def Info: images/Arduino.png  used on input line 87.
 (pdftex.def)             Requested size: 204.85672pt x 176.17459pt.
 [24 <./images/FreeBSD.png> <./images/Arduino.png>]
-<images/SYC_example.png, id=300, 900.36375pt x 645.41125pt>
+<images/SYC_example.png, id=351, 900.36375pt x 645.41125pt>
 File: images/SYC_example.png Graphic file (type png)
 <use images/SYC_example.png>
 Package pdftex.def Info: images/SYC_example.png  used on input line 117.
 (pdftex.def)             Requested size: 256.07481pt x 183.56004pt.
-<images/Standard_API.png, id=301, 776.9025pt x 761.84625pt>
+<images/Standard_API.png, id=352, 776.9025pt x 761.84625pt>
 File: images/Standard_API.png Graphic file (type png)
 <use images/Standard_API.png>
 Package pdftex.def Info: images/Standard_API.png  used on input line 124.
 (pdftex.def)             Requested size: 230.46576pt x 225.99817pt.
  [25 <./images/SYC_example.png> <./images/Standard_API.png>]
-<images/API-SYC.png, id=310, 953.5625pt x 584.1825pt>
+<images/API-SYC.png, id=361, 953.5625pt x 584.1825pt>
 File: images/API-SYC.png Graphic file (type png)
 <use images/API-SYC.png>
 Package pdftex.def Info: images/API-SYC.png  used on input line 139.
 (pdftex.def)             Requested size: 307.2929pt x 188.26147pt.
-<images/Parameter_passing_via_table.png, id=311, 1062.97125pt x 576.1525pt>
+<images/Parameter_passing_via_table.png, id=362, 1062.97125pt x 576.1525pt>
 File: images/Parameter_passing_via_table.png Graphic file (type png)
 <use images/Parameter_passing_via_table.png>
 Package pdftex.def Info: images/Parameter_passing_via_table.png  used on input line 158.
 (pdftex.def)             Requested size: 307.2929pt x 166.56125pt.
  [26 <./images/API-SYC.png>]
-<images/STD_C_example.png, id=320, 775.89874pt x 797.98125pt>
+<images/STD_C_example.png, id=370, 775.89874pt x 797.98125pt>
 File: images/STD_C_example.png Graphic file (type png)
 <use images/STD_C_example.png>
 Package pdftex.def Info: images/STD_C_example.png  used on input line 166.
 (pdftex.def)             Requested size: 256.07481pt x 263.35898pt.
  [27 <./images/Parameter_passing_via_table.png> <./images/STD_C_example.png>] [28] [29]
-<images/Traditional_unix_system_arch.png, id=342, 754.82pt x 463.7325pt>
+<images/Traditional_unix_system_arch.png, id=392, 754.82pt x 463.7325pt>
 File: images/Traditional_unix_system_arch.png Graphic file (type png)
 <use images/Traditional_unix_system_arch.png>
 Package pdftex.def Info: images/Traditional_unix_system_arch.png  used on input line 234.
 (pdftex.def)             Requested size: 256.07481pt x 157.32024pt.
-<images/linux_system_architecture.png, id=343, 357.335pt x 541.02126pt>
+<images/linux_system_architecture.png, id=393, 357.335pt x 541.02126pt>
 File: images/linux_system_architecture.png Graphic file (type png)
 <use images/linux_system_architecture.png>
 Package pdftex.def Info: images/linux_system_architecture.png  used on input line 241.
 (pdftex.def)             Requested size: 153.64644pt x 232.62634pt.
  [30 <./images/Traditional_unix_system_arch.png> <./images/linux_system_architecture.png>]
-<images/layered_architecture.png, id=353, 511.9125pt x 500.87125pt>
+<images/layered_architecture.png, id=403, 511.9125pt x 500.87125pt>
 File: images/layered_architecture.png Graphic file (type png)
 <use images/layered_architecture.png>
 Package pdftex.def Info: images/layered_architecture.png  used on input line 263.
 (pdftex.def)             Requested size: 153.64644pt x 150.33131pt.
  [31 <./images/layered_architecture.png>]
-<images/micro_kernel_system.png, id=361, 1080.035pt x 525.965pt>
+<images/micro_kernel_system.png, id=411, 1080.035pt x 525.965pt>
 File: images/micro_kernel_system.png Graphic file (type png)
 <use images/micro_kernel_system.png>
 Package pdftex.def Info: images/micro_kernel_system.png  used on input line 281.
 (pdftex.def)             Requested size: 307.2929pt x 149.64476pt.
 ) (./sections/Processes.tex [32 <./images/micro_kernel_system.png>]
 Chapter 3.
-<images/Process_in_memory.png, id=368, 363.3575pt x 577.15625pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--15
+
+ []
+
+[33
+
+]
+<images/Process_in_memory.png, id=422, 363.3575pt x 577.15625pt>
 File: images/Process_in_memory.png Graphic file (type png)
 <use images/Process_in_memory.png>
 Package pdftex.def Info: images/Process_in_memory.png  used on input line 32.
 (pdftex.def)             Requested size: 102.42836pt x 162.69467pt.
-<images/Memory_layout_of_C_program.png, id=369, 1092.08pt x 544.0325pt>
+<images/Memory_layout_of_C_program.png, id=423, 1092.08pt x 544.0325pt>
 File: images/Memory_layout_of_C_program.png Graphic file (type png)
 <use images/Memory_layout_of_C_program.png>
 Package pdftex.def Info: images/Memory_layout_of_C_program.png  used on input line 39.
 (pdftex.def)             Requested size: 358.50317pt x 178.59323pt.
-[33
-
-]
-<images/process_states.png, id=374, 1087.06125pt x 457.71pt>
+<images/process_states.png, id=424, 1087.06125pt x 457.71pt>
 File: images/process_states.png Graphic file (type png)
 <use images/process_states.png>
 Package pdftex.def Info: images/process_states.png  used on input line 60.
 (pdftex.def)             Requested size: 358.50317pt x 150.94699pt.
  [34 <./images/Process_in_memory.png> <./images/Memory_layout_of_C_program.png> <./images/process_states.png>]
-<images/PCB.png, id=384, 334.24875pt x 533.995pt>
+<images/PCB.png, id=434, 334.24875pt x 533.995pt>
 File: images/PCB.png Graphic file (type png)
 <use images/PCB.png>
-Package pdftex.def Info: images/PCB.png  used on input line 100.
+Package pdftex.def Info: images/PCB.png  used on input line 98.
 (pdftex.def)             Requested size: 102.42836pt x 163.63823pt.
- [35]) [36 <./images/PCB.png>] (./main.aux)
+ [35]
+<images/task_structure.png, id=439, 844.15375pt x 299.1175pt>
+File: images/task_structure.png Graphic file (type png)
+<use images/task_structure.png>
+Package pdftex.def Info: images/task_structure.png  used on input line 129.
+(pdftex.def)             Requested size: 256.07481pt x 90.74005pt.
+ [36 <./images/PCB.png>]
+<images/queues.png, id=455, 960.58875pt x 582.175pt>
+File: images/queues.png Graphic file (type png)
+<use images/queues.png>
+Package pdftex.def Info: images/queues.png  used on input line 150.
+(pdftex.def)             Requested size: 256.07481pt x 155.1995pt.
+<images/processes_scheduling.png, id=456, 960.58875pt x 582.175pt>
+File: images/processes_scheduling.png Graphic file (type png)
+<use images/processes_scheduling.png>
+Package pdftex.def Info: images/processes_scheduling.png  used on input line 157.
+(pdftex.def)             Requested size: 230.46576pt x 139.67155pt.
+
+Underfull \hbox (badness 1546) in paragraph at lines 158--158
+[]\T1/lmr/m/n/12 Figure 3.7: |Rap-p-re-se-n-a-tion of Pro-cesses
+ []
+
+<images/switch_process.png, id=457, 629.35126pt x 487.8225pt>
+File: images/switch_process.png Graphic file (type png)
+<use images/switch_process.png>
+Package pdftex.def Info: images/switch_process.png  used on input line 166.
+(pdftex.def)             Requested size: 204.85672pt x 158.78607pt.
+[37 <./images/task_structure.png> <./images/queues.png> <./images/processes_scheduling.png> <./images/switch_process.png>]
+<images/process_creation.png, id=469, 961.5925pt x 171.64125pt>
+File: images/process_creation.png Graphic file (type png)
+<use images/process_creation.png>
+Package pdftex.def Info: images/process_creation.png  used on input line 212.
+(pdftex.def)             Requested size: 409.72125pt x 73.1338pt.
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 218.
+ [38 <./images/process_creation.png>] [39]
+<images/comunication.png, id=484, 1008.76875pt x 608.2725pt>
+File: images/comunication.png Graphic file (type png)
+<use images/comunication.png>
+Package pdftex.def Info: images/comunication.png  used on input line 296.
+(pdftex.def)             Requested size: 256.07481pt x 154.40668pt.
+ [40 <./images/comunication.png>] [41]
+<images/ordinary_pipe.png, id=516, 648.4225pt x 232.87pt>
+File: images/ordinary_pipe.png Graphic file (type png)
+<use images/ordinary_pipe.png>
+Package pdftex.def Info: images/ordinary_pipe.png  used on input line 366.
+(pdftex.def)             Requested size: 256.07481pt x 91.96664pt.
+) (./sections/Threads_and_Concurrency.tex [42 <./images/ordinary_pipe.png>]
+Chapter 4.
+<images/single_multiple_proccess.png, id=526, 1085.05376pt x 598.235pt>
+File: images/single_multiple_proccess.png Graphic file (type png)
+<use images/single_multiple_proccess.png>
+Package pdftex.def Info: images/single_multiple_proccess.png  used on input line 10.
+(pdftex.def)             Requested size: 256.07481pt x 141.17857pt.
+<images/multiple_server.png, id=527, 1092.08pt x 396.48125pt>
+File: images/multiple_server.png Graphic file (type png)
+<use images/multiple_server.png>
+Package pdftex.def Info: images/multiple_server.png  used on input line 17.
+(pdftex.def)             Requested size: 204.85672pt x 74.37029pt.
+[43
+
+ <./images/single_multiple_proccess.png> <./images/multiple_server.png>]
+<images/concurrency.png, id=535, 927.465pt x 136.51pt>
+File: images/concurrency.png Graphic file (type png)
+<use images/concurrency.png>
+Package pdftex.def Info: images/concurrency.png  used on input line 33.
+(pdftex.def)             Requested size: 256.07481pt x 37.69138pt.
+<images/parallelism.png, id=536, 916.42375pt x 341.275pt>
+File: images/parallelism.png Graphic file (type png)
+<use images/parallelism.png>
+Package pdftex.def Info: images/parallelism.png  used on input line 40.
+(pdftex.def)             Requested size: 204.85672pt x 76.28885pt.
+<images/data_task_parallelism.png, id=537, 912.40875pt x 612.2875pt>
+File: images/data_task_parallelism.png Graphic file (type png)
+<use images/data_task_parallelism.png>
+Package pdftex.def Info: images/data_task_parallelism.png  used on input line 49.
+(pdftex.def)             Requested size: 256.07481pt x 171.84106pt.
+ [44 <./images/concurrency.png> <./images/parallelism.png> <./images/data_task_parallelism.png>]
+<images/amdahl.png, id=555, 811.03pt x 500.87125pt>
+File: images/amdahl.png Graphic file (type png)
+<use images/amdahl.png>
+Package pdftex.def Info: images/amdahl.png  used on input line 66.
+(pdftex.def)             Requested size: 256.07481pt x 158.14977pt.
+<images/many_to_ome.png, id=556, 475.7775pt x 257.96375pt>
+File: images/many_to_ome.png Graphic file (type png)
+<use images/many_to_ome.png>
+Package pdftex.def Info: images/many_to_ome.png  used on input line 81.
+(pdftex.def)             Requested size: 153.64644pt x 83.30583pt.
+ [45 <./images/amdahl.png>]
+<images/one_to_one.png, id=564, 475.7775pt x 257.96375pt>
+File: images/one_to_one.png Graphic file (type png)
+<use images/one_to_one.png>
+Package pdftex.def Info: images/one_to_one.png  used on input line 89.
+(pdftex.def)             Requested size: 153.64644pt x 83.30583pt.
+<images/many_to_many.png, id=565, 475.7775pt x 257.96375pt>
+File: images/many_to_many.png Graphic file (type png)
+<use images/many_to_many.png>
+Package pdftex.def Info: images/many_to_many.png  used on input line 97.
+(pdftex.def)             Requested size: 153.64644pt x 83.30583pt.
+<images/two_level_model.png, id=566, 471.7625pt x 252.945pt>
+File: images/two_level_model.png Graphic file (type png)
+<use images/two_level_model.png>
+Package pdftex.def Info: images/two_level_model.png  used on input line 105.
+(pdftex.def)             Requested size: 153.64644pt x 82.37982pt.
+ [46 <./images/many_to_ome.png> <./images/one_to_one.png> <./images/many_to_many.png>] [47 <./images/two_level_model.png>] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+) [48] [49] [50]) [51] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E075ED45569E3BCE0F7F95EAD48C1E02;2557.
+(rerunfilecheck)             Checksum: 507B39E2A2CFFDA8DD03CC8D19D394F0;4103.
  ) 
 Here is how much of TeX's memory you used:
- 51348 strings out of 480236
- 1246089 string characters out of 5895675
- 1834240 words of memory out of 5000000
- 68351 multiletter control sequences out of 15000+600000
- 514864 words of font info for 61 fonts, out of 8000000 for 9000
+ 52168 strings out of 480236
+ 1257267 string characters out of 5895675
+ 1874240 words of memory out of 5000000
+ 68999 multiletter control sequences out of 15000+600000
+ 521162 words of font info for 64 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 88i,12n,117p,1677b,642s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on main.pdf (37 pages, 2749073 bytes).
+ 88i,12n,117p,1677b,1948s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb>
+Output written on main.pdf (52 pages, 3825390 bytes).
 PDF statistics:
- 454 PDF objects out of 1000 (max. 8388607)
- 328 compressed objects within 4 object streams
- 123 named destinations out of 1000 (max. 500000)
- 369 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 790 PDF objects out of 1000 (max. 8388607)
+ 600 compressed objects within 6 object streams
+ 270 named destinations out of 1000 (max. 500000)
+ 534 words of extra memory for PDF output out of 10000 (max. 10000000)
 
