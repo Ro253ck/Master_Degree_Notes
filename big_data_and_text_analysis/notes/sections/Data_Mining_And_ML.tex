@@ -775,4 +775,156 @@ For measuring similarity, we use distance functions. With numeric attributes, we
 
 
 
-\section{Data Preparation}
+
+    \section{Data Preparation}
+
+    Data preparation is a crucial step in any big data and text analysis pipeline. Before applying machine learning models, the raw data usually needs to be transformed, cleaned, and sometimes reduced. This ensures that algorithms perform more efficiently and accurately. The main categories of data transformations include attribute selection, attribute discretization, projections, sampling, and handling of dirty data.
+    
+    \subsection{Attribute Selection}
+    Attribute selection, also called feature selection, aims to identify the most relevant attributes in a dataset. Including irrelevant or noisy attributes can significantly degrade model performance, especially in instance-based learning methods. Moreover, the number of training instances required often grows exponentially with the number of irrelevant features.
+    
+    Two main approaches can be distinguished:
+    
+    \subsubsection*{Scheme-independent selection}
+    This approach evaluates attributes based on the intrinsic properties of the data, without reference to a specific machine learning algorithm. Common techniques include:
+    \begin{compactitemize}
+        \item Decision trees applied to the full dataset, keeping only attributes used in the resulting tree.
+        \item Recursive feature elimination using coefficients of linear models.
+        \item Correlation-based feature selection.
+        \item Analysis of attribute values among neighboring records.
+    \end{compactitemize}
+    
+    \subsubsection*{Scheme-specific selection}
+    In contrast, scheme-specific methods search for subsets of attributes that maximize the performance of a given learning algorithm. Because the search space is exponential in the number of attributes, greedy strategies are often employed:
+    \begin{compactitemize}
+        \item Forward selection: start with an empty set and iteratively add attributes.
+        \item Backward elimination: start with all attributes and iteratively remove the least useful.
+        \item More advanced methods such as bidirectional search, best-first search, or genetic algorithms.
+    \end{compactitemize}
+    To speed up computation, significance tests can be used to discard unpromising subsets early (e.g., race search).
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/scheme_specific_selection.png}
+        \caption{Scheme-specific selection}
+        \label{fig:Scheme-specific_selection} 
+    \end{figure}
+    
+    \textbf{Note:} This method is computationally expensive so use it when there are a high numer of feature might be proibitive
+    
+    \subsection{Attribute Discretization}
+    Discretization is the process of transforming continuous attributes into categorical intervals. Even when algorithms can handle continuous values directly, discretization can improve interpretability or efficiency.
+    
+    Two possible representations are:
+    \begin{compactitemize}
+        \item Each interval mapped to a categorical value (nominal).
+        \item Each interval mapped to an ordered value (ordinal).
+    \end{compactitemize}
+    
+    If the learning algorithm does not support ordered attributes, a discretized variable with $k$ intervals is often transformed into $k-1$ binary attributes.
+    
+    \subsubsection*{Unsupervised discretization}
+    Performed without reference to class labels, common strategies include:
+    \begin{compactitemize}
+        \item Equal-interval binning.
+        \item Equal-frequency binning (histogram equalization).
+        \item Clustering-based binning (e.g., using k-means).
+    \end{compactitemize}
+    
+    \subsubsection*{Supervised discretization}
+    Takes class labels into account. A popular method is entropy-based discretization, which finds cut-points that minimize class impurity. In practice, decision trees can be used to determine thresholds for discretization.
+    
+    \subsection{Projections}
+    Projection techniques transform data into new feature spaces, often reducing dimensionality or highlighting important patterns. Common transformations include:
+    \begin{compactitemize}
+        \item Arithmetic combinations of attributes (differences, ratios).
+        \item Concatenation of categorical values.
+        \item Cluster membership encoding.
+        \item Adding controlled noise or selectively removing data for privacy or robustness.
+        \item Adding noise to data. This method is used to reduce overfitting and improve model generalization.
+    \end{compactitemize}
+    
+    Classical projection methods are:
+    \begin{compactitemize}
+        \item \textbf{Principal Component Analysis (PCA):} An unsupervised method that identifies orthogonal directions maximizing variance.
+        \item \textbf{Random Projections:} Projects data into a lower-dimensional space using random matrices.
+        \item \textbf{Partial Least Squares (PLS):} Supervised projection maximizing covariance between input and output.
+        \item \textbf{Independent Component Analysis (ICA):} Separates statistically independent signals.
+        \item \textbf{Linear Discriminant Analysis (LDA):} A supervised method maximizing class separability.
+    \end{compactitemize}
+    
+    \subsection{Sampling}
+    When working with massive datasets, it is often necessary to reduce the data size via sampling, while preserving statistical properties. A random sample ensures that each instance has an equal probability of being selected.
+    
+    Two strategies exist:
+    \begin{compactitemize}
+        \item \textbf{Sampling with replacement:} Instances may appear multiple times in the sample. Formally, for a dataset of size $N$, draw indices $i \sim U(1,N)$ independently.
+        \item \textbf{Sampling without replacement:} Each instance can only appear once. Duplicate draws are discarded.
+    \end{compactitemize}
+    
+    If the sample size is small relative to the dataset, the difference between these two strategies is negligible.
+    
+    \subsection{Dirty Data and Cleansing}
+    Real-world data often contains noise, missing values, and anomalies. Data cleansing involves:
+    \begin{compactitemize}
+        \item Detecting and correcting inconsistencies.
+        \item Handling missing values.
+        \item Applying robust regression methods.
+        \item Identifying outliers via anomaly detection.
+    \end{compactitemize}
+    
+    \subsection{Calibrating Class Probabilities}
+    In classification problems, predicted probabilities may need calibration to better reflect true likelihoods. Techniques such as Platt scaling or isotonic regression can adjust outputs so that predicted probabilities align more closely with observed frequencies.
+
+\section{Overfitting and its Avoidance}
+\subsection{Generalization}
+Generalization is the ability of a model to perform well on new, unseen data that was not part of the training process. A model that achieves perfect accuracy on training data may not generalize at all. For example, a so-called \textit{table model} that memorizes every training instance will achieve $100\%$ accuracy on training data but will fail completely when predicting for new instances, as it cannot assign meaningful probabilities.
+
+
+Thus, generalization requires separating the data used to build the model from the data used to evaluate it.
+
+
+\subsection{Definition of Overfitting}
+Overfitting occurs when a model captures noise or idiosyncrasies in the training data rather than the underlying distribution. This leads to poor generalization. All machine learning methods are susceptible to overfitting, especially when the model complexity is not controlled. There is an inherent trade-off:
+\begin{compactitemize}
+\item Simpler models may underfit, missing important patterns.
+\item Complex models may overfit, tailoring themselves too closely to training examples.
+\end{compactitemize}
+
+
+The best strategy is not to avoid complexity entirely, but to manage it carefully through regularization, pruning, or other complexity-control mechanisms.
+
+
+\subsection{Holdout Data and Fitting Graphs}
+To evaluate generalization, we set aside a portion of the dataset, known as the holdout or test set. The model is trained on the training set and then evaluated on the holdout set, simulating how it would perform in a real-world deployment.
+
+
+A \textbf{fitting graph} plots model accuracy against model complexity. Typically:
+\begin{compactitemize}
+\item Training accuracy increases as complexity grows, often approaching $100\%$.
+\item Test (holdout) accuracy may initially increase but will eventually decrease if the model becomes too complex, reflecting overfitting.
+\end{compactitemize}
+
+
+\subsection{Overfitting in Decision Trees}
+In tree induction, if the tree grows until each leaf corresponds to a single training instance, it will classify the training set perfectly. However, such a tree is likely to overfit. The complexity of a decision tree can be measured by the number of nodes or depth. Pruning methods and stopping criteria are often applied to balance accuracy and generalization.
+
+
+\subsection{Overfitting in Linear Functions}
+Linear classifiers, such as logistic regression or support vector machines (SVMs), provide useful examples:
+\begin{compactitemize}
+\item With clearly separable classes (e.g., Iris Setosa vs. Iris Versicolor), both methods produce similar separating boundaries.
+\item Adding outliers can shift decision boundaries. Logistic regression tends to be more sensitive to outliers than SVMs.
+\item Adding additional variables, such as polynomial terms (e.g., $x^2$), allows for more complex decision boundaries (e.g., parabolas). While this may improve flexibility, it also increases the risk of overfitting.
+\end{compactitemize}
+
+
+\subsection{Learning Curves}
+Another way to assess generalization is through \textbf{learning curves}, which plot model performance against the size of the training dataset. Common patterns include:
+\begin{compactitemize}
+\item Performance generally improves with more data, up to a saturation point.
+\item If the learning curve levels off, gathering additional data may not be worthwhile.
+\item If accuracy continues to improve, investing in more data can be beneficial.
+\end{compactitemize}
+
+
+Learning curves are powerful diagnostic tools that help determine whether to improve performance by acquiring more data, designing better features, or modifying the model structure.

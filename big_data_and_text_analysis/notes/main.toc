@@ -59,3 +59,16 @@
 \contentsline {subsubsection}{\numberline {2.3.20.1}Adjusted Rand Index}{27}{subsubsection.2.3.20.1}%
 \contentsline {subsubsection}{\numberline {2.3.20.2}Silhouette Coefficient}{27}{subsubsection.2.3.20.2}%
 \contentsline {section}{\numberline {2.4}Data Preparation}{28}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Attribute Selection}{28}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Attribute Discretization}{29}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Projections}{30}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Sampling}{30}{subsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.4.5}Dirty Data and Cleansing}{31}{subsection.2.4.5}%
+\contentsline {subsection}{\numberline {2.4.6}Calibrating Class Probabilities}{31}{subsection.2.4.6}%
+\contentsline {section}{\numberline {2.5}Overfitting and its Avoidance}{31}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Generalization}{31}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Definition of Overfitting}{31}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Holdout Data and Fitting Graphs}{32}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}Overfitting in Decision Trees}{32}{subsection.2.5.4}%
+\contentsline {subsection}{\numberline {2.5.5}Overfitting in Linear Functions}{32}{subsection.2.5.5}%
+\contentsline {subsection}{\numberline {2.5.6}Learning Curves}{32}{subsection.2.5.6}%

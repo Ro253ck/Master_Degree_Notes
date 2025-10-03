@@ -1587,6 +1587,11 @@ INPUT ./images/Def_3_4.png
 INPUT images/Def_3_4.png
 INPUT ./images/Def_3_4.png
 INPUT ./images/Def_3_4.png
+INPUT ./images/scheme_specific_selection.png
+INPUT ./images/scheme_specific_selection.png
+INPUT images/scheme_specific_selection.png
+INPUT ./images/scheme_specific_selection.png
+INPUT ./images/scheme_specific_selection.png
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out
