@@ -83,3 +83,11 @@
 \contentsline {subsection}{\numberline {4.3.3}Implicit Threading and Thread Pools}{48}{subsection.4.3.3}%
 \contentsline {subsection}{\numberline {4.3.4}Implicit Threading with OpenMP}{49}{subsection.4.3.4}%
 \contentsline {section}{\numberline {4.4}Issue}{50}{section.4.4}%
+\contentsline {chapter}{\numberline {5}CPU Scheduling}{52}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Scheduling Criteria}{53}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Firsrt-Come, First-Served (FCFS) Scheduling}{53}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Shortest-Job-First (SJF) Scheduling}{54}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Shortest-Remaining-Time-First (SRTF)}{56}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Round Robin (RR) Scheduling}{57}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}Priority Scheduling}{58}{subsection.5.1.5}%
+\contentsline {section}{\numberline {5.2}Scheduling with Multiple queues}{60}{section.5.2}%

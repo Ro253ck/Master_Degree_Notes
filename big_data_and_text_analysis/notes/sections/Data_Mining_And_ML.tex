@@ -904,6 +904,12 @@ A \textbf{fitting graph} plots model accuracy against model complexity. Typicall
 \item Test (holdout) accuracy may initially increase but will eventually decrease if the model becomes too complex, reflecting overfitting.
 \end{compactitemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/holdout_set.png}
+    \caption{Holdout Set VS Training set }
+    \label{fig:Holdout_Set_VS_Training_set } 
+\end{figure}
 
 \subsection{Overfitting in Decision Trees}
 In tree induction, if the tree grows until each leaf corresponds to a single training instance, it will classify the training set perfectly. However, such a tree is likely to overfit. The complexity of a decision tree can be measured by the number of nodes or depth. Pruning methods and stopping criteria are often applied to balance accuracy and generalization.
@@ -928,3 +934,120 @@ Another way to assess generalization is through \textbf{learning curves}, which 
 
 
 Learning curves are powerful diagnostic tools that help determine whether to improve performance by acquiring more data, designing better features, or modifying the model structure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/learning_curves.png}
+    \caption{Learning Curves }
+    \label{fig:Learning_Curves } 
+\end{figure}
+
+\section{Credibility: Evaluating What has been Learned}
+Evaluation of a learned model is central because the empirical error measured on the data that produced the model is a poor guide to its future performance. The \textbf{test set} must remain an independent sample that has played no role in the construction or tuning of the classifier; its role is to provide an unbiased estimate of predictive performance under the assumption that the test observations are representative of the same underlying problem. Practical workflows therefore separate the data into \textbf{training}, \textbf{validation} and \textbf{test} partitions. The training partition establishes model structure, the validation partition is reserved for parameter selection and model comparison, and the test partition is held back for the final unbiased assessment.
+
+\subsection{Making the Most of Limited Data: Resampling}
+
+When labeled examples are scarce, resampling techniques are used to obtain reliable error estimates while reusing available data for training. The most common approach is k-fold cross-validation, where the data are split into k roughly equal parts and each part is used once as the test fold while the remaining k-1 parts form the training set. A widely adopted convention is stratified ten-fold cross-validation, which preserves class proportions across folds to stabilize estimates for classification problems. Cross-validation trades computation for better utilization of data, and in the extreme case of leave-one-out cross-validation the number of folds equals the number of instances: each example is left out in turn and the learner is trained on the remainder. Leave-one-out maximizes data usage for training and avoids random subsampling effects, but it is often computationally expensive and can lead to high variance in some learning schemes.
+
+\subsection{Costs, Confusion Matrix, and Class-Imbalance}
+
+Evaluation must often acknowledge that different kinds of errors have different practical consequences. The confusion matrix organizes counts of correct and incorrect predictions along the axes of actual and predicted classes, which for a binary problem is conventionally displayed as
+
+\begin{equation}
+\begin{array}{c|cc}
+& \text{Predicted: No} & \text{Predicted: Yes} \\hline
+\text{Actual: No} & \text{TN} & \text{FP} \\n\text{Actual: Yes} & \text{FN} & \text{TP} \
+\end{array}
+\end{equation}
+
+From this layout simple summary statistics are derived; for example, overall accuracy is
+
+\begin{equation}
+\textbf{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}.
+\end{equation}
+
+However, accuracy can be misleading when classes are imbalanced. If the positive class is rare, a trivial classifier that always predicts the majority class can achieve high accuracy while being useless in practice. In such cases it is essential to look at the individual error rates and to weight them according to domain-specific costs.
+
+\subsection{Precision, Recall and the F-measure}
+
+Two routinely used rates for the positive class are precision and recall. Precision measures the correctness of positive predictions and is defined as the proportion of predicted positives that are correct, while recall (also called sensitivity) measures the proportion of actual positives that are detected. These are given by
+
+\begin{equation}
+\text{Precision} = \frac{TP}{TP + FP}, \qquad
+\text{Recall} = \frac{TP}{TP + FN}.
+\end{equation}
+
+The $F_1$ score combines precision and recall into a single harmonic-mean metric that balances the two according to
+
+\begin{equation}
+F_1 = \frac{2 \cdot \text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}.
+\end{equation}
+
+Adjusting the classifier decision threshold trades precision for recall: lowering the threshold typically increases recall at the cost of introducing more false positives and hence lowering precision. The choice of operating point should reflect the relative importance of these two kinds of errors in the application.
+
+\subsection{Multi-label Evaluation and Averaging}
+
+When instances may belong to multiple classes simultaneously, evaluation commonly proceeds by training an independent binary classifier per label and then aggregating per-label results. Two standard aggregation strategies are macro-averaging, which computes each label's performance and then averages across labels, and micro-averaging, which aggregates all label decisions into a single contingency table before computing precision and recall. Macro-averaging treats each label equally regardless of frequency, whereas micro-averaging weights labels by their prevalence; the appropriate choice depends on whether rare labels should influence the overall score.
+
+\subsection{Numeric Prediction: Error Measures and Correlation}
+
+For regression tasks the focus shifts to continuous error measures. The mean-squared error (MSE) is the most commonly used criterion because of its convenient analytical properties; for predictions $p_1,\ldots,p_n$ and targets $a_1,\ldots,a_n$ it is
+
+\begin{equation}
+\text{MSE} = \frac{1}{n} \sum_{i=1}^n (p_i - a_i)^2.
+\end{equation}
+
+Root-mean-squared error (RMSE) is the square root of MSE and shares its units with the target. The mean absolute error (MAE) is
+
+\begin{equation}
+\text{MAE} = \frac{1}{n} \sum_{i=1}^n |p_i - a_i|,
+\end{equation}
+
+and is less sensitive to outliers than MSE. Relative error measures divide prediction error by the variance of the target to quantify improvement over a simple mean predictor; one useful form is the relative squared error
+
+\begin{equation}
+\text{Relative Squared Error} = \frac{\sum_{i=1}^n (p_i - a_i)^2}{\sum_{i=1}^n (a_i - \bar{a})^2}.
+\end{equation}
+
+The Pearson correlation coefficient between predicted and actual values provides a scale-independent indicator of linear association and is calculated as
+
+\begin{equation}
+r = \frac{\sum_{i=1}^n (p_i - \bar{p})(a_i - \bar{a})}{\sqrt{\sum_{i=1}^n (p_i - \bar{p})^2 ; \sum_{i=1}^n (a_i - \bar{a})^2}}.
+\end{equation}
+
+\subsection{Closing Remarks}
+
+Once model selection and unbiased evaluation are complete, it is standard practice to retrain a final model on the entire available dataset to maximize predictive power for deployment. Throughout the evaluation process it is important to make the role of each dataset explicit, to select metrics that reflect task priorities rather than convenience, and to remain mindful that statistical estimators incur variance which must be controlled either by larger test sets, stratification, or appropriate resampling schemes.
+
+\section{Ensemble Learning}
+Ensemble learning builds predictive models by combining the outputs of multiple base learners. The underlying motivation is that the collective decision of a set of diverse models often surpasses the accuracy of any individual learner. This strategy addresses the instability of certain algorithms and leverages complementary strengths among models. The three most widely studied ensemble approaches are bagging, randomization, and boosting.
+
+\subsection{Bagging}
+
+Bagging, short for bootstrap aggregating, operates by training multiple models on bootstrap samples drawn with replacement from the original dataset. Each model contributes equally to the final decision, through majority voting in classification or averaging in regression. The method is particularly effective for unstable algorithms such as decision trees, where small changes in the training set can cause large variations in the induced model. By averaging out these variations, bagging reduces variance without significantly altering bias. This makes it especially effective in controlling overfitting. The Random Forest algorithm generalizes this idea by adding an additional layer of randomization in the attribute selection stage.
+
+Bagging can be formally described as follows. Given $n$ training instances, for each of $t$ iterations a sample of size $n$ is drawn with replacement. A model is trained on this sample and stored. For prediction, each of the $t$ models produces an output, and the final prediction is determined by the majority class or by averaging numerical predictions. This procedure makes efficient use of limited data by simulating the effect of having multiple datasets.
+
+\subsection{Bias-Variance Decomposition}
+
+The performance of learning algorithms can be analyzed in terms of bias and variance. Bias measures the systematic error introduced by the assumptions of the model: it reflects the difference between the expected prediction and the true target. Variance quantifies the sensitivity of the model to the particular training data: it reflects how much predictions vary with different training sets. Finally, noise represents the irreducible error inherent in the data itself, which no algorithm can eliminate. The total expected error can be expressed as
+
+\begin{equation}
+\text{Total Error} = \textbf{Bias}^2 + \textbf{Variance} + \textbf{Noise}.
+\end{equation}
+
+Bagging is effective because it primarily reduces the variance component of the error without substantially affecting bias, making it a powerful tool in practice for variance-prone models.
+
+\subsection{Randomization}
+
+Randomization provides another mechanism to diversify the ensemble. Instead of manipulating the training data, one injects randomness into the learning algorithm itself. Many algorithms already involve randomness, such as neural networks with random initial weights. Greedy algorithms, such as decision tree construction, can be randomized by selecting among several near-optimal choices at random instead of always picking the best. This introduces diversity among models trained on the same dataset. Randomization can also extend to methods such as nearest neighbors by selecting random subsets of attributes or instances. Importantly, randomization can be combined with bagging to further increase diversity and reduce variance.
+
+\subsection{Boosting}
+
+Boosting differs fundamentally from bagging. Rather than training models independently, boosting builds an ensemble sequentially. Each new model is trained to focus on the examples misclassified by its predecessors, thereby producing a collection of specialists that complement one another. The outputs are then combined using weighted voting for classification or weighted averaging for regression, where stronger models are assigned greater influence. This iterative correction mechanism often reduces both bias and variance, leading to highly accurate ensembles.
+
+Boosting emphasizes hard-to-classify instances and often achieves superior accuracy compared to bagging. However, it is more prone to overfitting in noisy domains. Prominent implementations include \textbf{AdaBoost} (Adaptive Boosting), which adjusts instance weights dynamically across iterations, as well as more advanced gradient-based methods such as \textbf{Gradient Boosting}, \textbf{XGBoost}, and \textbf{LightGBM}. These methods have become central to modern machine learning practice due to their strong empirical performance.
+
+\subsection{Concluding Remarks on Ensembles}
+
+Ensemble methods exemplify the principle that multiple imperfect models, when combined, can produce a highly effective predictor. Bagging excels in stabilizing unstable learners, randomization encourages diversity even in deterministic algorithms, and boosting sequentially reduces bias by focusing on errors. Together, these techniques form the foundation of modern predictive modeling and are indispensable tools in the analysis of large and complex data.

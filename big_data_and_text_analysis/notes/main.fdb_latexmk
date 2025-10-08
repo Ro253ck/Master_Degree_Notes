@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1759486220 "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" "main.pdf" "main" 1759486222
+["pdflatex"] 1759567172 "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" "main.pdf" "main" 1759567173
   "/etc/texmf/web2c/texmf.cnf" 1755005415 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/rocco/Desktop/Master_Degree_Notes/big_data_and_text_analysis/notes/main.tex" 1759395208 7823 d0956a5ff268091acb775104e90aebd9 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -262,6 +262,8 @@
   "/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc" 1254938640 2327 9d6df24f9c4f7368395224341a95523a ""
   "/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc" 1254938640 3031 6c4d3515bf7115d8518af1c9ab97ca44 ""
   "/usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm" 1254938640 12088 d750ac78274fa7c9f73ba09914c04f8a ""
+  "/usr/share/texmf/fonts/tfm/public/lm/ec-lmbx6.tfm" 1254938640 12060 e1421116ee46f156304f311f9d8331aa ""
+  "/usr/share/texmf/fonts/tfm/public/lm/ec-lmbx8.tfm" 1254938640 12076 360d279d01701e9e9f0f2427c1d230fe ""
   "/usr/share/texmf/fonts/tfm/public/lm/ec-lmr10.tfm" 1254938640 12056 7e13df7fe4cbce21b072ba7c4f4deb6e ""
   "/usr/share/texmf/fonts/tfm/public/lm/ec-lmr12.tfm" 1254938640 12092 7b1546e2d096cfd5dcbd4049b0b1ec2e ""
   "/usr/share/texmf/fonts/tfm/public/lm/ec-lmr17.tfm" 1254938640 12156 ca1ae6a3c8564e89597f1f993fba1608 ""
@@ -311,15 +313,17 @@
   "images/big_data_pipeline.png" 1758045761 67618 ee9217ade76246b07c41dd0ef0058af8 ""
   "images/binary_classification.png" 1758286515 82219 b512ca901771277dbb9f9c3e619a686c ""
   "images/final_tree.png" 1758629605 41065 945b47edcb6a31d5d51fafacf5a16abb ""
+  "images/holdout_set.png" 1759564226 61591 3be74266ff643872a9bbd9cf3d258573 ""
   "images/id_code.png" 1758630207 44417 f28d89db19ad489c244a4ca3823e0501 ""
+  "images/learning_curves.png" 1759564460 96762 ba1943dd9568a549bacb2c34f6007dee ""
   "images/linear_function.png" 1758286116 56242 c0158811605b0393a90eba2fcbb62952 ""
   "images/scaler.png" 1759173120 316048 7c6bb9131ca9fd899afe9715fa7c06ca ""
   "images/scheme_specific_selection.png" 1759485316 273218 0c382d3f6cbb962d09c08175fa6aa68c ""
-  "main.aux" 1759486222 14795 99c8801f2a2fbe669173c713d1bdf4d7 "pdflatex"
-  "main.out" 1759486222 2041 370065c031d68afd48f048aaea3bb119 "pdflatex"
+  "main.aux" 1759567173 17231 5a40677814953e7d26de729e2eab526f "pdflatex"
+  "main.out" 1759567173 2622 f9af835abd3584f97323b77e02845600 "pdflatex"
   "main.tex" 1759395208 7823 d0956a5ff268091acb775104e90aebd9 ""
-  "main.toc" 1759486222 7054 dd5acd6e765d18f7e4048e6f404aa46c "pdflatex"
-  "sections/Data_Mining_And_ML.tex" 1759486219 52680 3c3df28f0e3f48123ebdc44fa488da39 ""
+  "main.toc" 1759567173 8406 8a806b14c896ee6925592ec948071721 "pdflatex"
+  "sections/Data_Mining_And_ML.tex" 1759567170 64658 d710a748206d3f20969f1c932aa925a2 ""
   "sections/introduction.tex" 1759395238 8536 7469af0eed7d5353728f8b3672ccb670 ""
   (generated)
   "main.aux"
