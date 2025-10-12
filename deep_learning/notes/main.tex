@@ -58,6 +58,26 @@
     colframe = black % frame color
 }
 
+\newtcolorbox{examplebox}{
+    colback=cyan!5,       % colore di sfondo (più alto il numero -> più chiaro)
+    colframe=cyan!60!black, % colore del bordo
+    boxrule=1pt,          % spessore del bordo
+    arc=4pt,              % angoli arrotondati
+    left=6pt, right=6pt, top=6pt, bottom=6pt,
+    fonttitle=\bfseries,  % titolo in grassetto
+    title=Example         % titolo predefinito
+}
+
+\newtcolorbox{infobox}[1][]{
+    colback=red!10,              % sfondo rosso chiaro
+    colframe=red!60!black,       % bordo rosso scuro
+    boxrule=1pt,                 % spessore del bordo
+    arc=4pt,                     % angoli arrotondati
+    left=6pt, right=6pt, top=6pt, bottom=6pt,
+    fonttitle=\bfseries,         % titolo in grassetto
+    coltitle=red!10!white,       % colore del titolo
+    title=#1                     % titolo passato come argomento
+}
 \usetikzlibrary{shadows}
 \definecolor{light-gray}{gray}{0.96}
 \definecolor{cyan}{RGB}{230,230,255}
@@ -258,4 +278,5 @@ urlcolor=blue,
 \newpage  % Per iniziare il contenuto in una nuova pagina
 \input{sections/logistic_regression_and_optimizer}
 \input{sections/MLP}
+\input{sections/CNN}
 \end{document}

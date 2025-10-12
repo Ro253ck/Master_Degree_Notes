@@ -306,3 +306,430 @@ The Gantt chart in Figure \ref{fig:priority_scheduling_2} illustrates the schedu
 \end{figure}
 
 \section{Scheduling with Multiple queues}
+In this method, the ready queue is divided into several separate queues. Multilevel queue scheduler defined by the following parameters:
+\begin{compactitemize}
+    \item The number of queues.
+    \item The scheduling algorithm for each queue.
+    \item Method used to determine which queue a process will enter when that process needs service.
+    \item The scheduling among the queues.
+\end{compactitemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/prioriy.png}
+    \caption{Priority scheduling with multiple queues}
+    \label{fig:priority_scheduling}
+\end{figure}
+If we want use a prioriry scheduling, we can use a multilevel queuem, each queue having a different priority. Obliusly, a process can move between the various queues. Multilevel-feedback-queue scheduler defined by the following parameters:
+\begin{compactitemize}
+    \item Scheduling algorithms fot each queue.
+    \item Method used to determine when to upgrade a process.
+    \item Method used to determine when to demote a process.
+    \item Method used to determine which queue a process will enter when that process needs service.
+\end{compactitemize}
+
+\subsection{Example of multilevel feedback queue}
+Consider a system with three queues:
+\begin{compactitemize}
+    \item Queue 0: RR with time quantum $q_1 = 8$ ms
+    \item Queue 1: RR with time quantum $q_2 = 16$ ms
+    \item Queue 2: FCFS
+\end{compactitemize}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/multi_quque_ex.png}
+    \caption{Multi queue example}
+    \label{fig:multi_queue_example}
+    \vspace{-10pt}
+\end{wrapfigure}
+
+The scheduling policy works as follows:
+\begin{compactitemize}
+    \item A new process always enters \textbf{Queue 0} and is served using the Round Robin (RR) algorithm.
+    \begin{compactitemize}
+        \item When the process gains access to the CPU, it executes for up to 8 milliseconds.
+        \item If the process does not complete within this time quantum, it is preempted and moved to \textbf{Queue 1}.
+    \end{compactitemize}
+    
+    \item In \textbf{Queue 1}, the process is again scheduled using the RR algorithm.
+    \begin{compactitemize}
+        \item It receives an additional 16 milliseconds of CPU time.
+        \item If the process still does not complete after this quantum, it is preempted and moved to \textbf{Queue 2}.
+    \end{compactitemize}
+    
+    \item In \textbf{Queue 2}, processes are scheduled using the First-Come, First-Served (FCFS) discipline.
+    \begin{compactitemize}
+        \item Once a process reaches this queue, it remains there until it finishes execution.
+    \end{compactitemize}
+\end{compactitemize}
+This structure allows shorter jobs to be completed quickly in higher-priority queues, while longer jobs gradually move to lower-priority queues where they are executed with less frequent preemption.
+
+\section{Thread Scheduling}
+Thread scheduling determines how threads are mapped to available CPUs and how CPU time is distributed among them.  
+When a system supports threads, the scheduler handles \textbf{threads} instead of processes.
+
+\subsection{Distinction Between User-Level and Kernel-Level Threads}
+\begin{compactitemize}
+    \item \textbf{User-level threads}: managed entirely by a thread library in user space.  
+    \item \textbf{Kernel-level threads}: managed directly by the operating system kernel.  
+\end{compactitemize}
+
+\noindent
+When user-level threads are used, it is the thread library—not the kernel—that decides which thread runs on which \textbf{Lightweight Process (LWP)}.
+
+\subsection{Thread Scheduling Models}
+
+\begin{compactitemize}
+    \item In \textbf{many-to-one} and \textbf{many-to-many} models, the thread library schedules user-level threads to run on LWPs.  
+    \item This form of scheduling is known as \textbf{Process-Contention Scope (PCS)}, because the competition for CPU occurs among threads within the same process.  
+    \item The scheduling priority can typically be set by the programmer.
+    \item Conversely, when the kernel schedules threads onto available CPUs, the scheduling scope is called \textbf{System-Contention Scope (SCS)} — meaning that all threads in the system compete for CPU resources.  
+\end{compactitemize}
+
+\subsection{Pthread Scheduling}
+
+The POSIX threads (Pthreads) API provides mechanisms to specify the scheduling scope when creating threads.
+
+\begin{compactitemize}
+    \item The constant \texttt{PTHREAD\_SCOPE\_PROCESS} enables scheduling using \textbf{PCS} (Process-Contention Scope).  
+    \item The constant \texttt{PTHREAD\_SCOPE\_SYSTEM} enables scheduling using \textbf{SCS} (System-Contention Scope).  
+    \item However, some operating systems—such as \textbf{Linux} and \textbf{macOS}—only support \texttt{PTHREAD\_SCOPE\_SYSTEM}.  
+\end{compactitemize}
+
+\subsection{Pthread Scheduling Example (C Code)}
+
+The following program demonstrates how to query and set the scheduling scope for a set of threads using the Pthreads API.
+
+\begin{lstlisting}[language=C, caption={Pthread scheduling example using PCS and SCS}, label={lst:pthread-scheduling}]
+#include <pthread.h>
+#include <stdio.h>
+#define NUM_THREADS 5
+int main(int argc, char *argv[]) {
+    int i, scope; pthread_t tid[NUM_THREADS];
+    pthread_attr_t attr;
+    /* get the default attributes */
+    pthread_attr_init(&attr);
+    /* first inquire on the current scope */
+    if (pthread_attr_getscope(&attr, &scope) != 0)
+        fprintf(stderr, "Unable to get scheduling scope\n");
+    else {
+    if (scope == PTHREAD_SCOPE_PROCESS)
+        printf("PTHREAD_SCOPE_PROCESS");
+    else if (scope == PTHREAD_SCOPE_SYSTEM)
+        printf("PTHREAD_SCOPE_SYSTEM");
+    else fprintf(stderr, "Illegal scope value.\n");
+    }
+    /* set the scheduling algorithm to PCS or SCS */
+    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
+    /* create the threads */
+    for (i = 0; i < NUM_THREADS; i++)
+        pthread_create(&tid[i],&attr,runner,NULL);
+    }
+    /* now join on each thread */
+    for (i = 0; i < NUM_THREADS; i++){
+        pthread_join(tid[i], NULL);
+    }
+    /* Each thread will begin control in this function */
+    void *runner(void *param){
+        /* do some work ... */
+        pthread_exit(0);
+    }
+\end{lstlisting}
+
+\section{Multi-Processor Scheduling}
+CPU scheduling is more complex when multiple CPUs are available. Multiprocess may be any of the following architectures:
+\begin{compactitemize}
+    \item Multicore CPUs
+    \item Multithreaded CPUs
+    \item NUMA architectures
+    \item Heterogeneous multiprocessing
+\end{compactitemize}
+
+\subsection{Multiple-Processor Scheduling}
+Symmetric multiprocessing (SMP) is where each processor is self-scheduling. All thread may be in a common ready queue, or each processor may have its own private queue of ready threads.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/multiprocessor.png}
+    \caption{Example of multiple-processor scheduling}
+    \label{fig:multiple_processor_scheduling}
+\end{figure}
+\subsection{Multicore and Multithreaded Processors}
+In the previous chapter we see that when we execute a thread, the execution is a alternative of CPU bursts and I/O bursts. During the I/O bursts, the CPU is idle, and due to this, we use swtich between threads. But in reality, also in the CPU burst, that is a classic fetch, decode, execute cycle, there are some stalls. For example, when the CPU needs to access the memory, it may take some time to fetch the data from the memory. During this time, the CPU is idle, and we can use this time to execute another thread, this is called hyperthreading. Obliusly the core has been designed to support this feature.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/normal_thread.png}
+    \caption{Normal thread execution without hyperthreading}
+    \label{fig:normal_thread_execution}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/hyperthreading.png}
+    \caption{Thread execution with hyperthreading}
+    \label{fig:hyperthreading_execution}
+\end{figure}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/two_level.png}
+    \caption{Two-level thread scheduling}
+    \label{fig:two_level_thread_scheduling}
+    \vspace{-10pt}
+\end{wrapfigure}
+Thread scheduling can be viewed as occurring at two distinct levels.  
+At the first level, the \textbf{operating system} determines which software thread should be executed on each logical CPU.  
+At the second level, each \textbf{physical core} decides which hardware thread (for example, in systems supporting simultaneous multithreading or hyper-threading) will actually run on the core.  
+This hierarchical structure allows for efficient utilization of both logical and physical processing resources.
+
+\subsection{SMP Load Balancing}
+
+In symmetric multiprocessing (SMP) systems, it is important to ensure that all CPUs remain efficiently utilized.  
+The goal of load balancing is to distribute the workload evenly among all processors, avoiding situations in which some CPUs are idle while others are overloaded.  
+This does not necessarily imply an equal number of processes or perfectly balanced process priorities, but rather the avoidance of any significant imbalance in CPU utilization.
+
+Two main strategies are typically used to achieve load balancing.  
+In \textbf{push migration}, a periodic task checks the load on each processor and, when it detects that a CPU is overloaded, it pushes one or more tasks to less busy processors.  
+In contrast, \textbf{pull migration} occurs when an idle processor actively pulls a waiting task from a busy CPU.  
+These mechanisms help maintain system efficiency by dynamically redistributing workloads across processors.
+
+\subsection{SMP Processor Affinity}
+
+When a thread executes on a specific processor, the cache of that processor contains data and instructions recently accessed by the thread.  
+This creates a natural preference, known as \textbf{processor affinity}, for that thread to continue running on the same CPU, since reusing cached data improves performance.  
+
+However, load balancing operations may interfere with this affinity, as a thread can be moved to another processor to achieve a more even workload distribution.  
+When such migration occurs, the thread loses the cache data associated with its previous processor, potentially reducing efficiency.
+
+Processor affinity can be classified into two types.  
+\textbf{Soft affinity} means that the operating system attempts to keep a thread running on the same processor whenever possible, but without strict guarantees.  
+\textbf{Hard affinity}, on the other hand, allows a process to explicitly specify a set of processors on which it is permitted to execute, providing stronger control over processor placement.
+
+\subsection{NUMA and CPU Scheduling}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/NUMA_scheduling.png}
+    \caption{NUMA-aware CPU scheduling}
+    \label{fig:numa_aware_scheduling}
+    \vspace{-10pt}
+\end{wrapfigure}
+In systems with Non-Uniform Memory Access (NUMA) architecture, the operating system can optimize performance by assigning memory that is physically closer to the CPU on which a thread is executing.  
+This proximity reduces memory access latency and improves overall efficiency by ensuring that threads primarily access local memory rather than remote nodes.  
+
+However, load balancing may interfere with this optimization.  
+When a thread is migrated to another processor located on a different NUMA node, it may lose the benefit of local memory access, leading to increased latency and reduced performance.  
+Therefore, a NUMA-aware operating system must carefully balance the trade-off between maintaining load balance across CPUs and preserving memory locality.
+
+\section{Real-Time CPU Scheduling}
+When we talk about real-time systems, we must distinguish between:
+\begin{compactitemize}
+    \item \textbf{Hard real-time systems}: where it is absolutely essential that critical tasks complete on time. Missing a deadline could lead to catastrophic consequences, such as in medical or aerospace applications.
+    \item \textbf{Soft real-time systems}: where deadlines are important but not absolutely critical. Missing a deadline may degrade performance but does not lead to failure, such as in multimedia applications.
+\end{compactitemize}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/latency.png}
+    \caption{Types of latency in real-time systems}
+    \label{fig:latency_real_time}
+    \vspace{-10pt}
+\end{wrapfigure}
+There are three type of latency that we must consider in real-time systems:
+\begin{compactitemize}
+    \item \textbf{Interrupt latency}: the time it takes to start executing an interrupt service routine after an interrupt is generated.
+    \item \textbf{Dispatch latency}: the time it takes for the scheduler to stop one process and start another running.
+    \item \textbf{Event latency}: the time from when a request was made until the system produces a response.
+\end{compactitemize}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/distpach_latency.png}
+    \caption{Dispatch latency in real-time systems}
+    \label{fig: dispatch_latency_real_time}
+    \vspace{-10pt}
+\end{wrapfigure}
+In the dispatch latency there is a conflict phase, in detail:
+\begin{compactitemize}
+    \item \textbf{Preemption of a process running in kernel mode:} if a low-priority process is executing in kernel mode, it cannot be preempted immediately. The system must wait until it exits the critical section or reaches a safe point for context switching.
+    \item \textbf{Resource release by a low-priority process:} a high-priority process may be blocked if a low-priority process holds resources it needs (e.g., mutexes or I/O devices). This may cause additional delay, known as \textit{priority inversion}.
+\end{compactitemize}
+
+\subsection{Priority-based Scheduling}
+In real-time systems, the scheduler must be capable of \textbf{preemptive, priority-based scheduling}. This ensures that high-priority tasks can interrupt lower-priority ones whenever necessary, minimizing response time. However, such a scheduling policy by itself only guarantees \textbf{soft real-time performance}, where occasional deadline misses are acceptable.
+
+For \textbf{hard real-time systems}, additional mechanisms are required to ensure that all tasks meet their deadlines under all conditions. This typically involves precise timing analysis, predictability of execution times, and bounded interrupt and dispatch latencies.
+
+In this context, processes may exhibit specific real-time characteristics. Periodic tasks, in particular, require CPU service at regular intervals and can be defined by the following parameters:
+
+\begin{compactitemize}
+    \item Processing time: $t$
+    \item Deadline: $d$
+    \item Period: $p$
+    \item Relationship: $0 \leq t \leq d \leq p$
+    \item Rate of a periodic task: $1/p$
+\end{compactitemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\linewidth]{images/priority_based_scheduling.png}
+    \caption{Example of priority-based scheduling in real-time systems}
+    \label{fig:priority_based_scheduling_real_time}
+\end{figure}
+
+\subsection{Rate Monotonic Scheduling (RMS)}
+Rate Monotonic Scheduling (RMS) is a widely used algorithm for scheduling periodic tasks in real-time systems. It is a fixed-priority algorithm where the priority of each task is determined by its period: the shorter the period, the higher the priority. This means that tasks that need to run more frequently are given precedence over those that run less often.
+Now we'll look an example of RMS with two periodic tasks:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Task} & \textbf{Processing Time (t)} & \textbf{Period (p)} & \textbf{Deadline (d)} \\ 
+        \hline
+        P1 & 20 & 50 & 50 \\ 
+        P2 & 35 & 100 & 100 \\ 
+        \hline
+    \end{tabular}
+    \caption{Example of periodic tasks for RMS}
+    \label{tab:rms_example}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/RMS_example.png}
+    \caption{Example of Rate Monotonic Scheduling (RMS)}
+    \label{fig:rms_example}
+\end{figure}
+Sometimes this algorithm can be failure, for example, in this case:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Task} & \textbf{Processing Time (t)} & \textbf{Period (p)} & \textbf{Deadline (d)} \\ 
+        \hline
+        P1 & 25 & 50 & 50 \\ 
+        P2 & 35 & 80 & 80 \\ 
+        \hline
+    \end{tabular}
+    \caption{Example of periodic tasks for RMS that fails}
+    \label{tab:rms_example_failure}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/rms_fail.png}
+    \caption{Example of Rate Monotonic Scheduling (RMS) that fails}
+    \label{fig:rms_example_failure}
+\end{figure}
+In this case, P2 misses its deadline at time 80. 
+
+\subsection{Earliest Deadline First (EDF) Scheduling}
+Earliest Deadline First (EDF) is a dynamic priority scheduling algorithm used in real-time systems. In EDF, the priority of a task is determined by its absolute deadline: the task with the closest deadline is given the highest priority. This means that tasks are scheduled based on their urgency, allowing for more flexible and efficient use of CPU resources compared to fixed-priority algorithms like Rate Monotonic Scheduling (RMS).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/edf.png}
+    \caption{Example of Earliest Deadline First (EDF) Scheduling}
+    \label{fig:edf_scheduling}
+\end{figure}
+
+\textbf{Proportional Share Scheduling} is a scheduling approach where the CPU time is divided proportionally among processes based on assigned \textit{shares}. The total number of shares, $T$, represents the full processor capacity, while each process or application receives $N$ shares, where $N < T$. This allocation guarantees that each process obtains a fraction $\frac{N}{T}$ of the total processor time.
+
+This method allows a fair distribution of CPU resources according to predefined proportions, rather than strict priorities. For instance, if $T = 100$ and three processes $A$, $B$, and $C$ are given $50$, $15$, and $20$ shares respectively, then:
+\begin{itemize}
+    \item Process $A$ receives approximately $50\%$ of the CPU time,
+    \item Process $B$ receives $15\%$,
+    \item Process $C$ receives $20\%$.
+\end{itemize}
+This proportional allocation helps ensure that each process gets its required computational resources during each scheduling period.
+
+\subsection{Proportional Share Scheduling }
+\textbf{Proportional Share Scheduling} is a different scheduling approach from classical real-time algorithms such as RMS or EDF. Its goal is not to guarantee deadlines, but to distribute CPU time fairly among all processes based on assigned \textit{shares}.
+
+The system defines a total number of shares $T$, and each process receives $N$ shares ($N < T$). This ensures that each process gets a proportional fraction $\frac{N}{T}$ of the processor time. For example, if $T = 100$ and three processes $A$, $B$, and $C$ have $50$, $15$, and $20$ shares respectively, they receive approximately $50\%$, $15\%$, and $20\%$ of CPU time.
+
+This technique is designed for fairness rather than strict timing guarantees. It is often used in general-purpose or soft real-time systems where proportional resource allocation matters more than meeting precise deadlines.
+
+In contrast, \textbf{real-time scheduling} (e.g., RMS or EDF) is focused on guaranteeing that all critical tasks complete within their deadlines. The system must be analyzed and designed so that the total processing demand never exceeds the processor’s capacity. In other words, it must be proven in advance that every required process can finish on time. Therefore, real-time scheduling is about \textit{predictability and guarantees}, while proportional share scheduling is about \textit{fair distribution}.
+
+\textbf{Note:} If you are interested about the most famous OS scheduling go to slides.
+
+\section{Algorithm Evaluation}
+
+Choosing the most appropriate CPU-scheduling algorithm for an operating system requires a proper evaluation of their performance. Different algorithms may perform better under different workloads, so several methods exist to analyze and compare them.
+
+\subsection{Deterministic Modeling}
+
+This is an \textbf{analytic evaluation} technique that uses a predefined workload to determine the performance of each scheduling algorithm. The workload is fixed, and all process characteristics (arrival time, burst time, etc.) are known in advance.
+
+For example, consider 5 processes arriving at time 0:
+
+\begin{center}
+\begin{tabular}{c c}
+\textbf{Process} & \textbf{Burst time} \\
+P1 & 10 \\
+P2 & 29 \\
+P3 & 3 \\
+P4 & 7 \\
+P5 & 12 \\
+\end{tabular}
+\end{center}
+
+For each scheduling algorithm, we can compute metrics such as average waiting time.  
+For this example:
+\begin{compactitemize}
+    \item FCFS: average waiting time = 28 ms
+    \item Non-preemptive SJF: 13 ms
+    \item Round Robin: 23 ms
+\end{compactitemize}
+
+This method is simple and fast, but it requires exact data and cannot easily generalize to variable or unknown workloads.
+
+\subsection{Queueing Models}
+
+Queueing models describe the system probabilistically, assuming that process arrivals and CPU/I/O bursts follow certain probability distributions (commonly exponential). The system is modeled as a \textbf{network of queues and servers}.
+
+Knowing the average \textit{arrival rate} ($\lambda$) and \textit{service rate}, the model can estimate:
+\begin{compactitemize}
+    \item CPU utilization
+    \item Average queue length
+    \item Average waiting time
+    \item Throughput
+\end{compactitemize}
+
+A key relationship is given by \textbf{Little’s Law}:
+\[
+n = \lambda \times W
+\]
+where:
+\begin{compactitemize}
+    \item $n$ = average number of processes in the queue
+    \item $W$ = average waiting time
+    \item $\lambda$ = average arrival rate
+\end{compactitemize}
+
+For instance, if 7 processes arrive per second and on average 14 processes are in the queue, then the average waiting time per process is $W = 2$ seconds.
+
+\subsection{Simulations}
+
+Queueing models rely on simplified assumptions, so they may not reflect real system behavior.  
+\textbf{Simulations} offer a more accurate evaluation by creating a programmed model of the computer system, with a simulated clock and event handling.
+
+Performance statistics are gathered by running workloads defined through:
+\begin{compactitemize}
+    \item Random number generators (based on probability distributions)
+    \item Empirical or mathematical distributions
+    \item Trace tapes that record real sequences of system events
+\end{compactitemize}
+
+Simulations allow flexible testing but depend heavily on the accuracy of the input data and assumptions.
+
+\subsection{Implementation}
+
+The most realistic (but also most expensive) method is to \textbf{implement the scheduler} and test it on real systems.  
+This provides direct empirical data, but it is:
+\begin{compactitemize}
+    \item Costly and risky
+    \item Highly dependent on the environment
+    \item Often impractical for early testing
+\end{compactitemize}
+
+In practice, flexible schedulers can be tuned per system or per site, or expose APIs to adjust priorities dynamically.

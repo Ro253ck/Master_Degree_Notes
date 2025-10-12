@@ -34,3 +34,13 @@
 \contentsline {subsection}{\numberline {2.6.1}Dropout}{21}{subsection.2.6.1}%
 \contentsline {subsection}{\numberline {2.6.2}Data Augmentation}{22}{subsection.2.6.2}%
 \contentsline {subsection}{\numberline {2.6.3}Early Stopping}{22}{subsection.2.6.3}%
+\contentsline {chapter}{\numberline {3}Convolutional Neural Networks (CNNs)}{24}{chapter.3}%
+\contentsline {section}{\numberline {3.1}The parameter explosion problem in MLPs and the solution with CNNs}{24}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Architecture}{25}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Convolutional Layers}{26}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}What is the convolution operation?}{28}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Hyperparameters of Convolutional Layers}{28}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Number of Learnable Parameters}{29}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Activation Functions}{30}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Pooling Layers}{31}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Computing Output Volume Size}{32}{subsection.3.4.1}%
