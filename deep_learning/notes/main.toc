@@ -44,3 +44,21 @@
 \contentsline {subsection}{\numberline {3.3.4}Activation Functions}{30}{subsection.3.3.4}%
 \contentsline {section}{\numberline {3.4}Pooling Layers}{31}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Computing Output Volume Size}{32}{subsection.3.4.1}%
+\contentsline {chapter}{\numberline {4}Recurrent Neural Networks}{34}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction to Time Series}{34}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}STL Decomposition}{35}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Forecasting}{36}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Forecasting Problem}{37}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Autoregressive Models}{37}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Moving Average Models}{38}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}ARMA Models}{38}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Data Pre-processing}{39}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Data Preparation}{40}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Cyclical Features}{41}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Recurrent Neural Networks (RNNs)}{41}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Vanilla RNN}{42}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Training RNNs}{43}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}The Challenge of Long-Term Dependencies: Vanishing Gradients}{45}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}The Challenge of Long-Term Dependencies: Exploding Gradients}{45}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Advanced Recurrent Architectures}{45}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Long Short-Term Memory networks}{46}{subsection.4.5.1}%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  11 OCT 2025 21:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.8.12)  14 OCT 2025 17:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -963,6 +963,21 @@ LaTeX Warning: Label `fig:overF' multiply defined.
 
 LaTeX Warning: Label `fig:overF' multiply defined.
 
+
+LaTeX Warning: Label `fig:forecasting' multiply defined.
+
+
+LaTeX Warning: Label `fig:forecast_prediction' multiply defined.
+
+
+LaTeX Warning: Label `fig:forecast_prediction' multiply defined.
+
+
+LaTeX Warning: Label `fig:RNN_unfolded' multiply defined.
+
+
+LaTeX Warning: Label `fig:RNN_unfolded' multiply defined.
+
 )
 \openout1 = `main.aux'.
 
@@ -1159,41 +1174,41 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2
 
 ] [3]
-<images/sigmoid.png, id=149, 738.76pt x 329.23pt>
+<images/sigmoid.png, id=179, 738.76pt x 329.23pt>
 File: images/sigmoid.png Graphic file (type png)
 <use images/sigmoid.png>
 Package pdftex.def Info: images/sigmoid.png  used on input line 86.
 (pdftex.def)             Requested size: 204.85672pt x 91.29459pt.
-<images/GD_start.png, id=151, 1344.02126pt x 682.55pt>
+<images/GD_start.png, id=181, 1344.02126pt x 682.55pt>
 File: images/GD_start.png Graphic file (type png)
 <use images/GD_start.png>
 Package pdftex.def Info: images/GD_start.png  used on input line 113.
 (pdftex.def)             Requested size: 230.46576pt x 117.03178pt.
-<images/GD_end.png, id=152, 1252.68pt x 692.5875pt>
+<images/GD_end.png, id=182, 1252.68pt x 692.5875pt>
 File: images/GD_end.png Graphic file (type png)
 <use images/GD_end.png>
 Package pdftex.def Info: images/GD_end.png  used on input line 120.
 (pdftex.def)             Requested size: 230.46576pt x 127.41861pt.
  [4 <./images/sigmoid.png>]
-<images/LR.png, id=164, 1188.44pt x 471.7625pt>
+<images/LR.png, id=195, 1188.44pt x 471.7625pt>
 File: images/LR.png Graphic file (type png)
 <use images/LR.png>
 Package pdftex.def Info: images/LR.png  used on input line 131.
 (pdftex.def)             Requested size: 409.72125pt x 162.64305pt.
-<images/convex_or_no.png, id=165, 1285.80376pt x 514.92375pt>
+<images/convex_or_no.png, id=196, 1285.80376pt x 514.92375pt>
 File: images/convex_or_no.png Graphic file (type png)
 <use images/convex_or_no.png>
 Package pdftex.def Info: images/convex_or_no.png  used on input line 140.
 (pdftex.def)             Requested size: 409.72125pt x 164.07968pt.
  [5 <./images/GD_start.png> <./images/GD_end.png> <./images/LR.png> <./images/convex_or_no.png>] [6]
-<images/ADAM.png, id=189, 706.64pt x 539.01375pt>
+<images/ADAM.png, id=219, 706.64pt x 539.01375pt>
 File: images/ADAM.png Graphic file (type png)
 <use images/ADAM.png>
 Package pdftex.def Info: images/ADAM.png  used on input line 224.
 (pdftex.def)             Requested size: 256.07481pt x 195.32784pt.
  [7 <./images/ADAM.png>]) (./sections/MLP.tex [8]
 Chapter 2.
-<images/size_matter.png, id=209, 695.59875pt x 433.62pt>
+<images/size_matter.png, id=239, 695.59875pt x 433.62pt>
 File: images/size_matter.png Graphic file (type png)
 <use images/size_matter.png>
 Package pdftex.def Info: images/size_matter.png  used on input line 10.
@@ -1201,29 +1216,29 @@ Package pdftex.def Info: images/size_matter.png  used on input line 10.
 [9
 
  <./images/size_matter.png>]
-<images/cifrar_10.png, id=216, 726.715pt x 640.3925pt>
+<images/cifrar_10.png, id=246, 726.715pt x 640.3925pt>
 File: images/cifrar_10.png Graphic file (type png)
 <use images/cifrar_10.png>
 Package pdftex.def Info: images/cifrar_10.png  used on input line 43.
 (pdftex.def)             Requested size: 256.07481pt x 225.65532pt.
  [10 <./images/cifrar_10.png>]
-<images/linear_ex.png, id=228, 1475.5125pt x 552.0625pt>
+<images/linear_ex.png, id=258, 1475.5125pt x 552.0625pt>
 File: images/linear_ex.png Graphic file (type png)
 <use images/linear_ex.png>
 Package pdftex.def Info: images/linear_ex.png  used on input line 76.
 (pdftex.def)             Requested size: 409.72125pt x 153.29602pt.
-<images/log.png, id=229, 846.16125pt x 532.99126pt>
+<images/log.png, id=259, 846.16125pt x 532.99126pt>
 File: images/log.png Graphic file (type png)
 <use images/log.png>
 Package pdftex.def Info: images/log.png  used on input line 107.
 (pdftex.def)             Requested size: 256.07481pt x 161.29744pt.
  [11 <./images/linear_ex.png>] [12 <./images/log.png>]
-<images/neuron.png, id=253, 741.77126pt x 314.17375pt>
+<images/neuron.png, id=283, 741.77126pt x 314.17375pt>
 File: images/neuron.png Graphic file (type png)
 <use images/neuron.png>
 Package pdftex.def Info: images/neuron.png  used on input line 165.
 (pdftex.def)             Requested size: 307.2929pt x 130.15436pt.
-<images/artificial_neuron.png, id=254, 746.79pt x 444.66125pt>
+<images/artificial_neuron.png, id=284, 746.79pt x 444.66125pt>
 File: images/artificial_neuron.png Graphic file (type png)
 <use images/artificial_neuron.png>
 Package pdftex.def Info: images/artificial_neuron.png  used on input line 180.
@@ -1233,70 +1248,70 @@ File: images/sigmoid.png Graphic file (type png)
 <use images/sigmoid.png>
 Package pdftex.def Info: images/sigmoid.png  used on input line 214.
 (pdftex.def)             Requested size: 256.07481pt x 114.11697pt.
-<images/tanh.png, id=263, 595.22375pt x 390.45876pt>
+<images/tanh.png, id=293, 595.22375pt x 390.45876pt>
 File: images/tanh.png Graphic file (type png)
 <use images/tanh.png>
 Package pdftex.def Info: images/tanh.png  used on input line 234.
 (pdftex.def)             Requested size: 256.07481pt x 167.9774pt.
  [14]
-<images/relu.png, id=274, 567.11874pt x 390.45876pt>
+<images/relu.png, id=304, 567.11874pt x 390.45876pt>
 File: images/relu.png Graphic file (type png)
 <use images/relu.png>
 Package pdftex.def Info: images/relu.png  used on input line 258.
 (pdftex.def)             Requested size: 256.07481pt x 176.31252pt.
  [15 <./images/tanh.png> <./images/relu.png>]
-<images/NN.png, id=287, 952.55875pt x 539.01375pt>
+<images/NN.png, id=317, 952.55875pt x 539.01375pt>
 File: images/NN.png Graphic file (type png)
 <use images/NN.png>
 Package pdftex.def Info: images/NN.png  used on input line 283.
 (pdftex.def)             Requested size: 204.85672pt x 115.9186pt.
-<images/forward.png, id=288, 786.94pt x 414.54875pt>
+<images/forward.png, id=318, 786.94pt x 414.54875pt>
 File: images/forward.png Graphic file (type png)
 <use images/forward.png>
 Package pdftex.def Info: images/forward.png  used on input line 313.
 (pdftex.def)             Requested size: 204.85672pt x 107.91296pt.
  [16 <./images/NN.png>]
-<images/overF.png, id=298, 639.38875pt x 471.7625pt>
+<images/overF.png, id=329, 639.38875pt x 471.7625pt>
 File: images/overF.png Graphic file (type png)
 <use images/overF.png>
 Package pdftex.def Info: images/overF.png  used on input line 355.
 (pdftex.def)             Requested size: 153.64644pt x 113.36208pt.
  [17 <./images/forward.png> <./images/overF.png>] [18]
-<images/output.png, id=318, 421.575pt x 178.6675pt>
+<images/output.png, id=348, 421.575pt x 178.6675pt>
 File: images/output.png Graphic file (type png)
 <use images/output.png>
 Package pdftex.def Info: images/output.png  used on input line 429.
 (pdftex.def)             Requested size: 204.85672pt x 86.81992pt.
  [19 <./images/output.png>]
-<images/calculus_generic.png, id=329, 601.24625pt x 215.80624pt>
+<images/calculus_generic.png, id=359, 601.24625pt x 215.80624pt>
 File: images/calculus_generic.png Graphic file (type png)
 <use images/calculus_generic.png>
 Package pdftex.def Info: images/calculus_generic.png  used on input line 443.
 (pdftex.def)             Requested size: 204.85672pt x 73.52791pt.
-<images/forward_pass.png, id=330, 1205.50375pt x 241.90375pt>
+<images/forward_pass.png, id=360, 1205.50375pt x 241.90375pt>
 File: images/forward_pass.png Graphic file (type png)
 <use images/forward_pass.png>
 Package pdftex.def Info: images/forward_pass.png  used on input line 451.
 (pdftex.def)             Requested size: 358.50317pt x 71.9368pt.
-<images/backward_pass.png, id=331, 1209.51875pt x 320.19624pt>
+<images/backward_pass.png, id=361, 1209.51875pt x 320.19624pt>
 File: images/backward_pass.png Graphic file (type png)
 <use images/backward_pass.png>
 Package pdftex.def Info: images/backward_pass.png  used on input line 458.
 (pdftex.def)             Requested size: 358.50317pt x 94.90656pt.
  [20 <./images/calculus_generic.png> <./images/forward_pass.png> <./images/backward_pass.png>]
-<images/dropout.png, id=343, 245.91875pt x 578.16pt>
+<images/dropout.png, id=373, 245.91875pt x 578.16pt>
 File: images/dropout.png Graphic file (type png)
 <use images/dropout.png>
 Package pdftex.def Info: images/dropout.png  used on input line 507.
 (pdftex.def)             Requested size: 102.42836pt x 240.81412pt.
  [21]
-<images/data_argumentation.png, id=349, 717.68124pt x 299.1175pt>
+<images/data_argumentation.png, id=379, 717.68124pt x 299.1175pt>
 File: images/data_argumentation.png Graphic file (type png)
 <use images/data_argumentation.png>
 Package pdftex.def Info: images/data_argumentation.png  used on input line 525.
 (pdftex.def)             Requested size: 281.68385pt x 117.40387pt.
  [22 <./images/dropout.png> <./images/data_argumentation.png>]
-<images/early_stopping.png, id=360, 681.54625pt x 342.27875pt>
+<images/early_stopping.png, id=390, 681.54625pt x 342.27875pt>
 File: images/early_stopping.png Graphic file (type png)
 <use images/early_stopping.png>
 Package pdftex.def Info: images/early_stopping.png  used on input line 544.
@@ -1306,13 +1321,13 @@ Chapter 3.
 [24
 
 ]
-<images/CNN.png, id=372, 1103.12125pt x 330.23375pt>
+<images/CNN.png, id=402, 1103.12125pt x 330.23375pt>
 File: images/CNN.png Graphic file (type png)
 <use images/CNN.png>
 Package pdftex.def Info: images/CNN.png  used on input line 44.
 (pdftex.def)             Requested size: 512.14963pt x 153.3253pt.
  [25 <./images/CNN.png>]
-<images/local_connettivity.png, id=379, 310.15875pt x 317.185pt>
+<images/local_connettivity.png, id=409, 310.15875pt x 317.185pt>
 File: images/local_connettivity.png Graphic file (type png)
 <use images/local_connettivity.png>
 Package pdftex.def Info: images/local_connettivity.png  used on input line 82.
@@ -1324,65 +1339,165 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [26]
-<images/CNN_layer.png, id=384, 498.86375pt x 256.96pt>
+<images/CNN_layer.png, id=414, 498.86375pt x 256.96pt>
 File: images/CNN_layer.png Graphic file (type png)
 <use images/CNN_layer.png>
 Package pdftex.def Info: images/CNN_layer.png  used on input line 108.
 (pdftex.def)             Requested size: 230.46576pt x 118.70882pt.
  [27 <./images/local_connettivity.png> <./images/CNN_layer.png>]
-<images/convolution.png, id=393, 756.8275pt x 358.33875pt>
+<images/convolution.png, id=423, 756.8275pt x 358.33875pt>
 File: images/convolution.png Graphic file (type png)
 <use images/convolution.png>
 Package pdftex.def Info: images/convolution.png  used on input line 129.
 (pdftex.def)             Requested size: 409.72125pt x 193.99214pt.
  [28 <./images/convolution.png>] [29]
-<images/filter_example.png, id=408, 740.7675pt x 305.14pt>
+<images/filter_example.png, id=438, 740.7675pt x 305.14pt>
 File: images/filter_example.png Graphic file (type png)
 <use images/filter_example.png>
 Package pdftex.def Info: images/filter_example.png  used on input line 164.
 (pdftex.def)             Requested size: 409.72125pt x 168.77734pt.
-<images/activation_function.png, id=409, 1389.19pt x 428.60126pt>
+<images/activation_function.png, id=439, 1389.19pt x 428.60126pt>
 File: images/activation_function.png Graphic file (type png)
 <use images/activation_function.png>
 Package pdftex.def Info: images/activation_function.png  used on input line 179.
 (pdftex.def)             Requested size: 512.14963pt x 158.01755pt.
  [30 <./images/filter_example.png> <./images/activation_function.png>]
-<images/stage.png, id=420, 733.74126pt x 511.9125pt>
+<images/stage.png, id=450, 733.74126pt x 511.9125pt>
 File: images/stage.png Graphic file (type png)
 <use images/stage.png>
 Package pdftex.def Info: images/stage.png  used on input line 194.
 (pdftex.def)             Requested size: 307.2929pt x 214.39252pt.
-<images/max_pooling.png, id=421, 730.73pt x 347.2975pt>
+<images/max_pooling.png, id=451, 730.73pt x 347.2975pt>
 File: images/max_pooling.png Graphic file (type png)
 <use images/max_pooling.png>
 Package pdftex.def Info: images/max_pooling.png  used on input line 203.
 (pdftex.def)             Requested size: 256.07481pt x 121.70432pt.
  [31 <./images/stage.png> <./images/max_pooling.png>]
-<images/loss_spatial.png, id=430, 1215.54124pt x 302.12875pt>
+<images/loss_spatial.png, id=460, 1215.54124pt x 302.12875pt>
 File: images/loss_spatial.png Graphic file (type png)
 <use images/loss_spatial.png>
 Package pdftex.def Info: images/loss_spatial.png  used on input line 230.
 (pdftex.def)             Requested size: 460.93153pt x 114.56578pt.
- [32 <./images/loss_spatial.png>]) [33] (./main.aux)
+ [32 <./images/loss_spatial.png>]) (./sections/RNN.tex [33]
+Chapter 4.
+<images/series.png, id=472, 791.95876pt x 514.92375pt>
+File: images/series.png Graphic file (type png)
+<use images/series.png>
+Package pdftex.def Info: images/series.png  used on input line 11.
+(pdftex.def)             Requested size: 307.2929pt x 199.79802pt.
+[34
+
+ <./images/series.png>]
+<images/STL_decomposition.png, id=480, 1251.67625pt x 503.8825pt>
+File: images/STL_decomposition.png Graphic file (type png)
+<use images/STL_decomposition.png>
+Package pdftex.def Info: images/STL_decomposition.png  used on input line 31.
+(pdftex.def)             Requested size: 460.93153pt x 185.5571pt.
+<images/TS.png, id=482, 664.4825pt x 276.03125pt>
+File: images/TS.png Graphic file (type png)
+<use images/TS.png>
+Package pdftex.def Info: images/TS.png  used on input line 43.
+(pdftex.def)             Requested size: 230.46576pt x 95.7363pt.
+<images/residual.png, id=483, 644.4075pt x 303.1325pt>
+File: images/residual.png Graphic file (type png)
+<use images/residual.png>
+Package pdftex.def Info: images/residual.png  used on input line 50.
+(pdftex.def)             Requested size: 230.46576pt x 108.41068pt.
+ [35 <./images/STL_decomposition.png>]
+<images/forecasting.png, id=492, 715.67375pt x 319.1925pt>
+File: images/forecasting.png Graphic file (type png)
+<use images/forecasting.png>
+Package pdftex.def Info: images/forecasting.png  used on input line 65.
+(pdftex.def)             Requested size: 358.50317pt x 159.89294pt.
+<images/forecast_prediction.png, id=493, 595.22375pt x 437.635pt>
+File: images/forecast_prediction.png Graphic file (type png)
+<use images/forecast_prediction.png>
+Package pdftex.def Info: images/forecast_prediction.png  used on input line 73.
+(pdftex.def)             Requested size: 179.2555pt x 131.79234pt.
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 90.
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 90.
+ [36 <./images/TS.png> <./images/residual.png> <./images/forecasting.png> <./images/forecast_prediction.png>]
+<images/F_problem.png, id=505, 784.9325pt x 331.2375pt>
+File: images/F_problem.png Graphic file (type png)
+<use images/F_problem.png>
+Package pdftex.def Info: images/F_problem.png  used on input line 103.
+(pdftex.def)             Requested size: 435.3303pt x 183.71262pt.
+ [37 <./images/F_problem.png>] [38]
+<images/FT.png, id=521, 592.2125pt x 403.5075pt>
+File: images/FT.png Graphic file (type png)
+<use images/FT.png>
+Package pdftex.def Info: images/FT.png  used on input line 170.
+(pdftex.def)             Requested size: 204.85672pt x 139.57965pt.
+
+Overfull \hbox (26.80136pt too wide) in paragraph at lines 179--180
+[]\T1/lmr/bx/n/12 Non-linear meth-ods: \T1/lmr/m/n/12 Hilbert-Huang Trans-form (HHT). 
+ []
+
+[39 <./images/FT.png>] [40]
+<images/circle.png, id=534, 375.4025pt x 427.5975pt>
+File: images/circle.png Graphic file (type png)
+<use images/circle.png>
+Package pdftex.def Info: images/circle.png  used on input line 218.
+(pdftex.def)             Requested size: 102.42836pt x 116.66644pt.
+<images/RNN_framwork.png, id=535, 920.43875pt x 291.0875pt>
+File: images/RNN_framwork.png Graphic file (type png)
+<use images/RNN_framwork.png>
+Package pdftex.def Info: images/RNN_framwork.png  used on input line 237.
+(pdftex.def)             Requested size: 435.3303pt x 137.6728pt.
+ [41 <./images/circle.png> <./images/RNN_framwork.png>]
+<images/vanilla_RNN.png, id=545, 202.7575pt x 416.55624pt>
+File: images/vanilla_RNN.png Graphic file (type png)
+<use images/vanilla_RNN.png>
+Package pdftex.def Info: images/vanilla_RNN.png  used on input line 253.
+(pdftex.def)             Requested size: 76.8193pt x 157.82266pt.
+ [42 <./images/vanilla_RNN.png>]
+<images/RNN_unfolded.png, id=555, 989.6975pt x 291.0875pt>
+File: images/RNN_unfolded.png Graphic file (type png)
+<use images/RNN_unfolded.png>
+Package pdftex.def Info: images/RNN_unfolded.png  used on input line 287.
+(pdftex.def)             Requested size: 332.89412pt x 97.90688pt.
+<images/RNN_unfolded_output.png, id=556, 893.3375pt x 376.40625pt>
+File: images/RNN_unfolded_output.png Graphic file (type png)
+<use images/RNN_unfolded_output.png>
+Package pdftex.def Info: images/RNN_unfolded_output.png  used on input line 299.
+(pdftex.def)             Requested size: 332.89412pt x 140.26749pt.
+ [43 <./images/RNN_unfolded.png> <./images/RNN_unfolded_output.png>]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 350.
+ (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [44]
+<images/gate.png, id=570, 900.36375pt x 350.30875pt>
+File: images/gate.png Graphic file (type png)
+<use images/gate.png>
+Package pdftex.def Info: images/gate.png  used on input line 358.
+(pdftex.def)             Requested size: 307.2929pt x 119.55774pt.
+<images/LSTM_model.png, id=571, 671.50874pt x 397.485pt>
+File: images/LSTM_model.png Graphic file (type png)
+<use images/LSTM_model.png>
+Package pdftex.def Info: images/LSTM_model.png  used on input line 367.
+(pdftex.def)             Requested size: 332.89412pt x 197.04984pt.
+ [45 <./images/gate.png>] [46 <./images/LSTM_model.png>]) [47] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 10778434C5C15A71CB0A81AE936B0C53;2912.
+(rerunfilecheck)             Checksum: 4AF3D2A332FAAF6F9D02E4860A488441;4000.
  ) 
 Here is how much of TeX's memory you used:
- 51433 strings out of 480236
- 1246210 string characters out of 5895675
+ 51682 strings out of 480236
+ 1250822 string characters out of 5895675
  1845673 words of memory out of 5000000
- 68400 multiletter control sequences out of 15000+600000
- 526512 words of font info for 64 fonts, out of 8000000 for 9000
+ 68573 multiletter control sequences out of 15000+600000
+ 537738 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  88i,12n,117p,1663b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (34 pages, 5408757 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (48 pages, 6197819 bytes).
 PDF statistics:
- 549 PDF objects out of 1000 (max. 8388607)
- 396 compressed objects within 4 object streams
- 158 named destinations out of 1000 (max. 500000)
- 394 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 721 PDF objects out of 1000 (max. 8388607)
+ 517 compressed objects within 6 object streams
+ 205 named destinations out of 1000 (max. 500000)
+ 517 words of extra memory for PDF output out of 10000 (max. 10000000)
 
