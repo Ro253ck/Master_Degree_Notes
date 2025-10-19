@@ -350,6 +350,18 @@ The first gradient depends only on current state, the other two depend on all pr
 Looking closer at RNNs, we notice that the gradient at a given timestep depends on gradients at previous timesteps, computed recursively through the chain rule. When using activation functions like \texttt{tanh} or \texttt{sigmoid}, the effect of each timestep on the gradient is naturally limited: for \texttt{tanh} the maximum contribution is 1, and for \texttt{sigmoid} it is even smaller. As a result, when we multiply these contributions across many timesteps, the gradient can shrink rapidly, effectively becoming zero. This phenomenon is known as the \textbf{vanishing gradient problem} and it creates major difficulties in learning long-term dependencies, because the influence of “far-away” timesteps essentially disappears during training.
 \subsection{The Challenge of Long-Term Dependencies: Exploding Gradients}
 Depending on the network parameters and the choice of activation functions, the opposite problem can occur: the \textbf{exploding gradient problem}. In this case, gradients grow larger and larger as they are propagated backward, eventually causing numerical instability and preventing proper optimization. Both vanishing and exploding gradients can be mitigated through careful weight initialization, the selection of suitable activation functions, and techniques like gradient clipping. While these issues can also appear in deep feedforward networks, they are especially common in recurrent architectures, since an RNN unrolled over time is effectively as deep as the length of the input sequence.
+\begin{infobox}[Where do we stop learning?]
+    In the vanishing gradient problem, the weights that stop learning are those in the first layers,
+    because the gradient becomes smaller and smaller as we go back in time.
+    Thus, the weights that are updated the least are those furthest back in time:
+    the model gradually forgets older information.
+
+    In the exploding gradient problem, the gradients grow larger and larger as we go back in time.
+    As a result, the early weights (those furthest back in time) receive excessively large updates,
+    which can dominate the learning process and make the later weights almost irrelevant.
+    The model becomes unstable and struggles to learn recent information properly.
+\end{infobox}
+
 
 \section{Advanced Recurrent Architectures}
 \textbf{Long Short-Term Memory (LSTM)} and \textbf{Gated Recurrent Unit (GRU)} are more complex recurrent architectures that have been proposed to overcome the issues in the gradient flow and to ease the learning of long-term dependencies thanks to the introduction of \textbf{learnable gating mechanism}.
@@ -399,12 +411,23 @@ These equations allow LSTMs to selectively remember or forget information at eac
     \[
     \tilde{C} = \tanh\big(x^{(t)} U_C + h^{(t-1)} W_C\big)
     \]
-    The equation is pretty much the same as that we saw in for
+    The equation is pretty much the same as that we saw in for vanilla RNN architecture. Nonetheless, the amount of influence of $\tilde{C}$ on the LSTM memory cell is controlled by the input gate $i$.
+
+    The update for the update memoruìy cell $C^{(t)}$ is:
+    \[
+    C^{(t)} = C^{(t-1)} \odot f + \tilde{C} \odot i
+    \]
+    The forget gate $f$ controls  how much of the memory from previous steps $C^{(t)}$ is retained, while the input gate $i$ supervises the amount of newly computed state $\tilde{C}$ that has to flow into the memory.
+
+    Finally, the hidden state $h^{(t)}$ is computed as:
+    \[
+    h^{(t)} = \tanh\big(C^{(t)}\big) \odot o
+    \]
+    The output gate $o$ regulates how much of the cell state $C^{(t)}$ is exposed to the hidden state $h^{(t)}$. The $\tanh$ activation ensures that the values remain bounded between -1 and 1.
+
+    \textbf{Note:} The gate $i$, $f$ and $o$ are \emph{vector} of the same size as the cell state $C$, this insure that multiplication is element-wise. 
 \end{infobox}
-
-
-
-
+\newpage
 The cell has two inner states:
 \begin{compactitemize}
     \item The cell state $C$ represent the \textbf{long-term memory} of the network, and can hold past information without being overwritten quickly.
