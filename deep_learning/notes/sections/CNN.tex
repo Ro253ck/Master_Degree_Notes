@@ -279,3 +279,145 @@ C_{\text{out}} = C_{\text{in}}
 This is because activation functions are applied element-wise and do not change the spatial dimensions or depth of the volume.
 
 \section{Real Implementation of CNNs}
+
+\subsection{LeNet}
+The architecture known as \textbf{LeNet} was introduced in one of the pioneering works on Convolutional Neural Networks (CNNs), laying much of the groundwork for modern deep learning approaches. It demonstrated the \textbf{efficacy of CNNs for handwritten digit recognition} through an end-to-end trainable design. The network processes \textbf{32×32 pixel input images} through successive layers of convolution and subsampling, where each convolutional layer employs \textbf{learnable filters (5×5 kernels)} to extract spatial features. The subsampling layers, using \textbf{average pooling over 2×2 windows with stride 2}, progressively reduce spatial resolution while preserving essential information. Non-linear transformations are introduced through \textbf{sigmoid activation functions}, whose coefficients and biases control the non-linearity of each unit. This architecture alternates convolutional and subsampling layers, forming a bi-pyramidal structure in which the \textbf{number of feature maps increases as spatial resolution decreases}. Overall, LeNet represented one of the first \textbf{complete, trainable CNN architectures}, setting the foundation for subsequent developments in deep learning.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/LeNet.png}
+    \caption{LeNet architecture.}
+    \label{fig:lenet_architecture}
+\end{figure}
+
+\subsection{AlexNet}
+\textbf{AlexNet}, introduced in 2012, marked a major breakthrough in image recognition by winning the \textbf{ImageNet Large Scale Visual Recognition Challenge} with a significant margin, demonstrating the unprecedented power of \textbf{Convolutional Neural Networks (CNNs)} at scale. The architecture consisted of \textbf{eight layers with learnable parameters}, including five convolutional and three fully connected layers, processing high-dimensional image inputs. The network employed a \textbf{large first kernel (11×11)} in its initial convolutional layer, enabling the capture of broader spatial context. Moreover, AlexNet \textbf{pioneered the use of Rectified Linear Units (ReLU)} as activation functions, which significantly accelerated training compared to traditional sigmoidal activations. Another key innovation was the \textbf{parallel training across two GPUs}, allowing the model to handle an unprecedented number of parameters for its time, with limited inter-GPU communication at specific layers. Overall, AlexNet established the foundation for the deep learning revolution in computer vision.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/AlexNet.png}
+    \caption{AlexNet architecture.}
+    \label{fig:alexnet_architecture}
+\end{figure}
+
+\subsection{VGGNet}
+\textbf{VGG}, introduced in 2014 by the \textbf{Oxford Visual Geometry Group (VGG)}, represents a family of deep convolutional neural networks that achieved remarkable success in large-scale image recognition tasks. It became widely recognized for its \textbf{simplicity, effectiveness, and influence} on subsequent network designs. The model \textbf{secured 1st and 2nd places} in the ImageNet 2014 localization and classification challenges, establishing a new standard for deep learning architectures.  
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/VGG.png}
+    \label{fig:forecast_prediction}
+    \vspace{-10pt}
+\end{wrapfigure}
+\begin{compactitemize}
+    \item \textbf{Input:} Fixed-size \(224 \times 224\) RGB images, mean-subtracted during pre-processing.  
+    \item \textbf{Architecture:} Consists of 16 weight layers (\textbf{VGG16}), including 13 convolutional and 3 fully connected layers.  
+    \item \textbf{Convolutional Filters:} Employs small and uniform \textbf{3×3 kernels} with stride 1, stacked to increase non-linearity and capture complex patterns effectively.  
+    \item \textbf{Activation Function:} Each convolutional and fully connected layer is followed by a \textbf{ReLU} activation function.  
+    \item \textbf{Spatial Pooling:} Includes five \textbf{max-pooling layers} using 2×2 windows with stride 2 for progressive spatial downsampling.  
+    \item \textbf{Fully Connected Layers:} The last three layers are fully connected, with the first two containing \textbf{4096 neurons} each and the final one having \textbf{1000 neurons} for classification, followed by a \textbf{Softmax} activation.  
+    \item \textbf{Pre-trained Weights:} Released publicly, enabling \textbf{transfer learning} and establishing VGG as a popular backbone for diverse computer vision tasks.    
+\end{compactitemize}
+
+The net contains approximately \textbf{138 million learnable parameters}, with about \textbf{70\% located in the fully connected layers}. Notably, a single fully connected layer is responsible for roughly \textbf{100 million parameters}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/number_parameters.png}
+    \caption{Number of parameters in VGG16.}
+    \label{fig:vgg_number_parameters}
+\end{figure}
+In traditional convolutional neural networks, simply \textbf{stacking more layers beyond a certain depth} often leads to \textbf{performance degradation} rather than improvement. This phenomenon is \textbf{not caused by overfitting}, as deeper models exhibit \textbf{higher training and test error}. A key hypothesized reason is the \textbf{difficulty of training deep layers to approximate simple identity mappings}. Additionally, very deep networks suffer from the problem of \textbf{vanishing or exploding gradients}, where gradients propagated backward through many layers become either extremely small (\textbf{vanishing}) or extremely large (\textbf{exploding}). This instability severely \textbf{hinders the ability of early layers to learn effectively}, making it challenging to train very deep architectures.
+
+\subsection{The state of the art: The Residual Neural Network (ResNet)}
+\textbf{ResNet (Residual Networks)}, introduced in 2015, was a groundbreaking architecture that won both the \textbf{ImageNet Large Scale Visual Recognition Challenge (ILSVRC 2015)} and \textbf{COCO 2015} for detection, segmentation, and localization. ResNet addressed the critical problem of training very deep convolutional networks, which often suffered from performance degradation due to \textbf{vanishing or exploding gradients}.  
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/ResNet.png}
+    \caption{ResNet architecture.}
+    \label{fig:resnet_architecture}
+\end{figure}
+\begin{compactitemize}
+    \item \textbf{Input:} Accepts \(224 \times 224\) RGB images.
+    \item \textbf{Architecture:} Features \textbf{ultra-deep networks}, with common variants including \textbf{ResNet-50, ResNet-101, and ResNet-152}, reaching up to 152 layers, far deeper than VGG.  
+    \item \textbf{Output:} Produces predictions for \textbf{1000 ImageNet classes}.  
+    \item \textbf{Key Innovation – Residual Learning:} Instead of directly learning the underlying mapping \(H(x)\), the network learns the \textbf{residual function} \(F(x)\) such that:
+    \[
+    H(x) = F(x) + x
+    \]
+    This formulation allows layers to focus on learning the difference (residual) between the desired output and the input, making optimization easier.  
+    \item \textbf{Residual Block:} The fundamental building block of ResNet, implemented via \textbf{skip connections}:
+    \begin{itemize}
+        \item The input \(x\) is added directly to the output of the residual function \(F(x)\).  
+        \item \textbf{Easier gradient flow:} Skip connections allow gradients to bypass intermediate layers, mitigating vanishing/exploding gradient problems.  
+        \item Supports much deeper networks without performance degradation.  
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/residual_block.png}
+        \caption{Residual Block.}
+        \label{fig:residual_block}
+    \end{figure}
+    \item \textbf{Impact and Advantages:}
+    \begin{itemize}
+        \item \textbf{Enabled ultra-deep networks:} Training models with unprecedented depth (e.g., 152 layers) became feasible.  
+        \item \textbf{Improved performance:} Achieved state-of-the-art results across numerous computer vision tasks, including image classification, detection, and segmentation.  
+        \item \textbf{Simplified training:} Residual connections reduce optimization difficulty, preventing the degradation problem observed in traditional deep networks.  
+        \item \textbf{Foundation for future architectures:} The concept of \textbf{skip connections} and residual learning influenced many subsequent CNN architectures and even modern Transformer models.  
+    \end{itemize}
+\end{compactitemize}
+
+\section{Batch Normalization}
+In deep neural networks with many layers, the distribution of inputs to each layer tends to change continuously during training as the parameters of the preceding layers are updated. This phenomenon is known as \textbf{Internal Covariate Shift}. It occurs because every time the weights in earlier layers are modified, the statistical properties (mean and variance) of the inputs received by deeper layers also change. As a result, each layer must constantly adapt to a shifting input distribution, which \textbf{slows down training} and makes it more difficult for the network to converge effectively. Small parameter changes in the early layers can become amplified as they propagate forward through the network, leading to instability and poor optimization efficiency.  
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/covariance_shift.png}
+    \caption{Internal covariance shift.}
+    \label{fig:internal_covariance_shift}
+\end{figure}
+To address this issue, \textbf{Batch Normalization (BN)} was introduced in the paper \textit{"Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift"} by Ioffe and Szegedy (2015). Batch Normalization standardizes the inputs to each layer within a mini-batch by re-centering and rescaling them to have zero mean and unit variance, followed by a learnable shift and scale transformation. This normalization \textbf{stabilizes the learning process}, allowing higher learning rates, faster convergence, and reduced sensitivity to weight initialization. By mitigating internal covariate shift, Batch Normalization made the training of very deep networks significantly more stable and efficient, becoming a fundamental component of modern deep learning architectures.
+
+\subsection{How Batch Normalization Works During Training}
+During training, Batch Normalization operates on mini-batches of data to normalize the inputs to each layer. The process involves the following steps for each mini-batch:
+\begin{compactitemize}
+    \item \textbf{Compute Batch Statistics:} For each feature in the mini-batch, calculate the mean (\(\mu_B\)) and variance (\(\sigma_B^2\)):
+    \[
+    \mu_B = \frac{1}{m} \sum_{i=1}^{m} x_i
+    \]
+    \[
+    \sigma_B^2 = \frac{1}{m} \sum_{i=1}^{m} (x_i - \mu_B)^2
+    \]
+    where \(m\) is the number of examples in the mini-batch, and \(x_i\) represents the input features.
+    \item \textbf{Normalize the Inputs:} Each input feature is normalized using the computed mean and variance:
+    \[
+    \hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}
+    \]
+    where \(\epsilon\) is a small constant added for numerical stability.
+    \item \textbf{Scale and Shift:} The normalized inputs are then scaled and shifted using learnable parameters \(\gamma\) (scale) and \(\beta\) (shift):
+    \[
+    y_i = \gamma \hat{x}_i + \beta
+    \]
+    This allows the network to learn an optimal representation of the data after normalization.
+\end{compactitemize}
+After normalizing, the activations have a mean of 0 and a standard deviation of 1. This might be too restrictive for the network. To address this, Batch Normalization introduces two learnable parameters per feature: a scaling factor \(\gamma\) and a shifting factor \(\beta\). These parameters allow the network to adjust the normalized output, enabling it to recover the original distribution if necessary. By learning these parameters, the network can maintain its expressive power while benefiting from the stability provided by normalization.
+
+\subsection{How Batch Normalization Works During Inference}
+During inference (testing or deployment), the behavior of Batch Normalization differs from training. Instead of using the statistics computed from the current mini-batch, Batch Normalization relies on \textbf{running estimates} of the mean and variance that were accumulated during training. The steps are as follows:
+\begin{compactitemize}
+    \item \textbf{Use Running Estimates:} Instead of calculating the mean and variance from the current mini-batch, use the running estimates \(\mu_{\text{running}}\) and \(\sigma_{\text{running}}^2\) that were updated during training.
+    \item \textbf{Normalize the Inputs:} Each input feature is normalized using the running estimates:
+    \[
+    \hat{x}_i = \frac{x_i - \mu_{\text{running}}}{\sqrt{\sigma_{\text{running}}^2 + \epsilon}}
+    \]
+    \item \textbf{Scale and Shift:} The normalized inputs are then scaled and shifted using the learned parameters \(\gamma\) and \(\beta\):
+    \[
+    y_i = \gamma \hat{x}_i + \beta
+    \]
+\end{compactitemize}
+This approach ensures that the model's predictions are consistent and stable during inference, as they are based on the overall data distribution learned during training rather than the potentially noisy statistics of a single mini-batch.
+
+\subsection{Benefits of Batch Normalization}
+Batch Normalization offers several significant benefits that enhance the training and performance of deep neural networks:
+\begin{compactitemize}
+    \item \textbf{Faster Training:} Allows for higher learning rates, leading to quicker convergence and reduced training time.
+    \item \textbf{Reduces Internal Covariate Shift:} Stabilizes the distribution of layer inputs, making the training process more stable.
+    \item \textbf{Regularization Effect:} The noise from mini-batch statistics has a slight regularizing effect, sometimes reducing the need for dropout.
+    \item \textbf{Less Sensitive to Inizialization:} Makes the network less dependent on the initial weights.
+\end{compactitemize}
