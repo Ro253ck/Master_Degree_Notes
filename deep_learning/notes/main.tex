@@ -6,7 +6,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-
 % math packages
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -16,7 +15,7 @@
 \usepackage[makeroom]{cancel}
 % page margins settings
 \usepackage[inner=1.5cm,outer=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
-%\usepackage{indentfirst}
+%\usepackage{indentfirst}}
 
 % other packages
 \usepackage{array}
@@ -228,11 +227,11 @@ urlcolor=blue,
 %    {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}} 
 \makeatother 
 
-
-
 \newenvironment{compactitemize}{
 \begin{itemize}[topsep=0pt, partopsep=0pt, itemsep=1pt, parsep=0pt]
 }{\end{itemize}}
+
+\usepackage[ruled,vlined]{algorithm2e}
 
 \begin{document}
 \begin{titlepage}
@@ -271,8 +270,6 @@ urlcolor=blue,
   \end{center}
 \end{titlepage}
 
-  
-
 \setcounter{tocdepth}{1}
 \tableofcontents
 \newpage  % Per iniziare il contenuto in una nuova pagina
@@ -280,4 +277,5 @@ urlcolor=blue,
 \input{sections/MLP}
 \input{sections/CNN}
 \input{sections/RNN}
+\input{sections/Transformer}
 \end{document}
