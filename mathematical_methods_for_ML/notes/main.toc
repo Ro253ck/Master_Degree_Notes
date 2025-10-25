@@ -1,1 +1,2 @@
 \babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Metodi basati sul gradiente}{2}{chapter.1}%

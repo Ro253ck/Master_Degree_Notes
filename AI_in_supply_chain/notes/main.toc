@@ -46,3 +46,4 @@
 \contentsline {section}{\numberline {2.3}Markov Decision Process}{22}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Policy}{23}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Value Functions}{24}{subsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.2.1}Bellman Equations for MDPs}{24}{subsubsection.2.3.2.1}%

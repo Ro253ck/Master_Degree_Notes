@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1759395154 "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" "main.pdf" "main" 1759395156
+["pdflatex"] 1761299397 "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" "main.pdf" "main" 1761299398
   "/etc/texmf/web2c/texmf.cnf" 1755005415 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" 1759395038 7855 3081a03d9a0cea5cc5cf6ecefc65262e ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -295,8 +295,8 @@
   "/usr/share/texmf/tex/latex/lm/t1lmr.fd" 1256929440 1865 afbfccbe7fda9c2dc5078ad7c486bbed ""
   "/usr/share/texmf/tex/latex/lm/ts1lmr.fd" 1256929440 1912 6435298ac30b512714b02d4c8c9e923c ""
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
-  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1755006347 128028 f533b797fba58d231669ea19e894e23e ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1755006350 1407043 c2a0dfac83671ef2c3f07b1cdfd820bc ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1761208260 165012 f177baa1c39a3ebd62c3096a43521a0d ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1761208265 1437116 eddbe4ceefa0f6dfcd6fc29e83328a2f ""
   "images/AE.png" 1758446737 149316 afabc14b008ed000ef979469472a9544 ""
   "images/MDP_chain.png" 1758658357 53129 736f9c6a1992b3d664cf5ceb4a015a66 ""
   "images/RL_agent_taxonomy.png" 1758475349 126582 d624b0c4bbc4baaf7e325160da1b5b25 ""
@@ -311,12 +311,12 @@
   "images/maze_value.png" 1758474263 32366 8cf455b134c867d50833c8623786562e ""
   "images/prediction_ex.png" 1758475209 60296 c3377ab47247868799a5d5af8c54bbb7 ""
   "images/student_chain.png" 1758636240 59552 c29a6b3bd99c576cdfc7a9dc089bf425 ""
-  "main.aux" 1759395156 12050 8a089c58747486327f6f98fb83fd87e7 "pdflatex"
-  "main.out" 1759395156 2910 cd27be16fcc894227e5ffe3682901383 "pdflatex"
+  "main.aux" 1761299398 12198 f2337e195ca5eb432dd9703780171344 "pdflatex"
+  "main.out" 1761299398 2910 cd27be16fcc894227e5ffe3682901383 "pdflatex"
   "main.tex" 1759395038 7855 3081a03d9a0cea5cc5cf6ecefc65262e ""
-  "main.toc" 1759395156 4413 30efdcd27a0c215c0df2eb2947e6f4ea "pdflatex"
+  "main.toc" 1761299398 4520 372f3774b621dad5162ba0f2bbf56eff "pdflatex"
   "sections/introduction.tex" 1759395153 29875 f1e2edf4f8d3b4386c0aaff6cba65b5f ""
-  "sections/markov_decision_process.tex" 1759395132 19292 f556e3714c37acdff54fcbd4385b40d9 ""
+  "sections/markov_decision_process.tex" 1761299396 19920 93624ce65123224a9e7b54fc169cbbcb ""
   (generated)
   "main.aux"
   "main.log"

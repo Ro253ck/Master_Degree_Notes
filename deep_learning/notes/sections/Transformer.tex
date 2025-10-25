@@ -270,6 +270,10 @@ where each $Z$ is computed as:
     \label{fig:MHA2}
 \end{figure}
 
+\begin{infobox}[The problem of concatenate]
+    When we use a Multi-Head Attention with $h$ heads, each head produces an output of dimension $d_k$. When we concatenate these outputs, the resulting vector has a dimension of $h \times d_k$. To ensure that the final output of the Multi-Head Attention matches the original input dimension $d_{model}$, we apply a linear transformation using a weight matrix $W^O$ of size $(h \times d_k) \times d_{model}$. This projection step is crucial for maintaining consistency in dimensionality throughout the Transformer architecture.
+\end{infobox}
+
 \subsection{From Token Representation to classification}
 The encoder outputs a sequence of contextualized token representations, each representing a contextualized version of the corresponding input token. To perform \textbf{classification}, this sequence must be reduced to a single representation. There are two common strategies:
 \begin{compactitemize}
