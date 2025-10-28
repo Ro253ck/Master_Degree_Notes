@@ -115,3 +115,18 @@
 \contentsline {subsection}{\numberline {6.4.3}GAT Architecture: Detailed Mechanism}{82}{subsection.6.4.3}%
 \contentsline {subsection}{\numberline {6.4.4}GATv2: Addressing Static Attention Limitations}{85}{subsection.6.4.4}%
 \contentsline {section}{\numberline {6.5}GraphCast: Weather Forecasting with GNNs}{85}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Autoencoders}{87}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Unservised Learning}{87}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Why Unsupervised Learning?}{87}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}Learning Rapresentations}{88}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Manifold Assumption}{89}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Dimensionality Reduction}{90}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}An inefficient way to fit PCA}{91}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Autoencoders}{91}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Risk: Learning the Identity Function}{92}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Undercomplete Autoencoders}{92}{subsection.7.3.2}%
+\contentsline {section}{\numberline {7.4}Regularized Autoencoders}{93}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Sparse Autoencoders}{93}{subsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.4.2}Denoising Autoencoders}{94}{subsection.7.4.2}%
+\contentsline {subsubsection}{\numberline {7.4.2.1}Denoising Autoencoders for Anomaly Detection}{95}{subsubsection.7.4.2.1}%
+\contentsline {subsection}{\numberline {7.4.3}Contractive Autoencoders}{95}{subsection.7.4.3}%
