@@ -21,7 +21,8 @@
 % other packages
 \usepackage{array}
 \usepackage{enumitem}
-
+\usepackage{algpseudocode}
+\usepackage{algorithm}
 \usepackage{graphicx}
 \usepackage{verbatim}
 \usepackage{listings}
@@ -209,10 +210,32 @@ urlcolor=blue,
 \makeatother 
 
 
+\newtcolorbox{infobox}[1][]{
+    colback=blue!10,              % sfondo rosso chiaro
+    colframe=blue!60!black,       % bordo rosso scuro
+    boxrule=1pt,                 % spessore del bordo
+    arc=4pt,                     % angoli arrotondati
+    left=6pt, right=6pt, top=6pt, bottom=6pt,
+    fonttitle=\bfseries,         % titolo in grassetto
+    coltitle=red!10!white,       % colore del titolo
+    title=#1                     % titolo passato come argomento
+}
+
+\newtcolorbox{definizione}[1][]{
+    colback=gray!10,              % sfondo rosso chiaro
+    colframe=gray!60!black,       % bordo rosso scuro
+    boxrule=1pt,                 % spessore del bordo
+    arc=4pt,                     % angoli arrotondati
+    left=6pt, right=6pt, top=6pt, bottom=6pt,
+    fonttitle=\bfseries,         % titolo in grassetto
+    coltitle=red!10!white,       % colore del titolo
+    title=#1                     % titolo passato come argomento
+}
 
 \newenvironment{compactitemize}{
 \begin{itemize}[topsep=0pt, partopsep=0pt, itemsep=1pt, parsep=0pt]
 }{\end{itemize}}
+
 
 \begin{document}
 \begin{titlepage}
