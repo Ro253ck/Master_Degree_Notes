@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.10.23)  11 NOV 2025 14:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.10.23)  12 NOV 2025 11:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -969,6 +969,9 @@ LaTeX Font Info:    Trying to load font information for T1+lmr on input line 240
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (./main.aux
 
+LaTeX Warning: Label `fig:Scaled Dot Product Attention' multiply defined.
+
+
 LaTeX Warning: Label `fig:cnn_architecture' multiply defined.
 
 
@@ -1161,58 +1164,100 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
 l.281 \newpage
                 % Per iniziare il contenuto in una nuova pagina [1
 
-] (./sections/metodi_basati_sul_gradiente.tex
+] (./sections/calcolo_vettoriale_e_differenziale.tex
 Chapter 1.
+<images/D2.png, id=72, 401.5pt x 320.19624pt>
+File: images/D2.png Graphic file (type png)
+<use images/D2.png>
+Package pdftex.def Info: images/D2.png  used on input line 37.
+(pdftex.def)             Requested size: 204.85672pt x 163.37608pt.
+<images/D3.png, id=74, 532.99126pt x 403.5075pt>
+File: images/D3.png Graphic file (type png)
+<use images/D3.png>
+Package pdftex.def Info: images/D3.png  used on input line 43.
+(pdftex.def)             Requested size: 204.85672pt x 155.08919pt.
+[2
+
+]
+<images/PA.png, id=86, 529.98pt x 448.67625pt>
+File: images/PA.png Graphic file (type png)
+<use images/PA.png>
+Package pdftex.def Info: images/PA.png  used on input line 52.
+(pdftex.def)             Requested size: 204.85672pt x 173.42894pt.
+
+Overfull \hbox (6.0525pt too wide) in paragraph at lines 65--67
+\T1/lmr/m/n/12 Questa op-er-azione cor-risponde grafi-ca-mente all'applicazione
+ []
+
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 96.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 96.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 96.
+[3 <./images/D2.png> <./images/D3.png> <./images/PA.png>] [4]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 206.
+ (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [5]
+<images/VA.png, id=123, 590.205pt x 444.66125pt>
+File: images/VA.png Graphic file (type png)
+<use images/VA.png>
+Package pdftex.def Info: images/VA.png  used on input line 225.
+(pdftex.def)             Requested size: 204.85672pt x 154.33783pt.
+ [6 <./images/VA.png>] [7] [8]) (./sections/metodi_basati_sul_gradiente.tex [9]
+Chapter 2.
 
 Overfull \hbox (26.8494pt too wide) in paragraph at lines 11--13
 \T1/lmr/m/n/12 mazione as-sume un val-ore in-fe-ri-ore rispetto al val-ore che la fun-zione ob-bi-et-tivo as-sume nell'approssimazione
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 20.
-(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-<images/MM1.png, id=52, 963.6pt x 514.92375pt>
+<images/MM1.png, id=153, 963.6pt x 514.92375pt>
 File: images/MM1.png Graphic file (type png)
 <use images/MM1.png>
 Package pdftex.def Info: images/MM1.png  used on input line 28.
 (pdftex.def)             Requested size: 295.47845pt x 157.89615pt.
- [2
+[10
 
 ]
-<images/MM2.png, id=69, 1121.18875pt x 469.755pt>
+<images/MM2.png, id=160, 1121.18875pt x 469.755pt>
 File: images/MM2.png Graphic file (type png)
 <use images/MM2.png>
 Package pdftex.def Info: images/MM2.png  used on input line 42.
 (pdftex.def)             Requested size: 358.50317pt x 150.20282pt.
- [3 <./images/MM1.png> <./images/MM2.png>]
+ [11 <./images/MM1.png> <./images/MM2.png>]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 82.
- [4]
-<images/MM3.png, id=85, 1159.33125pt x 343.2825pt>
+ [12]
+<images/MM3.png, id=175, 1159.33125pt x 343.2825pt>
 File: images/MM3.png Graphic file (type png)
 <use images/MM3.png>
 Package pdftex.def Info: images/MM3.png  used on input line 125.
 (pdftex.def)             Requested size: 358.50317pt x 106.15456pt.
-) [5 <./images/MM3.png>] (./main.aux)
+ [13 <./images/MM3.png>] [14] [15]
+Overfull \hbox (8.30565pt too wide) in paragraph at lines 301--313
+ [][] 
+ []
+
+[16]) [17] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 2A93E52938ACFFA16FEC838B04766E14;433.
+(rerunfilecheck)             Checksum: 6801FAF6929CF18848415A26644CA4E9;1480.
  ) 
 Here is how much of TeX's memory you used:
- 51630 strings out of 480163
- 1248076 string characters out of 5894092
- 1842918 words of memory out of 5000000
- 68771 multiletter control sequences out of 15000+600000
- 507286 words of font info for 58 fonts, out of 8000000 for 9000
+ 51766 strings out of 480163
+ 1250092 string characters out of 5894092
+ 1850918 words of memory out of 5000000
+ 68843 multiletter control sequences out of 15000+600000
+ 546293 words of font info for 85 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 88i,12n,117p,1677b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (6 pages, 891040 bytes).
+ 88i,13n,117p,1677b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (18 pages, 1009213 bytes).
 PDF statistics:
- 159 PDF objects out of 1000 (max. 8388607)
- 101 compressed objects within 2 object streams
- 14 named destinations out of 1000 (max. 500000)
- 140 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 296 PDF objects out of 1000 (max. 8388607)
+ 210 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
+ 192 words of extra memory for PDF output out of 10000 (max. 10000000)
 

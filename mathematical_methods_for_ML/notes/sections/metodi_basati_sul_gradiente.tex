@@ -22,7 +22,7 @@ dove:
 \end{compactitemize}
 
 \begin{infobox}[Nota bene]
-    Partendo dall'iterato $x^k$, il nuovo punto della succession $x^{k+1}$ si trova muovendosi lungo la direzione di ricerca $d^k$ con uno spostamento determinato dal parametro $\alpha_k$
+    Partendo dall'iterazione $x^k$, il nuovo punto della successione $x^{k+1}$ si trova muovendosi lungo la direzione di ricerca $d^k$ con uno spostamento determinato dal parametro $\alpha_k$
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{images/MM1.png}
@@ -112,7 +112,7 @@ Sotto ipotesi di convessità si può parlare di punti di minimo.
 \nabla f(x) = 0.
 \]
 
-Altri criteri di arresto includono la distanza relativa tra le iterate:
+Altri criteri di arresto includono la distanza relativa tra le iterazioni:
 \[
 \frac{\|x^{(k+1)} - x^{(k)}\|}{\|x^{(k)}\|} \le \tau,
 \]
@@ -137,4 +137,183 @@ $$
 \nabla f(x^{(k)})^T d^{(k)} = - \nabla f(x^{(k)})^T D_k \, \nabla f(x^{(k)}) < 0
 $$
 In questo modo ho la garanzia di avere individuato una direzione di discesa, perché se prendo una matrice definita positiva il prodotto scritto sopra verrà sempre positivo quindi con meno davanti diventa sempre negativo.
+
 A seconda della scelta di $D_k$ corrispondono diversi metodi del gradiente.
+La scelta più semplice che si possa fare è quella di utilizzare la seguente matrice:
+\[
+    D_k=I
+\]
+Quindi abbiamo scelto la matrice Identità (la matrice identità verifica sia la proprietà di simmetria che di definita positiva), questa scelta defonisce il \textbf{Metodo di "Steepest descent"}.
+\begin{infobox}[Proprietà]
+Sia $d \in \mathbb{R}^n$ tale che $\|d\| = 1$. Allora vale la disuguaglianza
+\[
+\nabla f(x^{(k)})^T d \;\ge\; -\|\nabla f(x^{(k)})\|\,\|d\| 
+\;=\; -\|\nabla f(x^{(k)})\|.
+\]
+\textbf{N.B}: quindi l'antigradiente diviso la sua norma è l'unica direzione che soddisfa la disuguaglianza con il segno i uguaglianza.
+Definiamo ora il vettore
+\[
+\bar{d} = -\frac{\nabla f(x^{(k)})}{\|\nabla f(x^{(k)})\|}.
+\]
+
+Si ha quindi
+\[
+\nabla f(x^{(k)})^T \bar{d}
+\;=\;
+\nabla f(x^{(k)})^T \left( -\frac{\nabla f(x^{(k)})}{\|\nabla f(x^{(k)})\|} \right)
+\;=\;
+- \frac{\|\nabla f(x^{(k)})\|^2}{\|\nabla f(x^{(k)})\|}
+\;=\;
+-\|\nabla f(x^{(k)})\|.
+\]
+\end{infobox}
+
+Per $\alpha$ sufficientemente piccolo si ha lo sviluppo al primo ordine:
+\[
+f\bigl(x^{(k)} + \alpha d^{(k)}\bigr) - f\bigl(x^{(k)}\bigr)
+\;\simeq\;
+\alpha\, \nabla f\bigl(x^{(k)}\bigr)^T d^{(k)}.
+\]
+
+Scegliendo $d^{(k)}$ come la direzione di discesa ripida, ovvero
+\[
+d^{(k)} = -\frac{\nabla f(x^{(k)})}{\|\nabla f(x^{(k)})\|},
+\]
+si ottiene, nelle vicinanze di $x^{(k)}$, la direzione che garantisce
+la diminuzione più rapida della funzione.
+
+Questa scelta è poco costosa dal punto di vista computazionale,
+poiché richiede solamente il calcolo del gradiente nel punto $x^{(k)}$.
+Tuttavia, il metodo di discesa più ripida può presentare una
+convergenza lenta nella pratica.
+
+\subsection{Metodo di Newton}
+In questi metodi come matrice si prende l'inversa della matrice hessiana:
+\[
+d^{(k)} =  \nabla^2 f\bigl(x^{(k)}\bigr)^{-1} .
+\]
+
+\noindent
+Ipotesi:
+\[
+f \in C^2(\mathbb{R}^n)
+\quad \text{e} \quad
+\nabla^2 f\bigl(x^{(k)}\bigr) \ \text{è definita positiva.}
+\]
+
+L'idea è di approssimare ad ogni passo la funzione obiettivo con una funzione quadratica (Taylor):
+\[
+f(x) \;\simeq\; f(x^{(k)}) + \nabla f(x^{(k)})^T (x - x^{(k)}) 
++ \frac{1}{2} (x - x^{(k)})^T \nabla^2 f(x^{(k)})(x - x^{(k)}).
+\]
+
+Il punto di minimo globale della funzione quadratica è la soluzione del sistema lineare:
+\[
+\nabla^2 f(x^{(k)})(x - x^{(k)}) + \nabla f(x^{(k)}) = 0.
+\]
+
+Indicando con $y^{(k)}$ la soluzione del sistema, formalmente si ha:
+\[
+y^{(k)} - x^{(k)} = - \bigl( \nabla^2 f(x^{(k)}) \bigr)^{-1} \nabla f(x^{(k)}),
+\]
+e
+\[
+d^{(k)} = y^{(k)} - x^{(k)}
+\]
+è una direzione di discesa.
+
+È un metodo che converge velocemente, ma ad ogni passo richiede la soluzione di un sistema lineare di dimensione $n$.
+\begin{infobox}[Esempio con n=1]
+    Per $n = 1$ si ha:
+    \[
+    \nabla f(x^{(k)}) = f'(x^{(k)}), \qquad 
+    \nabla^2 f(x^{(k)}) = f''(x^{(k)}) \quad \Rightarrow \quad 
+    d^{(k)} = - \frac{f'(x^{(k)})}{f''(x^{(k)})}.
+    \]
+    
+    Il metodo di Newton si scrive quindi come:
+    \[
+    x^{(k+1)} = x^{(k)} - \alpha_k \frac{f'(x^{(k)})}{f''(x^{(k)})}.
+    \]
+    
+    Si tratta del metodo di Newton monodimensionale applicato all'equazione:
+    \[
+    f'(x) = 0.
+    \]
+\end{infobox}
+
+\subsection{Metodo di Steepest descent scalato diagonalmente}
+Si consideri il metodo di Steepest Descent scalato con
+\[
+D^{(k)} \text{ diagonale}, \quad [D^{(k)}]_{ii} > 0, \quad i = 1, \dots, n.
+\]
+
+Una possibile scelta per simulare il metodo di Newton senza richiederne la complessità è:
+\[
+[D^{(k)}]_{ii} \;\simeq\; \left( \frac{\partial^2 f(x^{(k)})}{\partial x_i^2} \right)^{-1}.
+\]
+
+\subsection{Metodo di Newton modificato }
+Si definisce la direzione con:
+\[
+D^{(k)} = \bigl( \nabla^2 f(x^{(\text{mod}(k,m))}) \bigr)^{-1}, \quad m \in \mathbb{N}.
+\]
+
+\noindent
+Ipotesi:
+\[
+f \in C^2(\mathbb{R}^n), \quad \nabla^2 f(x^{(k)}) \text{ definita positiva.}
+\]
+Si utilizza l'Hessiana calcolata al passo $k$ per le $m$ iterazioni successive.
+In questo modo si riduce il costo del calcolo e della fattorizzazione dell'Hessiana,
+che nel metodo di Newton classico sono richiesti ad ogni passo.
+
+\subsection{Metodo quasi Newton}
+
+Si definisce la direzione con:
+\[
+D^{(k)} = B_k^{-1},
+\]
+dove $B_k$ è una matrice simmetrica, definita positiva, che soddisfa la \textbf{relazione delle secanti}:
+\[
+B_k \, s^{(k)} = y^{(k)},
+\]
+con
+\[
+s^{(k)} = x^{(k)} - x^{(k-1)}, \quad 
+y^{(k)} = \nabla f(x^{(k)}) - \nabla f(x^{(k-1)}).
+\]
+
+La relazione delle secanti è giustificata dal teorema di Taylor:
+\[
+\nabla^2 f(x + d)\, d \;\simeq\; \nabla f(x + d) - \nabla f(x).
+\]
+
+Per $n = 1$ il metodo si riduce al \textbf{metodo delle secanti} applicato all'equazione:
+\[
+f'(x) = 0.
+\]
+
+Esistono formule esplicite che permettono di calcolare $B_{k+1}$ e $B_{k+1}^{-1}$ in funzione di $B_k$ e $B_k^{-1}$ con basso costo computazionale, come nei metodi \textbf{BFGS} (Broyden-Fletcher-Goldfarb-Shanno).
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|p{8cm}|}
+    \hline
+    \textbf{Metodo} & \textbf{Costo computazionale} \\ \hline
+    \multicolumn{2}{|c|}{\textbf{Metodi del primo ordine}} \\ \hline
+    Steepest descent & Calcolo di $\nabla f(x^{(k)})$ \\ \hline
+    Steepest descent scalato diagonalmente & Calcolo di $\nabla f(x^{(k)})$ e $n$ quozienti \\ \hline
+    Quasi-Newton & Calcolo di $\nabla f(x^{(k)})$, aggiornamento di $B_k$ e $B_k^{-1}$ \\ \hline
+    \multicolumn{2}{|c|}{\textbf{Metodi del secondo ordine}} \\ \hline
+    Newton & Calcolo di $\nabla f(x^{(k)})$, calcolo di $\nabla^2 f(x^{(k)})$, soluzione del sistema lineare $O(n^3)$ \\ \hline
+    Steepest descent scalato con diagonale dell'Hessiana & Calcolo di $\nabla f(x^{(k)})$, calcolo di $\frac{\partial^2 f(x^{(k)})}{\partial x_i^2}$, $n$ quozienti \\ \hline
+    Newton modificato & Calcolo di $\nabla f(x^{(k)})$, calcolo di $\nabla^2 f(x^{(k)})$, soluzione del sistema lineare ad ogni passo e fattorizzazione $O(n^3)$ ogni $m$ iterazioni \\ \hline
+    \end{tabular}
+    \caption{Confronto dei metodi di ottimizzazione in termini di costo computazionale}
+\end{table}
+\newpage
+\section{Selezione del parametro di lunghezza di passo}
+
+    
+    
