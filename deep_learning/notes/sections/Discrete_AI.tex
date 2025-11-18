@@ -1,0 +1,288 @@
+\chapter{Discrete Representations and Generative Modeling}
+
+\section{Introdcution}
+The \textbf{Discretization} is the process of dividing continuos phenomena into \textbf{distinct parts}, resonates deeply with how humans understand and interact with the world.
+
+It is not just a computational tool but a reflection of a fundamental cognitive process. It has been explored in philosopy, science, and mathematics for centuries.
+
+\subsection{Immanuel Kant}
+Philosophers have long pondered how humans make sense of the
+continuous and often chaotic flow of reality.
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/Kant.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+\textbf{Immanuel Kant}, in his seminal Critique of Pure Reason (1781), argued
+that the human mind does not passively receive sensory input but actively
+structures it.
+
+According to Kant, this structuring process involves applying innate \textbf{categories of understanding} to the manifold of experience – a form of \textbf{conceptual discretization}, to borrow a modern term, that transforms raw sensory data into coherent and intelligible knowledge.
+
+\subsection{René Descartes}
+Similarly, René Descartes revolutionized mathematics and philosophy by introducing the Cartesian coordinate system in his 1637 work La Géométrie.
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/renè.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+By discretizing continuous space into measurable dimensions of x and y, Descartes laid the groundwork for modern analytical geometry.
+
+This act of partitioning space into discrete points not only enabled scientific progress but also reflected a deeper philosophical position: that understanding the infinite requires reducing itto finite, manageable parts.
+
+\subsection{Why Discrete Representations?}
+Many real-world domains are inherently \textbf{discrete}, and modeling them with continuous representation may miss important structural properties. For example like:
+\begin{compactitemize}
+    \item \textbf{Language} consist of sequence of discete symbols (word, subword).
+    \item \textbf{Images} are stored as discrete grids of pixels with quantized color values.
+    \item \textbf{Music and speech} are often represented symbolically (e.g, notes, phonemes).
+\end{compactitemize}
+
+
+In the context of artificial learning systems, dicrete models and representation/enable:
+\begin{compactitemize}
+    \item \textbf{Efficient Compression}
+    Discrete latent variables are significantly \textbf{easier to encode compactly}. This facilitates better data compression and representation efficiency, as the information is stored using distinct, finite codes.
+    
+    \item \textbf{Symbolic Reasoning}
+    Discrete representations enable the direct application of \textbf{formal logic} and \textbf{symbolic manipulation}. This is crucial for tasks requiring transparent, step-by-step reasoning, such as applying mathematical or logical rules.
+
+    \item \textbf{Modular Design}
+    Discrete mechanisms facilitate the creation of \textbf{modular and specialized architectures}. In systems like the \textbf{Mixture of Experts (MoE)}, a discrete gating function selects specific experts for computation, leading to:
+\end{compactitemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/D1.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\subsection{Problem with descritization}
+So if we say since the beginning of the course, each NN is trained through gradient descent, this implies that each function that we use is differentiable.
+
+But many times when we do discretization, we use functions like argmax or argmin that clearly are not differentiable functions. To give an example, if we try to run the code showed below, it won't run because we cannot compute the gradient of the argmax function.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/code.png}
+    \label{fig:MHA2}
+\end{figure}
+
+A possible solutions for this problem are:
+\begin{compactitemize}
+    \item \textbf{VQ-VAEs} involve straight-through estimators
+    \item \textbf{Pixel-RNN} employ autoregressive training
+    \item Surrogate gradients (e.g., Gumbel Softmax)
+\end{compactitemize}
+
+\section{Vector Quantized-Variational Autoencoders}
+While Variational Autoencoders (VAEs) are effective at learning a compressed, lower-dimensional representation of the training data and providing an explicit density estimation for generating new samples, they suffer from two major problems.
+
+The most noticeable issue is their tendency to generate \textbf{blurry}, unrealistic outputs. This is because VAEs typically use a pixel-wise reconstruction loss (like Mean Squared Error), which penalizes variance and tends to favor an average of possible outputs rather than sharp, high-frequency details. This averaging effect results in blurry images.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/D2.png}
+    \label{fig:MHA2}
+\end{figure}
+The second core issue is \textbf{Posterior Collapse}. This occurs when the encoder's variational posterior distribution collapses quickly to the prior distribution (often a simple Gaussian) early in the training process. When this happens, the latent variables (z) essentially stop carrying any meaningful information about the input image (x), effectively making the generative process redundant. Consequently, the decoder learns to ignore the latent code and generates images based solely on the overall structure of the training dataset. This collapse is often difficult to reverse; once the encoder has settled on the uninformative prior, it rarely recovers without specific interventions or architectural changes.
+
+The are two possbile solutions:
+\begin{compactitemize}
+    \item \textbf{$\beta-VAE$} it simply introduces a hyperparameters $\beta$ to weigh the importance of the KL divergence within the ELBO objective:
+    \[
+        \mathcal{L}_{\text{VAE}} = \mathbb{E}_{z \sim Q(z|X)}[\log P(X|z)] - \beta D_{KL}[Q(z|X)\|P(z)]
+    \]
+    \item \textbf{Vector Quantized-Variational Autoencode}
+\end{compactitemize}
+
+\subsection{Vector Quantized-Variational Autoencode (VQ-VAE)}
+VQ-VAE is the first model to use \textbf{discrete latent variables} successfully, it uses the whole latent space and avoids the posterior collapse problem.
+
+VQ-VAE is a \textbf{standard} autoencoder network, with an ancoder and a decoder network. Differently from VAEs, the latent embedding space does \textbf{not follow a Gaussian distribution}.
+
+The model takes an input $x$, that is passed through an encoder network, the encoder produces a \textbf{continuos} output $z_e(x)$.
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/VQ1.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+The latent space is defined through a \textbf{learnable} lookup table, also called \textbf{codebook}, $e \in R^{KxD}$.
+
+$K$ is the size of the discrete latent space and $D$ is the dimensionality of each latent embedding vector. Hence, the codebook is $KxD$.
+
+Each of the $K$ embedding vectors $e_i \in R^D, i=1,2, ... , K$ is learnable through gradient descent.
+
+Given $z_e(x)$, the discrete latent variable $z$ is computed by a \textbf{nearest neighbour look-up} using the shared embedding space.
+$$q(z = k|x) =
+\begin{cases}
+1 & \text{se } k = \underset{j}{\operatorname{argmin}} \|z_e(x) - e_j \|_2^2 \\
+0 & \text{altrimenti}
+\end{cases}$$
+The proposal distribution $q(z=k|x)$ is \textbf{deterministic}.
+
+The input to the decoder is the corresponding embedding vector $e_k$.
+$$z_q(x) = e_k, \quad \text{where } k = \underset{j}{\operatorname{argmin}} \|z_e(x) - e_j \|_2^2$$
+
+The complete set of parameters are union of parameters of the encoder, decoder, and the embedding space $e$.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/VQ2.png}
+    \caption{VQ-VAE: overall architecture}
+    \label{fig:MHA2}
+\end{figure}
+
+\subsection{VQ-VAE: Learning}
+
+One can interpret the forward computation pipeline of a VQ-VAE as a standard autoencoder equipped with a peculiar non-linearity that maps the continuous latent vectors into a \textbf{1-of-K} discrete embedding.  
+However, this discretization step introduces a major difficulty:  
+\textbf{the quantization operation (nearest neighbour lookup) is non-differentiable}.  
+
+Discrete operators such as \texttt{argmax}, \texttt{round} and \texttt{quantize} break the gradient flow during backpropagation.  
+To address this issue, VQ-VAE employs a simple but extremely effective technique: the \textbf{Straight-Through Gradient Estimator (STE)}.
+
+\subsubsection{Straight-Through Gradient Estimation}
+
+The key idea behind the STE is to use the discrete code in the forward pass while pretending that the quantization function is the identity during the backward pass.
+
+\begin{itemize}
+    \item \textbf{Forward pass:}  
+    \[
+        z_q = \text{quantize}(z_e)
+    \]
+    typically via nearest neighbour search in the codebook.
+    
+    \item \textbf{Backward pass (approximate):}  
+    \[
+        \frac{\partial L}{\partial z_e} \approx \frac{\partial L}{\partial z_q}
+    \]
+    The quantization is ignored during backpropagation and treated as the identity function.
+\end{itemize}
+
+This trick is widely used beyond VQ-VAEs, for example in:
+\begin{compactitemize}
+    \item \textbf{Binary neural gates}: forward as a step , backward as a  sigmoid;
+    \item \textbf{Neural architecture search} and routing;
+    \item \textbf{Pruning and gating mechanisms}.
+\end{compactitemize}
+
+\subsection{VQ-VAE: Training Objective}
+
+A critical point is that, due to the straight-through estimator, the embedding vectors $e_i$ in the codebook receive \textbf{no gradient} from the reconstruction loss $\log p(x|z_q(x))$.  
+Thus, an additional mechanism is needed to update the codebook.  
+
+VQ-VAE adopts a classical strategy from dictionary learning: \textbf{Vector Quantization}, implemented via simple mean squared error (MSE) terms.
+
+\[
+    \mathcal{L} =
+    \underbrace{\log p(x|z_q(x))}_{\text{Reconstruction error}}
+    +
+    \underbrace{\| \text{stopgrad}[z_e(x)] - z_q(x) \|_2^2}_{\text{VQ term}}
+    +
+    \beta \underbrace{\| z_e(x) - \text{stopgrad}[z_q(x)] \|_2^2}_{\text{Commitment term}}
+\]
+
+\paragraph{Interpretation of the three loss components}
+\begin{compactitemize}
+    \item \textbf{Reconstruction error}  
+    Trains only the decoder, encouraging it to reconstruct the input from the selected codeword.
+
+    \item \textbf{Vector Quantization term}  
+    Updates the codebook embeddings.  
+    It moves each embedding vector $e_k$ closer to the encoder outputs that selected it.
+
+    \item \textbf{Commitment term}  
+    Trains the encoder to produce latent vectors $z_e(x)$ that remain close to the chosen codeword.  
+    This prevents the encoder from excessively roaming in latent space and promotes stability.
+\end{compactitemize}
+
+\paragraph{The stop-gradient operator}
+The operator \texttt{stopgrad[$\cdot$]} treats its argument as a constant during backpropagation.  
+This allows separating which parts of the loss update the encoder and which parts update the codebook.
+
+\begin{compactitemize}
+    \item The \textbf{decoder} optimizes only the reconstruction term.
+    \item The \textbf{encoder} optimizes the reconstruction + commitment terms.
+    \item The \textbf{embedding space} (codebook) is optimized by the VQ term only.
+\end{compactitemize}
+
+This separation is crucial to maintain stable training and prevent collapse of the discrete representations.
+
+\begin{algorithm}[H]
+    \caption{VQ-VAE Training Step}
+    \textbf{Require:} input $x$, encoder $E(\cdot)$, decoder $D(\cdot)$, codebook $\{e_k\}_{k=1}^K$
+    
+    $z_e \leftarrow E(x)$ \tcp*[r]{encode input}
+    $k \leftarrow \arg\min_j \| z_e - e_j \|_2^2$ \tcp*[r]{nearest codebook entry}
+    $z_q \leftarrow e_k$ \tcp*[r]{quantized latent}
+    $z_q^{st} \leftarrow z_e + \text{detach}(z_q - z_e)$ \tcp*[r]{Straight-Through Estimator}
+    $\hat{x} \leftarrow D(z_q^{st})$ \tcp*[r]{reconstruction}
+    
+    $L_{\text{rec}} \leftarrow \|x - \hat{x}\|_2^2$ \tcp*[r]{reconstruction loss}
+    $L_{\text{codebook}} \leftarrow \|\text{stopgrad}[z_e] - z_q\|_2^2$ \tcp*[r]{VQ term}
+    $L_{\text{commit}} \leftarrow \|z_e - \text{stopgrad}[z_q]\|_2^2$ \tcp*[r]{commitment}
+    
+    $L \leftarrow L_{\text{rec}} + L_{\text{codebook}} + \beta L_{\text{commit}}$ \tcp*[r]{total loss}
+    
+    \textbf{Backpropagate} and update encoder, decoder, and codebook\;
+\end{algorithm}
+
+In the code the implementation if STE is the row:
+\[
+    z_q^{st}=z_e + detach(z_q - z_e)
+\]
+Interpretation:
+\begin{compactitemize}
+    \item Forward: $z_q^{st}=z_q$ (quantization is performed)
+    \item Backward: Gradients flow only through $z_e$ (gradient are not affected by quantization)
+    \item Effectively treats quantization as the identity function during backpropagation.
+\end{compactitemize}
+
+\subsection{VQ-VAE for Image Compression}
+VQ-VAE can be used as a learned image compressor:
+\begin{compactitemize}
+    \item The encoder maps input images to discrete latent codes.
+    \item The decoder reconstructs the image from those codes.
+    \item The codebook indices can be compressed using entropy coding (e.g., Huffman, arithmetic).
+\end{compactitemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/D3.png}
+    \label{fig:MHA2}
+\end{figure}
+The advantages are:
+\begin{compactitemize}
+    \item Learn domain-specific features, outperforming handcrafted codecs at low bitrates.
+    \item Generates visually coherent reconstructions usin fewer bits.
+\end{compactitemize}
+
+\subsection{Learnable Prior in VQ-VAE}
+A VQ-VAE learns three main components: an encoder, a decoder, and a codebook of discrete learnable embeddings.  
+However, the model does not learn any distribution over the latent codes. This becomes a problem when we want to generate new images.
+
+To synthesize new samples, we would ideally sample vectors from the codebook.  
+But if we choose these codes randomly, the resulting images have no meaning: the decoder receives sequences of embeddings that do not correspond to any pattern that occurred in real data.
+
+To fix this, the idea is to \textbf{learn the distribution of the discrete latent codes}.  
+In practice:
+
+\begin{compactitemize}
+    \item we encode the training images using the VQ-VAE encoder to obtain sequences of codebook indices;
+    \item we train a second generative model (e.g., PixelCNN or a Transformer) on these sequences;
+    \item this model learns the true distribution over the discrete latent space;
+    \item once trained, we can sample new sequences of latent codes from this learned prior;
+    \item finally, we pass these sampled codes to the VQ-VAE decoder to generate meaningful new images.
+\end{compactitemize}
+
+In this way, the VQ-VAE becomes a complete generative model:  
+it not only reconstructs existing inputs, but can also produce new coherent images because sampling occurs from a \textbf{learned prior} rather than from random codebook choices.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/D4.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\section{Autoregressive Models (PixelCNN)}

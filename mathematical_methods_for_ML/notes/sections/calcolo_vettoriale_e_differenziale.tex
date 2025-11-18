@@ -416,4 +416,49 @@ In tal caso, $\hat{\mathbf{s}}$ indica la \textbf{direzione pura} senza influenz
 \]
 descrivono rispettivamente \textbf{l’inclinazione} e la \textbf{curvatura normalizzata} di $f$ lungo la direzione $\hat{\mathbf{s}}$.
 
-\subsection{Curve di livelo}
+\subsection{Curve di livello}
+Data la costante $c \in \mathbb{R}$, si dice \emph{curva di livello} di $f$ associata a $c$ l’insieme
+\[
+L_c(f) = \{x \in \mathbb{R}^n : f(x) = c\}.
+\]
+L’\emph{insieme di livello} di $f$ associato a $c$ è definito come
+\[
+L_{\leq c}(f) = \{x \in \mathbb{R}^n : f(x) \leq c\}.
+\]
+\noindent\textbf{Osservazioni}:
+\begin{itemize}
+    \item I vettori $\pm \dfrac{\nabla f(x_0)}{\|\nabla f(x_0)\|}$ sono direzioni ortogonali alla curva di livello di $f$ in $x_0$, o meglio alla tangente alla curva di livello di $f$ in $x_0$; infatti, detta $t$ la direzione della varietà affine per $x_0$ (iperpiano) tangente alla curva di livello $L_{f(x_0)}(f)$, si ha che $0 = \dfrac{df(x_0)}{d\alpha} = \nabla f(x_0)^T t$, ossia $t$ e $\nabla f(x_0)$ sono ortogonali.
+    
+    \item I vettori $\pm \dfrac{\nabla f(x_0)}{\|\nabla f(x_0)\|}$ sono la direzione di massima crescita e di massima decrescita di $f$ in $x_0$; infatti, fra tutti i versori $s$, se $\varphi$ è l’angolo tra $s$ e $\nabla f(x_0)$, il versore per cui si ha la massima inclinazione di $f$, ossia $\dfrac{df(x_0)}{d\alpha}$ massima o minima,
+    \[
+    \dfrac{df(x_0)}{d\alpha} = \nabla f(x_0)^T s = \|\nabla f(x_0)\| \|s\| \cos(\varphi),
+    \]
+    è il vettore per cui $\cos(\varphi) = \pm 1$, ossia $\varphi = 0, \pi$, cioè $s = \pm \dfrac{\nabla f(x_0)}{\|\nabla f(x_0)\|}$.
+\end{itemize}
+
+\section{Funzione obiettivo lineare}
+Sia $\ell : \mathbb{R}^n \to \mathbb{R}$ una funzione lineare:
+\[
+\ell(x) = a^T x + b = \sum_{i=1}^{n} a_i x_i + b
+\]
+con $a \in \mathbb{R}^n$ e $b \in \mathbb{R}$ costanti.
+\noindent Vale la regola di derivazione del prodotto:
+\[
+\nabla(u^T v) = (\nabla u^T)v + (\nabla v^T)u.
+\]
+Per ogni $i = 1, \ldots, n$, data la funzione $x \mapsto x_i$, si ha che $\nabla x_i = e_i$, cosicché
+\[
+\nabla x^T = \nabla(x_1, x_2, \ldots, x_n) = [e_1 \ e_2 \ \ldots \ e_n] = I_n.
+\]
+\noindent È immediato verificare che
+\[
+\nabla \ell(x) = (\nabla a^T)x + \nabla x^T a = I_n \cdot a = a,
+\]
+dalla regola
+\[
+\nabla \ell(x) = \sum_{i=1}^{n} \frac{\partial \ell}{\partial x_i} \nabla x_i = \sum_{i=1}^{n} a_i e_i = a.
+\]
+\noindent Per la derivazione di funzione composta, si ha infine
+\[
+\nabla^2 \ell(x) = 0_n.
+\]

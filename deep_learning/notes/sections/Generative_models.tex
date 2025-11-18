@@ -220,7 +220,7 @@ Now take a look at the \textbf{regularization term}: we say that
     \vspace{-10pt}
 \end{wrapfigure}
 The sampling step $z \sim N(z \mid \mu(x), \sigma^2(x))$ is not differentiable, so we can not use the backpropagation to train the model.
-The \textbf[reparametrize trick] lets us backpropagate through the sampling operation (a random operator). So instead of do $z \sim N(z \mid \mu(x), \sigma^2(x))$  we compute this:
+The \textbf{reparametrize trick} lets us backpropagate through the sampling operation (a random operator). So instead of do $z \sim N(z \mid \mu(x), \sigma^2(x))$  we compute this:
 \begin{compactitemize}
     \item Sample a random vector from the standard distribution $\epsilon \sim N(z \mid 0, I_n)$
     \item \textbf{Reparametrize}: $z= \mu(x) + \epsilon * \sigma(x)$
@@ -228,3 +228,150 @@ The \textbf[reparametrize trick] lets us backpropagate through the sampling oper
 The advantage is that the sampled noise vector $\epsilon$ is just an extra input to the network. Its distribution is not a function of any of the variables whose derivatives we want to calculate, which allows gradients to flow through the network during backpropagation.
 
 \section{Generative Adversarial Networks}
+Generative Adversarial Networks (GANs) offer an alternative to traditional generative models such as \textbf{Variational Autoencoders (VAEs)} and \textbf{VQ-VAEs}. These conventional approaches rely on \textbf{latent variables} $z$ and optimize a \textbf{lower bound on the likelihood} of the data distribution. While effective, VAEs often produce \textbf{blurry reconstructions} due to approximate inference and the constraints imposed by an explicitly defined likelihood model.
+
+GANs follow a fundamentally different paradigm. They do \textbf{not define or learn an explicit density function} for the data. Instead, the generator directly learns a \textbf{mapping from noise} $z \sim p(z)$ to the \textbf{real data distribution} through adversarial training. The core idea is to sample from a simple prior distribution $z \sim p(z)$ and learn a transformation $G(z)$ such that the generated samples become indistinguishable from real data. This shift in perspective is crucial: unlike VAEs, GANs \textbf{do not learn the true underlying probability distribution}. They only learn \textbf{how to sample from it}, rather than providing a likelihood or a probability score for a given input.
+
+Because of this, GANs \textbf{cannot be used for tasks such as anomaly detection}, where one typically requires an explicit evaluation of how likely a given input is under the learned distribution. Since GANs do not output probabilities or likelihood estimates, they are unsuitable for such applications despite their impressive sample quality.
+
+\subsection{Adversarial Training Idea}
+It is important to note that in this case we not have only one network to train but \textbf{two}, this net are:
+\begin{compactitemize}
+    \item \textbf{Generator}: This net has the task of produce a fake object, very similar to the real one, with the aim to fool the the other net.
+    \item \textbf{Discriminator}: This net has the task of detect the fake object produced by the generator, essentially this net make a binary classification with the aim to identify the fake object.
+\end{compactitemize}
+A very kind example of this paradigm is the counterfeiters-police example, in which the counterfeiters (Generator) produce a fake currency and the police (Discriminator) must  be able to distinguish between the fake currency and the real one.
+The \textbf{competion} is the key, it in this game drives \textbf{both} teams to improve thei methods untile the counterfeits are indistinguishable from the genuine articles.
+As a side-effect, the counterfeiters learn something about real currency.
+
+\subsection{Generative adversarial network}
+Generative Adversarial Networks (GANs) are another generative approach, based on two networks that compete with each other, in a game theoretic scenario.
+As we sai before the \textbf{generator} net directly produces samples $x=G(z)$.
+The \textbf{discriminator} net attempts to \textbf{distringuish} between samples drawn from the training data and samples drawn from the generator.
+
+The discriminator emits a probability value indicating wheter $x$ is a real training example rather than a fake sample drawn from the generator.
+
+The generative network's training objective is to \textbf{increase the error rate} of the discriminative network.
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/GAN1.png}
+        \label{fig:Trend_Seasonality}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/GAN2.png}
+        \label{fig:Residuals}
+    \end{minipage}
+    \label{fig:TS_Residuals}
+\end{figure}
+
+\subsection{Training GANs}
+Train jointly in \textbf{minmax} game with the following minmax objective function:
+\[
+\min_{\theta_G}\, \max_{\theta_D}
+\left[
+\underbrace{\mathbb{E}_{x \sim p_{\text{data}}} \left[ \log D_{\theta_D}(x) \right]}_{\text{log prob of $D$ predicting that real data is genuine}}
++
+\underbrace{\mathbb{E}_{z \sim p(z)} \left[ \log \left( 1 - D_{\theta_D}(G_{\theta_G}(z)) \right) \right]}_{\text{log prob of $D$ predicting \\ that $G$'s generated data is not genuine}}
+\right]
+\]
+
+The Discriminator ($\theta_D$) aims to \textbf{maximize} this objective so that $D(x)$ is close to 1 (real) and $D(G(z))$ is close to 0 (fake).  
+
+The Generator ($\theta_G$) aims to \textbf{minimize} the objective so that $D(G(z))$ is close to 1, meaning the discriminator is fooled into classifying generated samples as real.
+
+So we must train two different net that use a shared loss function, this is done in two step:
+\begin{compactitemize}
+    \item \textbf{Gradient ascent} on discriminator:
+    \[
+    \max_{\theta_d}
+    \left[
+    \mathbb{E}_{x \sim p_{\text{data}}} \log D_{\theta_d}(x)
+    +
+    \mathbb{E}_{z \sim p(z)} \log\left(1 - D_{\theta_d}(G_{\theta_g}(z))\right)
+    \right]
+    \]
+    \item \textbf{Gradient descent} on generator:
+    \[
+    \min_{\theta_g}
+    \left[
+    \mathbb{E}_{z \sim p(z)} \log\left(1 - D_{\theta_d}(G_{\theta_g}(z))\right)
+    \right]
+    \]
+\end{compactitemize}
+
+\textbf{Problem:} If the discriminator becomes too strong while the generator is still producing unrealistic samples, the generator receives very small gradients, leading to \textbf{vanishing gradients}. Formally, when 
+\[
+D_{\theta_d}(G_{\theta_g}(z)) \approx 1,
+\] 
+then 
+\[
+\log\big(1 - D_{\theta_d}(G_{\theta_g}(z))\big) \approx 0,
+\] 
+which results in almost no gradient flow for the generator. Consequently, the generator cannot learn effectively, as it receives minimal feedback from the discriminator. The standard objective 
+\[
+\min_{\theta_g} \mathbb{E}_{z \sim p(z)} \log\big(1 - D_{\theta_d}(G_{\theta_g}(z))\big)
+\] 
+thus suffers from this problem when $G$ produces early unrealistic samples.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/GA5.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+\textbf{Solution:} Instead of minimizing $\log(1 - D(G(z)))$ (the likelihood of the discriminator being correct), we can \textbf{maximize} $\log(D(G(z)))$, which represents the likelihood of the discriminator being wrong. This modification achieves the same goal of fooling the discriminator, but provides \textbf{stronger gradient signals} when the generator is producing early, low-quality samples. As a result, the generator can learn more effectively from the discriminator and improve faster during training.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/GA4.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\subsection{Evolution of GAN Architectures}
+
+Over the years, various GAN architectures have been proposed to improve image quality, training stability, and controllability. \textbf{Deep Convolutional GANs (DCGANs)} were among the first architectures to rely solely on convolutional layers for both the generator and discriminator. This design significantly improved the quality of generated images and stabilized training. Experiments showed that the generator could produce smooth interpolations between random latent vectors, resulting in gradual and realistic transitions, while semantic vector arithmetic in the latent space produced coherent results.
+
+\textbf{CycleGANs} introduced the concept of unpaired image-to-image translation using cycle-consistent adversarial networks. This approach enables mapping between two image domains, such as transforming horses into zebras or Monet paintings into photographs, without requiring paired training data.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/CG.png}
+    \caption{Cycle GANs}
+    \label{fig:MHA2}
+\end{figure}
+\textbf{Progressive GANs} adopt a training strategy that starts at low spatial resolution and gradually grows both the generator and discriminator by adding layers over time. This progressive growing allows the model to generate very high-resolution images while keeping the training stable. The generator and discriminator are trained at each resolution incrementally, with all existing layers remaining trainable.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/PG.png}
+    \caption{Progressive GANs}
+    \label{fig:MHA2}
+\end{figure}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/SG.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+\textbf{StyleGANs} further advance GAN design by introducing a style-based generator architecture. This design enables fine control over individual attributes of the generated images, allowing for manipulation of high-level features such as pose, hair style, or background while maintaining coherent overall image structure.
+
+\subsection{Pros and Cons}
+Generative Adversarial Networks (GANs) adopt a \textbf{game-theoretic approach}, where a generator and a discriminator are trained in a two-player adversarial game to learn how to generate samples from the training distribution.  
+
+\textbf{Pros:}  
+\begin{compactitemize}
+    \item \textbf{Can utilize the power of backpropagation:} Both the generator and discriminator are neural networks, so standard gradient-based optimization methods such as backpropagation can be used to train them efficiently.  
+    \item \textbf{The loss function is learned instead of being hand-selected:} Unlike models such as VAEs, where the likelihood function must be explicitly defined, in GANs the discriminator implicitly defines a learned loss function that guides the generator.  
+    \item \textbf{No MCMC needed:} GANs can generate samples directly from a latent noise vector without requiring Markov Chain Monte Carlo (MCMC) sampling, which is often slow and computationally expensive in other generative models.
+\end{compactitemize}
+
+\textbf{Cons:}  
+\begin{compactitemize}
+    \item \textbf{Hard to train / Trickier and more unstable:} The adversarial training setup can lead to instability, mode collapse, or failure to converge if the discriminator becomes too strong or too weak relative to the generator.  
+    \item \textbf{Need to manually babysit during training:} Careful tuning of hyperparameters, learning rates, and update ratios between generator and discriminator is often required to maintain stable training.  
+    \item \textbf{No universal evaluation metric:} Unlike likelihood-based models, GANs do not provide an explicit probability for a given sample, making it difficult to quantitatively compare different models or measure progress during training.  
+\end{compactitemize}

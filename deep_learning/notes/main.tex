@@ -50,6 +50,28 @@
 
 \newcommand\myeq{\stackrel{\mathclap{\tiny\mbox{def}}}{=}}
 
+% Definizione della nuova box per il codice
+\usepackage[many]{tcolorbox}
+
+\newtcolorbox{codicebox}[1][Python Code Example]{
+    colback=light-gray!80,       
+    colframe=black!50,           
+    boxrule=0.5pt,
+    arc=2pt,
+    left=4pt, right=4pt, top=4pt, bottom=4pt,
+    fonttitle=\bfseries,
+    title=#1,
+    % Impostazione specifica per il contenuto
+    enhanced,
+    interior code={
+        \begin{minipage}{\linewidth}
+    },
+    after interior code={
+        \end{minipage}
+    },
+}
+
+
 \usepackage[many]{tcolorbox}
 \newtcolorbox{boxA}{
     % fontupper = \bf,
@@ -192,6 +214,8 @@ urlcolor=blue,
 		\renewcommand{\headrulewidth}{0.0pt}
 		\renewcommand{\footrulewidth}{0.0pt}
 		}
+
+  
 		
 		
 \usepackage{fancyhdr}
@@ -281,4 +305,5 @@ urlcolor=blue,
 \input{sections/Graph_NN.tex}
 \input{sections/Autoencoders.tex}
 \input{sections/Generative_models.tex}
+\input{sections/Discrete_AI.tex}
 \end{document}
