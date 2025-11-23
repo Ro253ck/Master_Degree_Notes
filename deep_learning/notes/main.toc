@@ -161,3 +161,10 @@
 \contentsline {subsection}{\numberline {9.2.4}VQ-VAE for Image Compression}{113}{subsection.9.2.4}%
 \contentsline {subsection}{\numberline {9.2.5}Learnable Prior in VQ-VAE}{114}{subsection.9.2.5}%
 \contentsline {section}{\numberline {9.3}Autoregressive Models (PixelCNN)}{115}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}PixelCNN: Inference}{116}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}PixelCNN: Sampling}{117}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Causal Convolutions}{117}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}PixelCNN: Training}{118}{subsection.9.3.4}%
+\contentsline {subsection}{\numberline {9.3.5}PixelCNN: Likelyhood and Anomaly Detection}{119}{subsection.9.3.5}%
+\contentsline {subsection}{\numberline {9.3.6}Summary}{120}{subsection.9.3.6}%
+\contentsline {section}{\numberline {9.4}Gumbel-Softmax}{120}{section.9.4}%

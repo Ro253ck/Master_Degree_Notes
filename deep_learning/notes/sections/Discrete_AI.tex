@@ -286,3 +286,277 @@ it not only reconstructs existing inputs, but can also produce new coherent imag
 \end{figure}
 
 \section{Autoregressive Models (PixelCNN)}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/D5.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+With the VQ-VAE model, we have a set of training examples expressed as sequences of \textbf{discrete symbols}:
+\[
+\{ \mathbf{z}^{(i)} = (z^{(i)}_{1}, z^{(i)}_{2}, \ldots, z^{(i)}_{T}) \}_{i=1}^{N}
+\qquad \text{dove } z^{(i)}_{t} \in \{1, \ldots, K\}.
+\]
+
+The objective is to learn a generative model (learned prior) on top of these codes, which defines a parametric distribution over sequences of discrete latent variables:
+\[
+p_{\varepsilon_z}(z), \qquad z = (z_1, z_2, \ldots, z_T), \quad z_t \in \{1, \ldots, K\}.
+\]
+
+The main idea is to represent the joint density as a product of conditional distributions, using the chain rule of probability. In particular, the prior \(p_{\varepsilon_z}(z)\) can be learned through an autoregressive factorization of the joint density:
+\[
+p_{\varepsilon_z}(z) = \prod_{t=1}^{T} p_{\varepsilon_z}(z_t \mid z_{<t}),
+\]
+where each latent code \(z_t\) is predicted conditioned on all previous codes in the sequence.
+
+To understand this factorization, we start from the definition of conditional probability:
+\[
+p(A \mid B) = \frac{p(A,B)}{p(B)} \qquad \Longleftrightarrow \qquad p(A,B) = p(A \mid B) \, p(B).
+\]
+
+By recursively applying this definition to a sequence of random variables \( z = (z_1, z_2, \ldots, z_T) \), the joint distribution can be decomposed as follows:
+\begin{equation}
+    \begin{split}
+    p(z_1, z_2, \ldots, z_T) 
+    &= p(z_T \mid z_1, \ldots, z_{T-1}) \, p(z_1, \ldots, z_{T-1}) \\
+    &= p(z_T \mid z_{<T}) \, p(z_1, \ldots, z_{T-1}) \\
+    &= p(z_T \mid z_{<T}) \, p(z_{T-1} \mid z_{<T-1}) \, p(z_1, \ldots, z_{T-2}) \\
+    &= \cdots \\
+    &= p(z_T \mid z_{<T}) \, p(z_{T-1} \mid z_{<T-1}) \, \cdots \, p(z_2 \mid z_1) \, p(z_1) \\
+    &= \prod_{t=1}^{T} p(z_t \mid z_{<t}).
+    \end{split}
+\end{equation}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/D6.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+In this way, each latent variable is modeled conditioned on the previous ones, allowing the learning of an autoregressive sequential distribution over the discrete codes.
+
+Each latent variable \(z_t\) is a discrete symbol taken from a codebook of size \(K\). In other words, the latent space is categorical, and each \(z_t\) can take one of \(K\) possible values:
+\[
+z_t \in \{1, \ldots, K\}.
+\]
+
+Accordingly, each conditional distribution in the autoregressive factorization can be modeled as a categorical distribution (also called a \emph{multinomial with one trial}):
+\[
+p_{\varepsilon_z}(z_t \mid z_{<t}) = \mathrm{Cat}(z_t; \pi_{\theta_z}(z_{<t})),
+\]
+where \(\pi_{\theta_z}(z_{<t})\) represents the vector of probabilities over the \(K\) codebook entries, conditioned on all previous latent variables \(z_{<t} = (z_1, \ldots, z_{t-1})\).  
+
+In this way, the model learns a distribution over the discrete codes at each time step, taking into account the history of the sequence, which allows it to capture sequential dependencies in the latent space.
+
+
+Each conditional distribution in the autoregressive factorization can be modeled as a categorical distribution:
+\[
+p_{\theta_z}(z_t \mid z_{<t}) = \mathrm{Cat}(z_t; \pi{\theta}(z_{<t})), \qquad z_t \in \{1, \ldots, K\},
+\]
+where \(\pi_{\theta}(z_{<t}) \in \mathbb{R}^{K \times 1}\) is the predicted probability vector over the \(K\) codebook entries. This vector can be parametrized by a neural network, which allows the model to flexibly learn how the probability of each code depends on the previous latent variables.  
+
+Common choices for modeling \(p_{\theta_z}\) include:
+
+\begin{compactitemize}
+    \item \textbf{Pixel Recurrent Neural Networks (PixelRNN)}: uses recurrent connections over the sequence, less common for image latents.
+    \item \textbf{PixelCNN}: a convolutional approach that is aware of the spatial grid structure, often used for image-based latents.
+    \item \textbf{Transformer}: uses flexible attention-based mechanisms to model dependencies over the entire sequence, providing powerful context modeling.
+\end{compactitemize}
+
+In summary, by parameterizing each conditional as a neural network-predicted categorical distribution, the autoregressive model can capture complex sequential dependencies in the discrete latent space, allowing for rich generative modeling.
+
+\subsection{PixelCNN: Inference}
+The general idea is to model the prior over discrete latent variables 
+\[
+z \in \{1, \dots, K\}^{H \times W}
+\] 
+using a 2D autoregressive model. This is typically implemented via a (modified) Convolutional Neural Network (CNN), such as a PixelCNN.  
+
+The joint distribution of the latents is factorized in raster scan order (row by row, left to right):
+\[
+p_{\theta_z}(z) = \prod_{i=1}^{H} \prod_{j=1}^{W} p_{\theta_Z}(z_{i,j} \mid z_{<i,j}),
+\]
+where \(z_{<i,j}\) denotes all previously generated pixels (or latent variables) in the raster scan order.  
+
+
+Each conditional distribution 
+\[
+p_{\theta_z}(z_{i,j} \mid z_{<i,j})
+\] 
+is modeled as a categorical distribution whose probabilities are predicted by a convolutional neural network with \emph{masking} (\textbf{causal convolutions}), ensuring that no future pixel information is used when predicting the current pixel.
+
+\[
+p_{\theta_z}(z_{i,j} \mid z_{<i,j}) = \mathrm{Cat}(z_{i,j}; \pi_{\theta_z}(z_{<i,j})), 
+\quad \pi_{\theta_z}(z_{<i,j}) = \mathrm{PixelCNN}(z_{<i,j}; \theta_z)
+\]
+
+\textbf{Inference (Sampling).}  
+Sampling is performed sequentially following the raster scan order:
+
+\begin{enumerate}
+    \item Start with an empty image or latent grid.  
+    \item For each pixel or latent variable \((i,j)\):
+    \begin{enumerate}
+        \item Perform a forward pass through the PixelCNN to obtain the conditional distribution \(\pi_{\theta_z}(z_{<i,j})\).  
+        \item Sample \(z_{i,j}\) from the predicted categorical distribution:
+        \[
+        z_{i,j} \sim p_{\theta_z}(z_{i,j} \mid z_{<i,j}).
+        \]  
+        \item Fill in the grid sequentially, one pixel at a time.
+    \end{enumerate}
+\end{enumerate}
+
+This approach allows the model to capture complex spatial dependencies among the latent variables, while maintaining a fully probabilistic generative model over the 2D latent grid.
+
+\subsection{PixelCNN: Sampling}
+At generation time, pixel are sampled one by one, in raster-scan order (left-to-right, top-to-bottom), using the predicted distribution conditioned on previous generated pixel.
+
+This proccess is inherently \textbf{slow}, as each pixel depends on all previous one, but this ensueres valide sample frome the model.
+
+This proccess lead at the fact that this infernce cannot be parallelized and the sampling time scales linearly with the number of pixel.
+
+\subsection{Causal Convolutions}
+
+In autoregressive models, such as PixelCNN, it is crucial to ensure that the prediction at position \((i,j)\) only depends on previously generated positions. This is necessary to avoid \textbf{information leakage}, i.e., the network accidentally using information from pixels it is supposed to predict.  
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/D7.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+To enforce this constraint, PixelCNN uses \textbf{masked convolutions}. The basic idea is to prevent the convolutional kernel from “seeing” future pixels. This is typically implemented by \textbf{element-wise multiplying the convolutional kernel with a binary mask} before each forward pass. Such a mask is usually \textbf{hard-coded}, meaning that the positions that can be accessed are predefined and fixed, not learned by the network.  
+
+\begin{infobox}[Hard-coded Binary Mask]
+A \textbf{hard-coded binary mask} is a matrix of 0s and 1s that is multiplied element-wise with the convolutional kernel. 
+
+- \textbf{1} indicates that the position is allowed to contribute to the output (can be “seen” by the convolution).  
+- \textbf{0} indicates that the position is blocked (cannot be used).  
+
+In a 2D autoregressive setting, this ensures that the convolution only attends to past pixels (above and to the left), enforcing the autoregressive constraint.
+\end{infobox}
+
+For 2D data such as images, PixelCNN typically uses two types of masks:
+
+\begin{compactitemize}
+    \item \textbf{Mask type A}: excludes the current pixel \((i,j)\). This is used in the \textbf{first layer} only, to enforce strict causality and prevent the network from seeing the pixel it is trying to predict.  
+    \item \textbf{Mask type B}: includes the current pixel \((i,j)\). This is used in \textbf{all subsequent layers}, allowing the network to incorporate richer context from the feature maps of previous layers while still respecting the autoregressive property.  
+\end{compactitemize}
+
+\begin{infobox}[Why this distinction?]
+- Type A is necessary in the \textbf{first layer} because at that stage the network has not yet seen any features derived from the current pixel, so strict causality must be enforced.  
+- Type B is used in deeper layers because the original pixel at \((i,j)\) was never observed in the first layer, so allowing access to this position in the feature maps does not violate the autoregressive property. Instead, it provides \textbf{richer context} to the network, improving its ability to model complex dependencies.
+\end{infobox}
+
+\subsection{PixelCNN: Training}
+During training, \textbf{PixelCNN suffers from slow sampling}, since its autoregressive structure requires the model to generate each pixel sequentially. For every pixel location, the model must perform a forward pass conditioned on all previously generated pixels. This strict dependency makes sampling extremely slow, especially for high-resolution images.
+
+To address this issue, we use \textbf{Teacher Forcing}, which becomes feasible during training because \textbf{ground-truth pixel values (or latent codes) are available}. Instead of allowing the model to generate one pixel at a time and feeding its own predictions back as inputs, Teacher Forcing provides the true pixel values at each location as conditioning information. As a result, \textbf{the model does not rely on its own predictions during training}, eliminating the need for sequential generation.
+\begin{wrapfigure}{r}{0.6\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/D9.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+With Teacher Forcing, \textbf{PixelCNN can predict all pixels in parallel through a single forward pass}, since each prediction is conditioned on the ground-truth values rather than sampled outputs. This makes training highly efficient: \textbf{no autoregressive sampling loop is required}, and the entire image can be processed simultaneously. Consequently, even though PixelCNN still requires sequential sampling during inference, \textbf{training becomes fully parallelizable and drastically faster}, enabling practical optimization of autoregressive models despite slow sampling at inference time.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/D8.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\subsection{PixelCNN: Likelyhood and Anomaly Detection}
+PixelCNN models the exact data likelihood using an autoregressive factorization of the image distribution:
+
+\[
+\log p(x) = \sum_{i,j} \log p(x_{i,j} \mid x_{<i,j})
+\]
+
+This likelihood can be computed efficiently in a single forward pass by using masked convolutions, which ensure that each pixel prediction depends only on the valid preceding pixels. As a result, PixelCNN allows us to assign a probability score (or log-likelihood) to any image directly.
+
+This capability enables several important applications. One key use case is \textbf{anomaly detection}, where unusual or corrupted images typically exhibit very low likelihood under the model. Another closely related application is \textbf{novelty detection}, in which out-of-distribution (OOD) samples can be identified by thresholding their likelihood scores. High-likelihood images are considered consistent with the training distribution, while low-likelihood ones are flagged as novel or anomalous.
+
+\subsection{Summary}
+\textbf{VQ-VAE: Vector Quantized Variational Autoencoder:} 
+Learns a \textbf{discrete latent space} through vector quantization. The encoder maps inputs to discrete latent codes using a learned codebook, while the decoder reconstructs the original input from these codes. This framework enables \textbf{efficient and compressible representations} by replacing continuous latent variables with discrete embeddings.
+
+\textbf{PixelCNN:} 
+PixelCNN models the \textbf{joint distribution over the discrete latent codes} produced by the VQ-VAE encoder. It is trained directly on these latents to learn a powerful generative prior. Once trained, PixelCNN can sample new latent code grids, which are then passed to the VQ-VAE decoder to generate images.
+
+\textbf{Combined Pipeline:} 
+The overall system works in two stages:  
+\begin{compactitemize}
+    \item \textbf{Train the VQ-VAE} to learn a discrete latent representation and a decoder capable of reconstructing images from latent codes.
+    \item \textbf{Train PixelCNN on the discrete latent maps} to model their distribution and serve as a generative prior.    
+\end{compactitemize}
+
+At generation time, samples are drawn from the PixelCNN prior and subsequently decoded using the VQ-VAE decoder, producing fully generated images.
+
+\section{Gumbel-Softmax}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/D10.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+As we saw in the first example of this chapter, the \textbf{argmax} function is not differentiable and therefore breaks the training process. We also discussed a workaround known as the \textbf{Straight-Through Estimator (STE)}, which consists of performing the discrete sampling during the forward pass while treating the operation as the identity function during the backward pass in order to propagate gradients.
+
+However, there exists another approach to avoid the non-differentiability of the argmax: the \textbf{Gumbel-Softmax} trick. This method allows us to sample from a categorical distribution during the forward pass of a neural network while still maintaining differentiability with respect to the logits.
+
+In this setting, the encoder produces logits over the codebook entries. Instead of selecting a single discrete index, we sample a \emph{soft} categorical vector using the Gumbel-Softmax formulation:
+
+\[
+y_k = \frac{\exp\left( \frac{\log \pi_k + g_k}{\lambda} \right)}
+{\sum_{j} \exp\left( \frac{\log \pi_j + g_j}{\lambda} \right)}
+\]
+
+where:
+\begin{compactitemize}
+    \item $\pi_k$ are the unnormalized probabilities (logits) of the categorical distribution,
+    \item $g_k$ are i.i.d.\ Gumbel noise samples,
+    \item $\lambda$ is the temperature parameter controlling the softness of the distribution.
+\end{compactitemize}
+
+As $\lambda \to 0$, the distribution becomes increasingly sharp and approximates a one-hot categorical sample. For higher values of $\lambda$, the output is smoother and fully differentiable. This mechanism shares strong similarities with the \textbf{Reparameterization Trick} used in continuous VAEs, as it enables gradient-based optimization through a stochastic sampling step. The Gumbel-Softmax therefore provides a principled and differentiable alternative to the STE for learning discrete latent representations.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/D11.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/D12.png}
+    \label{fig:MHA2}
+\end{figure}
+\begin{infobox}[Sampling vs Softmax]
+    When using the standard \textbf{softmax} function on the logits produced by the encoder, the output is \emph{deterministic}.  
+    Given the same input $x$, the encoder always produces the same logits, and the softmax always produces the same probability vector.  
+    This is useful for classification, but it does \emph{not} allow us to sample discrete latent variables.
+
+    In contrast, the \textbf{Gumbel-Softmax} introduces \emph{stochasticity} by adding Gumbel noise to the logits before applying a temperature-controlled softmax.  
+    This means that even if the encoder outputs the same logits at every forward pass, the addition of random Gumbel noise causes the resulting Gumbel-Softmax vector to be \textbf{different each time}.  
+    Thus, the model can produce \emph{different samples} from the same categorical distribution.
+
+    This is the key advantage:  
+    \begin{compactitemize}
+        \item We want to \textbf{sample} a discrete latent variable (like choosing a codebook entry).  
+        \item But we also want the entire operation to remain \textbf{differentiable}, so gradients can pass through the sampling step.
+    \end{compactitemize}
+
+    The Gumbel-Softmax bridges this gap:
+    \begin{compactitemize}
+        \item It behaves like sampling because the Gumbel noise randomizes the output.  
+        \item It remains differentiable because the output after applying the temperature softmax is still a continuous vector.
+    \end{compactitemize}
+\end{infobox}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/D13.png}
+    \caption{The initial example: Now}
+    \label{fig:MHA2}
+\end{figure}
