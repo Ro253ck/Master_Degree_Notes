@@ -1,49 +1,16 @@
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Introduction to Reinforcement Learning}{2}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}Characteristics of Reinforcement Learning}{2}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}Rewards and the Reward Hypothesis}{3}{subsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.1.3}Sequential Decision Making and Long-term Planning}{3}{subsection.1.1.3}%
-\contentsline {section}{\numberline {1.2}History and State in Reinforcement Learning}{4}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}The Role of History}{4}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}State as a Function of History}{5}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Environment State}{5}{subsection.1.2.3}%
-\contentsline {subsection}{\numberline {1.2.4}Agent State}{5}{subsection.1.2.4}%
-\contentsline {subsection}{\numberline {1.2.5}Information State and the Markov Property}{6}{subsection.1.2.5}%
-\contentsline {section}{\numberline {1.3}Observability in Reinforcement Learning}{6}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Fully Observable Environments}{6}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Partially Observable Environments}{7}{subsection.1.3.2}%
-\contentsline {section}{\numberline {1.4}Major Components of an RL Agent}{8}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}Policy}{8}{subsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.4.2}Value Function}{9}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Model}{9}{subsection.1.4.3}%
-\contentsline {section}{\numberline {1.5}Categorizing Reinforcement Learning Agents}{11}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}Component-Based Categorization}{11}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Model-Based vs Model-Free Categorization}{11}{subsection.1.5.2}%
-\contentsline {section}{\numberline {1.6}Learning and Planning in Reinforcement Learning}{12}{section.1.6}%
-\contentsline {subsection}{\numberline {1.6.1}Reinforcement Learning}{12}{subsection.1.6.1}%
-\contentsline {subsection}{\numberline {1.6.2}Planning}{12}{subsection.1.6.2}%
-\contentsline {section}{\numberline {1.7}Exploration and Exploitation}{13}{section.1.7}%
-\contentsline {subsection}{\numberline {1.7.1}The Exploration-Exploitation Dilemma}{13}{subsection.1.7.1}%
-\contentsline {subsection}{\numberline {1.7.2}Examples}{13}{subsection.1.7.2}%
-\contentsline {section}{\numberline {1.8}Prediction and Control}{13}{section.1.8}%
-\contentsline {subsection}{\numberline {1.8.1}Prediction Problems}{13}{subsection.1.8.1}%
-\contentsline {subsection}{\numberline {1.8.2}Control Problems}{14}{subsection.1.8.2}%
-\contentsline {section}{\numberline {1.9}Deep Reinforcement Learning}{14}{section.1.9}%
-\contentsline {subsection}{\numberline {1.9.1}Function Approximation with Neural Networks}{14}{subsection.1.9.1}%
-\contentsline {subsection}{\numberline {1.9.2}Challenges in Deep Reinforcement Learning}{15}{subsection.1.9.2}%
-\contentsline {chapter}{\numberline {2}Markov Decision Process}{16}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Markov Processes}{16}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}The Markov Property}{16}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}State Transition Matrix}{17}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Markov Process}{18}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Example: Student Markov Chain}{18}{subsection.2.1.4}%
-\contentsline {subsubsection}{\numberline {2.1.4.1}Sample Episodes}{19}{subsubsection.2.1.4.1}%
-\contentsline {subsubsection}{\numberline {2.1.4.2}Transition Matrix Representation}{20}{subsubsection.2.1.4.2}%
-\contentsline {section}{\numberline {2.2}Markov Reward Process}{20}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Bellman Equation for MRPs}{21}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Matrix Form}{21}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3}Markov Decision Process}{22}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Policy}{23}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Value Functions}{24}{subsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.2.1}Bellman Equations for MDPs}{24}{subsubsection.2.3.2.1}%
+\contentsline {chapter}{\numberline {1}Exploration and Exploitation}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Multi-Armed Bandit}{3}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Greedy Algorithm}{4}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Optimistic Initialization}{5}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}$\varepsilon $-Greedy e $\varepsilon _t$-Decaying}{5}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Lower Bound of Regret}{6}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}Optimism in the Face of Uncertainty}{6}{subsection.1.1.5}%
+\contentsline {subsection}{\numberline {1.1.6}Upper Confidence Bounds (UCB)}{7}{subsection.1.1.6}%
+\contentsline {subsection}{\numberline {1.1.7}Hoeffding's Inequality}{8}{subsection.1.1.7}%
+\contentsline {subsection}{\numberline {1.1.8}Calcolo della Banda di Confidenza}{8}{subsection.1.1.8}%
+\contentsline {subsection}{\numberline {1.1.9}UCB1}{9}{subsection.1.1.9}%
+\contentsline {subsection}{\numberline {1.1.10}Bayesian Bandits}{9}{subsection.1.1.10}%
+\contentsline {subsection}{\numberline {1.1.11}Bayesian UCB}{10}{subsection.1.1.11}%
+\contentsline {subsection}{\numberline {1.1.12}Probability Matching}{10}{subsection.1.1.12}%
+\contentsline {subsection}{\numberline {1.1.13}Thompson Sampling}{11}{subsection.1.1.13}%
