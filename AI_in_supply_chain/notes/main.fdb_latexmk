@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1763927744 "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" "main.pdf" "main" 1763927745
+["pdflatex"] 1763929409 "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" "main.pdf" "main" 1763929410
   "/etc/texmf/web2c/texmf.cnf" 1755005415 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/rocco/Desktop/Master_Degree_Notes/AI_in_supply_chain/notes/main.tex" 1763921271 7807 c874bdac23e10660aeb507d876fc6d7b ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -317,11 +317,11 @@
   "images/A2.png" 1763918573 54090 63f4e88113e520a965baa20170dcf33d ""
   "images/A3.png" 1763918645 51126 64404baad29826538d0550dbd4ce88d2 ""
   "images/A4.png" 1763927614 54688 6a74b1a9714083ab35b504dfe456f60f ""
-  "main.aux" 1763927745 3561 c7d8bf5c54351498c8444a03e2049825 "pdflatex"
-  "main.out" 1763927745 336 f372f34de7c56f4e87e360a79d96fb63 "pdflatex"
+  "main.aux" 1763929410 3561 c7d8bf5c54351498c8444a03e2049825 "pdflatex"
+  "main.out" 1763929410 336 f372f34de7c56f4e87e360a79d96fb63 "pdflatex"
   "main.tex" 1763921271 7807 c874bdac23e10660aeb507d876fc6d7b ""
-  "main.toc" 1763927745 1412 fddd95777ee5c29c73051b7449a4a76f "pdflatex"
-  "sections/Lezione_9.tex" 1763927743 20623 90735aedf8529c37c77121209abecd16 ""
+  "main.toc" 1763929410 1412 fddd95777ee5c29c73051b7449a4a76f "pdflatex"
+  "sections/Lezione_9.tex" 1763929409 20617 4020711b7db5b863419abcb667bf4c8d ""
   (generated)
   "main.aux"
   "main.log"
