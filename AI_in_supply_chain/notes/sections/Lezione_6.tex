@@ -1,0 +1,654 @@
+\chapter{Value Function Approximation}
+
+\section{Introduction}
+
+Nelle lezioni precedenti abbiamo rappresentato le funzioni valore tramite una tabella di lookup:  
+ogni stato $s$ (oppure ogni coppia $(s,a)$) possiede un proprio valore memorizzato.  
+Questo approccio è semplice ma non scala a MDP di grandi dimensioni, poiché:
+
+\begin{compactitemize}
+    \item il numero degli stati può essere estremamente elevato (ad esempio Backgammon $10^{20}$ stati; Go $10^{170}$ stati);
+    \item lo spazio degli stati può essere continuo e quindi non enumerabile;
+    \item l'apprendimento individuale del valore di ciascuno stato richiede un numero di esperienze non realistico.
+\end{compactitemize}
+
+Si ricorre quindi a una \textbf{funzione approssimante parametrica} che rappresenta la funzione valore con un numero ridotto di parametri:
+
+\[
+\hat{v}(s,\mathbf{w}) \approx v^\pi(s), 
+\qquad
+\hat{q}(s,a,\mathbf{w}) \approx q^\pi(s,a).
+\]
+
+L’obiettivo è generalizzare il più possibile dagli stati osservati a quelli non ancora visitati.
+
+\section{Large-Scale Reinforcement Learning}
+
+Il Reinforcement Learning viene applicato a domini ad alta dimensionalità, quali:
+
+\begin{compactitemize}
+    \item giochi complessi (Backgammon, Go);
+    \item robotica e controllo continuo;
+    \item sistemi dinamici industriali.
+\end{compactitemize}
+
+In tali scenari non è possibile usare una tabella.  
+Diventa quindi fondamentale una rappresentazione compatta e una metodologia di aggiornamento efficiente.
+
+Nel nostro contesto assumiamo approssimatori \textbf{differenziabili}, così da consentire aggiornamenti tramite gradient descent.
+
+\subsection{Which Function Approximator?}
+
+A differenza del supervised learning, i dati generati da un agente RL presentano alcune proprietà critiche:
+
+\begin{compactitemize}
+    \item non sono i.i.d.;
+    \item la distribuzione degli stati visitati dipende dalla policy, che evolve nel tempo;
+    \item i target stessi (come i target TD) dipendono dai parametri e non sono stazionari.
+\end{compactitemize}
+
+Queste caratteristiche causano problemi ai metodi basati sul gradiente.  
+Quando i dati non sono i.i.d., la stima del gradiente può diventare instabile: le direzioni di discesa successive non sono coerenti e possono produrre oscillazioni o divergenza.  
+Questo fenomeno è particolarmente evidente con approssimatori non lineari, ed è una delle motivazioni principali per cui si introducono tecniche come replay buffer, target networks e metodi di controllo della varianza.
+
+\section{Gradient Descent (Recap)}
+
+Dato un obiettivo differenziabile $J(\mathbf{w})$, il suo gradiente è:
+
+\[
+\nabla_{\mathbf{w}} J(\mathbf{w})
+=
+\begin{bmatrix}
+\frac{\partial J}{\partial w_1} \\
+\vdots \\
+\frac{\partial J}{\partial w_n}
+\end{bmatrix}.
+\]
+
+L’aggiornamento del gradient descent è:
+
+\[
+\mathbf{w}_{t+1} = \mathbf{w}_t - \alpha \nabla_{\mathbf{w}} J(\mathbf{w}_t).
+\]
+
+Nel Reinforcement Learning non possiamo calcolare l’atteso esatto del gradiente, quindi utilizziamo uno stimatore campionario (SGD), che introduce rumore ma è computazionalmente più leggero.
+
+\subsection{Value Function Approximation with SGD}
+
+L’obiettivo è minimizzare l’errore quadratico tra la funzione valore vera e la sua approssimazione:
+
+\[
+J(\mathbf{w}) 
+= 
+\mathbb{E}\left[ 
+\left( v^\pi(S) - \hat{v}(S,\mathbf{w}) \right)^2 
+\right].
+\]
+
+L’aggiornamento tramite SGD è:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha 
+\left( v^\pi(S) - \hat{v}(S,\mathbf{w}) \right)
+\nabla_{\mathbf{w}}\hat{v}(S,\mathbf{w}).
+\]
+
+In condizioni ideali questo aggiornamento converge al minimo; nei contesti RL, la non indipendenza dei dati richiede particolare attenzione alla stabilità.
+
+\subsection{Feature Vectors}
+
+Ogni stato è rappresentato tramite un vettore di feature:
+
+\[
+\mathbf{x}(S)
+=
+\begin{bmatrix}
+x_1(S) \\
+\vdots \\
+x_n(S)
+\end{bmatrix}.
+\]
+
+Le feature forniscono una rappresentazione compatta dello stato.  
+Esempi tipici includono: distanze geometriche, caratteristiche economiche, descrizioni strutturate della configurazione in un gioco.
+
+\subsection{Linear Value Function Approximation}
+
+Un approccio semplice e stabile consiste nell'utilizzare una combinazione lineare di feature:
+
+\[
+\hat{v}(S,\mathbf{w})
+=
+\mathbf{x}(S)^T \mathbf{w}
+=
+\sum_{j=1}^{n} x_j(S) w_j.
+\]
+
+Il corrispondente obiettivo da minimizzare è:
+
+\[
+J(\mathbf{w})
+=
+\mathbb{E}
+\left[
+\left( v^\pi(S) - \mathbf{x}(S)^T \mathbf{w} \right)^2
+\right],
+\]
+
+che è convesso in $\mathbf{w}$.  
+Di conseguenza, la SGD converge al minimo globale.  
+L’aggiornamento diventa:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha 
+\left( v^\pi(S) - \hat{v}(S,\mathbf{w}) \right)
+\mathbf{x}(S).
+\]
+
+\subsection{Table Lookup as Linear Approximation}
+
+La rappresentazione tabellare può essere vista come un caso particolare dell'approssimazione lineare utilizzando feature indicatori:
+
+\[
+\mathbf{x}_{\text{table}}(S)
+=
+\begin{bmatrix}
+\mathbf{1}(S = s_1) \\
+\vdots \\
+\mathbf{1}(S = s_n)
+\end{bmatrix}.
+\]
+
+In questo caso, il vettore $\mathbf{w}$ contiene direttamente i valori degli stati:
+
+\[
+\hat{v}(S,\mathbf{w})
+=
+\mathbf{x}_{\text{table}}(S)^T \mathbf{w}.
+\]
+
+Sebbene non scalabile, questa rappresentazione costituisce il caso di riferimento e il punto di partenza concettuale per metodi di feature engineering più avanzati.
+
+\section{Monte Carlo and TD Learning with Value Function Approximation}
+
+In un contesto di Reinforcement Learning non è disponibile la funzione valore vera $v^\pi(s)$: 
+l’agente riceve solo ricompense e deve quindi costruire un \textit{target di apprendimento} a partire dall’esperienza.  
+L’idea comune ai metodi di previsione incrementale è sostituire alla funzione valore vera un target appropriato, e utilizzare questo target all’interno di un aggiornamento basato sul gradiente:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \left( \text{target}_t - \hat{v}(S_t,\mathbf{w}) \right)
+\nabla_{\mathbf{w}} \hat{v}(S_t,\mathbf{w}).
+\]
+
+In questa sezione analizziamo i target utilizzati da Monte Carlo, TD(0) e TD($\lambda$).
+
+\subsection{Monte Carlo with Value Function Approximation}
+
+Nel metodo Monte Carlo, il target per lo stato $S_t$ è il \textbf{return} dell’episodio:
+
+\[
+G_t = \sum_{k=t}^{T-1} \gamma^{k-t} R_{k+1}.
+\]
+
+Il return $G_t$ è uno stimatore \textbf{unbiased} di $v^\pi(s)$, anche se caratterizzato da elevata varianza.  
+Dopo ogni episodio otteniamo quindi una serie di coppie di addestramento:
+
+\[
+\langle S_1, G_1 \rangle, \langle S_2, G_2 \rangle, \dots, \langle S_T, G_T \rangle.
+\]
+
+Per un approssimatore lineare $\hat{v}(S,\mathbf{w}) = \mathbf{x}(S)^T \mathbf{w}$, l’aggiornamento diventa:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \left( G_t - \hat{v}(S_t,\mathbf{w}) \right) \mathbf{x}(S_t).
+\]
+
+La valutazione Monte Carlo converge verso un ottimo locale, anche in presenza di approssimazione non lineare.
+
+\subsection{TD(0) with Value Function Approximation}
+
+Il metodo TD(0) utilizza un target costruito \textit{online}, basato sulla stima successiva della funzione valore.  
+Il TD-target è:
+
+\[
+R_{t+1} + \gamma \hat{v}(S_{t+1}, \mathbf{w}).
+\]
+
+Questo target è \textbf{biased} rispetto a $v^\pi(s)$, poiché utilizza una stima approssimata, ma presenta varianza inferiore e permette aggiornamenti step-by-step.  
+I dati di addestramento assumono la forma:
+
+\[
+\langle S_1, R_2 + \gamma \hat{v}(S_2,\mathbf{w}) \rangle,
+\dots,
+\langle S_{T-1}, R_T \rangle.
+\]
+
+Per il caso lineare, l’aggiornamento dopo ogni passo è:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \left( R_{t+1} + \gamma \hat{v}(S_{t+1},\mathbf{w}) - \hat{v}(S_t,\mathbf{w}) \right)
+\mathbf{x}(S_t)
+=
+\alpha \, \delta_t \, \mathbf{x}(S_t),
+\]
+
+dove $\delta_t$ è l’errore TD.
+
+Per approssimatori lineari, TD(0) converge vicino all’ottimo globale (la precisione dipende dal fattore di sconto $\gamma$).
+
+\subsection{TD($\lambda$) with Value Function Approximation}
+
+Il metodo TD($\lambda$) combina Monte Carlo e TD(0) tramite il parametro $\lambda \in [0,1]$.  
+Utilizza target basati sugli \textit{$n$-step return}, ottenendo il \textbf{$\lambda$-return}:
+
+\[
+G_t^\lambda = (1-\lambda)
+\sum_{n=1}^{\infty} \lambda^{n-1} G_t^{(n)}.
+\]
+
+Il $\lambda$-return è anch’esso uno stimatore \textbf{biased} della funzione valore ma genera in media aggiornamenti più stabili.  
+I dati di addestramento sono:
+
+\[
+\langle S_1, G_1^\lambda \rangle, \langle S_2, G_2^\lambda \rangle, \dots.
+\]
+
+\subsubsection{Forward View TD($\lambda$)}
+
+L’aggiornamento incrementale nel forward view è:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \left( G_t^\lambda - \hat{v}(S_t,\mathbf{w}) \right)
+\nabla_{\mathbf{w}} \hat{v}(S_t,\mathbf{w})
+=
+\alpha \left( G_t^\lambda - \hat{v}(S_t,\mathbf{w}) \right)
+\mathbf{x}(S_t).
+\]
+
+\subsubsection{Backward View TD($\lambda$)}
+
+Il backward view fornisce una formulazione equivalente ma computazionalmente più efficiente.  
+Introduce il vettore delle \textbf{eligibility traces}:
+
+\[
+E_t = \gamma \lambda E_{t-1} + \mathbf{x}(S_t),
+\]
+
+e l’errore TD:
+
+\[
+\delta_t = R_{t+1} + \gamma \hat{v}(S_{t+1},\mathbf{w}) - \hat{v}(S_t,\mathbf{w}).
+\]
+
+L’aggiornamento dei parametri è:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \, \delta_t \, E_t.
+\]
+
+Il backward view è quello comunemente usato in implementazione, poiché non richiede di attendere la fine dell’episodio né di memorizzare return multipli.
+
+\section{Action-Value Function Approximation}
+
+L’obiettivo non è solo approssimare la funzione valore $v^\pi(s)$, ma anche la funzione d'azione:
+
+\[
+\hat{q}(S,A,\mathbf{w}) \approx q^\pi(S,A).
+\]
+
+Come nel caso della value function, si definisce una funzione obiettivo basata sull’errore quadratico medio:
+
+\[
+J(\mathbf{w})
+=
+\mathbb{E}_\pi \left[
+\left( q^\pi(S,A) - \hat{q}(S,A,\mathbf{w}) \right)^2
+\right].
+\]
+
+L’obiettivo è minimizzare questa quantità tramite aggiornamenti incrementali di gradient descent.  
+Lo stimatore stocastico del gradiente fornisce l’aggiornamento:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \left( q^\pi(S_t,A_t) - \hat{q}(S_t,A_t,\mathbf{w}) \right)
+\nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}).
+\]
+
+Poiché $q^\pi(s,a)$ non è osservabile direttamente, nei metodi RL questo valore viene sostituito da target appropriati (Monte Carlo, TD, $\lambda$-return).
+
+\section{Linear Action-Value Function Approximation}
+
+Per rappresentare la funzione d'azione tramite un approssimatore lineare, si introducono feature congiunte stato-azione:
+
+\[
+\mathbf{x}(S,A)
+=
+\begin{bmatrix}
+x_1(S,A) \\
+\vdots \\
+x_n(S,A)
+\end{bmatrix}.
+\]
+
+La funzione stimata assume la forma:
+
+\[
+\hat{q}(S,A,\mathbf{w})
+=
+\mathbf{x}(S,A)^T \mathbf{w}
+=
+\sum_{j=1}^{n} x_j(S,A) w_j.
+\]
+
+L’aggiornamento con stochastic gradient descent diventa:
+
+\[
+\nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}) = \mathbf{x}(S_t,A_t),
+\]
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \left( q^\pi(S_t,A_t) - \hat{q}(S_t,A_t,\mathbf{w}) \right)
+\mathbf{x}(S_t,A_t).
+\]
+
+\section{Incremental Control Algorithms}
+
+Analogamente alla policy evaluation, per l’apprendimento della funzione d'azione $q^\pi$ occorre sostituire a $q^\pi(S_t,A_t)$ un target ottenuto dall’esperienza.  
+A seconda del metodo, si utilizzano return Monte Carlo, target TD, oppure $\lambda$-return.
+
+\subsection{Monte Carlo Control}
+
+Nel caso MC, il target è il return:
+
+\[
+G_t = R_{t+1} + \gamma R_{t+2} + \cdots + \gamma^{T-t-1} R_T.
+\]
+
+L’aggiornamento diventa:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \left( G_t - \hat{q}(S_t,A_t,\mathbf{w}) \right)
+\nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}).
+\]
+
+\subsection{TD(0) Control}
+
+Il target TD(0) per la funzione d'azione è:
+
+\[
+R_{t+1} + \gamma \hat{q}(S_{t+1},A_{t+1},\mathbf{w}).
+\]
+
+L’aggiornamento è:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \left( R_{t+1} + \gamma \hat{q}(S_{t+1},A_{t+1},\mathbf{w}) - 
+\hat{q}(S_t,A_t,\mathbf{w}) \right)
+\nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}).
+\]
+
+Definendo l’errore TD per la funzione d’azione:
+
+\[
+\delta_t
+=
+R_{t+1} + \gamma \hat{q}(S_{t+1},A_{t+1},\mathbf{w})
+-
+\hat{q}(S_t,A_t,\mathbf{w}),
+\]
+
+l’aggiornamento si scrive:
+
+\[
+\Delta \mathbf{w} = \alpha \, \delta_t \, \nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}).
+\]
+
+\subsection{TD($\lambda$) Control}
+
+Per TD($\lambda$), il target è l’action-value $\lambda$-return:
+
+\[
+q_t^\lambda.
+\]
+
+L’aggiornamento forward view è:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \left( q_t^\lambda - \hat{q}(S_t,A_t,\mathbf{w}) \right)
+\nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}).
+\]
+
+\subsection{Backward View TD($\lambda$)}
+
+La forma backward view introduce le eligibility traces:
+
+\[
+E_t
+=
+\gamma \lambda E_{t-1}
++
+\nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}),
+\]
+
+e utilizza l’errore TD:
+
+\[
+\delta_t
+=
+R_{t+1}
++
+\gamma \hat{q}(S_{t+1},A_{t+1},\mathbf{w})
+-
+\hat{q}(S_t,A_t,\mathbf{w}).
+\]
+
+L’aggiornamento dei parametri è:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha \, \delta_t \, E_t.
+\]
+
+Questo metodo è equivalente al forward view ma molto più efficiente computazionalmente.
+
+
+\section{Convergence of Prediction Algorithms}
+
+Nel caso di policy evaluation con funzione valore approssimata, la convergenza dei vari algoritmi dipende da:
+
+\begin{compactitemize}
+    \item tipo di metodo (MC, TD(0), TD($\lambda$), ecc.);
+    \item tipo di approssimatore (lineare o non lineare);
+    \item scenario on-policy vs off-policy.
+\end{compactitemize}
+
+In generale:
+
+\begin{compactitemize}
+    \item \textbf{Monte Carlo} con funzione approssimata (anche non lineare) corrisponde a un problema di regressione supervisionata con target fissi (i return $G_t$). In questo caso si hanno buone garanzie di convergenza verso un ottimo locale della funzione di errore;
+    \item \textbf{TD(0)} con approssimatore \textbf{lineare} e \textbf{on-policy} converge verso il punto fisso proiettato dell'operatore di Bellman (convergenza ``vicino'' all’ottimo, dipendente da $\gamma$);
+    \item \textbf{TD(0)} (e TD($\lambda$)) con funzione approssimata \textbf{non lineare} o in setting \textbf{off-policy} non hanno in generale garanzie di convergenza: possono convergere in pratica, ma esistono controesempi in cui divergono.
+\end{compactitemize}
+
+Nelle slide, la notazione ``$x$'' indica proprio i casi in cui \textbf{non esistono garanzie teoriche di convergenza}, anche se l’algoritmo può comportarsi bene empiricamente.
+
+\section{Gradient TD Learning}
+
+Gli algoritmi TD standard (come TD(0), TD($\lambda$)) non corrispondono alla discesa del gradiente di una funzione obiettivo esplicita.  
+In particolare, l’aggiornamento TD:
+
+\[
+\Delta \mathbf{w}
+=
+\alpha
+\left( R_{t+1} + \gamma \hat{v}(S_{t+1},\mathbf{w}) - \hat{v}(S_t,\mathbf{w}) \right)
+\nabla_{\mathbf{w}} \hat{v}(S_t,\mathbf{w})
+\]
+
+non è in generale il gradiente di un funzionale $J(\mathbf{w})$.
+
+Questo è il motivo per cui:
+
+\begin{compactitemize}
+    \item TD può divergere con funzione approssimata non lineare;
+    \item TD può divergere in scenario off-policy, anche con approssimatore lineare.
+\end{compactitemize}
+
+Gli algoritmi di \textbf{Gradient TD} sono stati introdotti proprio per risolvere questo problema:  
+essi approssimano la vera discesa del gradiente di una misura di errore ben definita (ad esempio la \emph{projected Bellman error}), introducendo pesi ausiliari e aggiornamenti specificamente progettati.  
+In questo modo recuperano garanzie di convergenza in contesti in cui TD standard può divergere.
+
+\section{Convergence of Control Algorithms}
+
+Per il controllo (apprendimento di una policy ottima), la situazione è ancora più delicata:
+
+\begin{compactitemize}
+    \item con rappresentazione tabellare e algoritmi on-policy (es. SARSA tabulare) si hanno garanzie di convergenza alla policy ottima (sotto opportune condizioni su esplorazione e step-size);
+    \item con funzione approssimata \textbf{lineare} e algoritmi on-policy si possono ottenere alcune garanzie, ma molto più deboli;
+    \item con funzione approssimata \textbf{non lineare} (es. deep networks) e in particolare in setting off-policy (es. Q-learning + replay) non ci sono garanzie teoriche generali di convergenza: il comportamento è guidato soprattutto dall’esperienza empirica e da tecniche di stabilizzazione.
+\end{compactitemize}
+
+Per questo motivo, la progettazione di algoritmi di controllo stabili con funzione approssimata è un’area di ricerca attiva.
+
+\section{Batch Reinforcement Learning}
+
+Gli algoritmi incrementali a gradient descent aggiornano $\mathbf{w}$ passo dopo passo durante l’interazione.  
+Questi metodi sono semplici da implementare, ma \textbf{poco sample-efficient}: ogni transizione viene utilizzata una sola volta e poi scartata.
+
+I metodi \textbf{batch} hanno una prospettiva diversa:
+
+\begin{compactitemize}
+    \item si raccoglie un dataset fisso di esperienza;
+    \item si cerca la funzione valore che meglio approssima i target su tale dataset.
+\end{compactitemize}
+
+In altre parole, dato un insieme di coppie \texttt{<stato, target>} ottenute dall’esperienza, si cerca la funzione $v(s,\mathbf{w})$ che \textbf{meglio fitta} questi dati nel senso dei minimi quadrati.
+
+\section{Least Squares Prediction}
+
+Supponiamo di avere un approssimatore $ \hat{v}(s,\mathbf{w}) \approx v^\pi(s)$ e un dataset di esperienza:
+
+\[
+\mathcal{D} = \{ \langle s_1, v_1^\pi \rangle, \langle s_2, v_2^\pi \rangle, \dots, \langle s_T, v_T^\pi \rangle \},
+\]
+
+dove $v_t^\pi$ è un target per il valore in $s_t$ (idealmente $v^\pi(s_t)$, oppure una stima come il return Monte Carlo o un $\lambda$-return).
+
+La domanda è: \textit{quali parametri $\mathbf{w}$ producono la migliore approssimazione di questi target?}
+
+Gli algoritmi ai minimi quadrati cercano il vettore $\mathbf{w}$ che minimizza:
+
+\[
+L_{LS}(\mathbf{w})
+=
+\sum_{t=1}^{T} \left( v_t^\pi - \hat{v}(s_t,\mathbf{w}) \right)^2
+=
+\mathbb{E}_{\mathcal{D}} \left[ \left( v^\pi - \hat{v}(s,\mathbf{w}) \right)^2 \right],
+\]
+
+dove l’aspettativa è calcolata rispetto alla distribuzione empirica dei dati nel dataset $\mathcal{D}$.
+
+\section{Stochastic Gradient Descent with Experience Replay}
+
+Un modo semplice per approssimare la soluzione ai minimi quadrati, riutilizzando l’esperienza passata, è l’uso dell’\textbf{experience replay}:
+
+\begin{compactitemize}
+    \item si costruisce un dataset $\mathcal{D} = \{ \langle s_t, v_t^\pi \rangle \}$ a partire dalle transizioni osservate (ad esempio usando return MC, TD($\lambda$), ecc. come target);
+    \item si campionano in modo casuale coppie \texttt{<stato, target>} dal dataset per rompere le correlazioni temporali;
+    \item su ciascun campione si applica uno step di SGD.
+\end{compactitemize}
+
+Formalmente:
+
+\begin{compactitemize}
+    \item si estrae $\langle s, v^\pi \rangle \sim \mathcal{D}$;
+    \item si aggiorna
+    \[
+    \Delta \mathbf{w}
+    =
+    \alpha \left( v^\pi - \hat{v}(s,\mathbf{w}) \right)
+    \nabla_{\mathbf{w}} \hat{v}(s,\mathbf{w}).
+    \]
+\end{compactitemize}
+
+Ripetendo questo procedimento, l’SGD converge alla soluzione dei minimi quadrati:
+
+\[
+\mathbf{w}^\pi = \arg\min_{\mathbf{w}} L_{LS}(\mathbf{w}).
+\]
+
+L’idea centrale è che l’experience replay:
+
+\begin{compactitemize}
+    \item riutilizza le stesse transizioni molte volte;
+    \item riduce la correlazione tra campioni, avvicinando il setting a quello i.i.d.;
+    \item stabilizza l’addestramento della funzione approssimante.
+\end{compactitemize}
+
+\section{Experience Replay in Deep Q-Networks (DQN)}
+
+Nel caso delle Deep Q-Networks (DQN), l’esperienza replay viene combinata con l’uso di \textbf{Q-target fissi} per stabilizzare l’addestramento.
+
+Lo schema è il seguente:
+
+\begin{compactitemize}
+    \item l’agente esegue un’azione $a_t$ secondo una policy $\epsilon$-greedy rispetto a $Q(s,a;\mathbf{w})$;
+    \item la transizione $(s_t, a_t, r_{t+1}, s_{t+1})$ viene inserita in una memoria di replay $\mathcal{D}$;
+    \item periodicamente, si campiona un mini-batch di transizioni $(s,a,r,s')$ da $\mathcal{D}$;
+    \item per ciascun campione si calcola il target di Q-learning utilizzando un vettore di pesi \emph{fisso} $\mathbf{w}_{old}$:
+    \[
+    y = r + \gamma \max_{a'} Q(s',a'; \mathbf{w}_{old});
+    \]
+    \item si minimizza l’MSE tra il Q-network corrente $Q(s,a;\mathbf{w})$ e il target $y$:
+    \[
+    \mathcal{L}(\mathbf{w})
+    =
+    \mathbb{E}_{(s,a,r,s') \sim \mathcal{D}}
+    \left[
+    \left( y - Q(s,a; \mathbf{w}) \right)^2
+    \right];
+    \]
+    \item i parametri $\mathbf{w}$ vengono aggiornati con una variante di stochastic gradient descent.
+\end{compactitemize}
+
+L’uso di $\mathbf{w}_{old}$ (parametri ``congelati'') per il calcolo del target è cruciale:
+
+\begin{compactitemize}
+    \item evita che il target cambi troppo rapidamente mentre si aggiornano i pesi;
+    \item rende l’ottimizzazione più simile a un problema di regressione supervisionata con target quasi fissi;
+    \item contribuisce in modo decisivo alla stabilità dell’addestramento, specialmente in presenza di funzioni approssimanti profonde e dati non i.i.d.
+\end{compactitemize}
+
+Combinando:
+
+\begin{compactitemize}
+    \item replay buffer (per decorrelare i dati e riutilizzare le transizioni);
+    \item target network fisso (per rendere il target più stabile);
+\end{compactitemize}
+
+DQN riesce ad applicare efficacemente le idee di Q-learning in presenza di approssimazione non lineare mediante reti neurali profonde, mitigando molti dei problemi di instabilità discussi in precedenza.

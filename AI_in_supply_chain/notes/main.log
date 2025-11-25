@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.10.23)  23 NOV 2025 21:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.10.23)  25 NOV 2025 22:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1136,15 +1136,35 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
 l.258 \newpage
                 % Per iniziare il contenuto in una nuova pagina [1
 
-] (./sections/Lezione_9.tex
+] (./sections/Lezione_6.tex
 Chapter 1.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 4.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 10.
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2
 
+] [3] [4] [5]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 249.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 249.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 249.
+ [6] [7] [8] [9]
+Overfull \hbox (28.86461pt too wide) in paragraph at lines 494--495
+[]\T1/lmr/bx/n/12 TD(0) \T1/lmr/m/n/12 con ap-prossi-ma-tore \T1/lmr/bx/n/12 lin-eare \T1/lmr/m/n/12 e \T1/lmr/bx/n/12 on-policy \T1/lmr/m/n/12 con-verge verso il punto fisso proi-et-tato dell'operatore
+ []
+
+[10]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 550.
+ (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [11] [12]) (./sections/Lezione_9.tex [13]
+Chapter 2.
+[14
+
 ]
-<images/A1.png, id=61, 834.11626pt x 386.44376pt>
+<images/A1.png, id=214, 834.11626pt x 386.44376pt>
 File: images/A1.png Graphic file (type png)
 <use images/A1.png>
 Package pdftex.def Info: images/A1.png  used on input line 70.
@@ -1154,7 +1174,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 65--73
 \T1/lmr/m/n/12 migliori.
  []
 
-[3]
+[15]
 Overfull \hbox (17.12053pt too wide) in paragraph at lines 73--75
 []\T1/lmr/m/n/12 Infine, è im-por-tante os-ser-vare che né un'esplorazione
  []
@@ -1164,21 +1184,14 @@ Overfull \hbox (14.45067pt too wide) in paragraph at lines 73--75
 \T1/lmr/m/n/12 in-finita né un com-pleto ab-ban-dono dell'esplorazione
  []
 
-[4 <./images/A1.png>]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 101.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 101.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 101.
- [5]
-<images/A2.png, id=89, 1006.76125pt x 363.3575pt>
+[16 <./images/A1.png>] [17]
+<images/A2.png, id=234, 1006.76125pt x 363.3575pt>
 File: images/A2.png Graphic file (type png)
 <use images/A2.png>
 Package pdftex.def Info: images/A2.png  used on input line 146.
 (pdftex.def)             Requested size: 307.2929pt x 110.90427pt.
- [6 <./images/A2.png>]
-<images/A3.png, id=100, 1006.76125pt x 363.3575pt>
+ [18 <./images/A2.png>]
+<images/A3.png, id=244, 1006.76125pt x 363.3575pt>
 File: images/A3.png Graphic file (type png)
 <use images/A3.png>
 Package pdftex.def Info: images/A3.png  used on input line 154.
@@ -1188,37 +1201,37 @@ Overfull \hbox (2.69063pt too wide) in paragraph at lines 151--156
 []\T1/lmr/m/n/12 Il punto cen-trale dell'approccio ot-timistico è pro-prio questo: un'azione con alta in-certezza potrebbe
  []
 
-[7 <./images/A3.png>]
+[19 <./images/A3.png>]
 Overfull \hbox (1.54126pt too wide) in paragraph at lines 213--214
 \T1/lmr/m/n/12 all'aumentare del nu-mero di os-ser-vazioni. In questo modo, man mano che rac-cogliamo dati, l'intervallo
  []
 
-[8]
-<images/A4.png, id=115, 934.49126pt x 435.6275pt>
+[20]
+<images/A4.png, id=258, 934.49126pt x 435.6275pt>
 File: images/A4.png Graphic file (type png)
 <use images/A4.png>
 Package pdftex.def Info: images/A4.png  used on input line 259.
 (pdftex.def)             Requested size: 409.72125pt x 190.99867pt.
- [9] [10 <./images/A4.png>]) [11] (./main.aux)
+ [21] [22 <./images/A4.png>]) [23] (./main.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F372F34DE7C56F4E87E360A79D96FB63;336.
+(rerunfilecheck)             Checksum: ACE7F4477E63DBCD56ABE06136FBD136;3784.
  ) 
 Here is how much of TeX's memory you used:
- 51034 strings out of 480163
- 1237750 string characters out of 5894092
- 1834485 words of memory out of 5000000
- 68155 multiletter control sequences out of 15000+600000
- 544575 words of font info for 84 fonts, out of 8000000 for 9000
+ 51142 strings out of 480163
+ 1239231 string characters out of 5894092
+ 1835485 words of memory out of 5000000
+ 68213 multiletter control sequences out of 15000+600000
+ 550873 words of font info for 87 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  88i,12n,117p,1668b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (12 pages, 403419 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (24 pages, 482597 bytes).
 PDF statistics:
- 223 PDF objects out of 1000 (max. 8388607)
- 150 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 145 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 386 PDF objects out of 1000 (max. 8388607)
+ 295 compressed objects within 3 object streams
+ 76 named destinations out of 1000 (max. 500000)
+ 265 words of extra memory for PDF output out of 10000 (max. 10000000)
 
