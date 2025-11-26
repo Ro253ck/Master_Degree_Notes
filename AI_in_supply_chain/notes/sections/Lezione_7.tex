@@ -1,0 +1,600 @@
+\chapter{Policy-Based Methods}
+\section{Introduction}
+Nel capitolo precedente abbiamo visto come approssimare la \emph{state-value function} e la \emph{action-value function} utilizzando un insieme di parametri $w$. Nel contesto dei \emph{value-based methods}, la policy che viene appresa è \textbf{implicita}, in quanto viene derivata direttamente dalla value function (ad esempio selezionando l’azione che massimizza $Q(s,a)$).
+
+In questo capitolo, invece, andiamo a parametrizzare direttamente la policy. In particolare, modelliamo la policy come una distribuzione di probabilità sulle azioni dato lo stato:
+\[
+\pi_w(s,a) = \mathbb{P}[a \mid s,w],
+\]
+e ci concentriamo nuovamente su \emph{model-free reinforcement learning}.
+
+È utile chiarire fin da subito la distinzione tra i principali approcci in reinforcement learning:
+\begin{compactitemize}
+    \item \textbf{Value-Based}: apprendono una value function; la policy è implicita.
+    \item \textbf{Policy-Based}: non apprendono alcuna value function, ma modellano direttamente una policy parametrizzata.
+    \item \textbf{Actor-Critic}: apprendono sia una policy (actor) sia una value function (critic); rappresentano lo stato dell’arte.
+\end{compactitemize}
+
+I \emph{policy-based methods} presentano diversi vantaggi. In primo luogo, mostrano migliori proprietà di convergenza rispetto ai value-based methods. Inoltre, risultano particolarmente efficaci in spazi delle azioni continui o ad alta dimensionalità. Un aspetto fondamentale è che questi metodi possono apprendere \textbf{stochastic policies}, che in molti problemi risultano necessarie per ottenere un comportamento ottimale.
+
+Esistono tuttavia anche degli svantaggi. In generale, i policy-based methods convergono tipicamente a un \emph{local optimum} e non garantiscono il raggiungimento di un \emph{global optimum}. Inoltre, la policy evaluation tramite campionamento è spesso inefficiente e caratterizzata da high variance, rendendo il processo di apprendimento più instabile.
+\subsection{Esempi}
+\subsubsection{Primo esempio}
+Un primo esempio che chiarisce la necessità di stochastic policies è il gioco a due giocatori di \emph{rock-paper-scissors}. Considerando versioni iterate del gioco, una deterministic policy è facilmente exploitable dall’avversario, mentre una uniform random policy è ottimale e corrisponde a un \emph{Nash equilibrium}. Questo tipo di comportamento emerge naturalmente con un approccio policy-based.
+\subsubsection{Secondo esempio}
+Un secondo esempio è quello dell’\textbf{aliased gridworld}. In questo scenario, l’agente non è in grado di distinguere completamente alcuni stati (gli stati grigi), a causa di osservazioni ambigue. Consideriamo feature del tipo:
+\[
+\mathbf{x}(s,a) = 1(\text{wall to N},\, a = \text{move E}),
+\]
+per tutte le direzioni $N,E,S,W$.
+
+Un approccio value-based utilizza una approssimazione della action-value function:
+\[
+Q_w(s,a) = f(\mathbf{x}(s,a), w),
+\]
+da cui deriva una policy quasi-deterministic.
+
+Sotto condizioni di aliasing, una optimal deterministic policy finirà per selezionare la stessa azione in tutti gli stati grigi, muovendosi sempre verso East oppure sempre verso West. In entrambi i casi, l’agente può rimanere bloccato nel corridoio e non raggiungere mai lo stato obiettivo. I value-based methods tendono infatti ad apprendere near-deterministic policies, che in presenza di aliasing risultano subottimali.
+
+Un approccio policy-based, invece, parametrizza direttamente la policy:
+\[
+\pi_w(s,a) = g(\mathbf{x}(s,a), w),
+\]
+e può rappresentare una optimal stochastic policy. In particolare, negli stati grigi la policy ottimale assegna probabilità uguali alle azioni \emph{move East} e \emph{move West}:
+\[
+\pi_w(\text{wall to N and S}, \text{move E}) = 0.5, \qquad
+\pi_w(\text{wall to N and S}, \text{move W}) = 0.5.
+\]
+In questo modo, con alta probabilità l’agente raggiunge il goal state in pochi passi. Questo esempio mostra come i policy-based methods siano in grado di apprendere optimal stochastic policies in scenari in cui i value-based methods falliscono.
+\section{Policy-Base Methods}
+\subsection{Policy Objective Functions}
+
+L’obiettivo dei \emph{policy-based methods} è trovare i parametri $\mathbf{w}$ che rendono la policy $\pi_{\mathbf{w}}(s,a)$ la migliore possibile. Il problema centrale diventa quindi definire una funzione obiettivo che misuri la qualità di una policy.
+
+Nei contesti \emph{episodic}, una scelta naturale consiste nel valore atteso dello stato iniziale $s_1$, noto come \emph{start value}:
+\[
+J_1(\mathbf{w}) = V^{\pi_{\mathbf{w}}}(s_1) = \mathbb{E}_{\pi_{\mathbf{w}}}[v_1].
+\]
+In questo caso, massimizzare $J_1(\mathbf{w})$ equivale a massimizzare il ritorno atteso a partire dall’inizio dell’episodio.
+
+Nei contesti \emph{continuing}, dove non esiste uno stato iniziale privilegiato, è comune utilizzare una misura media sulle distribuzioni stazionarie. Una possibilità è definire l’\emph{average value}:
+\[
+J_{\text{avV}}(\mathbf{w}) =
+\sum_s d_{\pi_{\mathbf{w}}}(s)\, V^{\pi_{\mathbf{w}}}(s),
+\]
+dove $d_{\pi_{\mathbf{w}}}(s)$ rappresenta la \emph{stationary distribution} della catena di Markov indotta dalla policy $\pi_{\mathbf{w}}$.
+
+Un’alternativa, spesso più utilizzata in pratica, è l’\emph{average reward per time-step}:
+\[
+J_{\text{avR}}(\mathbf{w}) =
+\sum_s d_{\pi_{\mathbf{w}}}(s)\, 
+\sum_a \pi_{\mathbf{w}}(s,a)\, R_s^a.
+\]
+Questa formulazione misura direttamente il reward medio ottenuto dall’agente nel lungo periodo e risulta particolarmente adatta a problemi continui.
+
+\subsection{Policy Optimisation}
+
+Una volta definita la funzione obiettivo $J(\mathbf{w})$, il reinforcement learning policy-based può essere visto come un problema di ottimizzazione:
+\[
+\max_{\mathbf{w}} J(\mathbf{w}).
+\]
+Esistono diversi approcci per affrontare questo problema. Alcuni metodi non utilizzano il gradiente della funzione obiettivo, come ad esempio \emph{hill climbing}, \emph{simplex / amoeba / Nelder-Mead} e \emph{genetic algorithms}. Questi metodi sono concettualmente semplici, ma spesso poco efficienti in spazi dei parametri elevati.
+
+Una maggiore efficienza può essere ottenuta sfruttando informazioni di gradiente. Tra i metodi basati sul gradiente rientrano il \emph{gradient descent}, il \emph{conjugate gradient} e i metodi \emph{quasi-Newton}. In questo capitolo ci concentriamo in particolare sul gradient descent e su estensioni che sfruttano la struttura sequenziale del reinforcement learning.
+
+\subsection{Policy Gradient}
+
+I \emph{policy gradient methods} assumono che $J(\mathbf{w})$ sia una funzione differenziabile rispetto ai parametri della policy. L’idea è quella di cercare un massimo locale di $J(\mathbf{w})$ muovendosi nella direzione del gradiente.
+
+Il gradiente della policy è definito come:
+\[
+\nabla_{\mathbf{w}} J(\mathbf{w}) =
+\begin{bmatrix}
+\frac{\partial J(\mathbf{w})}{\partial w_1} \\
+\vdots \\
+\frac{\partial J(\mathbf{w})}{\partial w_n}
+\end{bmatrix}.
+\]
+I parametri vengono aggiornati seguendo la direzione di massima crescita della funzione obiettivo:
+\[
+\Delta \mathbf{w} = \alpha \nabla_{\mathbf{w}} J(\mathbf{w}),
+\]
+dove $\alpha$ è un parametro di \emph{step-size} che controlla l’ampiezza dell’aggiornamento.
+
+Questa regola di aggiornamento costituisce il principio fondamentale dei policy gradient methods: invece di stimare una value function e derivarne una policy, l’agente modifica direttamente i parametri della policy in modo da aumentare il valore atteso del criterio di performance scelto.
+
+\subsection{Score Function}
+
+Per calcolare in modo analitico il \emph{policy gradient}, assumiamo che la policy $\pi_{\mathbf{w}}(s,a)$ sia differenziabile rispetto ai parametri $\mathbf{w}$ in tutti i punti in cui è non nulla, e che siamo in grado di calcolare il gradiente
+\[
+\nabla_{\mathbf{w}} \pi_{\mathbf{w}}(s,a).
+\]
+Un’idea fondamentale è quella di utilizzare i \emph{likelihood ratios}, che si basano sulla seguente identità:
+\[
+\nabla_{\mathbf{w}} \pi_{\mathbf{w}}(s,a)
+= \pi_{\mathbf{w}}(s,a)\, \nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a).
+\]
+Questa formula si ottiene applicando semplicemente la regola della derivata del logaritmo:
+\[
+\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a)
+= \frac{1}{\pi_{\mathbf{w}}(s,a)}\, \nabla_{\mathbf{w}} \pi_{\mathbf{w}}(s,a),
+\]
+e moltiplicando entrambi i membri per $\pi_{\mathbf{w}}(s,a)$.
+
+Il termine
+\[
+\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a)
+\]
+viene chiamato \emph{score function}. L’uso della score function è particolarmente conveniente perché le espressioni del tipo
+\[
+\mathbb{E}_{\pi_{\mathbf{w}}}\big[\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a)\,\cdot(\cdot)\big]
+\]
+sono molto più semplici da trattare rispetto alle derivate dirette della policy. Inoltre, la score function ha una struttura intuitiva e spesso ammette una forma chiusa per policy comuni (ad esempio softmax e Gaussian policy), come vedremo tra poco.
+
+\subsection{Linear Softmax Policy}
+
+Consideriamo ora una \emph{softmax policy} per il caso di azioni discrete. Usiamo un vettore di feature $\mathbf{x}(s,a)$ che descrive la coppia stato-azione e un vettore di parametri $\mathbf{w}$. Assegniamo a ciascuna azione un \emph{peso} dato da una combinazione lineare:
+\[
+\mathbf{x}(s,a)^\top \mathbf{w}.
+\]
+La policy softmax definisce quindi la probabilità di selezionare un’azione proporzionale all’esponenziale di questo peso:
+\[
+\pi_{\mathbf{w}}(s,a)
+= \frac{\exp\big(\mathbf{x}(s,a)^\top \mathbf{w}\big)}
+       {\sum_{a'} \exp\big(\mathbf{x}(s,a')^\top \mathbf{w}\big)}.
+\]
+
+Per questa policy, la score function assume una forma particolarmente elegante:
+\[
+\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a)
+= \mathbf{x}(s,a) - \mathbb{E}_{\pi_{\mathbf{w}}}\big[\mathbf{x}(s,\cdot)\big],
+\]
+dove
+\[
+\mathbb{E}_{\pi_{\mathbf{w}}}\big[\mathbf{x}(s,\cdot)\big]
+= \sum_{a'} \pi_{\mathbf{w}}(s,a')\, \mathbf{x}(s,a')
+\]
+è la media delle feature pesata dalla policy.
+
+Questa espressione ha un’interpretazione molto intuitiva: la score function è la differenza tra le feature dell’azione effettivamente scelta e le feature medie delle azioni che avremmo potuto scegliere in quello stato. Se una certa combinazione di feature si manifesta più spesso del previsto e produce buon reward, il gradiente spingerà la policy ad aumentare la probabilità di tali azioni. Viceversa, se produce cattivo reward, il gradiente ne ridurrà la probabilità.
+
+\subsection{Gaussian Policy}
+
+Nel caso di spazi delle azioni continui, una scelta naturale è una \emph{Gaussian policy}. Consideriamo il caso in cui l’azione $a \in \mathbb{R}$ sia un valore reale e definiremo la media come una combinazione lineare di feature dello stato:
+\[
+\mu(s) = \mathbf{x}(s)^\top \mathbf{w}.
+\]
+La varianza $\sigma^2$ può essere assunta costante oppure anch’essa parametrizzata; nel caso più semplice, supponiamo $\sigma^2$ fissata.
+
+La policy è allora definita come:
+\[
+\pi_{\mathbf{w}}(a \mid s) = \mathcal{N}\big(a;\, \mu(s), \sigma^2\big),
+\]
+ovvero una distribuzione Gaussiana con media $\mu(s)$ e varianza $\sigma^2$.
+
+La log-policy è:
+\[
+\log \pi_{\mathbf{w}}(a \mid s)
+= -\frac{(a - \mu(s))^2}{2\sigma^2} - \log\big(\sqrt{2\pi}\,\sigma\big).
+\]
+Derivando rispetto a $\mathbf{w}$, otteniamo la score function:
+\[
+\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(a \mid s)
+= \frac{a - \mu(s)}{\sigma^2}\, \mathbf{x}(s).
+\]
+Anche qui l’interpretazione è chiara: se l’azione $a$ è maggiore della media $\mu(s)$, il termine $(a - \mu(s))$ è positivo e il gradiente spinge la media verso l’alto in direzione di $\mathbf{x}(s)$; se è minore, la media viene spinta verso il basso. In presenza di un buon reward, questo meccanismo fa sì che la policy si adatti in modo da spostare la distribuzione delle azioni verso quei valori che hanno portato a ritorni più alti. 
+
+Se si parametrizza anche la varianza, si può derivare una score function aggiuntiva rispetto ai parametri che controllano $\sigma^2$, in modo da aumentare la varianza quando le azioni lontane dalla media producono reward utili, e ridurla quando è preferibile concentrarsi in intorno alla media appresa.
+
+\subsection{Policy Gradient Theorem: One-Step MDPs}
+
+Per introdurre il \emph{policy gradient theorem}, iniziamo da un caso semplice: un \emph{one-step MDP}. In questo scenario:
+\begin{compactitemize}
+    \item si parte da uno stato $s \sim d(s)$, dove $d(s)$ è una distribuzione di probabilità sugli stati;
+    \item si esegue una sola azione $a \sim \pi_{\mathbf{w}}(s,\cdot)$;
+    \item l’episodio termina immediatamente con un reward $r = \mathcal{R}_s^a$.
+\end{compactitemize}
+Definiamo l’obiettivo come il valore atteso del reward:
+\[
+J(\mathbf{w}) = \mathbb{E}_{\pi_{\mathbf{w}}}[r]
+= \sum_{s \in \mathcal{S}} d(s) \sum_{a \in \mathcal{A}} \pi_{\mathbf{w}}(s,a)\, \mathcal{R}_s^a.
+\]
+
+Per calcolare il gradiente, utilizziamo l’identità della score function:
+\[
+\nabla_{\mathbf{w}} \pi_{\mathbf{w}}(s,a)
+= \pi_{\mathbf{w}}(s,a)\, \nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a).
+\]
+Otteniamo:
+\[
+\begin{aligned}
+\nabla_{\mathbf{w}} J(\mathbf{w})
+&= \sum_{s} d(s) \sum_{a} \nabla_{\mathbf{w}} \pi_{\mathbf{w}}(s,a)\, \mathcal{R}_s^a \\
+&= \sum_{s} d(s) \sum_{a} \pi_{\mathbf{w}}(s,a)\, \nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a)\, \mathcal{R}_s^a \\
+&= \mathbb{E}_{\pi_{\mathbf{w}}}\big[\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a)\, r\big].
+\end{aligned}
+\]
+Questa è la forma base del \emph{likelihood ratio policy gradient}: il gradiente dell’obiettivo è l’aspettativa della score function pesata dal reward osservato. In pratica, questo ci dice che possiamo stimare il gradiente campionando $(s,a,r)$ dalla policy corrente e moltiplicando la score function per il reward.
+
+\subsection{Policy Gradient Theorem}
+
+Il \emph{policy gradient theorem} generalizza il risultato precedente a MDP multi-step, in cui gli episodi possono durare molti time-step. L’idea è simile: invece di usare il reward immediato $r$, il termine che compare nel gradiente è il valore a lungo termine dell’azione, ovvero la action-value function $Q^{\pi}(s,a)$.
+
+In modo informale, l’obiettivo $J(\mathbf{w})$ può essere definito come uno dei seguenti:
+\begin{compactitemize}
+    \item start state objective $J_1(\mathbf{w}) = V^{\pi_{\mathbf{w}}}(s_1)$;
+    \item average reward objective $J_{\text{avR}}(\mathbf{w})$;
+    \item average value objective $J_{\text{avV}}(\mathbf{w})$.
+\end{compactitemize}
+Il teorema afferma che, per qualsiasi policy differenziabile $\pi_{\mathbf{w}}(s,a)$ e per qualsiasi di questi obiettivi, il gradiente assume la forma:
+\[
+\nabla_{\mathbf{w}} J(\mathbf{w})
+= \mathbb{E}_{\pi_{\mathbf{w}}}\big[\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a)\, Q^{\pi_{\mathbf{w}}}(s,a)\big].
+\]
+
+Questa espressione è il cuore dei policy gradient methods. Essa ci dice che, per migliorare la policy:
+\begin{compactitemize}
+    \item aumentiamo la probabilità delle azioni che in media portano a un $Q^{\pi}(s,a)$ elevato;
+    \item riduciamo la probabilità delle azioni con $Q^{\pi}(s,a)$ basso.
+\end{compactitemize}
+Il tutto avviene attraverso la score function $\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a)$, che traduce l’informazione sul “quanto è buona” un’azione (via $Q^{\pi}(s,a)$) in un aggiornamento diretto dei parametri $\mathbf{w}$ della policy.
+
+\subsection{REINFORCE: Monte Carlo Policy Gradient}
+
+Sulla base del policy gradient theorem, possiamo aggiornare i parametri della policy utilizzando \emph{stochastic gradient ascent}. L’idea è quella di stimare il gradiente di $J(\mathbf{w})$ campionando traiettorie generate dalla policy corrente e utilizzando tali campioni per effettuare aggiornamenti incrementali.
+
+Dal policy gradient theorem sappiamo che:
+\[
+\nabla_{\mathbf{w}} J(\mathbf{w})
+= \mathbb{E}_{\pi_{\mathbf{w}}}\big[\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s,a)\, Q^{\pi}(s,a)\big].
+\]
+Poiché la action-value function $Q^{\pi}(s,a)$ non è nota, possiamo utilizzare il \emph{return} Monte Carlo $G_t$ come stima non distorta di $Q^{\pi}(s_t,a_t)$. In particolare, $G_t$ rappresenta la somma dei reward futuri osservati a partire dal time-step $t$, ed è una realizzazione campionata del valore atteso a lungo termine.
+
+Sostituendo $Q^{\pi}(s_t,a_t)$ con $G_t$, otteniamo una stima non distorta del gradiente:
+\[
+\nabla_{\mathbf{w}} J(\mathbf{w})
+\approx
+\nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s_t,a_t)\, G_t.
+\]
+L’aggiornamento dei parametri viene quindi effettuato tramite stochastic gradient ascent:
+\[
+\Delta \mathbf{w}_t
+= \alpha \nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s_t,a_t)\, G_t,
+\]
+dove $\alpha$ è il learning rate.
+
+Questo metodo è noto come \emph{REINFORCE} ed è un algoritmo \emph{Monte Carlo policy gradient}, in quanto utilizza traiettorie complete per stimare il return. REINFORCE è teoricamente corretto e semplice da implementare, ma soffre in genere di un’elevata varianza delle stime del gradiente.
+
+L’algoritmo REINFORCE può essere descritto come segue:
+
+\begin{enumerate}
+    \item Inizializza i parametri della policy $\mathbf{w}$ arbitrariamente.
+    \item Ripeti per ogni episodio:
+    \begin{enumerate}
+        \item Genera un episodio seguendo la policy $\pi_{\mathbf{w}}$:
+        \[
+        s_0, a_0, r_1, s_1, a_1, r_2, \dots, s_T
+        \]
+        \item Per ogni time-step $t = 0,1,\dots,T-1$:
+        \begin{enumerate}
+            \item Calcola il return:
+            \[
+            G_t = \sum_{k=0}^{T-t-1} \gamma^k r_{t+k+1}.
+            \]
+            \item Aggiorna i parametri della policy:
+            \[
+            \mathbf{w} \leftarrow \mathbf{w}
+            + \alpha \nabla_{\mathbf{w}} \log \pi_{\mathbf{w}}(s_t,a_t)\, G_t.
+            \]
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+In sintesi, REINFORCE aumenta la probabilità delle azioni che hanno prodotto un alto return e riduce la probabilità delle azioni che hanno prodotto un basso return. Poiché utilizza il return completo $G_t$, l’algoritmo fornisce una stima non distorta del gradiente, ma con varianza elevata, motivo per cui nelle sezioni successive introdurremo il concetto di \emph{baseline} e il passaggio agli approcci \emph{actor-critic}.
+
+\section{Actor-Critic Methods}
+
+I \emph{Monte-Carlo policy gradient methods}, come REINFORCE, forniscono una stima non distorta del gradiente ma soffrono di \emph{high variance}, perché utilizzano il return completo $G_t$. Per ridurre la varianza pur mantenendo un aggiornamento online, si introduce la famiglia degli \emph{actor-critic methods}.
+
+L’idea chiave è separare due ruoli distinti:
+\begin{compactitemize}
+    \item \textbf{Actor}: rappresenta e aggiorna la policy $\pi_\theta(s,a)$;
+    \item \textbf{Critic}: valuta la policy stimando una value function.
+\end{compactitemize}
+
+Di conseguenza, un algoritmo actor-critic mantiene \textbf{due insiemi di parametri}:
+\begin{compactitemize}
+    \item $\theta$: parametri della policy (actor);
+    \item $\mathbf{w}$: parametri della value function (critic).
+\end{compactitemize}
+
+\subsection{Actor-Critic Policy Gradient}
+
+Negli actor-critic methods, il critic fornisce una stima di $Q^\pi(s,a)$, che viene utilizzata dall’actor per aggiornare la policy. In questo modo, il policy gradient non utilizza più il return Monte Carlo, ma una stima approssimata del valore dell’azione.
+
+Il policy gradient theorem diventa quindi:
+\[
+\nabla_\theta J(\theta)
+\approx
+\mathbb{E}_{\pi_\theta}
+\big[
+\nabla_\theta \log \pi_\theta(s,a)\, Q_{\mathbf{w}}(s,a)
+\big],
+\]
+dove $Q_{\mathbf{w}}(s,a)$ è l’approssimazione della action-value function fornita dal critic.
+
+In pratica, l’aggiornamento dell’actor è:
+\[
+\Delta \theta
+= \alpha \nabla_\theta \log \pi_\theta(s_t,a_t)\, Q_{\mathbf{w}}(s_t,a_t),
+\]
+dove $\alpha$ è il learning rate dell’actor.
+
+Poiché il critic fornisce solo una stima del valore, questi metodi seguono un \emph{approximate policy gradient}. Tuttavia, il notevole vantaggio è una drastica riduzione della varianza rispetto ai metodi Monte Carlo.
+
+\subsection{Estimating the Action-Value Function (Critic)}
+
+Il ruolo del critic è risolvere un problema noto: la \emph{policy evaluation}. Data una policy $\pi_\theta$, il critic deve rispondere alla domanda:
+\[
+\text{How good is the current policy?}
+\]
+
+Questo problema è stato già affrontato in precedenza e può essere risolto con diversi metodi:
+\begin{compactitemize}
+    \item Monte-Carlo policy evaluation;
+    \item Temporal-Difference learning;
+    \item TD($\lambda$);
+    \item Least-squares policy evaluation.
+\end{compactitemize}
+
+Negli actor-critic methods online, la scelta più comune è utilizzare \emph{TD learning}, poiché permette aggiornamenti incrementali a ogni time-step.
+
+\subsection{Action-Value Actor-Critic}
+
+Consideriamo ora una forma specifica di actor-critic: l’\emph{Action-Value Actor-Critic}. In questo caso, il critic approssima direttamente la action-value function:
+\[
+Q_{\mathbf{w}}(s,a).
+\]
+
+Assumiamo una approssimazione lineare:
+\[
+Q_{\mathbf{w}}(s,a) = \mathbf{x}(s,a)^\top \mathbf{w},
+\]
+dove $\mathbf{x}(s,a)$ è un vettore di feature.
+
+Il critic viene aggiornato tramite \emph{linear TD(0)}. Definiamo l’errore di TD:
+\[
+\delta_t
+= r_{t+1}
++ \gamma Q_{\mathbf{w}}(s_{t+1},a_{t+1})
+- Q_{\mathbf{w}}(s_t,a_t).
+\]
+
+L’aggiornamento dei parametri del critic è:
+\[
+\mathbf{w}
+\leftarrow
+\mathbf{w}
++ \beta\, \delta_t\, \mathbf{x}(s_t,a_t),
+\]
+dove $\beta$ è il learning rate del critic.
+
+L’actor aggiorna invece i parametri della policy seguendo il policy gradient, utilizzando la stima del critic:
+\[
+\theta
+\leftarrow
+\theta
++ \alpha \nabla_\theta \log \pi_\theta(s_t,a_t)\, Q_{\mathbf{w}}(s_t,a_t).
+\]
+
+\subsection{Action-Value Actor-Critic Algorithm}
+
+L’algoritmo completo può essere riassunto come segue:
+
+\begin{enumerate}
+    \item Inizializza i parametri della policy $\theta$ e del critic $\mathbf{w}$.
+    \item Osserva lo stato iniziale $s$.
+    \item Ripeti per ogni time-step:
+    \begin{enumerate}
+        \item Seleziona un’azione $a \sim \pi_\theta(\cdot \mid s)$.
+        \item Osserva reward $r$ e stato successivo $s'$.
+        \item Seleziona la prossima azione $a' \sim \pi_\theta(\cdot \mid s')$.
+        \item Calcola la TD error:
+        \[
+        \delta = r + \gamma Q_{\mathbf{w}}(s',a') - Q_{\mathbf{w}}(s,a).
+        \]
+        \item Aggiorna il critic:
+        \[
+        \mathbf{w} \leftarrow \mathbf{w} + \beta\, \delta\, \mathbf{x}(s,a).
+        \]
+        \item Aggiorna l’actor:
+        \[
+        \theta \leftarrow \theta + \alpha\, \nabla_\theta \log \pi_\theta(s,a)\, Q_{\mathbf{w}}(s,a).
+        \]
+        \item Poni $s \leftarrow s'$, $a \leftarrow a'$.
+    \end{enumerate}
+\end{enumerate}
+
+In sintesi, l’actor-critic framework combina i vantaggi dei policy-based methods (apprendimento diretto della policy) con quelli dei value-based methods (bassa varianza grazie al bootstrapping), rappresentando uno dei paradigmi fondamentali del reinforcement learning moderno.
+
+\subsection{Reducing Variance Using a Baseline}
+
+Un problema fondamentale dei policy gradient methods è l’elevata varianza delle stime del gradiente. Una tecnica molto potente per ridurre la varianza consiste nell’introdurre una \emph{baseline function} $B(s)$ nel policy gradient.
+
+In particolare, possiamo sottrarre una baseline che dipende solo dallo stato senza modificare il valore atteso del gradiente:
+\[
+\nabla_\theta J(\theta)
+= \mathbb{E}_{\pi_\theta}
+\left[
+\nabla_\theta \log \pi_\theta(s,a)\,\big(Q^\pi(s,a) - B(s)\big)
+\right].
+\]
+
+La correttezza di questa operazione deriva dal fatto che:
+\[
+\mathbb{E}_{\pi_\theta}
+\big[
+\nabla_\theta \log \pi_\theta(s,a)\, B(s)
+\big]
+=
+\sum_{s} d^{\pi_\theta}(s)\, B(s)
+\sum_{a} \pi_\theta(s,a)\, \nabla_\theta \log \pi_\theta(s,a)
+= 0,
+\]
+poiché:
+\[
+\sum_{a} \pi_\theta(s,a)\, \nabla_\theta \log \pi_\theta(s,a)
+= \nabla_\theta \sum_a \pi_\theta(s,a)
+= \nabla_\theta 1
+= 0.
+\]
+
+Di conseguenza, l’introduzione della baseline riduce la varianza della stima del gradiente \textbf{senza modificarne l’aspettativa}.
+
+Una scelta particolarmente efficace per la baseline è la \emph{state-value function}:
+\[
+B(s) = V^{\pi_\theta}(s).
+\]
+
+\subsection{Advantage Function}
+
+Utilizzando la state-value function come baseline, il termine che compare nel policy gradient diventa la \emph{advantage function}:
+\[
+A^{\pi}(s,a) = Q^{\pi}(s,a) - V^{\pi}(s).
+\]
+
+Il policy gradient può quindi essere riscritto come:
+\[
+\nabla_\theta J(\theta)
+= \mathbb{E}_{\pi_\theta}
+\left[
+\nabla_\theta \log \pi_\theta(s,a)\, A^{\pi}(s,a)
+\right].
+\]
+
+L’advantage function misura quanto un’azione è migliore (o peggiore) rispetto al comportamento medio della policy in quello stato. Se $A^{\pi}(s,a) > 0$, l’azione è migliore della media e la policy dovrebbe aumentare la sua probabilità; se $A^{\pi}(s,a) < 0$, la probabilità dovrebbe diminuire.
+
+\subsection{Estimating the Advantage Function}
+
+Poiché $A^{\pi}(s,a)$ non è nota, il critic dovrebbe stimare direttamente l’advantage function. Un approccio diretto consiste nel mantenere due approssimatori di funzione distinti:
+\[
+V_{\mathbf{v}}(s) \approx V^{\pi}(s), \qquad
+Q_{\mathbf{w}}(s,a) \approx Q^{\pi}(s,a),
+\]
+e definire:
+\[
+A(s,a) = Q_{\mathbf{w}}(s,a) - V_{\mathbf{v}}(s).
+\]
+
+Entrambe le funzioni possono essere aggiornate tramite metodi di \emph{TD learning}. Tuttavia, mantenere due approssimatori separati può risultare computazionalmente costoso.
+
+\subsection{TD Error as an Advantage Estimator}
+
+Un’osservazione fondamentale è che, nel caso della vera value function $V^\pi$, l’errore di TD:
+\[
+\delta_t^\pi
+= r_{t+1} + \gamma V^\pi(s_{t+1}) - V^\pi(s_t),
+\]
+è uno stimatore non distorto dell’advantage function:
+\[
+\mathbb{E}_{\pi_\theta}[\delta_t^\pi \mid s_t, a_t]
+= Q^\pi(s_t,a_t) - V^\pi(s_t)
+= A^\pi(s_t,a_t).
+\]
+
+Questo risultato permette di utilizzare la TD error come sostituto diretto dell’advantage nel policy gradient:
+\[
+\nabla_\theta J(\theta)
+= \mathbb{E}_{\pi_\theta}
+\big[
+\nabla_\theta \log \pi_\theta(s_t,a_t)\, \delta_t
+\big].
+\]
+
+In pratica, utilizziamo una stima approssimata:
+\[
+\delta_t
+= r_{t+1}
++ \gamma V_{\mathbf{v}}(s_{t+1})
+- V_{\mathbf{v}}(s_t),
+\]
+che richiede \textbf{un solo set di parametri del critic}, $\mathbf{v}$.
+
+\subsection{Critics at Different Time-Scales}
+
+Il critic può essere aggiornato utilizzando target definiti su diverse time-scales:
+\begin{itemize}
+    \item \textbf{Monte Carlo}: il target è il return completa $G_t$:
+    \[
+    \Delta \mathbf{v}
+    = \alpha (G_t - V_{\mathbf{v}}(s_t))\, \mathbf{x}(s_t).
+    \]
+    \item \textbf{TD(0)}: il target è l’errore di TD:
+    \[
+    \Delta \mathbf{v}
+    = \alpha (r_t + \gamma V_{\mathbf{v}}(s_{t+1}) - V_{\mathbf{v}}(s_t))\, \mathbf{x}(s_t).
+    \]
+    \item \textbf{forward-view TD($\lambda$)}: il target è il $\lambda$-return $G_t^\lambda$:
+    \[
+    \Delta \mathbf{v}
+    = \alpha (G_t^\lambda - V_{\mathbf{v}}(s_t))\, \mathbf{x}(s_t).
+    \]
+    \item \textbf{backward-view TD($\lambda$)}: utilizza eligibility traces:
+    \[
+    \delta_t = r_t + \gamma V_{\mathbf{v}}(s_{t+1}) - V_{\mathbf{v}}(s_t),
+    \]
+    \[
+    \mathbf{e}_t = \gamma \lambda \mathbf{e}_{t-1} + \mathbf{x}(s_t),
+    \qquad
+    \Delta \mathbf{v} = \alpha \delta_t \mathbf{e}_t.
+    \]
+\end{itemize}
+
+\subsection{Actors at Different Time-Scales}
+
+Anche il policy gradient può essere stimato a diverse time-scales. In generale:
+\[
+\nabla_\theta J(\theta)
+= \mathbb{E}_{\pi_\theta}
+\left[
+\nabla_\theta \log \pi_\theta(s,a)\, A^\pi(s,a)
+\right].
+\]
+
+Nel caso Monte Carlo:
+\[
+\Delta \theta
+= \alpha (G_t - V(s_t))\, \nabla_\theta \log \pi_\theta(s_t,a_t).
+\]
+
+Negli actor-critic methods con TD(0):
+\[
+\Delta \theta
+= \alpha \big(r_{t+1}
++ \gamma V(s_{t+1})
+- V(s_t)\big)\,
+\nabla_\theta \log \pi_\theta(s_t,a_t).
+\]
+
+\subsection{Policy Gradient with Eligibility Traces}
+
+È possibile combinare più time-scales anche per il policy gradient, in modo simile al forward-view TD($\lambda$). In questo caso si utilizza il $\lambda$-return:
+\[
+\Delta \theta
+= \alpha (G_t^\lambda - V(s_t))\,
+\nabla_\theta \log \pi_\theta(s_t,a_t),
+\]
+che fornisce una stima distorta ma a bassa varianza dell’advantage function.
+
+Analogamente al backward-view TD($\lambda$), possiamo introdurre eligibility traces per l’actor:
+\[
+\delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t),
+\]
+\[
+\mathbf{e}_t = \gamma \lambda \mathbf{e}_{t-1} + \nabla_\theta \log \pi_\theta(s_t,a_t),
+\]
+\[
+\Delta \theta = \alpha\, \delta_t\, \mathbf{e}_t.
+\]
+
+Questa formulazione consente di applicare il policy gradient \emph{online}, anche in presenza di sequenze incomplete, e rappresenta una generalizzazione naturale degli actor-critic methods con eligibility traces.

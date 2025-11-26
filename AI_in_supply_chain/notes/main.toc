@@ -28,18 +28,45 @@
 \contentsline {section}{\numberline {1.12}Least Squares Prediction}{11}{section.1.12}%
 \contentsline {section}{\numberline {1.13}Stochastic Gradient Descent with Experience Replay}{11}{section.1.13}%
 \contentsline {section}{\numberline {1.14}Experience Replay in Deep Q-Networks (DQN)}{12}{section.1.14}%
-\contentsline {chapter}{\numberline {2}Exploration and Exploitation}{14}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Multi-Armed Bandit}{15}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Greedy Algorithm}{16}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Optimistic Initialization}{17}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}$\varepsilon $-Greedy e $\varepsilon _t$-Decaying}{17}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Lower Bound of Regret}{18}{subsection.2.1.4}%
-\contentsline {subsection}{\numberline {2.1.5}Optimism in the Face of Uncertainty}{18}{subsection.2.1.5}%
-\contentsline {subsection}{\numberline {2.1.6}Upper Confidence Bounds (UCB)}{19}{subsection.2.1.6}%
-\contentsline {subsection}{\numberline {2.1.7}Hoeffding's Inequality}{20}{subsection.2.1.7}%
-\contentsline {subsection}{\numberline {2.1.8}Calcolo della Banda di Confidenza}{20}{subsection.2.1.8}%
-\contentsline {subsection}{\numberline {2.1.9}UCB1}{21}{subsection.2.1.9}%
-\contentsline {subsection}{\numberline {2.1.10}Bayesian Bandits}{21}{subsection.2.1.10}%
-\contentsline {subsection}{\numberline {2.1.11}Bayesian UCB}{22}{subsection.2.1.11}%
-\contentsline {subsection}{\numberline {2.1.12}Probability Matching}{22}{subsection.2.1.12}%
-\contentsline {subsection}{\numberline {2.1.13}Thompson Sampling}{23}{subsection.2.1.13}%
+\contentsline {chapter}{\numberline {2}Policy-Based Methods}{14}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introduction}{14}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Esempi}{15}{subsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1.1}Primo esempio}{15}{subsubsection.2.1.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1.2}Secondo esempio}{15}{subsubsection.2.1.1.2}%
+\contentsline {section}{\numberline {2.2}Policy-Base Methods}{16}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Policy Objective Functions}{16}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Policy Optimisation}{16}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Policy Gradient}{17}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Score Function}{17}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Linear Softmax Policy}{18}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.2.6}Gaussian Policy}{18}{subsection.2.2.6}%
+\contentsline {subsection}{\numberline {2.2.7}Policy Gradient Theorem: One-Step MDPs}{19}{subsection.2.2.7}%
+\contentsline {subsection}{\numberline {2.2.8}Policy Gradient Theorem}{19}{subsection.2.2.8}%
+\contentsline {subsection}{\numberline {2.2.9}REINFORCE: Monte Carlo Policy Gradient}{20}{subsection.2.2.9}%
+\contentsline {section}{\numberline {2.3}Actor-Critic Methods}{21}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Actor-Critic Policy Gradient}{21}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Estimating the Action-Value Function (Critic)}{22}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Action-Value Actor-Critic}{22}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Action-Value Actor-Critic Algorithm}{23}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Reducing Variance Using a Baseline}{24}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}Advantage Function}{24}{subsection.2.3.6}%
+\contentsline {subsection}{\numberline {2.3.7}Estimating the Advantage Function}{24}{subsection.2.3.7}%
+\contentsline {subsection}{\numberline {2.3.8}TD Error as an Advantage Estimator}{25}{subsection.2.3.8}%
+\contentsline {subsection}{\numberline {2.3.9}Critics at Different Time-Scales}{25}{subsection.2.3.9}%
+\contentsline {subsection}{\numberline {2.3.10}Actors at Different Time-Scales}{26}{subsection.2.3.10}%
+\contentsline {subsection}{\numberline {2.3.11}Policy Gradient with Eligibility Traces}{26}{subsection.2.3.11}%
+\contentsline {chapter}{\numberline {3}Exploration and Exploitation}{27}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Multi-Armed Bandit}{28}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Greedy Algorithm}{29}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Optimistic Initialization}{30}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}$\varepsilon $-Greedy e $\varepsilon _t$-Decaying}{30}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Lower Bound of Regret}{31}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Optimism in the Face of Uncertainty}{31}{subsection.3.1.5}%
+\contentsline {subsection}{\numberline {3.1.6}Upper Confidence Bounds (UCB)}{32}{subsection.3.1.6}%
+\contentsline {subsection}{\numberline {3.1.7}Hoeffding's Inequality}{33}{subsection.3.1.7}%
+\contentsline {subsection}{\numberline {3.1.8}Calcolo della Banda di Confidenza}{33}{subsection.3.1.8}%
+\contentsline {subsection}{\numberline {3.1.9}UCB1}{34}{subsection.3.1.9}%
+\contentsline {subsection}{\numberline {3.1.10}Bayesian Bandits}{34}{subsection.3.1.10}%
+\contentsline {subsection}{\numberline {3.1.11}Bayesian UCB}{35}{subsection.3.1.11}%
+\contentsline {subsection}{\numberline {3.1.12}Probability Matching}{35}{subsection.3.1.12}%
+\contentsline {subsection}{\numberline {3.1.13}Thompson Sampling}{36}{subsection.3.1.13}%
