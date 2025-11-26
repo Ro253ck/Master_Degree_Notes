@@ -1,0 +1,239 @@
+\chapter{Simulation Modeling}
+In questo capitolo rispoderemo a quattro domande fondamentali, che sono:
+\begin{compactitemize}
+    \item What is \textbf{Simulation}?
+    \item What is a \textbf{System}?
+    \item What is a \textbf{Model}?
+    \item What is a \textbf{Discrete-Event} Simulation?
+\end{compactitemize}
+
+\section{What is Simulation?}
+
+La \textbf{simulation} può essere definita, in senso molto generale, come il processo di progettazione di un modello di un sistema reale e di conduzione di esperimenti su tale modello con l’obiettivo di:
+\begin{compactitemize}
+    \item comprendere il comportamento del sistema nel tempo;
+    \item valutare diverse strategie per il funzionamento del sistema.
+\end{compactitemize}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/L2.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Questa è una definizione volutamente ampia e di alto livello: l’idea centrale è che, invece di intervenire direttamente sul sistema reale, si costruisce una sua rappresentazione semplificata e si studiano gli effetti delle decisioni in un ambiente controllato.
+
+In modo più formale, una simulazione è l’imitazione del funzionamento di un sistema reale lungo l’asse temporale. Essa richiede innanzitutto la definizione di un insieme di assunzioni sul sistema, poi la generazione di una \emph{artificial history} del sistema stesso e infine l’osservazione di tale storia per trarre inferenze sulle caratteristiche operative del sistema.
+
+\subsection{Objectives of Simulation}
+
+L’uso della simulazione risponde essenzialmente a due grandi obiettivi.  
+Il primo è l’osservazione del comportamento di un sistema così com’è, cioè una classica analisi \textbf{AS-IS}. In questo caso si vogliono misurare metriche di performance, individuare colli di bottiglia o comprendere le dinamiche interne del sistema.
+
+Il secondo obiettivo è l’ottimizzazione del sistema, in una logica \textbf{TO-BE}. Qui la simulazione viene usata per rispondere a domande di tipo \emph{what-if}: cosa succederebbe se modificassimo una componente del sistema? Se cambiassimo una regola decisionale? Se introducessimo una nuova tecnologia? In questo modo è possibile valutare alternative senza doverle implementare nel mondo reale.
+
+\subsection{Simulation as a Process: System, Model, Simulation}
+
+È fondamentale chiarire che la simulazione è un \textbf{processo}, non un singolo oggetto.  
+Il processo segue uno schema concettuale molto preciso:
+
+\begin{center}
+\textbf{System} $\longrightarrow$ \textbf{Model} $\longrightarrow$ \textbf{Simulation}
+\end{center}
+
+Il \textbf{system} è il sistema reale che vogliamo studiare, ad esempio una banca, un magazzino o una supply chain.  
+Dal sistema si costruisce un \textbf{model}, che non è altro che una \emph{approssimazione} e una \emph{semplificazione} del sistema reale. Il modello non include tutto, ma solo quegli aspetti che sono rilevanti per gli obiettivi dello studio.  
+Infine, dal modello si ottiene la \textbf{simulation}, ovvero l’esecuzione del modello nel tempo per produrre dati artificiali da analizzare.
+
+Questo punto è cruciale: \emph{la simulazione non apprende nulla dal sistema reale direttamente}, ma solo da ciò che il modello rappresenta. Di conseguenza, la qualità dei risultati della simulazione dipende interamente dalla qualità del modello.
+
+\subsection{Simulation Techniques}
+
+In alcuni casi i modelli sono sufficientemente semplici da poter essere analizzati con strumenti matematici classici, come la probabilità, il calcolo differenziale o la programmazione matematica. In queste situazioni è possibile ottenere soluzioni analitiche esatte.
+
+Tuttavia, molti sistemi reali mostrano un elevato livello di complessità: comportamenti non lineari, interazioni multiple, eventi casuali e dipendenze temporali rendono impossibile o impraticabile una soluzione analitica. In questi casi si ricorre a modelli di simulazione basati su calcolo computazionale.
+
+\subsection{When Simulation Is Appropriate}
+
+La simulazione è uno strumento particolarmente adatto quando si vuole studiare il funzionamento interno di un sistema complesso, analizzare l’effetto di cambiamenti organizzativi o ambientali, comprendere come le variazioni degli input influenzino gli output, verificare soluzioni analitiche oppure supportare attività di formazione e training.
+
+In tutti questi casi, il vantaggio principale è la possibilità di sperimentare senza rischi sul sistema reale.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/L1.png}
+    \label{fig:student_markov_chain}
+\end{figure}
+\subsection{When Simulation Is \emph{Not} the Appropriate Tool}
+
+È altrettanto importante capire quando \textbf{la simulazione non è lo strumento giusto}. Un uso improprio della simulazione può portare a risultati fuorvianti, spreco di risorse e decisioni errate.
+
+Innanzitutto, la simulazione non è appropriata quando il problema può essere risolto facilmente con il buon senso o con una soluzione analitica semplice. In questi casi, costruire un modello di simulazione sarebbe inutilmente costoso.
+
+La simulazione non è adatta nemmeno quando effettuare esperimenti diretti sul sistema reale è meno costoso, più veloce o più informativo rispetto alla costruzione di un modello.
+
+Un altro limite importante riguarda la disponibilità di risorse: se non ci sono tempo, dati o competenze sufficienti, il risultato sarà un modello povero e poco affidabile.
+
+Il punto più critico, tuttavia, è il seguente: \textbf{se il modello non è validato, la simulazione non è affidabile}.  
+La simulazione lavora esclusivamente sul modello. Se il modello non rappresenta adeguatamente il sistema reale, allora la simulazione produrrà inevitabilmente risultati errati. In questo caso, non importa quanto sofisticata sia la simulazione o quanto accurata sia l’analisi: le conclusioni saranno sbagliate perché basate su una rappresentazione sbagliata del sistema.
+
+In altre parole:
+\begin{center}
+\emph{Invalid model $\Rightarrow$ invalid simulation $\Rightarrow$ invalid decisions}
+\end{center}
+
+Per questo motivo, la validazione del modello è uno dei passaggi più delicati e fondamentali in ogni studio di simulazione.
+
+Infine, la simulazione non è appropriata quando il livello di dettaglio richiesto per rispondere alle domande di interesse è talmente elevato da rendere il modello eccessivamente complesso, costoso e difficile da interpretare.
+
+\subsection{Advantages and Disadvantages of Simulation}
+
+Tra i principali vantaggi della simulazione vi è la possibilità di esplorare nuove politiche operative senza disturbare il sistema reale, testare nuovi design senza impegnare risorse, verificare ipotesi sul comportamento del sistema e comprendere meglio le interazioni tra le variabili e i colli di bottiglia.
+
+D’altra parte, la simulazione richiede competenze specifiche, può essere costosa in termini di tempo e risorse computazionali e produce risultati che sono sempre stime o approssimazioni, influenzate dalla variabilità degli input.
+
+\subsection{Areas of Application}
+
+La simulazione trova applicazione in numerosi contesti, tra cui gestione del traffico, introduzione di nuove tecnologie di automazione, gestione delle disruption nella domanda, supply chain design, logistica dell’ultimo miglio, valutazioni finanziarie e problemi di controllo ottimale.
+
+In tutti questi casi, la simulazione fornisce un ambiente sicuro in cui sperimentare e prendere decisioni informate, a patto che il modello su cui si basa sia accuratamente costruito e validato.
+
+\section{What is a System?}
+
+Per poter costruire un modello di simulazione è fondamentale chiarire innanzitutto che cosa si intende per \textbf{system}. In generale, un system è definito come un insieme di entità che interagiscono tra loro in modo regolare o interdipendente con lo scopo di raggiungere un certo obiettivo.
+
+Questa definizione mette in evidenza tre elementi essenziali: l’esistenza di più componenti, l’interazione tra tali componenti e la presenza di un fine o di una funzione che il system deve svolgere. Un system, quindi, non è semplicemente una collezione di oggetti, ma una struttura organizzata in cui le parti influenzano reciprocamente il comportamento complessivo.
+
+Un esempio classico è un sistema di produzione industriale, come una catena di montaggio per automobili. In questo caso, il system è l’intero processo produttivo; le entità sono macchine, lavoratori e componenti; l’obiettivo è la produzione di veicoli di alta qualità a un certo ritmo.
+
+\subsection{System, State, and Environment}
+
+Il significato pratico di system dipende sempre dagli obiettivi dello studio di simulazione. In base a ciò che si vuole analizzare, cambia infatti il modo in cui il system viene delimitato.
+
+Lo \textbf{state} di un system è definito come l’insieme delle variabili necessarie a descriverne lo stato in un dato istante di tempo. Se lo stato è noto, allora il comportamento futuro del system può essere determinato (in senso probabilistico o deterministico) a partire da esso.
+
+L’\textbf{environment} comprende tutto ciò che è esterno al system ma che può influenzarne il comportamento. La distinzione tra system ed environment non è assoluta, ma dipende dalle scelte del modellatore e dallo scopo della simulazione.
+
+La \textbf{boundary} rappresenta il confine concettuale che separa il system dall’environment. Ad esempio, in una simulazione di una banca, il processo di arrivo dei clienti può essere considerato parte dell’environment, poiché non è sotto il controllo della banca, mentre la politica di servizio (numero di sportelli, regole di priorità) è parte del system.
+
+\subsection{Components of a System}
+
+Per comprendere e modellare un system è necessario identificarne le componenti fondamentali. Una prima componente è l’\textbf{entity}, ovvero un oggetto di interesse all’interno del system, come un cliente, un prodotto o un veicolo.
+
+Ogni entity è caratterizzata da uno o più \textbf{attributes}, che descrivono le sue proprietà. Nel caso di un sistema bancario, ad esempio, gli attributes di un cliente possono includere il saldo del conto, il rating creditizio o un identificativo univoco.
+
+Un’\textbf{activity} rappresenta un periodo di tempo durante il quale si svolge un’operazione specifica, come l’erogazione di un servizio, un pagamento o una fase di lavorazione. Le attività hanno una durata che può essere deterministica o casuale.
+
+Un \textbf{event} è invece un’istanza istantanea che provoca un cambiamento nello stato del system. L’arrivo di un cliente o il completamento di un servizio sono esempi tipici di eventi. Gli eventi possono essere esogeni, se originano dall’environment, oppure endogeni, se sono generati dal system stesso.
+
+Infine, le \textbf{state variables} sono l’insieme minimo di variabili in grado di descrivere completamente lo stato del system in ogni istante di tempo, come il numero di server occupati o la lunghezza di una coda.
+
+È importante sottolineare che non esiste una lista universale di componenti valida per ogni sistema: la scelta dipende sempre dagli obiettivi dello studio di simulazione.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/L3.png}
+    \label{fig:student_markov_chain}
+\end{figure}
+\subsection{Discrete and Continuous Systems}
+
+Un system è detto \textbf{discrete} se le sue state variables cambiano solo in corrispondenza di istanti discreti nel tempo, tipicamente quando avvengono eventi. Esempi classici sono una banca, un magazzino o una linea di produzione.
+
+Un system è invece \textbf{continuous} se le state variables evolvono in modo continuo nel tempo, come nel caso del livello dell’acqua in una diga o dell’andamento di una variabile finanziaria.
+
+Questa distinzione è concettuale e non impone una corrispondenza rigida tra system e modello. Un system continuo può essere approssimato tramite un modello discreto e viceversa. La scelta dipende dalla natura del system e dallo scopo dell’analisi.
+
+In conclusione, comprendere che cosa si intende per system, come definirne i confini e quali componenti includere è un passaggio essenziale prima di costruire un modello e, successivamente, una simulazione affidabile. Un’errata definizione del system porta inevitabilmente a modelli inadeguati e a simulazioni non rappresentative della realtà.
+
+\section{What is a Model?}
+
+Dopo aver definito che cosa sia un \textbf{system}, il passo successivo nel processo di simulazione è la costruzione di un \textbf{model}. Un model è una rappresentazione di un system, costruita con lo scopo di studiarne il comportamento, comprenderne le dinamiche interne oppure prevederne le prestazioni sotto differenti politiche decisionali.
+
+Per definizione, un model è una \textbf{semplificazione} del system reale. Non è né possibile né desiderabile includere ogni dettaglio del mondo reale: l’obiettivo è invece quello di mantenere solo gli elementi rilevanti per il problema che si sta analizzando. Tuttavia, questa semplificazione deve essere bilanciata con attenzione, poiché il model deve essere sufficientemente dettagliato da consentire conclusioni valide e affidabili.
+
+In questo senso vale il celebre principio di George Box: \emph{“All models are wrong, but some are useful”}. Ogni modello è inevitabilmente “sbagliato” perché non riproduce la realtà in modo perfetto, ma può comunque essere estremamente utile se cattura gli aspetti essenziali del system che influenzano il comportamento di interesse.
+
+\subsection{Purpose of a Model}
+
+Un model viene costruito per uno scopo ben preciso. In alcuni casi l’obiettivo è comprendere le relazioni tra le componenti del system; in altri casi si vuole prevedere la performance del system sotto nuove condizioni operative o nuove politiche decisionali.
+
+Sebbene in linea di principio si potrebbe studiare un system attraverso esperimenti diretti, nella pratica questo approccio è spesso impraticabile. Il system potrebbe non esistere ancora, come nel caso di un nuovo impianto produttivo, oppure potrebbe essere troppo costoso, rischioso o complesso da sperimentare direttamente. In questi casi, il model diventa lo strumento principale di analisi.
+
+È importante sottolineare che, se cambia lo scopo dello studio, deve cambiare anche il model. Un modello costruito per analizzare i tempi di attesa di un sistema potrebbe non essere adatto a valutare i costi energetici o la robustezza rispetto a guasti.
+
+\subsection{Model Complexity and Trade-offs}
+
+La costruzione di un model richiede un compromesso tra semplicità e realismo. Un modello troppo semplice rischia di trascurare variabili importanti, portando a conclusioni fuorvianti. Al contrario, un modello eccessivamente complesso può diventare difficile da comprendere, da implementare e da validare, arrivando paradossalmente ad essere altrettanto opaco quanto il system reale.
+
+All’aumentare del livello di dettaglio, aumentano anche i requisiti in termini di dati, tempo di sviluppo e costi computazionali. Per questo motivo, un buon model non è quello più complesso possibile, ma quello che include solo ciò che è necessario per rispondere alle domande poste dallo studio.
+
+\subsection{Classification of Models}
+
+I modelli possono essere classificati secondo diverse dimensioni, a seconda delle loro caratteristiche fondamentali.
+
+Una prima distinzione è tra \textbf{physical models} e \textbf{mathematical models}. I physical models sono rappresentazioni tangibili, in scala, del system reale. I mathematical models descrivono invece il system attraverso relazioni logiche e quantitative, usando equazioni e simboli matematici. Nel contesto della simulazione, si lavora quasi esclusivamente con modelli matematici.
+
+I modelli possono inoltre essere \textbf{static} o \textbf{dynamic}. Un modello statico rappresenta il system in un singolo istante o senza una vera evoluzione temporale, come nel caso di alcune simulazioni Monte Carlo. Un modello dynamic, invece, rappresenta esplicitamente il cambiamento dello stato del system nel tempo ed è il tipo di modello più comune nella simulazione di processi reali.
+
+Un’ulteriore distinzione riguarda i modelli \textbf{deterministic} e \textbf{stochastic}. Nei modelli deterministici non sono presenti variabili casuali e, a parità di input, l’output è sempre identico. Nei modelli stocastici, invece, alcune componenti sono aleatorie e gli output sono quindi delle stime delle vere prestazioni del system.
+
+Infine, i modelli possono essere \textbf{discrete} o \textbf{continuous}. Nei modelli discreti lo stato del system cambia solo in corrispondenza di istanti discreti nel tempo, mentre nei modelli continui lo stato evolve in modo continuo. Non esiste una corrispondenza rigida tra system e model: un system continuo può essere modellato in modo discreto e viceversa, in funzione degli obiettivi dello studio.
+
+\subsection{Models and Simulation}
+
+Nel processo di simulazione, il model occupa una posizione centrale. Si parte da un system reale, che viene approssimato tramite un model; il model viene poi utilizzato per generare una simulazione, ovvero un’“artificial history” del system. Le conclusioni tratte dalla simulazione dipendono interamente dalla qualità del model.
+
+Se il model non è appropriato o non è validato, la simulazione produrrà risultati fuorvianti. In altre parole, una simulazione non può mai compensare un cattivo modello: risultati precisi ottenuti da un modello sbagliato portano a decisioni sbagliate. Per questo motivo, la costruzione e la validazione del model sono tra le fasi più critiche di qualsiasi studio di simulazione.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/L4.png}
+    \label{fig:student_markov_chain}
+\end{figure}
+
+\section{What is a Discrete-Event Simulation (D.E.S.)}
+
+A Discrete-Event Simulation (DES) is a specific class of simulation models used to represent systems that evolve over time through the occurrence of discrete events. In this framework, the state of the system does not change continuously, but only at distinct points in time, when specific events occur.
+
+Formally, a discrete-event simulation models a system whose state variables change instantaneously at separate points in time. These points in time are called \emph{events}. Each event corresponds to a meaningful occurrence in the system, such as the arrival of an entity, the start of a service, or the completion of an activity. When an event occurs, the state of the system may change as a consequence.
+
+Unlike analytical models, DES does not aim to solve equations analytically. Instead, it relies on numerical methods and computational procedures. Models are not \emph{solved}, but rather \emph{run}. By executing the simulation model, an artificial history of the system is generated, and observations are collected over simulated time. These observations are then analysed to obtain estimates of the true performance measures of the real system.
+
+\subsection{Example: Single-Server Queue}
+
+To illustrate the concept of discrete-event simulation, consider a simple service system with a single server, such as a one-person barbershop, a bank teller, or an information desk. The objective of the study is to estimate the expected average delay experienced by customers waiting in line. The delay is defined as the time interval between the arrival of a customer and the start of service.
+
+The system is described through a set of state variables, such as the status of the server (idle or busy), the queue length, and the arrival times of customers. The evolution of the system is driven by events. In this example, three types of events are sufficient to fully capture the system dynamics: the \textbf{arrival} of a customer, the \textbf{start of service}, and the \textbf{departure} of a customer, which coincides with the completion of service. Each of these events may modify the system state when it occurs.
+
+This example highlights the key characteristics of DES: state changes occur only at event times, and the system dynamics are fully determined by the sequence and timing of events.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/L5.png}
+    \label{fig:student_markov_chain}
+\end{figure}
+\subsection{Steps in a Simulation Study}
+
+A discrete-event simulation study follows a structured process, which can be divided into four main phases: 
+\begin{compactitemize}
+    \item \textbf{Discovery}
+    \item \textbf{Model Building}
+    \item \textbf{Run}
+    \item \textbf{Implementation}
+\end{compactitemize}
+The first phase is the discovery and orientation phase. This phase begins with problem formulation. The problem must be clearly understood before any modelling effort starts. A common mistake at this stage is developing a solution without a well-defined problem. Along with problem formulation, the objectives of the study are defined and an overall project plan is established. The objectives specify which questions the simulation is expected to answer, while the project plan addresses practical aspects such as time constraints, costs, and required resources.
+
+The second phase is the model building phase, which is the core of the simulation study. It starts with model conceptualization, where the essential features of the system are identified and translated into a conceptual model. This involves selecting the basic assumptions that characterise the system and deciding which elements are relevant for the study. Model construction is as much an art as it is a science: a common practice is to start with a simple model and progressively introduce complexity, ensuring that each added detail contributes useful information.
+\begin{wrapfigure}{r}{0.6\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/L6.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Data collection is tightly coupled with model building. As the model evolves, different types and levels of input data may be required. Because data collection can be time-consuming and expensive, it should start early and proceed in parallel with model development. Once the conceptual model and data are available, the model is translated into a software implementation. In this course, this translation is performed using Python and the SimPy library.
+
+A crucial part of the model building phase is verification and validation. Model verification answers the question: “Is the model implemented correctly?” It focuses on whether the code faithfully represents the conceptual model and behaves as intended. Model validation, instead, addresses a deeper question: “Does the model accurately represent the real system?” Validation is achieved through calibration and comparison between simulated outputs and observed system behaviour. Discrepancies are not necessarily failures; they often provide valuable insight into the system and guide improvements to the model. This is the most critical step of the entire simulation process: an invalid model inevitably leads to invalid decisions, regardless of how well the simulation is executed.
+
+The third phase is the run phase. At this stage, the validated model is used to perform experiments. An experimental design is defined, specifying the decision alternatives to be evaluated. For each alternative, key choices must be made, such as the length of the simulation run, the presence and duration of a warm-up period, and the number of independent replications. The objective is to obtain unbiased performance estimates with sufficiently low variance.
+
+The final phase is the implementation phase. This includes documentation and reporting, which ensure that the model and results are understandable, reproducible, and reusable in the future. Clear documentation also supports future modifications and extensions of the model. Implementation refers to the actual adoption of a selected alternative in the real system. The success of this phase depends entirely on the quality of all previous steps: a well-defined problem, a valid model, and a rigorous experimental analysis.
+
+In summary, a discrete-event simulation is a powerful and flexible tool for analysing complex dynamic systems. However, its effectiveness relies on a disciplined modelling process, careful validation, and a clear understanding of the limits and assumptions underlying the model.

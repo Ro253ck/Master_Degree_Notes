@@ -1,7 +1,7 @@
 \chapter{Value Function Approximation}
 
-\section{Introduction}
-
+\section{Introduction and Motivation}
+\subsection{Introduction}
 Nelle lezioni precedenti abbiamo rappresentato le funzioni valore tramite una tabella di lookup:  
 ogni stato $s$ (oppure ogni coppia $(s,a)$) possiede un proprio valore memorizzato.  
 Questo approccio è semplice ma non scala a MDP di grandi dimensioni, poiché:
@@ -22,7 +22,7 @@ Si ricorre quindi a una \textbf{funzione approssimante parametrica} che rapprese
 
 L’obiettivo è generalizzare il più possibile dagli stati osservati a quelli non ancora visitati.
 
-\section{Large-Scale Reinforcement Learning}
+\subsection{Large-Scale Reinforcement Learning}
 
 Il Reinforcement Learning viene applicato a domini ad alta dimensionalità, quali:
 
@@ -50,8 +50,8 @@ A differenza del supervised learning, i dati generati da un agente RL presentano
 Queste caratteristiche causano problemi ai metodi basati sul gradiente.  
 Quando i dati non sono i.i.d., la stima del gradiente può diventare instabile: le direzioni di discesa successive non sono coerenti e possono produrre oscillazioni o divergenza.  
 Questo fenomeno è particolarmente evidente con approssimatori non lineari, ed è una delle motivazioni principali per cui si introducono tecniche come replay buffer, target networks e metodi di controllo della varianza.
-
-\section{Gradient Descent (Recap)}
+\section{Gradient-Based Function Approximation}
+\subsection{Gradient Descent (Recap)}
 
 Dato un obiettivo differenziabile $J(\mathbf{w})$, il suo gradiente è:
 
@@ -172,8 +172,9 @@ In questo caso, il vettore $\mathbf{w}$ contiene direttamente i valori degli sta
 \]
 
 Sebbene non scalabile, questa rappresentazione costituisce il caso di riferimento e il punto di partenza concettuale per metodi di feature engineering più avanzati.
+\section{Prediction with Function Approximation}
 
-\section{Monte Carlo and TD Learning with Value Function Approximation}
+\subsection{Monte Carlo and TD Learning with Value Function Approximation}
 
 In un contesto di Reinforcement Learning non è disponibile la funzione valore vera $v^\pi(s)$: 
 l’agente riceve solo ricompense e deve quindi costruire un \textit{target di apprendimento} a partire dall’esperienza.  
@@ -301,8 +302,8 @@ L’aggiornamento dei parametri è:
 \]
 
 Il backward view è quello comunemente usato in implementazione, poiché non richiede di attendere la fine dell’episodio né di memorizzare return multipli.
-
-\section{Action-Value Function Approximation}
+\section{Action-Value Function Approximation and Control}
+\subsection{Action-Value Function Approximation}
 
 L’obiettivo non è solo approssimare la funzione valore $v^\pi(s)$, ma anche la funzione d'azione:
 
@@ -332,7 +333,7 @@ Lo stimatore stocastico del gradiente fornisce l’aggiornamento:
 
 Poiché $q^\pi(s,a)$ non è osservabile direttamente, nei metodi RL questo valore viene sostituito da target appropriati (Monte Carlo, TD, $\lambda$-return).
 
-\section{Linear Action-Value Function Approximation}
+\subsection{Linear Action-Value Function Approximation}
 
 Per rappresentare la funzione d'azione tramite un approssimatore lineare, si introducono feature congiunte stato-azione:
 
@@ -369,12 +370,12 @@ L’aggiornamento con stochastic gradient descent diventa:
 \mathbf{x}(S_t,A_t).
 \]
 
-\section{Incremental Control Algorithms}
+\subsection{Incremental Control Algorithms}
 
 Analogamente alla policy evaluation, per l’apprendimento della funzione d'azione $q^\pi$ occorre sostituire a $q^\pi(S_t,A_t)$ un target ottenuto dall’esperienza.  
 A seconda del metodo, si utilizzano return Monte Carlo, target TD, oppure $\lambda$-return.
 
-\subsection{Monte Carlo Control}
+\subsubsection{Monte Carlo Control}
 
 Nel caso MC, il target è il return:
 
@@ -391,7 +392,7 @@ L’aggiornamento diventa:
 \nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}).
 \]
 
-\subsection{TD(0) Control}
+\subsubsection{TD(0) Control}
 
 Il target TD(0) per la funzione d'azione è:
 
@@ -425,7 +426,7 @@ l’aggiornamento si scrive:
 \Delta \mathbf{w} = \alpha \, \delta_t \, \nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}).
 \]
 
-\subsection{TD($\lambda$) Control}
+\subsubsection{TD($\lambda$) Control}
 
 Per TD($\lambda$), il target è l’action-value $\lambda$-return:
 
@@ -442,7 +443,7 @@ L’aggiornamento forward view è:
 \nabla_{\mathbf{w}} \hat{q}(S_t,A_t,\mathbf{w}).
 \]
 
-\subsection{Backward View TD($\lambda$)}
+\subsubsection{Backward View TD($\lambda$)}
 
 La forma backward view introduce le eligibility traces:
 
@@ -476,8 +477,9 @@ L’aggiornamento dei parametri è:
 
 Questo metodo è equivalente al forward view ma molto più efficiente computazionalmente.
 
+\section{Stability, Convergence and Batch Methods}
 
-\section{Convergence of Prediction Algorithms}
+\subsection{Convergence of Prediction Algorithms}
 
 Nel caso di policy evaluation con funzione valore approssimata, la convergenza dei vari algoritmi dipende da:
 
@@ -497,7 +499,7 @@ In generale:
 
 Nelle slide, la notazione ``$x$'' indica proprio i casi in cui \textbf{non esistono garanzie teoriche di convergenza}, anche se l’algoritmo può comportarsi bene empiricamente.
 
-\section{Gradient TD Learning}
+\subsection{Gradient TD Learning}
 
 Gli algoritmi TD standard (come TD(0), TD($\lambda$)) non corrispondono alla discesa del gradiente di una funzione obiettivo esplicita.  
 In particolare, l’aggiornamento TD:
@@ -523,7 +525,7 @@ Gli algoritmi di \textbf{Gradient TD} sono stati introdotti proprio per risolver
 essi approssimano la vera discesa del gradiente di una misura di errore ben definita (ad esempio la \emph{projected Bellman error}), introducendo pesi ausiliari e aggiornamenti specificamente progettati.  
 In questo modo recuperano garanzie di convergenza in contesti in cui TD standard può divergere.
 
-\section{Convergence of Control Algorithms}
+\subsection{Convergence of Control Algorithms}
 
 Per il controllo (apprendimento di una policy ottima), la situazione è ancora più delicata:
 
@@ -535,7 +537,7 @@ Per il controllo (apprendimento di una policy ottima), la situazione è ancora p
 
 Per questo motivo, la progettazione di algoritmi di controllo stabili con funzione approssimata è un’area di ricerca attiva.
 
-\section{Batch Reinforcement Learning}
+\subsection{Batch Reinforcement Learning}
 
 Gli algoritmi incrementali a gradient descent aggiornano $\mathbf{w}$ passo dopo passo durante l’interazione.  
 Questi metodi sono semplici da implementare, ma \textbf{poco sample-efficient}: ogni transizione viene utilizzata una sola volta e poi scartata.
@@ -549,7 +551,7 @@ I metodi \textbf{batch} hanno una prospettiva diversa:
 
 In altre parole, dato un insieme di coppie \texttt{<stato, target>} ottenute dall’esperienza, si cerca la funzione $v(s,\mathbf{w})$ che \textbf{meglio fitta} questi dati nel senso dei minimi quadrati.
 
-\section{Least Squares Prediction}
+\subsection{Least Squares Prediction}
 
 Supponiamo di avere un approssimatore $ \hat{v}(s,\mathbf{w}) \approx v^\pi(s)$ e un dataset di esperienza:
 
@@ -610,7 +612,7 @@ L’idea centrale è che l’experience replay:
     \item stabilizza l’addestramento della funzione approssimante.
 \end{compactitemize}
 
-\section{Experience Replay in Deep Q-Networks (DQN)}
+\subsection{Experience Replay in Deep Q-Networks (DQN)}
 
 Nel caso delle Deep Q-Networks (DQN), l’esperienza replay viene combinata con l’uso di \textbf{Q-target fissi} per stabilizzare l’addestramento.
 
