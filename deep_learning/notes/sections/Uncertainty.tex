@@ -356,4 +356,188 @@ The \textbf{Benefits} of the Mont-Carlo Dropout are:
     \item Provides a practical approximation to Bayesian uncertainty without training multiple deterministic models (as in Deep Ensembles).
 \end{compactitemize}
 
-\section{Reliable Uncertainty Measure}
+\section{Reliable Uncertainty Measures}
+
+\subsection{Confidence from the Predicted Probability}
+
+A very common and simple approach to estimate how confident a neural network is about a prediction is to look at the highest output of the Softmax layer.
+Given a classification problem with $K$ classes, the network produces a vector of predicted probabilities
+\[
+\mathbf{p}(x) = [p_1(x), p_2(x), \dots, p_K(x)],
+\]
+where $p_k(x)$ represents the predicted probability that the input $x$ belongs to class $k$.
+
+For instance, consider the prediction
+\[
+[0.05,\, 0.10,\, 0.80,\, 0.05].
+\]
+The highest value is $0.80$, corresponding to class 3. In this case, we would say that the model is \emph{80\% confident} that the input belongs to class 3.
+
+This notion of confidence is intuitive. If the maximum predicted probability is close to $1$, the model appears very certain about its decision. Conversely, if the maximum probability is low, for example around $0.4$ or $0.5$, the prediction is ambiguous and several classes compete with similar scores.
+
+However, this interpretation relies on the implicit assumption that Softmax outputs represent meaningful probabilities. Unfortunately, this assumption is often violated.
+
+\subsection{Miscalibration}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/V1.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+The main limitation of using the maximum Softmax probability as a confidence estimate is that this quantity does not necessarily reflect the true probability of making a correct prediction.
+
+Given a dataset $\{x_i\}_{i=1}^N$, the confidence of a model on a single input $x_i$ is typically defined as
+\[
+\mathrm{conf}(x_i) = \max_{k \in \{1,\dots,K\}} p_\theta(y = k \mid x_i),
+\]
+that is, the maximum predicted probability among all classes.
+
+At the dataset level, model confidence is often summarized by the \emph{average confidence}, defined as
+\[
+\frac{1}{N} \sum_{i=1}^{N} \max_{k \in \{1,\dots,K\}} p_\theta(y = k \mid x_i).
+\]
+
+If the model were perfectly calibrated, this average confidence would closely match the empirical accuracy. In practice, however, modern neural networks frequently violate this property. The model may assign very high confidence scores to its predictions even when a significant fraction of them are incorrect.
+
+This discrepancy shows that Softmax outputs should not be interpreted as true posterior probabilities. Instead, they represent normalized scores whose scale is influenced by architectural choices and training procedures. As a result, relying solely on the maximum predicted probability can lead to misleading uncertainty estimates, especially in deep and overparameterized models.
+
+This behavior is largely a consequence of how neural networks are trained.
+In supervised classification, the ground-truth label is typically encoded as a one-hot vector, for example
+\[
+[0,\,0,\,1,\,0,\,0],
+\]
+where the correct class is assigned probability $1$ and all the others probability $0$.
+
+During training, the network is optimized to match this target distribution, usually by minimizing the cross-entropy loss. As a result, the model is explicitly encouraged to concentrate as much probability mass as possible on a single class, pushing the maximum predicted probability toward $1$.
+
+However, this one-hot target does not represent the true underlying uncertainty of the data-generating process. In many cases, the real posterior distribution over classes is much softer, but the network is never exposed to this information. Consequently, the model learns to approximate an artificially sharp distribution, which explains why high confidence values are often produced even when the prediction is incorrect.
+
+This mismatch between the learned confidence scores and the true likelihood of correctness directly leads to miscalibration.
+
+This effect is further amplified by model complexity.
+Smaller and simpler networks tend to produce smoother and more conservative confidence estimates, which are often more reliable. Their confidence values are less extreme and closer to the empirical accuracy, making them, in practice, more \emph{honest} about their uncertainty.
+
+In contrast, large and highly overparameterized architectures, such as very deep models, have sufficient capacity not only to fit the training data correctly but also to push the predicted probabilities toward extreme values. In this regime, the network learns to strongly commit to its predictions, assigning high confidence scores even in situations where uncertainty should be present.
+
+This behavior can be interpreted as a form of overfitting at the level of confidence rather than accuracy. While the overall classification performance may improve, the predicted probability distribution becomes increasingly sharp and less representative of the true underlying uncertainty. As a consequence, the model appears highly confident even when it is wrong.
+
+For this reason, older or smaller architectures often exhibit better calibration: not because they are more accurate, but because their limited capacity prevents them from producing overly confident predictions. Their confidence estimates are smoother, more moderate, and therefore more aligned with the true likelihood of correctness.
+
+\subsubsection{A Calibration Question}
+
+Consider the following question. Suppose we collect all the samples in a dataset for which the model’s confidence, defined as the maximum predicted probability, lies in the interval $[0.45, 0.55]$, that is, close to $0.5$.
+
+If we take 100 such samples, how many of them should we expect to be classified correctly?
+
+The answer is \emph{approximately 50}, but this holds if and only if the model is perfectly calibrated. In a well-calibrated model, predictions with confidence $c$ are correct approximately $c \times 100\%$ of the time. When this property does not hold, the confidence values cannot be trusted as measures of uncertainty.
+
+\subsection{Reliability Diagrams}
+
+Reliability diagrams are a standard tool used to visualize and evaluate the calibration of a model. The idea is to group predictions into confidence bins, for example $[0.0,0.1], [0.1,0.2], \dots, [0.9,1.0]$, according to their maximum predicted probability.
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/V2.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+For each bin, two quantities are computed: the average confidence of the samples in the bin and the empirical accuracy, defined as the fraction of correctly predicted samples. These values are then plotted against each other.
+
+If a model is perfectly calibrated, the points in the reliability diagram lie on the diagonal line $y=x$. Any deviation from this diagonal indicates miscalibration. When the accuracy is consistently below the confidence, the model is overconfident; when it is above, the model is underconfident.
+
+Empirical results on datasets such as CIFAR-100 show that deep architectures like ResNet (right in the image above), despite achieving significantly higher accuracy than older models such as LeNet (left in the image above), are often much more miscalibrated. In contrast, simpler and older networks tend to produce confidence estimates that better reflect their true correctness likelihood, even if their overall accuracy is lower.
+
+\subsection{Expected Calibration Error (ECE)}
+
+While reliability diagrams provide an intuitive and visual way to assess calibration, it is often useful to summarize miscalibration with a single numerical metric. The most commonly used measure for this purpose is the \emph{Expected Calibration Error} (ECE).
+
+The goal of ECE is to quantify how far the model’s predicted confidence is from its actual empirical accuracy. To compute ECE, predictions are first partitioned into $M$ confidence bins, typically obtained by dividing the interval $[0,1]$ into equally spaced ranges such as $[0.0,0.1], [0.1,0.2], \dots, [0.9,1.0]$. Each sample is assigned to a bin based on its predicted confidence, defined as the maximum Softmax probability.
+
+For each bin $B_m$, two quantities are computed. The accuracy of the bin is defined as
+\[
+\mathrm{acc}(B_m) = \frac{1}{|B_m|} \sum_{x_i \in B_m} \mathbb{I}\{\hat{y}_i = y_i\},
+\]
+that is, the fraction of correctly classified samples in the bin. The average confidence of the bin is defined as
+\[
+\mathrm{conf}(B_m) = \frac{1}{|B_m|} \sum_{x_i \in B_m} \max_k p_\theta(y = k \mid x_i).
+\]
+
+The Expected Calibration Error is then defined as a weighted average of the absolute difference between accuracy and confidence across all bins:
+\[
+\mathrm{ECE} = \sum_{m=1}^{M} \frac{|B_m|}{n} \, \big| \mathrm{acc}(B_m) - \mathrm{conf}(B_m) \big|,
+\]
+where $n$ is the total number of samples.
+
+An ECE value equal to zero corresponds to perfect calibration, meaning that for every confidence level the predicted confidence matches the empirical accuracy. Larger ECE values indicate increasing degrees of miscalibration. Intuitively, ECE measures the average vertical distance between the reliability diagram and the diagonal line representing ideal calibration.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/U9.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\subsection{Temperature Scaling}
+
+Temperature scaling is a simple yet effective post-processing technique used to improve the calibration of a trained classifier without affecting its predictive accuracy. The key idea is to modify the confidence of the predictions while leaving the predicted class unchanged.
+
+Let $\mathbf{z} = (z_1, \dots, z_K)$ denote the logits produced by the network before the Softmax layer. Temperature scaling introduces a single scalar parameter $T > 0$, called the \emph{temperature}, and rescales the logits before applying Softmax:
+\[
+p_\theta(y = k \mid x) =
+\frac{\exp(z_k / T)}{\sum_{j=1}^{K} \exp(z_j / T)}.
+\]
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/U10.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+When $T = 1$, the standard Softmax is recovered. For $T > 1$, the logits are divided by a value greater than one, resulting in a softer probability distribution. In this case, the maximum predicted probability is reduced, leading to lower and more conservative confidence scores. Importantly, the ordering of the logits is preserved, so the predicted class does not change.
+
+The temperature parameter is learned after training, using a held-out validation set. Specifically, $T$ is optimized by minimizing the negative log-likelihood of the validation data, while keeping all model parameters fixed. As a consequence, temperature scaling does not modify the classifier itself but only rescales the confidence values of its predictions.
+
+An important advantage of temperature scaling is that it improves calibration without altering the model’s accuracy. Since the predicted labels remain identical, performance metrics such as accuracy are unchanged, while the predicted probabilities become more aligned with the empirical correctness likelihood.
+
+
+\subsection{Brier Score}
+
+The Brier Score is a commonly used metric to evaluate the quality of probabilistic predictions in both binary and multi-class classification settings. Unlike accuracy, which only evaluates whether the predicted class is correct, the Brier Score explicitly measures how close the predicted probability distribution is to the true target distribution.
+
+Formally, for a dataset of $N$ examples and $K$ classes, the Brier Score is defined as
+\[
+\mathrm{BS} = \frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K}
+\big( p_{i,k} - y_{i,k} \big)^2,
+\]
+where $p_{i,k}$ denotes the probability predicted by the model for class $k$ on example $i$, and $y_{i,k}$ is the corresponding one-hot encoded ground-truth label.
+
+The Brier Score computes the mean squared difference between predicted probabilities and the true outcomes. Intuitively, it penalizes both incorrect predictions and poorly calibrated confidence estimates. Confident but wrong predictions result in a large penalty, while well-calibrated and accurate probability estimates yield low scores.
+
+Lower Brier Score values indicate better probabilistic predictions. In the binary classification setting, the score ranges from $0$, corresponding to perfect predictions, to $1$, corresponding to maximally incorrect and overconfident predictions. In the multi-class case, the range depends on the number of classes but the interpretation remains the same.
+
+An important property of the Brier Score is that it is a \emph{proper scoring rule}. This means that the score is minimized when the predicted probabilities match the true underlying data distribution, thereby encouraging honest and well-calibrated probability estimates. Moreover, the Brier Score is sensitive not only to calibration but also to refinement, capturing both how accurate and how sharp the predicted probability distributions are.
+
+\subsection{Out-of-Distribution Detection}
+
+Out-of-distribution (OOD) detection aims at identifying inputs that differ significantly from the data distribution used during training. The objective is to detect these inputs at test time so that the model can abstain from making a prediction or trigger a fallback mechanism.
+
+This problem is particularly important because deep neural networks are known to produce highly confident predictions even for inputs that are completely unrelated to the training data, such as random noise or samples coming from a different domain. In safety-critical applications, including medical diagnosis and autonomous driving, such overconfident behavior on OOD inputs can lead to severe and potentially dangerous errors.
+
+OOD detection therefore complements uncertainty estimation and calibration: even a well-calibrated model on in-distribution data may behave unpredictably when evaluated far outside its training support.
+
+\subsubsection{ODIN}
+
+ODIN is a post-hoc method for OOD detection that operates on a trained classifier, without requiring retraining or architectural changes. Its goal is to increase the separation between in-distribution (ID) and out-of-distribution samples by exploiting differences in how the model reacts to small input perturbations.
+
+The method combines two key components. First, temperature scaling is applied to the logits, using a temperature value $T > 1$ to soften the Softmax output. This reduces overconfidence and amplifies relative differences in confidence between ID and OOD inputs.
+
+Second, a small, carefully chosen perturbation is added to the input. Specifically, the input $x$ is modified as
+\[
+\tilde{x} = x + \epsilon \, \mathrm{sign} \left( \nabla_x \log p(y_{\max} \mid x; T) \right),
+\]
+where $y_{\max}$ is the class with maximum predicted probability under temperature-scaled Softmax, and $\epsilon$ controls the perturbation magnitude.
+
+This step resembles an adversarial update, but with the opposite objective: instead of reducing confidence, the perturbation is designed to increase the model’s confidence in its current prediction.
+
+The key intuition behind ODIN is that this perturbation has a different effect on ID and OOD samples. For in-distribution inputs, the perturbation tends to align with meaningful features learned during training, producing a noticeable increase in the maximum Softmax probability. In contrast, OOD inputs typically lie in regions of the input space that the model does not understand well. As a consequence, even after the perturbation, their logits do not align strongly with any learned pattern, and the Softmax confidence increases only marginally.
+
+At test time, both temperature scaling and input perturbation are applied, and the maximum Softmax probability computed on $\tilde{x}$ is used as an OOD score. By comparing this score to a predefined threshold, the model can flag inputs that are likely to be out-of-distribution. The combined effect of temperature scaling and input perturbation widens the confidence gap between ID and OOD samples, making them easier to separate.
