@@ -1,0 +1,451 @@
+\chapter{Model-Freee e Model-Based RL}
+
+Nelle lezioni precedenti abbiamo considerato esclusivamente approcci di \textbf{Model-Free Reinforcement Learning}, in cui l’agente apprende direttamente dall’esperienza senza costruire una rappresentazione esplicita dell’ambiente.  
+In particolare, abbiamo visto come sia possibile:
+imparare direttamente una \textbf{policy} oppure una \textbf{value function} a partire dall'esperienza.
+
+In questo capitolo introduciamo un paradigma differente: il \textbf{Model-Based Reinforcement Learning}.  
+L’idea chiave è apprendere esplicitamente un \textbf{modello dell’ambiente} a partire dai dati osservati e utilizzare tale modello per \textbf{planning}, cioè per derivare una value function o una policy.
+
+In questo modo, learning e planning vengono integrati all’interno di un’unica architettura decisionale.
+
+\section{Model-Free vs Model-Based Reinforcement Learning}
+
+Nel \textbf{Model-Free RL} l’agente:
+non dispone di un modello dell’ambiente,
+ma apprende direttamente una value function e/o una policy a partire dalle transizioni osservate.
+
+Nel \textbf{Model-Based RL}, invece, l’agente:
+\begin{compactitemize}
+    \item apprende un modello esplicito delle dinamiche;
+    \item utilizza tale modello per pianificare o simulare l’evoluzione futura;
+    \item costruisce value function e policy a partire dal modello.
+\end{compactitemize}
+
+\subsection{Advantages and Disadvantages}
+
+Il Model-Based RL presenta diversi vantaggi:
+è possibile apprendere il modello tramite tecniche di supervised learning;
+è possibile quantificare l’incertezza sul modello;
+il planning può ridurre notevolmente il numero di interazioni reali necessarie.
+
+Tuttavia presenta anche degli svantaggi:
+l’apprendimento avviene in due fasi (model learning e planning);
+gli errori di approssimazione si propagano, poiché il valore finale dipende sia dalla qualità del modello sia dalla qualità del planning.
+
+\section{What is a Model in Reinforcement Learning}
+
+Formalmente, un modello $\mathcal{M}$ è una rappresentazione dell’MDP
+$\langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R} \rangle$,
+parametrizzata da un insieme di parametri $\eta$.
+
+Assumiamo che lo spazio degli stati $\mathcal{S}$ e delle azioni $\mathcal{A}$ siano noti.
+Il modello approssima quindi:
+\[
+\mathcal{M}_\eta = \langle \mathcal{P}_\eta, \mathcal{R}_\eta \rangle,
+\qquad
+\mathcal{P}_\eta \approx \mathcal{P}, \;
+\mathcal{R}_\eta \approx \mathcal{R}.
+\]
+
+In particolare:
+\[
+S_{t+1} \sim \mathcal{P}_\eta(\cdot | S_t, A_t),
+\qquad
+R_{t+1} = \mathcal{R}_\eta(S_t, A_t).
+\]
+
+Tipicamente si assume indipendenza condizionata tra transizioni e reward:
+\[
+\mathbb{P}(S_{t+1}, R_{t+1} | S_t, A_t)
+=
+\mathbb{P}(S_{t+1} | S_t, A_t)\,
+\mathbb{P}(R_{t+1} | S_t, A_t).
+\]
+
+\subsection{Model Learning as Supervised Learning}
+
+L’obiettivo del \textbf{model learning} è stimare i parametri $\eta$ a partire dall’esperienza osservata:
+\[
+\{ S_1, A_1, R_2, S_2, \dots, S_T \}.
+\]
+
+Questo problema è riconducibile al supervised learning:
+\[
+(S_t, A_t) \longrightarrow (R_{t+1}, S_{t+1}).
+\]
+
+In particolare:
+l’apprendimento di $(S,A) \rightarrow R$ è un problema di regressione;
+l’apprendimento di $(S,A) \rightarrow S'$ è un problema di density estimation.
+
+La procedura consiste quindi nello scegliere una funzione di loss (MSE, KL divergence, ecc.)
+e nel trovare i parametri $\eta$ che minimizzano l’errore empirico sul dataset di esperienza.
+
+\subsection{Examples of Models}
+
+Esistono molte possibili scelte di modello, con diverso livello di complessità:
+\begin{compactitemize}
+    \item table lookup model;
+    \item linear expectation model;
+    \item linear Gaussian model;
+    \item Gaussian process model;
+    \item deep neural network model.
+\end{compactitemize}
+
+La scelta dipende dalla dimensione dello spazio degli stati, dalla disponibilità di dati e dal trade-off tra bias e varianza.
+
+\subsection{Table Lookup Model}
+
+Nel caso tabellare, il modello consiste in una stima esplicita delle probabilità di transizione e delle ricompense.
+Le probabilità sono ottenute contando le occorrenze:
+\[
+\mathcal{P}^\circ(s,a,s')
+=
+\frac{1}{N(s,a)}
+\sum_{t=1}^{T}
+\mathbb{1}(S_t=s, A_t=a, S_{t+1}=s').
+\]
+
+Analogamente, il reward atteso viene stimato come media empirica:
+\[
+\mathcal{R}^\circ(s,a)
+=
+\frac{1}{N(s,a)}
+\sum_{t=1}^{T}
+\mathbb{1}(S_t=s, A_t=a)\,R_{t+1}.
+\]
+
+In alternativa, si può mantenere una memoria non-parametrica delle transizioni osservate
+e campionare direttamente tuple $\langle s,a,r,s' \rangle$ dal dataset.
+
+\subsection{Planning with a Learned Model}
+
+Una volta appreso un modello $\mathcal{M}_\eta$, possiamo risolvere l’MDP approssimato:
+\[
+\langle \mathcal{S}, \mathcal{A}, \mathcal{P}_\eta, \mathcal{R}_\eta \rangle.
+\]
+
+Questo può essere fatto utilizzando qualunque algoritmo di planning, tra cui:
+value iteration, policy iteration, oppure tree search.
+
+Il risultato del planning è una value function o una policy definita rispetto al modello appreso.
+
+\subsection{Sample-Based Planning}
+
+Un’alternativa particolarmente efficace al planning esatto è il \textbf{sample-based planning}.
+In questo approccio il modello non viene usato per calcolare aspettative, ma solo per generare campioni:
+
+\[
+S_{t+1} \sim \mathcal{P}_\eta(\cdot | S_t, A_t),
+\qquad
+R_{t+1} \sim \mathcal{R}_\eta(\cdot | S_t, A_t).
+\]
+
+Le transizioni simulate sono poi trattate come esperienza reale,
+e su di esse si applicano algoritmi model-free standard come:
+Monte Carlo control, SARSA, Q-learning.
+
+Questo approccio unisce la flessibilità del model-free RL
+con l’efficienza campionaria del model-based RL,
+ed è alla base di molte architetture moderne che integrano learning, planning e simulazione.
+
+\section{Planning with an Inaccurate Model}
+
+Nel Model-Based Reinforcement Learning il planning viene effettuato utilizzando un modello appreso
+\[
+\mathcal{M}_\eta = \langle \mathcal{P}_\eta, \mathcal{R}_\eta \rangle,
+\]
+che in generale rappresenta solo un’approssimazione dell’MDP reale
+\[
+\langle \mathcal{P}, \mathcal{R} \rangle.
+\]
+
+Quando il modello è imperfetto, ovvero
+\[
+\langle \mathcal{P}_\eta, \mathcal{R}_\eta \rangle \neq \langle \mathcal{P}, \mathcal{R} \rangle,
+\]
+anche il risultato del planning sarà inevitabilmente limitato.  
+Infatti, il planning produce una policy \emph{ottima per l’MDP approssimato}:
+\[
+\langle \mathcal{S}, \mathcal{A}, \mathcal{P}_\eta, \mathcal{R}_\eta \rangle,
+\]
+ma tale policy può risultare subottimale rispetto all’ambiente reale.
+
+Questo porta a un principio fondamentale:
+\begin{quote}
+\textbf{Model-based RL is only as good as the estimated model.}
+\end{quote}
+
+Se il modello è inaccurato, il planning razionale su quel modello porta comunque a decisioni sbagliate,
+poiché l’agente sta ottimizzando rispetto a una dinamica che non riflette correttamente la realtà.
+
+\subsection{Consequences of Model Inaccuracy}
+
+In presenza di errori di modellazione:
+\begin{compactitemize}
+    \item il planning può amplificare errori locali del modello;
+    \item una policy apparentemente ottima nel modello può avere performance scarse nel mondo reale;
+    \item migliorare il planning non migliora la performance se il modello è sbagliato.
+\end{compactitemize}
+
+Il problema non è il planning in sé, ma la discrepanza tra modello e ambiente.
+
+\subsection{Possible Remedies}
+
+Esistono due strategie principali per affrontare l’uso di modelli inaccurati.
+
+La prima consiste nel \textbf{ricorrere a metodi model-free} quando il modello risulta palesemente inaffidabile.  
+In questo caso l’agente ignora il modello e aggiorna direttamente value function o policy a partire dall’esperienza reale.
+
+La seconda strategia è più sofisticata: \textbf{ragionare esplicitamente sull’incertezza del modello}.  
+In un contesto bayesiano, invece di stimare un singolo modello, si mantiene una distribuzione sui modelli possibili,
+tenendo conto dell’incertezza dovuta a dati limitati.  
+In questo modo il planning può bilanciare sfruttamento e esplorazione in modo più robusto.
+
+\section{Real and Simulated Experience}
+
+Un’idea centrale del Model-Based RL moderno è l’utilizzo combinato di due sorgenti di esperienza.
+
+\subsection{Real Experience}
+
+La \textbf{real experience} proviene direttamente dall’interazione con l’ambiente reale,
+cioè dall’MDP vero:
+\[
+S' \sim \mathcal{P}(\cdot | S, A),
+\qquad
+R = \mathcal{R}(S, A).
+\]
+
+Questa esperienza è costosa (richiede interazione reale) ma perfettamente affidabile.
+
+\subsection{Simulated Experience}
+
+La \textbf{simulated experience} viene invece generata dal modello appreso:
+\[
+S' \sim \mathcal{P}_\eta(\cdot | S, A),
+\qquad
+R = \mathcal{R}_\eta(S, A).
+\]
+
+Questi campioni sono economici e potenzialmente illimitati, ma affetti da errori di modellazione.
+
+L’idea è sfruttare i punti di forza di entrambe: l’accuratezza dell’esperienza reale e l’efficienza campionaria di quella simulata.
+
+\section{Integrating Learning and Planning}
+
+Possiamo ora confrontare in modo sistematico tre paradigmi.
+
+\subsection{Model-Free Reinforcement Learning}
+
+Nel Model-Free RL:
+non viene costruito alcun modello dell’ambiente;
+l’agente apprende direttamente una value function e/o una policy dall’esperienza reale.
+
+Questo approccio è concettualmente semplice e robusto agli errori di modellazione,
+ma spesso richiede un grande numero di interazioni con l’ambiente.
+
+\subsection{Model-Based Reinforcement Learning}
+
+Nel Model-Based RL:
+l’agente apprende un modello dall’esperienza;
+utilizza il modello per effettuare planning;
+deriva value function e policy a partire dal modello.
+
+Questo approccio è più sample-efficient,
+ma fortemente dipendente dalla qualità del modello appreso.
+
+\subsection{Dyna: Learning and Planning Together}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/F1.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+L’architettura \textbf{Dyna} integra direttamente learning e planning.
+
+L’agente:
+\begin{compactitemize}
+    \item utilizza la real experience per aggiornare sia il modello sia la value function (o policy);
+    \item utilizza il modello per generare simulated experience;
+    \item applica algoritmi model-free sia su dati reali sia su dati simulati.
+\end{compactitemize}
+
+In questo modo:
+\begin{compactitemize}
+    \item l’esperienza reale mantiene il contatto con l’MDP vero;
+    \item l’esperienza simulata accelera l’apprendimento;
+    \item learning e planning avvengono in modo continuo, non in fasi separate.
+\end{compactitemize}
+
+Dyna rappresenta quindi un compromesso elegante tra Model-Free e Model-Based RL,
+ed è alla base di molte architetture moderne che integrano simulazione, apprendimento e decision making in tempo reale.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/F2.png}
+    \label{fig:student_markov_chain}
+\end{figure}
+
+
+\section{Simulation-Based Search}
+
+Nel contesto del model-based RL possiamo usare il modello non per risolvere tutto l’MDP,
+ma solo per decidere quale azione compiere \emph{adesso}, nello stato corrente $s_t$.
+Questa idea prende il nome di \textbf{simulation-based search}.
+
+Il principio è il seguente: invece di interagire con l’ambiente reale, generiamo
+episodi fittizi usando il modello $\mathcal{M}_\nu$ e una policy di simulazione $\pi$.
+Da questi episodi simulati stimiamo i valori delle azioni e scegliamo quella migliore.
+
+Formalmente, a partire da $s_t$ simuliamo $K$ episodi:
+\[
+\bigl\{\, s_t^k, A_t^k, R_{t+1}^k, \dots, S_T^k \,\bigr\}_{k=1}^K 
+\sim \mathcal{M}_\nu, \pi.
+\]
+
+Su questi $K$ episodi possiamo applicare algoritmi \emph{model-free} esattamente come
+se fossero esperienza reale. In pratica:
+
+\begin{compactitemize}
+    \item se applichiamo \textbf{Monte Carlo control} sugli episodi simulati otteniamo
+          un \emph{Monte Carlo search};
+    \item se applichiamo \textbf{Sarsa} (o altri metodi TD) otteniamo una forma di
+          \emph{TD search}.
+\end{compactitemize}
+
+Quindi: il modello serve solo a generare traiettorie, mentre l’aggiornamento dei valori
+rimane quello classico del RL model-free.
+
+\subsection{Simple Monte Carlo Search}
+
+Il \textbf{Simple Monte Carlo Search} è la versione più diretta di questa idea.
+
+Supponiamo di avere:
+\begin{compactitemize}
+    \item un modello $\mathcal{M}_\nu$;
+    \item una policy di simulazione $\pi$.
+\end{compactitemize}
+
+Siamo nello stato reale $s_t$ e dobbiamo scegliere l’azione $a_t$.
+
+Per \emph{ogni} azione possibile $a \in \mathcal{A}$:
+
+\begin{enumerate}
+    \item fissiamo la prima azione a $a$ e simuliamo $K$ episodi dal modello:
+    \[
+    \bigl\{\, s_t^k, a, R_{t+1}^k, S_{t+1}^k, A_{t+1}^k, \dots, S_T^k \,\bigr\}_{k=1}^K
+    \sim \mathcal{M}_\nu, \pi.
+    \]
+    La storia completa di ogni episodio è campionata congiuntamente dal modello
+    (per le transizioni e le ricompense) e dalla policy $\pi$ (per le azioni future).
+
+    \item per ciascun episodio calcoliamo il return a partire da $t$:
+    \[
+    G_t^k = R_{t+1}^k + \gamma R_{t+2}^k + \dots + \gamma^{T_k - t - 1} R_{T_k}^k.
+    \]
+
+    \item stimiamo il valore di $a$ in $s_t$ facendo la media dei return:
+    \[
+    Q(s_t,a)
+    =
+    \frac{1}{K} \sum_{k=1}^{K} G_t^k
+    \;\approx\;
+    q^\pi(s_t,a).
+    \]
+\end{enumerate}
+
+Alla fine scegliamo l’azione reale che massimizza questa stima:
+\[
+a_t = \arg\max_{a \in \mathcal{A}} Q(s_t,a).
+\]
+
+Osservazioni importanti:
+
+\begin{compactitemize}
+    \item si valutano solo le azioni nello \emph{stato radice} $s_t$;
+    \item gli stati successivi non vengono memorizzati né riutilizzati: ogni decisione
+          riparte da zero nel prossimo time-step.
+\end{compactitemize}
+
+\subsection{Monte Carlo Tree Search}
+
+La \textbf{Monte Carlo Tree Search (MCTS)} estende il Simple Monte Carlo Search
+costruendo esplicitamente un albero di ricerca e riutilizzando l’informazione
+su tutti gli stati visitati, non solo sulla radice.
+
+\subsubsection{Valutazione con MCTS}
+
+Dato un modello $\mathcal{M}_\nu$ e una policy di simulazione $\pi$, partiamo dallo
+stato reale $s_t$ e simuliamo ancora una volta $K$ episodi:
+
+\[
+\bigl\{\, s_t^k, A_t^k, R_{t+1}^k, S_{t+1}^k, A_{t+1}^k, \dots, S_T^k \,\bigr\}_{k=1}^K 
+\sim \mathcal{M}_\nu, \pi.
+\]
+
+Durante queste simulazioni:
+\begin{compactitemize}
+    \item costruiamo un albero che contiene tutti gli stati e le azioni visitati;
+    \item per ogni coppia $(s,a)$ contiamo quante volte è stata vista:
+          $N(s,a)$;
+    \item per ogni visita accumuliamo il return $G_u^k$ a partire dal tempo $u$
+          in cui la coppia $(S_u^k, A_u^k)$ è uguale a $(s,a)$.
+\end{compactitemize}
+
+Il valore stimato di $(s,a)$ è quindi:
+
+\[
+Q(s,a)
+=
+\frac{1}{N(s,a)}
+\sum_{k=1}^{K}
+\sum_{u=t}^{T_k}
+\mathbf{1}\bigl( S_u^k = s,\, A_u^k = a \bigr)\, G_u^k
+\;\approx\;
+q^\pi(s,a).
+\]
+
+Quando la ricerca termina, l’azione reale da eseguire è quella che massimizza
+$Q(s,a)$ nello stato radice:
+\[
+a_t = \arg\max_{a \in \mathcal{A}} Q(s_t,a).
+\]
+
+A differenza del Simple Monte Carlo Search, qui riusiamo i dati simulati per
+valutare \emph{tutti} gli stati del sotto-albero, non solo lo stato iniziale.
+
+\subsection{Simulazione e miglioramento della policy}
+
+In MCTS la policy di simulazione $\pi$ non è fissa: migliora man mano che
+si accumulano simulazioni. Ogni simulazione è divisa concettualmente in due fasi:
+
+\begin{compactitemize}
+    \item \textbf{fase in-tree}: finché ci si trova in nodi già presenti nell’albero,
+          si sceglie l’azione con una \emph{tree policy} (ad esempio $\epsilon$-greedy
+          su $Q(s,a)$), che bilancia esplorazione e sfruttamento;
+    \item \textbf{fase out-of-tree}: quando si arriva in uno stato nuovo, si espande
+          l’albero e da lì in poi si segue una \emph{default policy} più semplice,
+          tipicamente casuale.
+\end{compactitemize}
+
+Dopo ogni episodio simulato, i valori $Q(s,a)$ vengono aggiornati con Monte Carlo
+evaluation e la tree policy viene resa gradualmente più greedy rispetto a questi valori.
+In pratica stiamo applicando \textbf{Monte Carlo control} sull’esperienza
+generata dal modello; sotto condizioni opportune le stime convergono a:
+\[
+Q(S,A) \longrightarrow q^*(S,A)
+\]
+sull’albero esplorato.
+
+In sintesi:
+\begin{compactitemize}
+    \item Simple Monte Carlo Search valuta solo le azioni nello stato corrente;
+    \item Monte Carlo Tree Search costruisce e aggiorna un intero albero di ricerca,
+          riutilizzando la stessa esperienza simulata per molti stati e azioni.
+\end{compactitemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/F3.png}
+    \label{fig:student_markov_chain}
+\end{figure}
