@@ -20,181 +20,289 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \providecommand \oddpage@label [2]{}
 \babel@aux{english}{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {1}Model-Free prediction}{3}{chapter.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {1.1}Monte-Carlo}{3}{section.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.1}First-Visit Monte-Carlo}{4}{subsection.1.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.2}Every-Visit Monte-Carlo}{4}{subsection.1.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.3}Incremental Mean}{5}{subsection.1.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.4}Incremental Monte-Carlo Policy Evaluation}{5}{subsection.1.1.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.5}Running Mean in Non-Stationary Problems}{6}{subsection.1.1.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.2}Temporal-Difference Learning}{6}{section.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.1}From Monte Carlo to Temporal-Difference}{6}{subsection.1.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.2}TD(0)}{6}{subsection.1.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.3}Online Learning and Bootstrapping}{7}{subsection.1.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.4}Bias--Variance Trade-Off}{7}{subsection.1.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.5}Advantages and Disadvantages of MC vs TD}{7}{subsection.1.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Monte Carlo}{7}{section*.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Temporal-Difference}{8}{section*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.6}Batch Monte Carlo vs Batch TD}{8}{subsection.1.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.7}Certainty Equivalence}{8}{subsection.1.2.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.3}TD($\lambda $)}{9}{section.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}Introduction to Reinforcement Learning}{3}{section.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.1}Characteristics of Reinforcement Learning}{3}{subsection.1.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.2}Rewards and the Reward Hypothesis}{4}{subsection.1.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1.3}Sequential Decision Making and Long-term Planning}{4}{subsection.1.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces Interaction between agent and environment in reinforcement learning. At each time step $t$, the agent receives an observation $O_t$ and a scalar reward $R_t$, then executes an action $A_t$. The environment, in turn, receives the action $A_t$ and emits the next observation $O_{t+1}$ along with the reward $R_{t+1}$. The time index $t$ increments at each environment step, resulting in a continuous cycle of perception, action, and feedback that drives the agent's learning process.\relax }}{5}{figure.caption.2}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:TDlambda}{{\caption@xref {fig:TDlambda}{ on input line 375}}{9}{TD($\lambda $)}{figure.caption.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}$n$-step return}{9}{subsection.1.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}Media degli $n$-step return}{9}{subsection.1.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.3}Il $\lambda $-return}{10}{subsection.1.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.4}Forward e Backward View TD($\lambda $)}{10}{subsection.1.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.5}Eligibility Traces}{10}{subsection.1.3.5}\protected@file@percent }
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 529}}{11}{Eligibility Traces}{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.6}TD($\lambda $) e Monte Carlo}{11}{subsection.1.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.7}Generalizzazione del telescoping in TD($\lambda $)}{12}{subsection.1.3.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.8}Forward e Backward View di TD($\lambda $)}{12}{subsection.1.3.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.9}Equivalenza Offline e Online}{13}{subsection.1.3.9}\protected@file@percent }
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 610}}{13}{Equivalenza Offline e Online}{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}Value Function Approximation}{14}{chapter.2}\protected@file@percent }
+\newlabel{fig:rl_agent_environment}{{1.1}{5}{Interaction between agent and environment in reinforcement learning. At each time step $t$, the agent receives an observation $O_t$ and a scalar reward $R_t$, then executes an action $A_t$. The environment, in turn, receives the action $A_t$ and emits the next observation $O_{t+1}$ along with the reward $R_{t+1}$. The time index $t$ increments at each environment step, resulting in a continuous cycle of perception, action, and feedback that drives the agent's learning process.\relax }{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}History and State in Reinforcement Learning}{5}{section.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.1}The Role of History}{5}{subsection.1.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.2}State as a Function of History}{6}{subsection.1.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.3}Environment State}{6}{subsection.1.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.4}Agent State}{6}{subsection.1.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2.5}Information State and the Markov Property}{7}{subsection.1.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}Observability in Reinforcement Learning}{7}{section.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}Fully Observable Environments}{7}{subsection.1.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}Partially Observable Environments}{8}{subsection.1.3.2}\protected@file@percent }
+\newlabel{fig:RL_Examples}{{\caption@xref {fig:RL_Examples}{ on input line 138}}{9}{Partially Observable Environments}{figure.caption.3}{}}
+\newlabel{fig:RL_Examples}{{\caption@xref {fig:RL_Examples}{ on input line 144}}{9}{Partially Observable Environments}{figure.caption.3}{}}
+\newlabel{fig:RL_Examples}{{\caption@xref {fig:RL_Examples}{ on input line 146}}{9}{Partially Observable Environments}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}Major Components of an RL Agent}{9}{section.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.1}Policy}{9}{subsection.1.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.2}Value Function}{10}{subsection.1.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.3}Model}{10}{subsection.1.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces Maze Examples\relax }}{11}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:Maze_Examples}{{1.2}{11}{Maze Examples\relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces Maze Policy\relax }}{11}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:Maze_Policy}{{1.3}{11}{Maze Policy\relax }{figure.caption.4}{}}
+\newlabel{fig:Maze_Examples}{{\caption@xref {fig:Maze_Examples}{ on input line 230}}{11}{Model}{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces Maze Value\relax }}{11}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:Maze_Value}{{1.4}{11}{Maze Value\relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces Maze Model\relax }}{11}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:Maze_Model}{{1.5}{11}{Maze Model\relax }{figure.caption.5}{}}
+\newlabel{fig:Maze_model}{{\caption@xref {fig:Maze_model}{ on input line 249}}{11}{Model}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.5}Categorizing Reinforcement Learning Agents}{12}{section.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.1}Component-Based Categorization}{12}{subsection.1.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.2}Model-Based vs Model-Free Categorization}{12}{subsection.1.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces Taxonomy of Reinforcement Learning Agents\relax }}{13}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:RL_Agent_Taxonomy}{{1.6}{13}{Taxonomy of Reinforcement Learning Agents\relax }{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.6}Learning and Planning in Reinforcement Learning}{13}{section.1.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.1}Reinforcement Learning}{13}{subsection.1.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.2}Planning}{13}{subsection.1.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.7}Exploration and Exploitation}{14}{section.1.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.7.1}The Exploration-Exploitation Dilemma}{14}{subsection.1.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.7.2}Examples}{14}{subsection.1.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.8}Prediction and Control}{14}{section.1.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.8.1}Prediction Problems}{14}{subsection.1.8.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.7}{\ignorespaces Prediction problem example\relax }}{15}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:Prediction_Problem_Example}{{1.7}{15}{Prediction problem example\relax }{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.8.2}Control Problems}{15}{subsection.1.8.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.8}{\ignorespaces Control problem example\relax }}{15}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:Control_Problem_Example}{{1.8}{15}{Control problem example\relax }{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.9}Deep Reinforcement Learning}{15}{section.1.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.9.1}Function Approximation with Neural Networks}{15}{subsection.1.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.9.2}Challenges in Deep Reinforcement Learning}{16}{subsection.1.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Markov Decision Process}{17}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Introduction and Motivation}{14}{section.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Introduction}{14}{subsection.2.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}Large-Scale Reinforcement Learning}{14}{subsection.2.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.3}Which Function Approximator?}{15}{subsection.2.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Gradient-Based Function Approximation}{15}{section.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Gradient Descent (Recap)}{15}{subsection.2.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Value Function Approximation with SGD}{15}{subsection.2.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Feature Vectors}{16}{subsection.2.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.4}Linear Value Function Approximation}{16}{subsection.2.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.5}Table Lookup as Linear Approximation}{16}{subsection.2.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Prediction with Function Approximation}{17}{section.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Monte Carlo and TD Learning with Value Function Approximation}{17}{subsection.2.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Monte Carlo with Value Function Approximation}{17}{subsection.2.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}TD(0) with Value Function Approximation}{18}{subsection.2.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.4}TD($\lambda $) with Value Function Approximation}{18}{subsection.2.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.4.1}Forward View TD($\lambda $)}{18}{subsubsection.2.3.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.4.2}Backward View TD($\lambda $)}{19}{subsubsection.2.3.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}Action-Value Function Approximation and Control}{19}{section.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Action-Value Function Approximation}{19}{subsection.2.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Linear Action-Value Function Approximation}{20}{subsection.2.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}Incremental Control Algorithms}{20}{subsection.2.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.3.1}Monte Carlo Control}{20}{subsubsection.2.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.3.2}TD(0) Control}{20}{subsubsection.2.4.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.3.3}TD($\lambda $) Control}{21}{subsubsection.2.4.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.3.4}Backward View TD($\lambda $)}{21}{subsubsection.2.4.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Stability, Convergence and Batch Methods}{22}{section.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Convergence of Prediction Algorithms}{22}{subsection.2.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Gradient TD Learning}{22}{subsection.2.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.3}Convergence of Control Algorithms}{23}{subsection.2.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.4}Batch Reinforcement Learning}{23}{subsection.2.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.5}Least Squares Prediction}{23}{subsection.2.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.6}Stochastic Gradient Descent with Experience Replay}{24}{section.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Experience Replay in Deep Q-Networks (DQN)}{24}{subsection.2.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Policy-Based Methods}{26}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Markov Processes}{17}{section.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}The Markov Property}{17}{subsection.2.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}State Transition Matrix}{18}{subsection.2.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.3}Markov Process}{19}{subsection.2.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.4}Example: Student Markov Chain}{19}{subsection.2.1.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Student Markov Chain illustrating states and transition probabilities.\relax }}{20}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{2.1}{20}{Student Markov Chain illustrating states and transition probabilities.\relax }{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.4.1}Sample Episodes}{20}{subsubsection.2.1.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.4.2}Transition Matrix Representation}{21}{subsubsection.2.1.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Markov Reward Process}{21}{section.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Student Markov Chain with $\gamma =0$\relax }}{22}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:STMCR}{{2.2}{22}{Student Markov Chain with $\gamma =0$\relax }{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Student Markov Chain with $\gamma =0.9$\relax }}{22}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:STMCR}{{2.3}{22}{Student Markov Chain with $\gamma =0.9$\relax }{figure.caption.10}{}}
+\newlabel{STMCR}{{\caption@xref {STMCR}{ on input line 184}}{22}{Markov Reward Process}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Bellman Equation for MRPs}{22}{subsection.2.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Matrix Form}{22}{subsection.2.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Markov Decision Process}{23}{section.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Student MDP Chain.\relax }}{24}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{2.4}{24}{Student MDP Chain.\relax }{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Policy}{24}{subsection.2.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Value Functions}{25}{subsection.2.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2.1}Bellman Equations for MDPs}{25}{subsubsection.2.3.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Planning by Dynamic Programming}{26}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {3.1}Introduction}{26}{section.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Esempi}{27}{subsection.3.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1.1}Primo esempio}{27}{subsubsection.3.1.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1.2}Secondo esempio}{27}{subsubsection.3.1.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Policy-Base Methods}{28}{section.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Policy Objective Functions}{28}{subsection.3.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Policy Optimisation}{28}{subsection.3.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Policy Gradient}{29}{subsection.3.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.4}Score Function}{29}{subsection.3.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.5}Linear Softmax Policy}{30}{subsection.3.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.6}Gaussian Policy}{30}{subsection.3.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.7}Policy Gradient Theorem: One-Step MDPs}{31}{subsection.3.2.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.8}Policy Gradient Theorem}{31}{subsection.3.2.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.9}REINFORCE: Monte Carlo Policy Gradient}{32}{subsection.3.2.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Actor-Critic Methods}{33}{section.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Actor-Critic Policy Gradient}{33}{subsection.3.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Estimating the Action-Value Function (Critic)}{34}{subsection.3.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Action-Value Actor-Critic}{34}{subsection.3.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.4}Action-Value Actor-Critic Algorithm}{35}{subsection.3.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.5}Reducing Variance Using a Baseline}{36}{subsection.3.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.6}Advantage Function}{36}{subsection.3.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.7}Estimating the Advantage Function}{36}{subsection.3.3.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.8}TD Error as an Advantage Estimator}{37}{subsection.3.3.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.9}Critics at Different Time-Scales}{37}{subsection.3.3.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.10}Actors at Different Time-Scales}{38}{subsection.3.3.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.11}Policy Gradient with Eligibility Traces}{38}{subsection.3.3.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Model-Freee e Model-Based RL}{39}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Requirements for Dynamic Programming}{26}{subsection.3.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Planning for Dynamic Programming}{27}{subsection.3.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Iterative Policy Evaluation}{27}{section.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Example of prediction (left) and control (right). In the slides is showed that in the next time step the polict will remain the same, this means that the optimal polci has been reached. \relax }}{28}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{3.1}{28}{Example of prediction (left) and control (right). In the slides is showed that in the next time step the polict will remain the same, this means that the optimal polci has been reached. \relax }{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Policy Iteration}{28}{subsection.3.2.1}\protected@file@percent }
+\newlabel{fig:TDlambda}{{\caption@xref {fig:TDlambda}{ on input line 67}}{28}{Policy Iteration}{figure.caption.13}{}}
+\newlabel{fig:TDlambda}{{\caption@xref {fig:TDlambda}{ on input line 86}}{29}{Policy Iteration}{figure.caption.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Policy Improvement}{29}{subsection.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Modified Policy Iteration e Generalized Policy Iteration}{30}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Principle of Optimality}{31}{subsection.3.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Deterministic Value Iteration}{31}{subsection.3.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Example of backward value iteration \relax }}{32}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{3.2}{32}{Example of backward value iteration \relax }{figure.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Value Iteration: Control}{32}{subsection.3.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.4}Synchronous Dynamic Programming Algorithms}{33}{subsection.3.3.4}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 249}}{34}{Synchronous Dynamic Programming Algorithms}{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Asynchronous Dynamic Programming}{34}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}In-Place Dynamic Programming}{34}{subsection.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Prioritized Sweeping}{35}{subsection.3.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Real-Time Dynamic Programming}{36}{subsection.3.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Full-Width Backups}{36}{section.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Model-Free prediction}{37}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Model-Free vs Model-Based Reinforcement Learning}{39}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Advantages and Disadvantages}{39}{subsection.4.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}What is a Model in Reinforcement Learning}{40}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Model Learning as Supervised Learning}{40}{subsection.4.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Examples of Models}{40}{subsection.4.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Table Lookup Model}{41}{subsection.4.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Planning with a Learned Model}{41}{subsection.4.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.5}Sample-Based Planning}{41}{subsection.4.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Planning with an Inaccurate Model}{42}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Consequences of Model Inaccuracy}{42}{subsection.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Possible Remedies}{42}{subsection.4.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Real and Simulated Experience}{43}{section.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Real Experience}{43}{subsection.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Simulated Experience}{43}{subsection.4.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Integrating Learning and Planning}{43}{section.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Model-Free Reinforcement Learning}{43}{subsection.4.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Model-Based Reinforcement Learning}{44}{subsection.4.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Dyna: Learning and Planning Together}{44}{subsection.4.5.3}\protected@file@percent }
-\newlabel{fig:Scaled Dot Product Attention}{{\caption@xref {fig:Scaled Dot Product Attention}{ on input line 263}}{44}{Dyna: Learning and Planning Together}{figure.caption.7}{}}
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 287}}{44}{Dyna: Learning and Planning Together}{figure.caption.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Simulation-Based Search}{45}{section.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Simple Monte Carlo Search}{45}{subsection.4.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.2}Monte Carlo Tree Search}{46}{subsection.4.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.2.1}Valutazione con MCTS}{46}{subsubsection.4.6.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.3}Simulazione e miglioramento della policy}{47}{subsection.4.6.3}\protected@file@percent }
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 450}}{47}{Simulazione e miglioramento della policy}{figure.caption.9}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Exploration and Exploitation}{48}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Monte-Carlo}{37}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}First-Visit Monte-Carlo}{38}{subsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Every-Visit Monte-Carlo}{38}{subsection.4.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Incremental Mean}{39}{subsection.4.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Incremental Monte-Carlo Policy Evaluation}{39}{subsection.4.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.5}Running Mean in Non-Stationary Problems}{40}{subsection.4.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Temporal-Difference Learning}{40}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}From Monte Carlo to Temporal-Difference}{40}{subsection.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}TD(0)}{40}{subsection.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Online Learning and Bootstrapping}{41}{subsection.4.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Bias--Variance Trade-Off}{41}{subsection.4.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.5}Advantages and Disadvantages of MC vs TD}{41}{subsection.4.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Monte Carlo}{41}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Temporal-Difference}{42}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.6}Batch Monte Carlo vs Batch TD}{42}{subsection.4.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.7}Certainty Equivalence}{42}{subsection.4.2.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}TD($\lambda $)}{43}{section.4.3}\protected@file@percent }
+\newlabel{fig:TDlambda}{{\caption@xref {fig:TDlambda}{ on input line 375}}{43}{TD($\lambda $)}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}$n$-step return}{43}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Media degli $n$-step return}{43}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Il $\lambda $-return}{44}{subsection.4.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Forward e Backward View TD($\lambda $)}{44}{subsection.4.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.5}Eligibility Traces}{44}{subsection.4.3.5}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 529}}{45}{Eligibility Traces}{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.6}TD($\lambda $) e Monte Carlo}{45}{subsection.4.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.7}Generalizzazione del telescoping in TD($\lambda $)}{46}{subsection.4.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.8}Forward e Backward View di TD($\lambda $)}{46}{subsection.4.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.9}Equivalenza Offline e Online}{47}{subsection.4.3.9}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 610}}{47}{Equivalenza Offline e Online}{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Value Function Approximation}{48}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Multi-Armed Bandit}{49}{section.5.1}\protected@file@percent }
-\newlabel{fig:Scaled Dot Product Attention}{{\caption@xref {fig:Scaled Dot Product Attention}{ on input line 71}}{50}{Multi-Armed Bandit}{figure.caption.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Greedy Algorithm}{50}{subsection.5.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.2}Optimistic Initialization}{51}{subsection.5.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.3}$\varepsilon $-Greedy e $\varepsilon _t$-Decaying}{51}{subsection.5.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.4}Lower Bound of Regret}{52}{subsection.5.1.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.5}Optimism in the Face of Uncertainty}{52}{subsection.5.1.5}\protected@file@percent }
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 147}}{52}{Optimism in the Face of Uncertainty}{figure.caption.11}{}}
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 155}}{53}{Optimism in the Face of Uncertainty}{figure.caption.12}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.6}Upper Confidence Bounds (UCB)}{53}{subsection.5.1.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.7}Hoeffding's Inequality}{54}{subsection.5.1.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.8}Calcolo della Banda di Confidenza}{54}{subsection.5.1.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.9}UCB1}{55}{subsection.5.1.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.10}Bayesian Bandits}{55}{subsection.5.1.10}\protected@file@percent }
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 260}}{56}{Bayesian Bandits}{figure.caption.13}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.11}Bayesian UCB}{56}{subsection.5.1.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.12}Probability Matching}{56}{subsection.5.1.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.13}Thompson Sampling}{57}{subsection.5.1.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Simulation Modeling}{58}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Introduction and Motivation}{48}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Introduction}{48}{subsection.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.2}Large-Scale Reinforcement Learning}{48}{subsection.5.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.3}Which Function Approximator?}{49}{subsection.5.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Gradient-Based Function Approximation}{49}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Gradient Descent (Recap)}{49}{subsection.5.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Value Function Approximation with SGD}{49}{subsection.5.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Feature Vectors}{50}{subsection.5.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Linear Value Function Approximation}{50}{subsection.5.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.5}Table Lookup as Linear Approximation}{50}{subsection.5.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Prediction with Function Approximation}{51}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Monte Carlo and TD Learning with Value Function Approximation}{51}{subsection.5.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Monte Carlo with Value Function Approximation}{51}{subsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}TD(0) with Value Function Approximation}{52}{subsection.5.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}TD($\lambda $) with Value Function Approximation}{52}{subsection.5.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.4.1}Forward View TD($\lambda $)}{52}{subsubsection.5.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.4.2}Backward View TD($\lambda $)}{53}{subsubsection.5.3.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Action-Value Function Approximation and Control}{53}{section.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}Action-Value Function Approximation}{53}{subsection.5.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}Linear Action-Value Function Approximation}{54}{subsection.5.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.3}Incremental Control Algorithms}{54}{subsection.5.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.3.1}Monte Carlo Control}{54}{subsubsection.5.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.3.2}TD(0) Control}{54}{subsubsection.5.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.3.3}TD($\lambda $) Control}{55}{subsubsection.5.4.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.3.4}Backward View TD($\lambda $)}{55}{subsubsection.5.4.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Stability, Convergence and Batch Methods}{56}{section.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Convergence of Prediction Algorithms}{56}{subsection.5.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Gradient TD Learning}{56}{subsection.5.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}Convergence of Control Algorithms}{57}{subsection.5.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.4}Batch Reinforcement Learning}{57}{subsection.5.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.5}Least Squares Prediction}{57}{subsection.5.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Stochastic Gradient Descent with Experience Replay}{58}{section.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.1}Experience Replay in Deep Q-Networks (DQN)}{58}{subsection.5.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Policy-Based Methods}{60}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}What is Simulation?}{58}{section.6.1}\protected@file@percent }
-\newlabel{fig:Scaled Dot Product Attention}{{\caption@xref {fig:Scaled Dot Product Attention}{ on input line 22}}{58}{What is Simulation?}{figure.caption.14}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Objectives of Simulation}{59}{subsection.6.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Simulation as a Process: System, Model, Simulation}{59}{subsection.6.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Simulation Techniques}{59}{subsection.6.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.4}When Simulation Is Appropriate}{60}{subsection.6.1.4}\protected@file@percent }
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 65}}{60}{When Simulation Is Appropriate}{figure.caption.15}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.5}When Simulation Is \emph  {Not} the Appropriate Tool}{60}{subsection.6.1.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.6}Advantages and Disadvantages of Simulation}{61}{subsection.6.1.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.7}Areas of Application}{61}{subsection.6.1.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}What is a System?}{61}{section.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}System, State, and Environment}{62}{subsection.6.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Components of a System}{62}{subsection.6.2.2}\protected@file@percent }
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 135}}{63}{Components of a System}{figure.caption.16}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Discrete and Continuous Systems}{63}{subsection.6.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}What is a Model?}{63}{section.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Purpose of a Model}{64}{subsection.6.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Model Complexity and Trade-offs}{64}{subsection.6.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Classification of Models}{64}{subsection.6.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.4}Models and Simulation}{65}{subsection.6.3.4}\protected@file@percent }
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 189}}{65}{Models and Simulation}{figure.caption.17}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}What is a Discrete-Event Simulation (D.E.S.)}{66}{section.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}Example: Single-Server Queue}{66}{subsection.6.4.1}\protected@file@percent }
-\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 210}}{66}{Example: Single-Server Queue}{figure.caption.18}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.2}Steps in a Simulation Study}{67}{subsection.6.4.2}\protected@file@percent }
-\newlabel{fig:Scaled Dot Product Attention}{{\caption@xref {fig:Scaled Dot Product Attention}{ on input line 228}}{67}{Steps in a Simulation Study}{figure.caption.19}{}}
-\gdef \@abspage@last{69}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Introduction}{60}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Esempi}{61}{subsection.6.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.1.1.1}Primo esempio}{61}{subsubsection.6.1.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.1.1.2}Secondo esempio}{61}{subsubsection.6.1.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Policy-Base Methods}{62}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Policy Objective Functions}{62}{subsection.6.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Policy Optimisation}{62}{subsection.6.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Policy Gradient}{63}{subsection.6.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.4}Score Function}{63}{subsection.6.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.5}Linear Softmax Policy}{64}{subsection.6.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.6}Gaussian Policy}{64}{subsection.6.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.7}Policy Gradient Theorem: One-Step MDPs}{65}{subsection.6.2.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.8}Policy Gradient Theorem}{65}{subsection.6.2.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.9}REINFORCE: Monte Carlo Policy Gradient}{66}{subsection.6.2.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Actor-Critic Methods}{67}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Actor-Critic Policy Gradient}{67}{subsection.6.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Estimating the Action-Value Function (Critic)}{68}{subsection.6.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Action-Value Actor-Critic}{68}{subsection.6.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.4}Action-Value Actor-Critic Algorithm}{69}{subsection.6.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.5}Reducing Variance Using a Baseline}{70}{subsection.6.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.6}Advantage Function}{70}{subsection.6.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.7}Estimating the Advantage Function}{70}{subsection.6.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.8}TD Error as an Advantage Estimator}{71}{subsection.6.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.9}Critics at Different Time-Scales}{71}{subsection.6.3.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.10}Actors at Different Time-Scales}{72}{subsection.6.3.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.11}Policy Gradient with Eligibility Traces}{72}{subsection.6.3.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Model-Freee e Model-Based RL}{73}{chapter.7}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Model-Free vs Model-Based Reinforcement Learning}{73}{section.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.1}Advantages and Disadvantages}{73}{subsection.7.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}What is a Model in Reinforcement Learning}{74}{section.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.1}Model Learning as Supervised Learning}{74}{subsection.7.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.2}Examples of Models}{74}{subsection.7.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.3}Table Lookup Model}{75}{subsection.7.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.4}Planning with a Learned Model}{75}{subsection.7.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.5}Sample-Based Planning}{75}{subsection.7.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Planning with an Inaccurate Model}{76}{section.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.1}Consequences of Model Inaccuracy}{76}{subsection.7.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.2}Possible Remedies}{76}{subsection.7.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}Real and Simulated Experience}{77}{section.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.1}Real Experience}{77}{subsection.7.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.2}Simulated Experience}{77}{subsection.7.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.5}Integrating Learning and Planning}{77}{section.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.1}Model-Free Reinforcement Learning}{77}{subsection.7.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.2}Model-Based Reinforcement Learning}{78}{subsection.7.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.3}Dyna: Learning and Planning Together}{78}{subsection.7.5.3}\protected@file@percent }
+\newlabel{fig:Scaled Dot Product Attention}{{\caption@xref {fig:Scaled Dot Product Attention}{ on input line 263}}{78}{Dyna: Learning and Planning Together}{figure.caption.22}{}}
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 287}}{78}{Dyna: Learning and Planning Together}{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.6}Simulation-Based Search}{79}{section.7.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.1}Simple Monte Carlo Search}{79}{subsection.7.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.2}Monte Carlo Tree Search}{80}{subsection.7.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.6.2.1}Valutazione con MCTS}{80}{subsubsection.7.6.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.3}Simulazione e miglioramento della policy}{81}{subsection.7.6.3}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 450}}{81}{Simulazione e miglioramento della policy}{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Exploration and Exploitation}{82}{chapter.8}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {8.1}Multi-Armed Bandit}{83}{section.8.1}\protected@file@percent }
+\newlabel{fig:Scaled Dot Product Attention}{{\caption@xref {fig:Scaled Dot Product Attention}{ on input line 71}}{84}{Multi-Armed Bandit}{figure.caption.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.1}Greedy Algorithm}{84}{subsection.8.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.2}Optimistic Initialization}{85}{subsection.8.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.3}$\varepsilon $-Greedy e $\varepsilon _t$-Decaying}{85}{subsection.8.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.4}Lower Bound of Regret}{86}{subsection.8.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.5}Optimism in the Face of Uncertainty}{86}{subsection.8.1.5}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 147}}{86}{Optimism in the Face of Uncertainty}{figure.caption.26}{}}
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 155}}{87}{Optimism in the Face of Uncertainty}{figure.caption.27}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.6}Upper Confidence Bounds (UCB)}{87}{subsection.8.1.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.7}Hoeffding's Inequality}{88}{subsection.8.1.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.8}Calcolo della Banda di Confidenza}{88}{subsection.8.1.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.9}UCB1}{89}{subsection.8.1.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.10}Bayesian Bandits}{89}{subsection.8.1.10}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 260}}{90}{Bayesian Bandits}{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.11}Bayesian UCB}{90}{subsection.8.1.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.12}Probability Matching}{90}{subsection.8.1.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.13}Thompson Sampling}{91}{subsection.8.1.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {9}Simulation Modeling}{92}{chapter.9}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {9.1}What is Simulation?}{92}{section.9.1}\protected@file@percent }
+\newlabel{fig:Scaled Dot Product Attention}{{\caption@xref {fig:Scaled Dot Product Attention}{ on input line 22}}{92}{What is Simulation?}{figure.caption.29}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1.1}Objectives of Simulation}{93}{subsection.9.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1.2}Simulation as a Process: System, Model, Simulation}{93}{subsection.9.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1.3}Simulation Techniques}{93}{subsection.9.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1.4}When Simulation Is Appropriate}{94}{subsection.9.1.4}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 65}}{94}{When Simulation Is Appropriate}{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1.5}When Simulation Is \emph  {Not} the Appropriate Tool}{94}{subsection.9.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1.6}Advantages and Disadvantages of Simulation}{95}{subsection.9.1.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1.7}Areas of Application}{95}{subsection.9.1.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9.2}What is a System?}{95}{section.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2.1}System, State, and Environment}{96}{subsection.9.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2.2}Components of a System}{96}{subsection.9.2.2}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 135}}{97}{Components of a System}{figure.caption.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2.3}Discrete and Continuous Systems}{97}{subsection.9.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9.3}What is a Model?}{97}{section.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3.1}Purpose of a Model}{98}{subsection.9.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3.2}Model Complexity and Trade-offs}{98}{subsection.9.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3.3}Classification of Models}{98}{subsection.9.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3.4}Models and Simulation}{99}{subsection.9.3.4}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 189}}{99}{Models and Simulation}{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.4}What is a Discrete-Event Simulation (D.E.S.)}{100}{section.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4.1}Example: Single-Server Queue}{100}{subsection.9.4.1}\protected@file@percent }
+\newlabel{fig:student_markov_chain}{{\caption@xref {fig:student_markov_chain}{ on input line 210}}{100}{Example: Single-Server Queue}{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4.2}Steps in a Simulation Study}{101}{subsection.9.4.2}\protected@file@percent }
+\newlabel{fig:Scaled Dot Product Attention}{{\caption@xref {fig:Scaled Dot Product Attention}{ on input line 228}}{101}{Steps in a Simulation Study}{figure.caption.34}{}}
+\gdef \@abspage@last{103}
