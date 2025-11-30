@@ -42,173 +42,199 @@
 \contentsline {subsubsection}{\numberline {2.1.4.2}Transition Matrix Representation}{21}{subsubsection.2.1.4.2}%
 \contentsline {section}{\numberline {2.2}Markov Reward Process}{21}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Bellman Equation for MRPs}{22}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Matrix Form}{22}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3}Markov Decision Process}{23}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Policy}{24}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Value Functions}{25}{subsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.2.1}Bellman Equations for MDPs}{25}{subsubsection.2.3.2.1}%
-\contentsline {chapter}{\numberline {3}Planning by Dynamic Programming}{26}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Introduction}{26}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Requirements for Dynamic Programming}{26}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Planning for Dynamic Programming}{27}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Iterative Policy Evaluation}{27}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Policy Iteration}{28}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Policy Improvement}{29}{subsection.3.2.2}%
-\contentsline {section}{\numberline {3.3}Modified Policy Iteration e Generalized Policy Iteration}{30}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Principle of Optimality}{31}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Deterministic Value Iteration}{31}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Value Iteration: Control}{32}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Synchronous Dynamic Programming Algorithms}{33}{subsection.3.3.4}%
-\contentsline {section}{\numberline {3.4}Asynchronous Dynamic Programming}{34}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}In-Place Dynamic Programming}{34}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Prioritized Sweeping}{35}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Real-Time Dynamic Programming}{36}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Full-Width Backups}{36}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Model-Free prediction}{37}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Monte-Carlo}{37}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}First-Visit Monte-Carlo}{38}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Every-Visit Monte-Carlo}{38}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Incremental Mean}{39}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Incremental Monte-Carlo Policy Evaluation}{39}{subsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.1.5}Running Mean in Non-Stationary Problems}{40}{subsection.4.1.5}%
-\contentsline {section}{\numberline {4.2}Temporal-Difference Learning}{40}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}From Monte Carlo to Temporal-Difference}{40}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}TD(0)}{40}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Online Learning and Bootstrapping}{41}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Bias--Variance Trade-Off}{41}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Advantages and Disadvantages of MC vs TD}{41}{subsection.4.2.5}%
-\contentsline {paragraph}{Monte Carlo}{41}{section*.17}%
-\contentsline {paragraph}{Temporal-Difference}{42}{section*.18}%
-\contentsline {subsection}{\numberline {4.2.6}Batch Monte Carlo vs Batch TD}{42}{subsection.4.2.6}%
-\contentsline {subsection}{\numberline {4.2.7}Certainty Equivalence}{42}{subsection.4.2.7}%
-\contentsline {section}{\numberline {4.3}TD($\lambda $)}{43}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}$n$-step return}{43}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Media degli $n$-step return}{43}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Il $\lambda $-return}{44}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Forward e Backward View TD($\lambda $)}{44}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Eligibility Traces}{44}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.3.6}TD($\lambda $) e Monte Carlo}{45}{subsection.4.3.6}%
-\contentsline {subsection}{\numberline {4.3.7}Generalizzazione del telescoping in TD($\lambda $)}{46}{subsection.4.3.7}%
-\contentsline {subsection}{\numberline {4.3.8}Forward e Backward View di TD($\lambda $)}{46}{subsection.4.3.8}%
-\contentsline {subsection}{\numberline {4.3.9}Equivalenza Offline e Online}{47}{subsection.4.3.9}%
-\contentsline {chapter}{\numberline {5}Value Function Approximation}{48}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Introduction and Motivation}{48}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Introduction}{48}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Large-Scale Reinforcement Learning}{48}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Which Function Approximator?}{49}{subsection.5.1.3}%
-\contentsline {section}{\numberline {5.2}Gradient-Based Function Approximation}{49}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Gradient Descent (Recap)}{49}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Value Function Approximation with SGD}{49}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Feature Vectors}{50}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Linear Value Function Approximation}{50}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}Table Lookup as Linear Approximation}{50}{subsection.5.2.5}%
-\contentsline {section}{\numberline {5.3}Prediction with Function Approximation}{51}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Monte Carlo and TD Learning with Value Function Approximation}{51}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Monte Carlo with Value Function Approximation}{51}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}TD(0) with Value Function Approximation}{52}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}TD($\lambda $) with Value Function Approximation}{52}{subsection.5.3.4}%
-\contentsline {subsubsection}{\numberline {5.3.4.1}Forward View TD($\lambda $)}{52}{subsubsection.5.3.4.1}%
-\contentsline {subsubsection}{\numberline {5.3.4.2}Backward View TD($\lambda $)}{53}{subsubsection.5.3.4.2}%
-\contentsline {section}{\numberline {5.4}Action-Value Function Approximation and Control}{53}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Action-Value Function Approximation}{53}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Linear Action-Value Function Approximation}{54}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Incremental Control Algorithms}{54}{subsection.5.4.3}%
-\contentsline {subsubsection}{\numberline {5.4.3.1}Monte Carlo Control}{54}{subsubsection.5.4.3.1}%
-\contentsline {subsubsection}{\numberline {5.4.3.2}TD(0) Control}{54}{subsubsection.5.4.3.2}%
-\contentsline {subsubsection}{\numberline {5.4.3.3}TD($\lambda $) Control}{55}{subsubsection.5.4.3.3}%
-\contentsline {subsubsection}{\numberline {5.4.3.4}Backward View TD($\lambda $)}{55}{subsubsection.5.4.3.4}%
-\contentsline {section}{\numberline {5.5}Stability, Convergence and Batch Methods}{56}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Convergence of Prediction Algorithms}{56}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Gradient TD Learning}{56}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Convergence of Control Algorithms}{57}{subsection.5.5.3}%
-\contentsline {subsection}{\numberline {5.5.4}Batch Reinforcement Learning}{57}{subsection.5.5.4}%
-\contentsline {subsection}{\numberline {5.5.5}Least Squares Prediction}{57}{subsection.5.5.5}%
-\contentsline {section}{\numberline {5.6}Stochastic Gradient Descent with Experience Replay}{58}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Experience Replay in Deep Q-Networks (DQN)}{58}{subsection.5.6.1}%
-\contentsline {chapter}{\numberline {6}Policy-Based Methods}{60}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Introduction}{60}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Esempi}{61}{subsection.6.1.1}%
-\contentsline {subsubsection}{\numberline {6.1.1.1}Primo esempio}{61}{subsubsection.6.1.1.1}%
-\contentsline {subsubsection}{\numberline {6.1.1.2}Secondo esempio}{61}{subsubsection.6.1.1.2}%
-\contentsline {section}{\numberline {6.2}Policy-Base Methods}{62}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Policy Objective Functions}{62}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Policy Optimisation}{62}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Policy Gradient}{63}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Score Function}{63}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Linear Softmax Policy}{64}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Gaussian Policy}{64}{subsection.6.2.6}%
-\contentsline {subsection}{\numberline {6.2.7}Policy Gradient Theorem: One-Step MDPs}{65}{subsection.6.2.7}%
-\contentsline {subsection}{\numberline {6.2.8}Policy Gradient Theorem}{65}{subsection.6.2.8}%
-\contentsline {subsection}{\numberline {6.2.9}REINFORCE: Monte Carlo Policy Gradient}{66}{subsection.6.2.9}%
-\contentsline {section}{\numberline {6.3}Actor-Critic Methods}{67}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Actor-Critic Policy Gradient}{67}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Estimating the Action-Value Function (Critic)}{68}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Action-Value Actor-Critic}{68}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}Action-Value Actor-Critic Algorithm}{69}{subsection.6.3.4}%
-\contentsline {subsection}{\numberline {6.3.5}Reducing Variance Using a Baseline}{70}{subsection.6.3.5}%
-\contentsline {subsection}{\numberline {6.3.6}Advantage Function}{70}{subsection.6.3.6}%
-\contentsline {subsection}{\numberline {6.3.7}Estimating the Advantage Function}{70}{subsection.6.3.7}%
-\contentsline {subsection}{\numberline {6.3.8}TD Error as an Advantage Estimator}{71}{subsection.6.3.8}%
-\contentsline {subsection}{\numberline {6.3.9}Critics at Different Time-Scales}{71}{subsection.6.3.9}%
-\contentsline {subsection}{\numberline {6.3.10}Actors at Different Time-Scales}{72}{subsection.6.3.10}%
-\contentsline {subsection}{\numberline {6.3.11}Policy Gradient with Eligibility Traces}{72}{subsection.6.3.11}%
-\contentsline {chapter}{\numberline {7}Model-Freee e Model-Based RL}{73}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Model-Free vs Model-Based Reinforcement Learning}{73}{section.7.1}%
-\contentsline {subsection}{\numberline {7.1.1}Advantages and Disadvantages}{73}{subsection.7.1.1}%
-\contentsline {section}{\numberline {7.2}What is a Model in Reinforcement Learning}{74}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Model Learning as Supervised Learning}{74}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Examples of Models}{74}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}Table Lookup Model}{75}{subsection.7.2.3}%
-\contentsline {subsection}{\numberline {7.2.4}Planning with a Learned Model}{75}{subsection.7.2.4}%
-\contentsline {subsection}{\numberline {7.2.5}Sample-Based Planning}{75}{subsection.7.2.5}%
-\contentsline {section}{\numberline {7.3}Planning with an Inaccurate Model}{76}{section.7.3}%
-\contentsline {subsection}{\numberline {7.3.1}Consequences of Model Inaccuracy}{76}{subsection.7.3.1}%
-\contentsline {subsection}{\numberline {7.3.2}Possible Remedies}{76}{subsection.7.3.2}%
-\contentsline {section}{\numberline {7.4}Real and Simulated Experience}{77}{section.7.4}%
-\contentsline {subsection}{\numberline {7.4.1}Real Experience}{77}{subsection.7.4.1}%
-\contentsline {subsection}{\numberline {7.4.2}Simulated Experience}{77}{subsection.7.4.2}%
-\contentsline {section}{\numberline {7.5}Integrating Learning and Planning}{77}{section.7.5}%
-\contentsline {subsection}{\numberline {7.5.1}Model-Free Reinforcement Learning}{77}{subsection.7.5.1}%
-\contentsline {subsection}{\numberline {7.5.2}Model-Based Reinforcement Learning}{78}{subsection.7.5.2}%
-\contentsline {subsection}{\numberline {7.5.3}Dyna: Learning and Planning Together}{78}{subsection.7.5.3}%
-\contentsline {section}{\numberline {7.6}Simulation-Based Search}{79}{section.7.6}%
-\contentsline {subsection}{\numberline {7.6.1}Simple Monte Carlo Search}{79}{subsection.7.6.1}%
-\contentsline {subsection}{\numberline {7.6.2}Monte Carlo Tree Search}{80}{subsection.7.6.2}%
-\contentsline {subsubsection}{\numberline {7.6.2.1}Valutazione con MCTS}{80}{subsubsection.7.6.2.1}%
-\contentsline {subsection}{\numberline {7.6.3}Simulazione e miglioramento della policy}{81}{subsection.7.6.3}%
-\contentsline {chapter}{\numberline {8}Exploration and Exploitation}{82}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Multi-Armed Bandit}{83}{section.8.1}%
-\contentsline {subsection}{\numberline {8.1.1}Greedy Algorithm}{84}{subsection.8.1.1}%
-\contentsline {subsection}{\numberline {8.1.2}Optimistic Initialization}{85}{subsection.8.1.2}%
-\contentsline {subsection}{\numberline {8.1.3}$\varepsilon $-Greedy e $\varepsilon _t$-Decaying}{85}{subsection.8.1.3}%
-\contentsline {subsection}{\numberline {8.1.4}Lower Bound of Regret}{86}{subsection.8.1.4}%
-\contentsline {subsection}{\numberline {8.1.5}Optimism in the Face of Uncertainty}{86}{subsection.8.1.5}%
-\contentsline {subsection}{\numberline {8.1.6}Upper Confidence Bounds (UCB)}{87}{subsection.8.1.6}%
-\contentsline {subsection}{\numberline {8.1.7}Hoeffding's Inequality}{88}{subsection.8.1.7}%
-\contentsline {subsection}{\numberline {8.1.8}Calcolo della Banda di Confidenza}{88}{subsection.8.1.8}%
-\contentsline {subsection}{\numberline {8.1.9}UCB1}{89}{subsection.8.1.9}%
-\contentsline {subsection}{\numberline {8.1.10}Bayesian Bandits}{89}{subsection.8.1.10}%
-\contentsline {subsection}{\numberline {8.1.11}Bayesian UCB}{90}{subsection.8.1.11}%
-\contentsline {subsection}{\numberline {8.1.12}Probability Matching}{90}{subsection.8.1.12}%
-\contentsline {subsection}{\numberline {8.1.13}Thompson Sampling}{91}{subsection.8.1.13}%
-\contentsline {chapter}{\numberline {9}Simulation Modeling}{92}{chapter.9}%
-\contentsline {section}{\numberline {9.1}What is Simulation?}{92}{section.9.1}%
-\contentsline {subsection}{\numberline {9.1.1}Objectives of Simulation}{93}{subsection.9.1.1}%
-\contentsline {subsection}{\numberline {9.1.2}Simulation as a Process: System, Model, Simulation}{93}{subsection.9.1.2}%
-\contentsline {subsection}{\numberline {9.1.3}Simulation Techniques}{93}{subsection.9.1.3}%
-\contentsline {subsection}{\numberline {9.1.4}When Simulation Is Appropriate}{94}{subsection.9.1.4}%
-\contentsline {subsection}{\numberline {9.1.5}When Simulation Is \emph {Not} the Appropriate Tool}{94}{subsection.9.1.5}%
-\contentsline {subsection}{\numberline {9.1.6}Advantages and Disadvantages of Simulation}{95}{subsection.9.1.6}%
-\contentsline {subsection}{\numberline {9.1.7}Areas of Application}{95}{subsection.9.1.7}%
-\contentsline {section}{\numberline {9.2}What is a System?}{95}{section.9.2}%
-\contentsline {subsection}{\numberline {9.2.1}System, State, and Environment}{96}{subsection.9.2.1}%
-\contentsline {subsection}{\numberline {9.2.2}Components of a System}{96}{subsection.9.2.2}%
-\contentsline {subsection}{\numberline {9.2.3}Discrete and Continuous Systems}{97}{subsection.9.2.3}%
-\contentsline {section}{\numberline {9.3}What is a Model?}{97}{section.9.3}%
-\contentsline {subsection}{\numberline {9.3.1}Purpose of a Model}{98}{subsection.9.3.1}%
-\contentsline {subsection}{\numberline {9.3.2}Model Complexity and Trade-offs}{98}{subsection.9.3.2}%
-\contentsline {subsection}{\numberline {9.3.3}Classification of Models}{98}{subsection.9.3.3}%
-\contentsline {subsection}{\numberline {9.3.4}Models and Simulation}{99}{subsection.9.3.4}%
-\contentsline {section}{\numberline {9.4}What is a Discrete-Event Simulation (D.E.S.)}{100}{section.9.4}%
-\contentsline {subsection}{\numberline {9.4.1}Example: Single-Server Queue}{100}{subsection.9.4.1}%
-\contentsline {subsection}{\numberline {9.4.2}Steps in a Simulation Study}{101}{subsection.9.4.2}%
+\contentsline {subsection}{\numberline {2.2.2}Matrix Form}{23}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Markov Decision Process}{24}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Policy}{25}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Value Functions}{26}{subsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.2.1}Bellman Equations for MDPs}{26}{subsubsection.2.3.2.1}%
+\contentsline {subsection}{\numberline {2.3.3}Optimal Value Functions}{28}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Optimal Policies}{28}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Bellman Optimality Equations}{29}{subsection.2.3.5}%
+\contentsline {chapter}{\numberline {3}Planning by Dynamic Programming}{30}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduction}{30}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Requirements for Dynamic Programming}{30}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Planning for Dynamic Programming}{31}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Iterative Policy Evaluation}{31}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Policy Iteration}{32}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Policy Improvement}{33}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Modified Policy Iteration e Generalized Policy Iteration}{34}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Principle of Optimality}{35}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Deterministic Value Iteration}{35}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Value Iteration: Control}{36}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Synchronous Dynamic Programming Algorithms}{37}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Asynchronous Dynamic Programming}{38}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}In-Place Dynamic Programming}{38}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Prioritized Sweeping}{39}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Real-Time Dynamic Programming}{40}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Full-Width Backups}{40}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Model-Free prediction}{41}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Monte-Carlo}{41}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}First-Visit Monte-Carlo}{42}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Every-Visit Monte-Carlo}{42}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Incremental Mean}{43}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Incremental Monte-Carlo Policy Evaluation}{43}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}Running Mean in Non-Stationary Problems}{44}{subsection.4.1.5}%
+\contentsline {section}{\numberline {4.2}Temporal-Difference Learning}{44}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}From Monte Carlo to Temporal-Difference}{44}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}TD(0)}{44}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Online Learning and Bootstrapping}{45}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Bias--Variance Trade-Off}{45}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Advantages and Disadvantages of MC vs TD}{45}{subsection.4.2.5}%
+\contentsline {paragraph}{Monte Carlo}{45}{section*.18}%
+\contentsline {paragraph}{Temporal-Difference}{46}{section*.19}%
+\contentsline {subsection}{\numberline {4.2.6}Batch Monte Carlo vs Batch TD}{46}{subsection.4.2.6}%
+\contentsline {subsection}{\numberline {4.2.7}Certainty Equivalence}{46}{subsection.4.2.7}%
+\contentsline {section}{\numberline {4.3}TD($\lambda $)}{47}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}$n$-step return}{47}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Media degli $n$-step return}{47}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Il $\lambda $-return}{48}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Forward e Backward View TD($\lambda $)}{48}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Eligibility Traces}{48}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}TD($\lambda $) e Monte Carlo}{49}{subsection.4.3.6}%
+\contentsline {subsection}{\numberline {4.3.7}Generalizzazione del telescoping in TD($\lambda $)}{50}{subsection.4.3.7}%
+\contentsline {subsection}{\numberline {4.3.8}Forward e Backward View di TD($\lambda $)}{50}{subsection.4.3.8}%
+\contentsline {subsection}{\numberline {4.3.9}Equivalenza Offline e Online}{51}{subsection.4.3.9}%
+\contentsline {chapter}{\numberline {5}Model-Free Control}{52}{chapter.5}%
+\contentsline {subsection}{\numberline {5.0.1}Policy Iteration with Monte Carlo Evaluation}{52}{subsection.5.0.1}%
+\contentsline {section}{\numberline {5.1}$\epsilon $-Greedy Policies ed Exploration}{54}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}$\epsilon $-Greedy Policy Improvement}{55}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Monte Carlo Policy Iteration}{55}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Monte Carlo Control}{56}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}GLIE}{56}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Greedy in the Limit with Infinite Exploration}{56}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}GLIE Monte-Carlo Control}{57}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Monte Carlo Control vs Temporal-Difference Control}{58}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}Sarsa Algorithm for On-Policy Control}{59}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Convergence of Sarsa}{59}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}n-Step Sarsa}{60}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Forward View Sarsa($\lambda $)}{61}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Backward View Sarsa($\lambda $)}{61}{subsection.5.3.4}%
+\contentsline {section}{\numberline {5.4}Off-Policy Learning}{62}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Importance Sampling}{62}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Importance Sampling for Off-Policy Monte-Carlo}{63}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Importance Sampling for Off-Policy Temporal-Difference}{64}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}Q-Learning}{64}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Off-Policy Control with Q-Learning}{64}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Convergence of Q-Learning}{65}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Q-Learning Control Algorithm}{65}{subsection.5.5.3}%
+\contentsline {chapter}{\numberline {6}Value Function Approximation}{67}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Introduction and Motivation}{67}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Introduction}{67}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Large-Scale Reinforcement Learning}{67}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Which Function Approximator?}{68}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Gradient-Based Function Approximation}{68}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Gradient Descent (Recap)}{68}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Value Function Approximation with SGD}{68}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Feature Vectors}{69}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Linear Value Function Approximation}{69}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Table Lookup as Linear Approximation}{69}{subsection.6.2.5}%
+\contentsline {section}{\numberline {6.3}Prediction with Function Approximation}{70}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Monte Carlo and TD Learning with Value Function Approximation}{70}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Monte Carlo with Value Function Approximation}{70}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}TD(0) with Value Function Approximation}{71}{subsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.3.4}TD($\lambda $) with Value Function Approximation}{71}{subsection.6.3.4}%
+\contentsline {subsubsection}{\numberline {6.3.4.1}Forward View TD($\lambda $)}{71}{subsubsection.6.3.4.1}%
+\contentsline {subsubsection}{\numberline {6.3.4.2}Backward View TD($\lambda $)}{72}{subsubsection.6.3.4.2}%
+\contentsline {section}{\numberline {6.4}Action-Value Function Approximation and Control}{72}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Action-Value Function Approximation}{72}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Linear Action-Value Function Approximation}{73}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Incremental Control Algorithms}{73}{subsection.6.4.3}%
+\contentsline {subsubsection}{\numberline {6.4.3.1}Monte Carlo Control}{73}{subsubsection.6.4.3.1}%
+\contentsline {subsubsection}{\numberline {6.4.3.2}TD(0) Control}{73}{subsubsection.6.4.3.2}%
+\contentsline {subsubsection}{\numberline {6.4.3.3}TD($\lambda $) Control}{74}{subsubsection.6.4.3.3}%
+\contentsline {subsubsection}{\numberline {6.4.3.4}Backward View TD($\lambda $)}{74}{subsubsection.6.4.3.4}%
+\contentsline {section}{\numberline {6.5}Stability, Convergence and Batch Methods}{75}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Convergence of Prediction Algorithms}{75}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Gradient TD Learning}{75}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Convergence of Control Algorithms}{76}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Batch Reinforcement Learning}{76}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}Least Squares Prediction}{76}{subsection.6.5.5}%
+\contentsline {section}{\numberline {6.6}Stochastic Gradient Descent with Experience Replay}{77}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Experience Replay in Deep Q-Networks (DQN)}{77}{subsection.6.6.1}%
+\contentsline {chapter}{\numberline {7}Policy-Based Methods}{79}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Introduction}{79}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Esempi}{80}{subsection.7.1.1}%
+\contentsline {subsubsection}{\numberline {7.1.1.1}Primo esempio}{80}{subsubsection.7.1.1.1}%
+\contentsline {subsubsection}{\numberline {7.1.1.2}Secondo esempio}{80}{subsubsection.7.1.1.2}%
+\contentsline {section}{\numberline {7.2}Policy-Base Methods}{81}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Policy Objective Functions}{81}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Policy Optimisation}{81}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Policy Gradient}{82}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Score Function}{82}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}Linear Softmax Policy}{83}{subsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.2.6}Gaussian Policy}{83}{subsection.7.2.6}%
+\contentsline {subsection}{\numberline {7.2.7}Policy Gradient Theorem: One-Step MDPs}{84}{subsection.7.2.7}%
+\contentsline {subsection}{\numberline {7.2.8}Policy Gradient Theorem}{84}{subsection.7.2.8}%
+\contentsline {subsection}{\numberline {7.2.9}REINFORCE: Monte Carlo Policy Gradient}{85}{subsection.7.2.9}%
+\contentsline {section}{\numberline {7.3}Actor-Critic Methods}{86}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Actor-Critic Policy Gradient}{86}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Estimating the Action-Value Function (Critic)}{87}{subsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.3.3}Action-Value Actor-Critic}{87}{subsection.7.3.3}%
+\contentsline {subsection}{\numberline {7.3.4}Action-Value Actor-Critic Algorithm}{88}{subsection.7.3.4}%
+\contentsline {subsection}{\numberline {7.3.5}Reducing Variance Using a Baseline}{89}{subsection.7.3.5}%
+\contentsline {subsection}{\numberline {7.3.6}Advantage Function}{89}{subsection.7.3.6}%
+\contentsline {subsection}{\numberline {7.3.7}Estimating the Advantage Function}{89}{subsection.7.3.7}%
+\contentsline {subsection}{\numberline {7.3.8}TD Error as an Advantage Estimator}{90}{subsection.7.3.8}%
+\contentsline {subsection}{\numberline {7.3.9}Critics at Different Time-Scales}{90}{subsection.7.3.9}%
+\contentsline {subsection}{\numberline {7.3.10}Actors at Different Time-Scales}{91}{subsection.7.3.10}%
+\contentsline {subsection}{\numberline {7.3.11}Policy Gradient with Eligibility Traces}{91}{subsection.7.3.11}%
+\contentsline {chapter}{\numberline {8}Model-Freee e Model-Based RL}{92}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Model-Free vs Model-Based Reinforcement Learning}{92}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Advantages and Disadvantages}{92}{subsection.8.1.1}%
+\contentsline {section}{\numberline {8.2}What is a Model in Reinforcement Learning}{93}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Model Learning as Supervised Learning}{93}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Examples of Models}{93}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Table Lookup Model}{94}{subsection.8.2.3}%
+\contentsline {subsection}{\numberline {8.2.4}Planning with a Learned Model}{94}{subsection.8.2.4}%
+\contentsline {subsection}{\numberline {8.2.5}Sample-Based Planning}{94}{subsection.8.2.5}%
+\contentsline {section}{\numberline {8.3}Planning with an Inaccurate Model}{95}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Consequences of Model Inaccuracy}{95}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Possible Remedies}{95}{subsection.8.3.2}%
+\contentsline {section}{\numberline {8.4}Real and Simulated Experience}{96}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Real Experience}{96}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Simulated Experience}{96}{subsection.8.4.2}%
+\contentsline {section}{\numberline {8.5}Integrating Learning and Planning}{96}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Model-Free Reinforcement Learning}{96}{subsection.8.5.1}%
+\contentsline {subsection}{\numberline {8.5.2}Model-Based Reinforcement Learning}{97}{subsection.8.5.2}%
+\contentsline {subsection}{\numberline {8.5.3}Dyna: Learning and Planning Together}{97}{subsection.8.5.3}%
+\contentsline {section}{\numberline {8.6}Simulation-Based Search}{98}{section.8.6}%
+\contentsline {subsection}{\numberline {8.6.1}Simple Monte Carlo Search}{98}{subsection.8.6.1}%
+\contentsline {subsection}{\numberline {8.6.2}Monte Carlo Tree Search}{99}{subsection.8.6.2}%
+\contentsline {subsubsection}{\numberline {8.6.2.1}Valutazione con MCTS}{99}{subsubsection.8.6.2.1}%
+\contentsline {subsection}{\numberline {8.6.3}Simulazione e miglioramento della policy}{100}{subsection.8.6.3}%
+\contentsline {chapter}{\numberline {9}Exploration and Exploitation}{101}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Multi-Armed Bandit}{102}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Greedy Algorithm}{103}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}Optimistic Initialization}{104}{subsection.9.1.2}%
+\contentsline {subsection}{\numberline {9.1.3}$\varepsilon $-Greedy e $\varepsilon _t$-Decaying}{104}{subsection.9.1.3}%
+\contentsline {subsection}{\numberline {9.1.4}Lower Bound of Regret}{105}{subsection.9.1.4}%
+\contentsline {subsection}{\numberline {9.1.5}Optimism in the Face of Uncertainty}{105}{subsection.9.1.5}%
+\contentsline {subsection}{\numberline {9.1.6}Upper Confidence Bounds (UCB)}{106}{subsection.9.1.6}%
+\contentsline {subsection}{\numberline {9.1.7}Hoeffding's Inequality}{107}{subsection.9.1.7}%
+\contentsline {subsection}{\numberline {9.1.8}Calcolo della Banda di Confidenza}{107}{subsection.9.1.8}%
+\contentsline {subsection}{\numberline {9.1.9}UCB1}{108}{subsection.9.1.9}%
+\contentsline {subsection}{\numberline {9.1.10}Bayesian Bandits}{108}{subsection.9.1.10}%
+\contentsline {subsection}{\numberline {9.1.11}Bayesian UCB}{109}{subsection.9.1.11}%
+\contentsline {subsection}{\numberline {9.1.12}Probability Matching}{109}{subsection.9.1.12}%
+\contentsline {subsection}{\numberline {9.1.13}Thompson Sampling}{110}{subsection.9.1.13}%
+\contentsline {chapter}{\numberline {10}Simulation Modeling}{111}{chapter.10}%
+\contentsline {section}{\numberline {10.1}What is Simulation?}{111}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Objectives of Simulation}{112}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}Simulation as a Process: System, Model, Simulation}{112}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.1.3}Simulation Techniques}{112}{subsection.10.1.3}%
+\contentsline {subsection}{\numberline {10.1.4}When Simulation Is Appropriate}{113}{subsection.10.1.4}%
+\contentsline {subsection}{\numberline {10.1.5}When Simulation Is \emph {Not} the Appropriate Tool}{113}{subsection.10.1.5}%
+\contentsline {subsection}{\numberline {10.1.6}Advantages and Disadvantages of Simulation}{114}{subsection.10.1.6}%
+\contentsline {subsection}{\numberline {10.1.7}Areas of Application}{114}{subsection.10.1.7}%
+\contentsline {section}{\numberline {10.2}What is a System?}{114}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}System, State, and Environment}{115}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}Components of a System}{115}{subsection.10.2.2}%
+\contentsline {subsection}{\numberline {10.2.3}Discrete and Continuous Systems}{116}{subsection.10.2.3}%
+\contentsline {section}{\numberline {10.3}What is a Model?}{116}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}Purpose of a Model}{117}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}Model Complexity and Trade-offs}{117}{subsection.10.3.2}%
+\contentsline {subsection}{\numberline {10.3.3}Classification of Models}{117}{subsection.10.3.3}%
+\contentsline {subsection}{\numberline {10.3.4}Models and Simulation}{118}{subsection.10.3.4}%
+\contentsline {section}{\numberline {10.4}What is a Discrete-Event Simulation (D.E.S.)}{119}{section.10.4}%
+\contentsline {subsection}{\numberline {10.4.1}Example: Single-Server Queue}{119}{subsection.10.4.1}%
+\contentsline {subsection}{\numberline {10.4.2}Steps in a Simulation Study}{120}{subsection.10.4.2}%
