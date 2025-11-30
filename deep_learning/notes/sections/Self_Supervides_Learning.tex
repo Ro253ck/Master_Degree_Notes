@@ -1,0 +1,199 @@
+\chapter{Self-Supervised Learning}
+
+\section{Introduction}
+Self-Supervised Learning (SSL) is  a particular type of representation learning that enables learning good data representation from \textbf{unlabelled} dataset.
+
+The \textbf{idea} of the SSL is to constructing supervised learning task out of unsupervised dataset.
+
+This make sense for two reason:
+\begin{compactitemize}
+    \item Data labelling is expensive; thus, the high-quality labeled dataset is limited.
+    \item Learning good representation makes transferring useful information to various downstream tasks.
+\end{compactitemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/SS1.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\subsection{Self-Supervised Learning vs Generative Learning}
+Often, we are not really interested to generate pixel-level detail. Instead we are more interested to learn only high-level semantic features through \textbf{pretext task}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/SS2.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\subsection{Self-Supervised Learning through Pretext Tasks}
+
+Self-supervised learning aims to learn high-level semantic representations from data without relying on manually annotated labels. This is achieved through the use of \textbf{pretext tasks}, which are automatically generated tasks designed to encourage the model to extract meaningful and general features from the data.
+
+One of the main characteristics of a pretext task is that it allows labels to be generated automatically, without any human intervention (e.g., image rotation, colorization, or jigsaw puzzles).
+
+As an example, consider the following \textbf{pretext task}: given an image of a bird, the image is rotated by a certain angle (e.g., $0^\circ$, $90^\circ$, $180^\circ$, $270^\circ$), and the model is trained to \textbf{predict} which rotation has been applied. This results in a simple 4-class classification problem.
+
+In this scenario, the model is a standard \textbf{Convolutional Neural Network (CNN)}. After training the CNN on the pretext task, the network learns to extract useful visual features that capture the structure and semantics of the images. Once training is complete, the feature extractor (i.e., the convolutional layers) can be detached and reused as part of a new model for a downstream task.
+
+Specifically, the pretrained feature extractor is connected to a new Multi-Layer Perceptron (MLP) designed for the target task. Since the CNN has already learned informative representations through the pretext task, only a relatively small amount of labeled data is required to train the new model. This approach partially addresses the problem of limited labeled data by leveraging large amounts of unlabeled data during pretraining.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/SS3.png}
+    \label{fig:MHA2}
+\end{figure}
+Predicting image rotations is an effective pretext task because it encourages the model to learn meaningful visual representations rather than focusing on low-level cues. In order to correctly infer the rotation applied to an image, the model must develop a form of visual commonsense, that is, an understanding of how objects typically appear in their canonical, unperturbed orientation.
+
+Indeed, recognizing whether an object is upright, upside-down, or rotated by a specific angle requires the network to capture high-level semantic information such as object shape, part configuration, and spatial relationships between components. For example, correctly identifying that an animal is upside-down implies understanding where its head, limbs, and body are normally located. This prevents the model from relying solely on trivial pixel-level statistics and instead pushes it toward learning semantically rich and transferable features.
+
+As a result, rotation prediction acts as a strong supervisory signal without requiring manual annotations. The features learned during this pretraining phase are general and robust, making them well-suited for downstream tasks such as image classification, object detection, or segmentation, even when only a limited amount of labeled data is available.
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/SS4.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+The figure shows that \textbf{self-supervised pretraining} based on rotation prediction enables the model to learn \textbf{robust and transferable visual features}. During the downstream supervised phase, the early layers (\textbf{conv1 and conv2}) are \textbf{frozen}, while only the higher-level layers (\textbf{conv3 and the linear classifier}) are trained using a \textbf{small subset of labeled data}. This setup demonstrates that the representations learned through the pretext task are sufficiently informative to achieve strong performance even with limited supervision.
+
+\section{SLL through intra-example relationships}
+
+\subsection{Pretext Task: Solving ``Jigsaw Puzzles''}
+
+Learning the spatial relationships among image patches is an effective strategy for self-supervised representation learning. In this context, the pretext task consists of dividing an image into a set of patches and training a model to predict their correct relative positions or permutations. Early approaches include predicting the relative position between pairs of patches  and solving jigsaw puzzles constructed from shuffled image patches.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/SS5.png}
+    \label{fig:MHA2}
+\end{figure}
+The intuition behind the jigsaw puzzle task is that, to correctly reassemble the image, the model must understand that objects are composed of meaningful parts and learn how these parts are spatially arranged. This encourages the network to capture semantic information about object structure rather than relying on low-level visual cues.
+
+A key challenge of this approach is the inherent ambiguity when considering each patch independently, as multiple configurations may appear locally plausible. To address this issue, the model observes all patches jointly, framing the problem as a global permutation prediction task. Since the placement of each patch is mutually exclusive, jointly reasoning over all tiles significantly reduces ambiguity and leads to the learning of more coherent and informative visual representations .
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/SS6.png}
+        \label{fig:Residuals}
+    \end{minipage}
+    \label{fig:TS_Residuals}
+    \hfill
+    \begin{minipage}{0.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/SS7.png}
+        \label{fig:Residuals}
+    \end{minipage}
+    \label{fig:TS_Residuals}
+\end{figure}
+
+\subsection{Pretext Task: Predicting Relative Patch Locations}
+
+Predicting the relative spatial arrangement of image patches is an early and influential pretext task for self-supervised representation learning. Given a large collection of unlabeled images, random pairs of patches are extracted from each image and used as input to the model. One patch is treated as a reference, while the second patch is sampled from a neighboring region at a relative position drawn from a predefined set.
+
+The pretext task consists of training a model to predict the relative position of the second patch with respect to the first (e.g., top, bottom, left, right, or diagonal), framing the problem as a classification task. This setup does not require any manual annotations, as the relative spatial relationship between patches is automatically determined during data generation.
+
+The underlying hypothesis is that performing well on this task requires the model to move beyond low-level texture cues and instead learn semantically meaningful representations. In particular, the model is encouraged to recognize objects, their constituent parts, and their typical spatial configurations, since understanding how parts of an object are arranged is crucial for correctly reasoning about relative patch locations.
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/SS8.png}
+        \label{fig:Residuals}
+    \end{minipage}
+    \label{fig:TS_Residuals}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/SS9.png}
+        \label{fig:Residuals}
+    \end{minipage}
+    \label{fig:TS_Residuals}
+\end{figure}
+
+\subsection{Pretext Tasks: Colorization}
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/SS10.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Image colorization is a powerful self-supervised pretext task that consists of predicting color information from grayscale images. In this setting, supervision is obtained directly from the data, since color images can be automatically converted to grayscale. One representative approach is proposed by Zhang et al., where the model is trained to predict the discretized color values in the CIE Lab color space given only the luminance channel. The task is formulated as a classification problem over color bins, which helps the model capture multimodal color distributions.
+
+Colorization encourages the network to learn high-level semantic features, as assigning plausible colors often requires understanding object identity, material properties, and scene context. In particular, correctly colorizing an image implicitly forces the model to distinguish between different object parts (e.g., eyes, skin, hair), to reason about shapes and boundaries, and to separate foreground objects from the background. This process leads the network to capture meaningful structural and spatial information rather than relying solely on low-level texture cues.
+
+A generalization of this idea is the \emph{split-brain autoencoder} introduced by Zhang et al. In this framework, the input channels are divided into two complementary subsets, and the model is trained to predict one subset from the other. For example, the network may predict chrominance from luminance, or more generally, infer color, depth, or other modalities from available visual information. By forcing different subnetworks to learn from partial observations, this approach further promotes the learning of robust and semantically rich representations.
+
+Beyond representation learning, colorization models also have practical applications. Since they are trained using artificially generated grayscale images, they can be directly applied to real legacy black-and-white photographs, producing visually plausible colorized results, as demonstrated in \emph{Colorful Image Colorization} by Zhang et al.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/SS11.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\section{Self-Prediction}
+\begin{wrapfigure}{r}{0.25\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/SS12.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Self-prediction is a branch of \textbf{self-supervised learning} in which, given an individual data sample, the learning task consists of predicting one part of the sample from the remaining parts. The key idea is to artificially define a prediction problem \emph{within} each data sample, without relying on externally provided labels.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/SS13.png}
+    \label{fig:MHA2}
+\end{figure}
+More specifically, a portion of the data is treated as if it were \textbf{missing}, even though it is actually available. The neural network is then trained to predict this missing part using the observed portion of the sample. By doing so, the model is forced to learn meaningful internal representations that capture the structure and dependencies of the data.
+
+In general, self-prediction methods construct prediction tasks directly from the data by pretending that certain parts are unknown and using the remaining parts as input. This principle applies across different data modalities (e.g., images, audio, text) and forms the foundation of several successful self-supervised approaches.
+
+Self-prediction methods can be broadly categorized into three main classes:
+\begin{compactitemize}
+    \item \textbf{Masked generation}
+    \item \textbf{Autoregressive generation}
+    \item \textbf{Hybrid self-prediction}
+\end{compactitemize}
+
+\subsection{Masked Generation}
+
+Masked generation is a self-prediction strategy in which a random portion of the input data is masked out and treated as missing, independently of any natural ordering in the data. The model is trained to predict the masked portion using the remaining unmasked information, thereby learning dependencies and structure within the data.
+
+This paradigm can be applied across different modalities. In natural language processing, a prominent example is \textbf{masked language modeling}, as used in BERT, where randomly selected tokens are masked and the model is trained to predict them from the surrounding context. In computer vision, masked generation includes tasks such as image inpainting and masked patch prediction, including recent approaches like \textbf{Masked AutoEncoders (MAEs)}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/SS14.png}
+    \label{fig:MHA2}
+\end{figure}
+\subsubsection{Self-prediction by Inpainting}
+
+Self-prediction by inpainting consists of predicting the content of an arbitrary missing region in an image based on its surrounding context. In this setting, a portion of the image is removed, and the model is trained to reconstruct the missing pixels using the visible parts of the image \cite{Pathak2016}.
+
+To succeed at this task, the model must capture both local appearance cues and global semantic information. In particular, it needs to understand the overall image content in order to produce a plausible hypothesis for the missing region. As a result, inpainting encourages the learning of representations that encode not only textures and low-level visual features, but also object structure, spatial relationships, and semantic coherence.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/SS15.png}
+    \label{fig:MHA2}
+\end{figure}
+\subsubsection{Self-prediction through Masked AutoEncoders}
+
+Masked AutoEncoders (MAEs) are a self-prediction approach in which random patches of an input image are masked, and the model is trained to reconstruct the missing patches in pixel space. Unlike traditional autoencoders, MAEs adopt an \textbf{asymmetric encoder-decoder architecture}.
+
+The encoder processes only the visible patches and produces a latent representation without using mask tokens, making it computationally efficient. The decoder then takes this latent representation together with mask tokens and reconstructs the full image, including the missing patches. By reconstructing heavily masked inputs, MAEs force the model to learn strong and semantically meaningful visual representations that are well suited for downstream tasks.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/SS16.png}
+    \label{fig:MHA2}
+\end{figure}
+\subsection{Autoregressive Generation}
+
+Autoregressive generation is a self-prediction strategy in which the model predicts future elements of a data sample based on previously observed elements. This approach explicitly exploits the inherent sequential structure of the data and models the joint distribution as a product of conditional probabilities.
+
+Autoregressive models are widely used in domains where data has a natural ordering. Examples include audio generation (e.g., WaveNet, WaveRNN), autoregressive language modeling (e.g., GPT, XLNet), and image modeling by imposing an artificial raster-scan order on pixels or patches (e.g., PixelCNN, PixelRNN, and iGPT).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/SS17.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\section{Contrastive Learning}

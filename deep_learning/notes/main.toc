@@ -193,3 +193,17 @@
 \contentsline {subsection}{\numberline {10.2.6}Brier Score}{139}{subsection.10.2.6}%
 \contentsline {subsection}{\numberline {10.2.7}Out-of-Distribution Detection}{139}{subsection.10.2.7}%
 \contentsline {subsubsection}{\numberline {10.2.7.1}ODIN}{140}{subsubsection.10.2.7.1}%
+\contentsline {chapter}{\numberline {11}Self-Supervised Learning}{141}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Introduction}{141}{section.11.1}%
+\contentsline {subsection}{\numberline {11.1.1}Self-Supervised Learning vs Generative Learning}{141}{subsection.11.1.1}%
+\contentsline {subsection}{\numberline {11.1.2}Self-Supervised Learning through Pretext Tasks}{142}{subsection.11.1.2}%
+\contentsline {section}{\numberline {11.2}SLL through intra-example relationships}{143}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}Pretext Task: Solving ``Jigsaw Puzzles''}{143}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Pretext Task: Predicting Relative Patch Locations}{144}{subsection.11.2.2}%
+\contentsline {subsection}{\numberline {11.2.3}Pretext Tasks: Colorization}{145}{subsection.11.2.3}%
+\contentsline {section}{\numberline {11.3}Self-Prediction}{146}{section.11.3}%
+\contentsline {subsection}{\numberline {11.3.1}Masked Generation}{147}{subsection.11.3.1}%
+\contentsline {subsubsection}{\numberline {11.3.1.1}Self-prediction by Inpainting}{147}{subsubsection.11.3.1.1}%
+\contentsline {subsubsection}{\numberline {11.3.1.2}Self-prediction through Masked AutoEncoders}{148}{subsubsection.11.3.1.2}%
+\contentsline {subsection}{\numberline {11.3.2}Autoregressive Generation}{148}{subsection.11.3.2}%
+\contentsline {section}{\numberline {11.4}Contrastive Learning}{149}{section.11.4}%
