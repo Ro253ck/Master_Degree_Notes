@@ -197,3 +197,191 @@ Autoregressive models are widely used in domains where data has a natural orderi
 \end{figure}
 
 \section{Contrastive Learning}
+\section{Contrastive Learning}
+
+Pretext tasks play a central role in self-supervised learning, as they encourage models to acquire meaningful visual representations without relying on human-annotated labels. In particular, they push neural networks to develop a form of \textbf{visual common sense}, enabling the extraction of high-level semantic information that can be effectively reused for downstream tasks. To successfully solve a pretext task, the model is forced to learn informative features of natural images, such as object structure and semantic categories, rather than relying on superficial visual cues. Importantly, the final goal is not to maximize performance on the pretext task itself, but to learn representations that are \textbf{useful and transferable} to downstream applications such as classification, detection, or segmentation.
+
+Despite their effectiveness, pretext-task-based approaches present several limitations. Designing suitable pretext tasks often requires \textbf{significant manual effort} and domain knowledge. Moreover, the learned representations may fail to be sufficiently general, as they can become \textbf{tightly coupled to the specific pretext task} used during training, reducing their applicability across different downstream problems.
+
+These limitations naturally raise the question of whether it is possible to define a more general and task-agnostic self-supervised learning paradigm. \textbf{Contrastive learning} provides a positive answer to this question. Instead of relying on a handcrafted prediction task, contrastive learning learns representations by comparing different views of the data, explicitly encouraging representations of similar samples to be close while pushing apart representations of dissimilar samples. This formulation yields a more flexible and general objective, capable of producing robust and widely transferable visual features.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/SS18.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\subsection{Contrastive Representation Learning}
+
+The goal of \textbf{contrastive representation learning} is to learn an embedding space in which semantically similar samples are mapped close to each other, while dissimilar samples are pushed far apart. This objective is achieved by explicitly comparing pairs of samples and enforcing relative similarity constraints in the learned representation space.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/SS20.png}
+    \label{fig:MHA2}
+\end{figure}
+Formally, given an encoder function $f(\cdot;\theta_f)$, a reference sample $x$ (also called an \textbf{anchor}), a \textbf{positive sample} $x^+$ that is semantically related to $x$, and a \textbf{negative sample} $x^-$ that is unrelated, the model is trained such that
+\[
+\text{score}(f(x), f(x^+)) \gg \text{score}(f(x), f(x^-)).
+\]
+The score function typically measures similarity in the embedding space, such as cosine similarity or dot product.
+
+Positive samples are usually obtained through \textbf{positive mining strategies}, for example by applying different data augmentations to the same input or by using different views of the same underlying scene or object. Negative samples are drawn from other, unrelated data points within the dataset or the same training batch.
+
+By enforcing these constraints, contrastive learning encourages the encoder to capture high-level semantic features that are invariant to irrelevant transformations, resulting in representations that are robust and highly transferable to downstream tasks.
+
+\subsection{Contrastive Loss}
+
+The contrastive loss was introduced by Chopra et al. as a metric learning objective designed to bring similar samples close in the embedding space while pushing dissimilar samples apart. Unlike self-supervised contrastive learning, this formulation typically assumes the availability of \textbf{labeled data}, where samples from the same class are considered similar and samples from different classes are considered dissimilar.
+
+Given an encoder function $f(\cdot;\theta_f)$ and a pair of labeled samples $(x_i, x_j)$, the contrastive loss is defined as:
+\[
+\mathcal{L}(x_i, x_j; \theta_f) =
+\begin{cases}
+\| f(x_i) - f(x_j) \|, & \text{if } i = j ,(minimize) \\
+\max\left(0, \alpha - \| f(x_i) - f(x_j) \| \right), & \text{if } i \neq j ,(maximize)
+\end{cases}
+\]
+where $\alpha$ is a positive margin that controls the minimum desired distance between embeddings of samples belonging to different classes.
+
+For positive pairs (i.e., samples from the same class), the loss encourages minimizing the distance between their embeddings. For negative pairs, the loss penalizes embeddings that are closer than the margin $\alpha$. If the distance between two negative samples exceeds the margin, their contribution to the loss is zero.
+
+The introduction of the margin is crucial to prevent \textbf{representation collapse}, a degenerate solution in which all samples are mapped to the same point in the embedding space. By enforcing a minimum separation between negative pairs, contrastive loss promotes a structured and discriminative embedding space.
+
+\subsection{Triplet Loss}
+
+The triplet loss is a metric learning objective that extends the contrastive loss by jointly considering three samples at a time: an \textbf{anchor} sample $x$, a \textbf{positive} sample $x^+$ belonging to the same class as the anchor, and a \textbf{negative} sample $x^-$ belonging to a different class. The objective is to learn an embedding space in which the anchor is closer to the positive sample than to the negative one.
+
+More formally, the desired constraint is that the distance between the anchor and the positive sample is smaller than the distance between the anchor and the negative sample by at least a margin $\alpha$:
+\[
+\| f(x) - f(x^+) \|_2^2 + \alpha < \| f(x) - f(x^-) \|_2^2.
+\]
+
+This constraint is enforced by minimizing the following loss function:
+\[
+\mathcal{L}(x, x^+, x^-; \theta_f) =
+\max\left(0,
+\| f(x) - f(x^+) \|_2^2
+-
+\| f(x) - f(x^-) \|_2^2
++ \alpha
+\right).
+\]
+
+If the constraint is satisfied, the loss is zero; otherwise, the model is penalized proportionally to how much the margin is violated. By jointly optimizing distances between anchor--positive and anchor--negative pairs, the triplet loss encourages a well-structured and discriminative embedding space.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/SS21.png}
+    \label{fig:MHA2}
+\end{figure}
+
+\subsection{InfoNCE}
+
+The InfoNCE loss is a widely used objective in contrastive representation learning that formulates the learning problem as a \textbf{classification task}. Given an anchor sample $x$ and its corresponding positive sample $x^+$, the model is trained to identify the positive sample among a set of other unrelated samples, which act as \textbf{negative examples}.
+
+More concretely, for each anchor $x$, one positive pair $(x, x^+)$ and $N-1$ negative samples $\{x^-_j\}_{j=1}^{N-1}$ are considered. Using an encoder function $f(\cdot; \theta_f)$ and a similarity function $\text{sim}(\cdot, \cdot)$, the InfoNCE loss is defined as:
+\[
+\mathcal{L}_{\text{InfoNCE}}(x; \theta_f) =
+- \log
+\frac{
+\overbrace{\exp\left(\text{sim}(f(x), f(x^+))\right)}^{\text{score for the positive pair}}
+}{
+\underbrace{
+\exp\left(\text{sim}(f(x), f(x^+))\right)
+}_{\text{score for the positive pair}}
++
+\underbrace{
+\sum_{j=1}^{N-1}
+\exp\left(\text{sim}(f(x), f(x^-_j))\right)
+}_{\text{score for the $N-1$ negative pairs}}
+}
+\]
+
+Intuitively, the model is encouraged to assign a higher similarity score to the positive pair than to all negative pairs. This formulation is equivalent to the standard \textbf{categorical cross-entropy loss} applied to an $N$-way softmax classifier, where the goal is to correctly identify the positive sample among a finite set of candidate samples.
+
+Thanks to this formulation, InfoNCE scales naturally with the number of negative samples and has become the de facto standard loss in modern self-supervised contrastive learning methods.
+
+\subsection{SimCLR: a simple framework}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/SS22.png}
+    \caption{SimCLR}
+    \label{fig:MHA2}
+\end{figure}
+
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/SS23.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+SimCLR (Simple Framework for Contrastive Learning of Visual Representations) is a self-supervised contrastive learning framework that learns visual representations by maximizing agreement between different augmented views of the same data sample.
+
+Given an input image $x$, two stochastic data augmentation operators $t \sim \mathcal{T}$ and $t' \sim \mathcal{T}$ are independently sampled from a family of transformations and applied to obtain two correlated views:
+\[
+\tilde{x}_i = t(x), \quad \tilde{x}_j = t'(x).
+\]
+These two views form a \textbf{positive pair}, while views obtained from different images naturally act as \textbf{negative samples}.
+
+Each augmented image is processed by a shared \textbf{encoder network} $f(\cdot)$, producing intermediate representations:
+\[
+h_i = f(\tilde{x}_i), \quad h_j = f(\tilde{x}_j).
+\]
+The representations are then mapped by a \textbf{projection head} $g(\cdot)$, typically implemented as a multilayer perceptron, yielding the embeddings used for contrastive learning:
+\[
+z_i = g(h_i), \quad z_j = g(h_j).
+\]
+
+A key aspect of SimCLR is that it does \textbf{not explicitly sample negative examples}. Given a mini-batch of $N$ images, two augmented views are generated for each image, resulting in a total of $2N$ samples. For a given anchor representation, the corresponding positive sample is the other augmented view of the same image, while the remaining $2(N-1)$ augmented views in the batch act as negative samples. This explains the appearance of $2N$ terms in the contrastive loss formulation.
+
+The similarity between two embeddings is measured using the \textbf{cosine similarity}, defined as:
+\[
+\text{sim}(u, v) = \frac{u^\top v}{\|u\| \, \|v\|},
+\]
+which focuses on the angular distance between normalized embeddings and has been shown to stabilize and improve contrastive training. 
+
+The contrastive objective is formulated using the \textbf{InfoNCE loss} with a temperature parameter $\tau$. Given a positive pair $(i,j)$ within a batch of $2N$ augmented samples, the loss for sample $i$ is:
+\[
+\ell_{i,j} =
+- \log
+\frac{
+\exp\left(\text{sim}(z_i, z_j) / \tau\right)
+}{
+\sum_{k=1}^{2N} \mathbb{1}_{[k \neq i]}
+\exp\left(\text{sim}(z_i, z_k) / \tau\right)
+},
+\]
+where $\mathbb{1}_{[k \neq i]}$ excludes the anchor itself from the denominator.
+
+The final SimCLR objective is obtained by symmetrizing the loss over all positive pairs in the batch:
+\[
+\mathcal{L}_{\text{SimCLR}} =
+\frac{1}{2N}
+\sum_{i=1}^{N}
+\left(
+\ell_{i,j(i)} + \ell_{j(i),i}
+\right).
+\]
+
+An important design choice in SimCLR is the use of the projection head $g(\cdot)$. By applying the contrastive loss in the projection space rather than directly on the encoder output $h$, the encoder $f(\cdot)$ is encouraged to preserve more general and transferable information. After pretraining, the projection head is discarded, and only the encoder $f(\cdot)$ is retained for downstream tasks.
+
+\subsubsection{Linear Evaluation on SimCLR Features}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/SS24.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+This figure reports the performance of SimCLR representations evaluated through the \textbf{linear evaluation protocol}. The feature encoder is first pretrained on the entire ImageNet dataset using SimCLR, after which it is \textbf{frozen} and a linear classifier is trained on top using labeled data. The results show that SimCLR achieves performance comparable to, and in some cases surpassing, supervised pretraining, highlighting the quality and transferability of the learned representations.
+
+\subsubsection{Linear Evaluation on SimCLR Features}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/SS25.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+This figure reports the performance of SimCLR representations evaluated through the \textbf{linear evaluation protocol}. The feature encoder is first pretrained on the entire ImageNet dataset using SimCLR, after which it is \textbf{frozen} and a linear classifier is trained on top using labeled data. The results show that SimCLR achieves performance comparable to, and in some cases surpassing, supervised pretraining, highlighting the quality and transferability of the learned representations.

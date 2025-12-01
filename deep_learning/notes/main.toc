@@ -1,209 +1,218 @@
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Logistic Regression and Optimizer}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Logistic Regression}{3}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}Learning Logistic Regression}{4}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}Example of binary Logistic Regression}{4}{subsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.1.3}Logistic Regression classification rule}{5}{subsection.1.1.3}%
-\contentsline {subsection}{\numberline {1.1.4}Gradient Descent}{5}{subsection.1.1.4}%
-\contentsline {subsection}{\numberline {1.1.5}Mathematical explanation of the weight update}{7}{subsection.1.1.5}%
-\contentsline {section}{\numberline {1.2}Optimizers}{8}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Stochastic Gradient Descent (SGD)}{8}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Advanced Optimizer}{8}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}ADAM}{9}{subsection.1.2.3}%
-\contentsline {chapter}{\numberline {2}Multi Layer Perceptron (MLP)}{10}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Difference between Machine Learning and Deep Learning}{10}{section.2.1}%
-\contentsline {section}{\numberline {2.2}One step back: Linear classifier}{11}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Logistic Regression}{12}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Softmax Classifier}{13}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3}Modelling a Neuron}{14}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Neuron Activation Functions}{15}{subsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.1.1}Sigmoid}{15}{subsubsection.2.3.1.1}%
-\contentsline {subsubsection}{\numberline {2.3.1.2}Tanh}{15}{subsubsection.2.3.1.2}%
-\contentsline {subsubsection}{\numberline {2.3.1.3}ReLU (Rectified Linear Unit)}{16}{subsubsection.2.3.1.3}%
-\contentsline {subsubsection}{\numberline {2.3.1.4}Why Non-linear Activations?}{16}{subsubsection.2.3.1.4}%
-\contentsline {section}{\numberline {2.4}Neural Networks}{17}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Forward propagation}{17}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Representational Power}{18}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Setting Hyperparameters}{18}{subsection.2.4.3}%
-\contentsline {section}{\numberline {2.5}Training a Deep Neural Network}{19}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Choice of the Data Loss}{19}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Learning the Parameters}{20}{subsection.2.5.2}%
-\contentsline {subsection}{\numberline {2.5.3}BackPropagation}{20}{subsection.2.5.3}%
-\contentsline {subsection}{\numberline {2.5.4}Weights Initialization}{21}{subsection.2.5.4}%
-\contentsline {section}{\numberline {2.6}Regularization}{22}{section.2.6}%
-\contentsline {subsection}{\numberline {2.6.1}Dropout}{22}{subsection.2.6.1}%
-\contentsline {subsection}{\numberline {2.6.2}Data Augmentation}{23}{subsection.2.6.2}%
-\contentsline {subsection}{\numberline {2.6.3}Early Stopping}{23}{subsection.2.6.3}%
-\contentsline {chapter}{\numberline {3}Convolutional Neural Networks (CNNs)}{25}{chapter.3}%
-\contentsline {section}{\numberline {3.1}The parameter explosion problem in MLPs and the solution with CNNs}{25}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Architecture}{26}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Convolutional Layers}{27}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}What is the convolution operation?}{29}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Hyperparameters of Convolutional Layers}{29}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Number of Learnable Parameters}{30}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Activation Functions}{31}{subsection.3.3.4}%
-\contentsline {section}{\numberline {3.4}Pooling Layers}{32}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Computing Output Volume Size}{33}{subsection.3.4.1}%
-\contentsline {section}{\numberline {3.5}Real Implementation of CNNs}{34}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}LeNet}{34}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}AlexNet}{35}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}VGGNet}{36}{subsection.3.5.3}%
-\contentsline {subsection}{\numberline {3.5.4}The state of the art: The Residual Neural Network (ResNet)}{37}{subsection.3.5.4}%
-\contentsline {section}{\numberline {3.6}Batch Normalization}{39}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}How Batch Normalization Works During Training}{40}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}How Batch Normalization Works During Inference}{40}{subsection.3.6.2}%
-\contentsline {subsection}{\numberline {3.6.3}Benefits of Batch Normalization}{41}{subsection.3.6.3}%
-\contentsline {chapter}{\numberline {4}Recurrent Neural Networks}{42}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Introduction to Time Series}{42}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}STL Decomposition}{43}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Forecasting}{44}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Forecasting Problem}{45}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Autoregressive Models}{45}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Moving Average Models}{46}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}ARMA Models}{46}{subsection.4.2.4}%
-\contentsline {section}{\numberline {4.3}Data Pre-processing}{47}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Data Preparation}{48}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Cyclical Features}{49}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Recurrent Neural Networks (RNNs)}{49}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Vanilla RNN}{50}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Training RNNs}{51}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}The Challenge of Long-Term Dependencies: Vanishing Gradients}{53}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}The Challenge of Long-Term Dependencies: Exploding Gradients}{53}{subsection.4.4.4}%
-\contentsline {section}{\numberline {4.5}Advanced Recurrent Architectures}{53}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Long Short-Term Memory networks}{54}{subsection.4.5.1}%
-\contentsline {chapter}{\numberline {5}TCN and Transformer}{57}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Temporal Convolutional Networks (TCN)}{57}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Use of Convolutions for Sequence Modeling}{57}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Dilated Convolution}{58}{subsection.5.1.2}%
-\contentsline {subsection}{\numberline {5.1.3}Casual Convolution}{59}{subsection.5.1.3}%
-\contentsline {subsection}{\numberline {5.1.4}Temporal Convolutional Network}{59}{subsection.5.1.4}%
-\contentsline {subsection}{\numberline {5.1.5}TCN vs RNN}{60}{subsection.5.1.5}%
-\contentsline {section}{\numberline {5.2}Transformer}{60}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Transformer Architecture}{61}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Transformer Encoder}{61}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Layer Normalization}{62}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}The Feed Forward}{62}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}The Core Idea of Attention}{63}{subsection.5.2.5}%
-\contentsline {subsection}{\numberline {5.2.6}Attention as Content-Based Memory Access}{63}{subsection.5.2.6}%
-\contentsline {subsubsection}{\numberline {5.2.6.1}Single Head Attention}{64}{subsubsection.5.2.6.1}%
-\contentsline {subsubsection}{\numberline {5.2.6.2}Multi-Head Attention}{65}{subsubsection.5.2.6.2}%
-\contentsline {subsection}{\numberline {5.2.7}From Token Representation to classification}{66}{subsection.5.2.7}%
-\contentsline {subsection}{\numberline {5.2.8}Summary: From TCN to Transformers}{66}{subsection.5.2.8}%
-\contentsline {section}{\numberline {5.3}Loss Functions for Regression}{66}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}From Regression to Classification via Binning}{67}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Limitations of MSE and MAE}{67}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Understanding Quantiles}{68}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Quantile Loss Function}{68}{subsection.5.3.4}%
-\contentsline {chapter}{\numberline {6}Graph Neural Networks}{70}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Little back to Convolutional Neural Networks}{70}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}1D Cross-Correlation on a 1D Euclidean Lattice}{70}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}2D Cross-Correlation on a 2D Euclidean Lattice}{70}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}A Graph Viewpoint}{71}{subsection.6.1.3}%
-\contentsline {subsection}{\numberline {6.1.4}Problem of Standard N-D Convolution}{71}{subsection.6.1.4}%
-\contentsline {section}{\numberline {6.2}Graph Neural Networks}{72}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}An example of Graph Convolutional Layer}{74}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}The Role of the Adjacency Matrix}{75}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Message Passing}{76}{subsection.6.2.3}%
-\contentsline {subsubsection}{\numberline {6.2.3.1}Receptive Field and Theoretical Motivations}{77}{subsubsection.6.2.3.1}%
-\contentsline {section}{\numberline {6.3}Applications of Graph Neural Networks}{77}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Node Classification}{77}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Link Prediction}{78}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Graph Classification}{79}{subsection.6.3.3}%
-\contentsline {section}{\numberline {6.4}Graph Attention Networks (GATs)}{80}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Limitations of GCNs}{80}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Graph Attention Networks: Core Idea}{81}{subsection.6.4.2}%
-\contentsline {subsection}{\numberline {6.4.3}GAT Architecture: Detailed Mechanism}{81}{subsection.6.4.3}%
-\contentsline {subsection}{\numberline {6.4.4}GATv2: Addressing Static Attention Limitations}{84}{subsection.6.4.4}%
-\contentsline {section}{\numberline {6.5}GraphCast: Weather Forecasting with GNNs}{84}{section.6.5}%
-\contentsline {chapter}{\numberline {7}Autoencoders}{86}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Unservised Learning}{86}{section.7.1}%
-\contentsline {subsection}{\numberline {7.1.1}Why Unsupervised Learning?}{86}{subsection.7.1.1}%
-\contentsline {section}{\numberline {7.2}Learning Rapresentations}{87}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Manifold Assumption}{88}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Dimensionality Reduction}{89}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}An inefficient way to fit PCA}{90}{subsection.7.2.3}%
-\contentsline {section}{\numberline {7.3}Autoencoders}{90}{section.7.3}%
-\contentsline {subsection}{\numberline {7.3.1}Risk: Learning the Identity Function}{91}{subsection.7.3.1}%
-\contentsline {subsection}{\numberline {7.3.2}Undercomplete Autoencoders}{91}{subsection.7.3.2}%
-\contentsline {section}{\numberline {7.4}Regularized Autoencoders}{92}{section.7.4}%
-\contentsline {subsection}{\numberline {7.4.1}Sparse Autoencoders}{92}{subsection.7.4.1}%
-\contentsline {subsection}{\numberline {7.4.2}Denoising Autoencoders}{93}{subsection.7.4.2}%
-\contentsline {subsubsection}{\numberline {7.4.2.1}Denoising Autoencoders for Anomaly Detection}{94}{subsubsection.7.4.2.1}%
-\contentsline {subsection}{\numberline {7.4.3}Contractive Autoencoders}{94}{subsection.7.4.3}%
-\contentsline {chapter}{\numberline {8}Generative models}{96}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Variational Autoencoders}{96}{section.8.1}%
-\contentsline {subsection}{\numberline {8.1.1}The problem of the distribution and the Latent Variables}{96}{subsection.8.1.1}%
-\contentsline {subsection}{\numberline {8.1.2}Latent Variables in Weather Modeling}{97}{subsection.8.1.2}%
-\contentsline {subsection}{\numberline {8.1.3}Latent Variable Models}{97}{subsection.8.1.3}%
-\contentsline {subsection}{\numberline {8.1.4}Problem with Monte Carlo}{98}{subsection.8.1.4}%
-\contentsline {subsection}{\numberline {8.1.5}Variational Inference}{98}{subsection.8.1.5}%
-\contentsline {subsection}{\numberline {8.1.6}Variational Autoencoder: the Encoder and the Decoder}{100}{subsection.8.1.6}%
-\contentsline {subsection}{\numberline {8.1.7}The reparametrization trick}{101}{subsection.8.1.7}%
-\contentsline {section}{\numberline {8.2}Generative Adversarial Networks}{102}{section.8.2}%
-\contentsline {subsection}{\numberline {8.2.1}Adversarial Training Idea}{102}{subsection.8.2.1}%
-\contentsline {subsection}{\numberline {8.2.2}Generative adversarial network}{103}{subsection.8.2.2}%
-\contentsline {subsection}{\numberline {8.2.3}Training GANs}{103}{subsection.8.2.3}%
-\contentsline {subsection}{\numberline {8.2.4}Evolution of GAN Architectures}{104}{subsection.8.2.4}%
-\contentsline {subsection}{\numberline {8.2.5}Pros and Cons}{106}{subsection.8.2.5}%
-\contentsline {chapter}{\numberline {9}Discrete Representations and Generative Modeling}{107}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Introdcution}{107}{section.9.1}%
-\contentsline {subsection}{\numberline {9.1.1}Immanuel Kant}{107}{subsection.9.1.1}%
-\contentsline {subsection}{\numberline {9.1.2}René Descartes}{107}{subsection.9.1.2}%
-\contentsline {subsection}{\numberline {9.1.3}Why Discrete Representations?}{108}{subsection.9.1.3}%
-\contentsline {subsection}{\numberline {9.1.4}Problem with descritization}{108}{subsection.9.1.4}%
-\contentsline {section}{\numberline {9.2}Vector Quantized-Variational Autoencoders}{109}{section.9.2}%
-\contentsline {subsection}{\numberline {9.2.1}Vector Quantized-Variational Autoencode (VQ-VAE)}{110}{subsection.9.2.1}%
-\contentsline {subsection}{\numberline {9.2.2}VQ-VAE: Learning}{111}{subsection.9.2.2}%
-\contentsline {subsubsection}{\numberline {9.2.2.1}Straight-Through Gradient Estimation}{111}{subsubsection.9.2.2.1}%
-\contentsline {subsection}{\numberline {9.2.3}VQ-VAE: Training Objective}{112}{subsection.9.2.3}%
-\contentsline {paragraph}{Interpretation of the three loss components}{112}{section*.114}%
-\contentsline {paragraph}{The stop-gradient operator}{112}{section*.115}%
-\contentsline {subsection}{\numberline {9.2.4}VQ-VAE for Image Compression}{113}{subsection.9.2.4}%
-\contentsline {subsection}{\numberline {9.2.5}Learnable Prior in VQ-VAE}{114}{subsection.9.2.5}%
-\contentsline {section}{\numberline {9.3}Autoregressive Models (PixelCNN)}{115}{section.9.3}%
-\contentsline {subsection}{\numberline {9.3.1}PixelCNN: Inference}{116}{subsection.9.3.1}%
-\contentsline {subsection}{\numberline {9.3.2}PixelCNN: Sampling}{117}{subsection.9.3.2}%
-\contentsline {subsection}{\numberline {9.3.3}Causal Convolutions}{117}{subsection.9.3.3}%
-\contentsline {subsection}{\numberline {9.3.4}PixelCNN: Training}{118}{subsection.9.3.4}%
-\contentsline {subsection}{\numberline {9.3.5}PixelCNN: Likelyhood and Anomaly Detection}{119}{subsection.9.3.5}%
-\contentsline {subsection}{\numberline {9.3.6}Summary}{120}{subsection.9.3.6}%
-\contentsline {section}{\numberline {9.4}Gumbel-Softmax}{120}{section.9.4}%
-\contentsline {chapter}{\numberline {10}Uncertainty Estimation and Calibration in Deep Neural Networks}{124}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Methods for Uncertainty Quantification}{126}{section.10.1}%
-\contentsline {subsection}{\numberline {10.1.1}Deep Ensembles}{126}{subsection.10.1.1}%
-\contentsline {subsubsection}{\numberline {10.1.1.1}Predictive Uncertainty in Regression.}{126}{subsubsection.10.1.1.1}%
-\contentsline {subsubsection}{\numberline {10.1.1.2}Merging Predictions in Ensembles (Classification).}{127}{subsubsection.10.1.1.2}%
-\contentsline {subsubsection}{\numberline {10.1.1.3}Merging Predictions in Ensembles (Regression).}{127}{subsubsection.10.1.1.3}%
-\contentsline {subsubsection}{\numberline {10.1.1.4}Additional Technique: Adversarial Training.}{128}{subsubsection.10.1.1.4}%
-\contentsline {subsubsection}{\numberline {10.1.1.5}Limitations of Deep Ensembles}{128}{subsubsection.10.1.1.5}%
-\contentsline {subsubsection}{\numberline {10.1.1.6}Bayesian solution: weighted model averaging.}{129}{subsubsection.10.1.1.6}%
-\contentsline {subsubsection}{\numberline {10.1.1.7}Variational Inference (VI).}{129}{subsubsection.10.1.1.7}%
-\contentsline {subsection}{\numberline {10.1.2}Bayesian Neural Network (BNN)}{130}{subsection.10.1.2}%
-\contentsline {subsection}{\numberline {10.1.3}Bayes by BackPropagation}{131}{subsection.10.1.3}%
-\contentsline {subsubsection}{\numberline {10.1.3.1}Two Practical Tricks for BNN Training}{132}{subsubsection.10.1.3.1}%
-\contentsline {subsection}{\numberline {10.1.4}Dropout}{132}{subsection.10.1.4}%
-\contentsline {subsection}{\numberline {10.1.5}Monte Carlo Dropout (MC Dropout)}{133}{subsection.10.1.5}%
-\contentsline {section}{\numberline {10.2}Reliable Uncertainty Measures}{134}{section.10.2}%
-\contentsline {subsection}{\numberline {10.2.1}Confidence from the Predicted Probability}{134}{subsection.10.2.1}%
-\contentsline {subsection}{\numberline {10.2.2}Miscalibration}{135}{subsection.10.2.2}%
-\contentsline {subsubsection}{\numberline {10.2.2.1}A Calibration Question}{136}{subsubsection.10.2.2.1}%
-\contentsline {subsection}{\numberline {10.2.3}Reliability Diagrams}{136}{subsection.10.2.3}%
-\contentsline {subsection}{\numberline {10.2.4}Expected Calibration Error (ECE)}{137}{subsection.10.2.4}%
-\contentsline {subsection}{\numberline {10.2.5}Temperature Scaling}{138}{subsection.10.2.5}%
-\contentsline {subsection}{\numberline {10.2.6}Brier Score}{139}{subsection.10.2.6}%
-\contentsline {subsection}{\numberline {10.2.7}Out-of-Distribution Detection}{139}{subsection.10.2.7}%
-\contentsline {subsubsection}{\numberline {10.2.7.1}ODIN}{140}{subsubsection.10.2.7.1}%
-\contentsline {chapter}{\numberline {11}Self-Supervised Learning}{141}{chapter.11}%
-\contentsline {section}{\numberline {11.1}Introduction}{141}{section.11.1}%
-\contentsline {subsection}{\numberline {11.1.1}Self-Supervised Learning vs Generative Learning}{141}{subsection.11.1.1}%
-\contentsline {subsection}{\numberline {11.1.2}Self-Supervised Learning through Pretext Tasks}{142}{subsection.11.1.2}%
-\contentsline {section}{\numberline {11.2}SLL through intra-example relationships}{143}{section.11.2}%
-\contentsline {subsection}{\numberline {11.2.1}Pretext Task: Solving ``Jigsaw Puzzles''}{143}{subsection.11.2.1}%
-\contentsline {subsection}{\numberline {11.2.2}Pretext Task: Predicting Relative Patch Locations}{144}{subsection.11.2.2}%
-\contentsline {subsection}{\numberline {11.2.3}Pretext Tasks: Colorization}{145}{subsection.11.2.3}%
-\contentsline {section}{\numberline {11.3}Self-Prediction}{146}{section.11.3}%
-\contentsline {subsection}{\numberline {11.3.1}Masked Generation}{147}{subsection.11.3.1}%
-\contentsline {subsubsection}{\numberline {11.3.1.1}Self-prediction by Inpainting}{147}{subsubsection.11.3.1.1}%
-\contentsline {subsubsection}{\numberline {11.3.1.2}Self-prediction through Masked AutoEncoders}{148}{subsubsection.11.3.1.2}%
-\contentsline {subsection}{\numberline {11.3.2}Autoregressive Generation}{148}{subsection.11.3.2}%
-\contentsline {section}{\numberline {11.4}Contrastive Learning}{149}{section.11.4}%
+\contentsline {chapter}{\numberline {1}Logistic Regression and Optimizer}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Logistic Regression}{4}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Learning Logistic Regression}{5}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Example of binary Logistic Regression}{5}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Logistic Regression classification rule}{6}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Gradient Descent}{6}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}Mathematical explanation of the weight update}{8}{subsection.1.1.5}%
+\contentsline {section}{\numberline {1.2}Optimizers}{9}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Stochastic Gradient Descent (SGD)}{9}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Advanced Optimizer}{9}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}ADAM}{10}{subsection.1.2.3}%
+\contentsline {chapter}{\numberline {2}Multi Layer Perceptron (MLP)}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Difference between Machine Learning and Deep Learning}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}One step back: Linear classifier}{12}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Logistic Regression}{13}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Softmax Classifier}{14}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Modelling a Neuron}{15}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Neuron Activation Functions}{16}{subsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.1.1}Sigmoid}{16}{subsubsection.2.3.1.1}%
+\contentsline {subsubsection}{\numberline {2.3.1.2}Tanh}{16}{subsubsection.2.3.1.2}%
+\contentsline {subsubsection}{\numberline {2.3.1.3}ReLU (Rectified Linear Unit)}{17}{subsubsection.2.3.1.3}%
+\contentsline {subsubsection}{\numberline {2.3.1.4}Why Non-linear Activations?}{17}{subsubsection.2.3.1.4}%
+\contentsline {section}{\numberline {2.4}Neural Networks}{18}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Forward propagation}{18}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Representational Power}{19}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Setting Hyperparameters}{19}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Training a Deep Neural Network}{20}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Choice of the Data Loss}{20}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Learning the Parameters}{21}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}BackPropagation}{21}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}Weights Initialization}{22}{subsection.2.5.4}%
+\contentsline {section}{\numberline {2.6}Regularization}{23}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Dropout}{23}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Data Augmentation}{24}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Early Stopping}{24}{subsection.2.6.3}%
+\contentsline {chapter}{\numberline {3}Convolutional Neural Networks (CNNs)}{26}{chapter.3}%
+\contentsline {section}{\numberline {3.1}The parameter explosion problem in MLPs and the solution with CNNs}{26}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Architecture}{27}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Convolutional Layers}{28}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}What is the convolution operation?}{30}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Hyperparameters of Convolutional Layers}{30}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Number of Learnable Parameters}{31}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Activation Functions}{32}{subsection.3.3.4}%
+\contentsline {section}{\numberline {3.4}Pooling Layers}{33}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Computing Output Volume Size}{34}{subsection.3.4.1}%
+\contentsline {section}{\numberline {3.5}Real Implementation of CNNs}{35}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}LeNet}{35}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}AlexNet}{36}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}VGGNet}{37}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}The state of the art: The Residual Neural Network (ResNet)}{38}{subsection.3.5.4}%
+\contentsline {section}{\numberline {3.6}Batch Normalization}{40}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}How Batch Normalization Works During Training}{41}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}How Batch Normalization Works During Inference}{41}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Benefits of Batch Normalization}{42}{subsection.3.6.3}%
+\contentsline {chapter}{\numberline {4}Recurrent Neural Networks}{43}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction to Time Series}{43}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}STL Decomposition}{44}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Forecasting}{45}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Forecasting Problem}{46}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Autoregressive Models}{46}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Moving Average Models}{47}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}ARMA Models}{47}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Data Pre-processing}{48}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Data Preparation}{49}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Cyclical Features}{50}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Recurrent Neural Networks (RNNs)}{50}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Vanilla RNN}{51}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Training RNNs}{52}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}The Challenge of Long-Term Dependencies: Vanishing Gradients}{54}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}The Challenge of Long-Term Dependencies: Exploding Gradients}{54}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Advanced Recurrent Architectures}{54}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Long Short-Term Memory networks}{55}{subsection.4.5.1}%
+\contentsline {chapter}{\numberline {5}TCN and Transformer}{58}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Temporal Convolutional Networks (TCN)}{58}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Use of Convolutions for Sequence Modeling}{58}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Dilated Convolution}{59}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Casual Convolution}{60}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}Temporal Convolutional Network}{60}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}TCN vs RNN}{61}{subsection.5.1.5}%
+\contentsline {section}{\numberline {5.2}Transformer}{61}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Transformer Architecture}{62}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Transformer Encoder}{62}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Layer Normalization}{63}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}The Feed Forward}{63}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}The Core Idea of Attention}{64}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}Attention as Content-Based Memory Access}{64}{subsection.5.2.6}%
+\contentsline {subsubsection}{\numberline {5.2.6.1}Single Head Attention}{65}{subsubsection.5.2.6.1}%
+\contentsline {subsubsection}{\numberline {5.2.6.2}Multi-Head Attention}{66}{subsubsection.5.2.6.2}%
+\contentsline {subsection}{\numberline {5.2.7}From Token Representation to classification}{67}{subsection.5.2.7}%
+\contentsline {subsection}{\numberline {5.2.8}Summary: From TCN to Transformers}{67}{subsection.5.2.8}%
+\contentsline {section}{\numberline {5.3}Loss Functions for Regression}{67}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}From Regression to Classification via Binning}{68}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Limitations of MSE and MAE}{68}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Understanding Quantiles}{69}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Quantile Loss Function}{69}{subsection.5.3.4}%
+\contentsline {chapter}{\numberline {6}Graph Neural Networks}{71}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Little back to Convolutional Neural Networks}{71}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}1D Cross-Correlation on a 1D Euclidean Lattice}{71}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}2D Cross-Correlation on a 2D Euclidean Lattice}{71}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}A Graph Viewpoint}{72}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}Problem of Standard N-D Convolution}{72}{subsection.6.1.4}%
+\contentsline {section}{\numberline {6.2}Graph Neural Networks}{73}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}An example of Graph Convolutional Layer}{75}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}The Role of the Adjacency Matrix}{76}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Message Passing}{77}{subsection.6.2.3}%
+\contentsline {subsubsection}{\numberline {6.2.3.1}Receptive Field and Theoretical Motivations}{78}{subsubsection.6.2.3.1}%
+\contentsline {section}{\numberline {6.3}Applications of Graph Neural Networks}{78}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Node Classification}{78}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Link Prediction}{79}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Graph Classification}{80}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Graph Attention Networks (GATs)}{81}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Limitations of GCNs}{81}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Graph Attention Networks: Core Idea}{82}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}GAT Architecture: Detailed Mechanism}{82}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}GATv2: Addressing Static Attention Limitations}{85}{subsection.6.4.4}%
+\contentsline {section}{\numberline {6.5}GraphCast: Weather Forecasting with GNNs}{85}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Autoencoders}{87}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Unservised Learning}{87}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Why Unsupervised Learning?}{87}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}Learning Rapresentations}{88}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Manifold Assumption}{89}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Dimensionality Reduction}{90}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}An inefficient way to fit PCA}{91}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Autoencoders}{91}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Risk: Learning the Identity Function}{92}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Undercomplete Autoencoders}{92}{subsection.7.3.2}%
+\contentsline {section}{\numberline {7.4}Regularized Autoencoders}{93}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Sparse Autoencoders}{93}{subsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.4.2}Denoising Autoencoders}{94}{subsection.7.4.2}%
+\contentsline {subsubsection}{\numberline {7.4.2.1}Denoising Autoencoders for Anomaly Detection}{95}{subsubsection.7.4.2.1}%
+\contentsline {subsection}{\numberline {7.4.3}Contractive Autoencoders}{95}{subsection.7.4.3}%
+\contentsline {chapter}{\numberline {8}Generative models}{97}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Variational Autoencoders}{97}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}The problem of the distribution and the Latent Variables}{97}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}Latent Variables in Weather Modeling}{98}{subsection.8.1.2}%
+\contentsline {subsection}{\numberline {8.1.3}Latent Variable Models}{98}{subsection.8.1.3}%
+\contentsline {subsection}{\numberline {8.1.4}Problem with Monte Carlo}{99}{subsection.8.1.4}%
+\contentsline {subsection}{\numberline {8.1.5}Variational Inference}{99}{subsection.8.1.5}%
+\contentsline {subsection}{\numberline {8.1.6}Variational Autoencoder: the Encoder and the Decoder}{101}{subsection.8.1.6}%
+\contentsline {subsection}{\numberline {8.1.7}The reparametrization trick}{102}{subsection.8.1.7}%
+\contentsline {section}{\numberline {8.2}Generative Adversarial Networks}{103}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Adversarial Training Idea}{103}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Generative adversarial network}{104}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Training GANs}{104}{subsection.8.2.3}%
+\contentsline {subsection}{\numberline {8.2.4}Evolution of GAN Architectures}{105}{subsection.8.2.4}%
+\contentsline {subsection}{\numberline {8.2.5}Pros and Cons}{107}{subsection.8.2.5}%
+\contentsline {chapter}{\numberline {9}Discrete Representations and Generative Modeling}{108}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Introdcution}{108}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Immanuel Kant}{108}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}René Descartes}{108}{subsection.9.1.2}%
+\contentsline {subsection}{\numberline {9.1.3}Why Discrete Representations?}{109}{subsection.9.1.3}%
+\contentsline {subsection}{\numberline {9.1.4}Problem with descritization}{109}{subsection.9.1.4}%
+\contentsline {section}{\numberline {9.2}Vector Quantized-Variational Autoencoders}{110}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Vector Quantized-Variational Autoencode (VQ-VAE)}{111}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}VQ-VAE: Learning}{112}{subsection.9.2.2}%
+\contentsline {subsubsection}{\numberline {9.2.2.1}Straight-Through Gradient Estimation}{112}{subsubsection.9.2.2.1}%
+\contentsline {subsection}{\numberline {9.2.3}VQ-VAE: Training Objective}{113}{subsection.9.2.3}%
+\contentsline {paragraph}{Interpretation of the three loss components}{113}{section*.114}%
+\contentsline {paragraph}{The stop-gradient operator}{113}{section*.115}%
+\contentsline {subsection}{\numberline {9.2.4}VQ-VAE for Image Compression}{114}{subsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.2.5}Learnable Prior in VQ-VAE}{115}{subsection.9.2.5}%
+\contentsline {section}{\numberline {9.3}Autoregressive Models (PixelCNN)}{116}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}PixelCNN: Inference}{117}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}PixelCNN: Sampling}{118}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Causal Convolutions}{118}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}PixelCNN: Training}{119}{subsection.9.3.4}%
+\contentsline {subsection}{\numberline {9.3.5}PixelCNN: Likelyhood and Anomaly Detection}{120}{subsection.9.3.5}%
+\contentsline {subsection}{\numberline {9.3.6}Summary}{121}{subsection.9.3.6}%
+\contentsline {section}{\numberline {9.4}Gumbel-Softmax}{121}{section.9.4}%
+\contentsline {chapter}{\numberline {10}Uncertainty Estimation and Calibration in Deep Neural Networks}{125}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Methods for Uncertainty Quantification}{127}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Deep Ensembles}{127}{subsection.10.1.1}%
+\contentsline {subsubsection}{\numberline {10.1.1.1}Predictive Uncertainty in Regression.}{127}{subsubsection.10.1.1.1}%
+\contentsline {subsubsection}{\numberline {10.1.1.2}Merging Predictions in Ensembles (Classification).}{128}{subsubsection.10.1.1.2}%
+\contentsline {subsubsection}{\numberline {10.1.1.3}Merging Predictions in Ensembles (Regression).}{128}{subsubsection.10.1.1.3}%
+\contentsline {subsubsection}{\numberline {10.1.1.4}Additional Technique: Adversarial Training.}{129}{subsubsection.10.1.1.4}%
+\contentsline {subsubsection}{\numberline {10.1.1.5}Limitations of Deep Ensembles}{129}{subsubsection.10.1.1.5}%
+\contentsline {subsubsection}{\numberline {10.1.1.6}Bayesian solution: weighted model averaging.}{130}{subsubsection.10.1.1.6}%
+\contentsline {subsubsection}{\numberline {10.1.1.7}Variational Inference (VI).}{130}{subsubsection.10.1.1.7}%
+\contentsline {subsection}{\numberline {10.1.2}Bayesian Neural Network (BNN)}{131}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.1.3}Bayes by BackPropagation}{132}{subsection.10.1.3}%
+\contentsline {subsubsection}{\numberline {10.1.3.1}Two Practical Tricks for BNN Training}{133}{subsubsection.10.1.3.1}%
+\contentsline {subsection}{\numberline {10.1.4}Dropout}{133}{subsection.10.1.4}%
+\contentsline {subsection}{\numberline {10.1.5}Monte Carlo Dropout (MC Dropout)}{134}{subsection.10.1.5}%
+\contentsline {section}{\numberline {10.2}Reliable Uncertainty Measures}{135}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}Confidence from the Predicted Probability}{135}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}Miscalibration}{136}{subsection.10.2.2}%
+\contentsline {subsubsection}{\numberline {10.2.2.1}A Calibration Question}{137}{subsubsection.10.2.2.1}%
+\contentsline {subsection}{\numberline {10.2.3}Reliability Diagrams}{137}{subsection.10.2.3}%
+\contentsline {subsection}{\numberline {10.2.4}Expected Calibration Error (ECE)}{138}{subsection.10.2.4}%
+\contentsline {subsection}{\numberline {10.2.5}Temperature Scaling}{139}{subsection.10.2.5}%
+\contentsline {subsection}{\numberline {10.2.6}Brier Score}{140}{subsection.10.2.6}%
+\contentsline {subsection}{\numberline {10.2.7}Out-of-Distribution Detection}{140}{subsection.10.2.7}%
+\contentsline {subsubsection}{\numberline {10.2.7.1}ODIN}{141}{subsubsection.10.2.7.1}%
+\contentsline {chapter}{\numberline {11}Self-Supervised Learning}{142}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Introduction}{142}{section.11.1}%
+\contentsline {subsection}{\numberline {11.1.1}Self-Supervised Learning vs Generative Learning}{142}{subsection.11.1.1}%
+\contentsline {subsection}{\numberline {11.1.2}Self-Supervised Learning through Pretext Tasks}{143}{subsection.11.1.2}%
+\contentsline {section}{\numberline {11.2}SLL through intra-example relationships}{144}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}Pretext Task: Solving ``Jigsaw Puzzles''}{144}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Pretext Task: Predicting Relative Patch Locations}{145}{subsection.11.2.2}%
+\contentsline {subsection}{\numberline {11.2.3}Pretext Tasks: Colorization}{146}{subsection.11.2.3}%
+\contentsline {section}{\numberline {11.3}Self-Prediction}{147}{section.11.3}%
+\contentsline {subsection}{\numberline {11.3.1}Masked Generation}{148}{subsection.11.3.1}%
+\contentsline {subsubsection}{\numberline {11.3.1.1}Self-prediction by Inpainting}{148}{subsubsection.11.3.1.1}%
+\contentsline {subsubsection}{\numberline {11.3.1.2}Self-prediction through Masked AutoEncoders}{149}{subsubsection.11.3.1.2}%
+\contentsline {subsection}{\numberline {11.3.2}Autoregressive Generation}{149}{subsection.11.3.2}%
+\contentsline {section}{\numberline {11.4}Contrastive Learning}{150}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Contrastive Learning}{150}{section.11.5}%
+\contentsline {subsection}{\numberline {11.5.1}Contrastive Representation Learning}{151}{subsection.11.5.1}%
+\contentsline {subsection}{\numberline {11.5.2}Contrastive Loss}{152}{subsection.11.5.2}%
+\contentsline {subsection}{\numberline {11.5.3}Triplet Loss}{152}{subsection.11.5.3}%
+\contentsline {subsection}{\numberline {11.5.4}InfoNCE}{153}{subsection.11.5.4}%
+\contentsline {subsection}{\numberline {11.5.5}SimCLR: a simple framework}{153}{subsection.11.5.5}%
+\contentsline {subsubsection}{\numberline {11.5.5.1}Linear Evaluation on SimCLR Features}{155}{subsubsection.11.5.5.1}%
+\contentsline {subsubsection}{\numberline {11.5.5.2}Linear Evaluation on SimCLR Features}{155}{subsubsection.11.5.5.2}%
+\contentsline {chapter}{\numberline {12}Transfer Learning}{156}{chapter.12}%
