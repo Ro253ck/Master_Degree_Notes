@@ -1,1 +1,670 @@
 \chapter{Parameter Efficient Fine-Tuning}
+
+\section{Introduction}
+
+Fine-tuning remains a fundamental technique for adapting pretrained models to unseen tasks and
+domain-specific datasets. This is especially true for \textbf{Large Language Models (LLMs)},
+whose general-purpose training objectives cannot fully capture the requirements of specialized
+applications.
+
+However, as LLMs scale dramatically in size (e.g., from GPT-2 with 1.5B parameters to GPT-3 with
+175B parameters), the traditional paradigm of \textbf{full fine-tuning} becomes increasingly
+impractical. While model capacity improves with scale, the costs associated with updating all
+parameters grow superlinearly, raising serious concerns in terms of efficiency and
+sustainability.
+
+\subsection{Problems of Full Fine-Tuning}
+Full fine-tuning updates every parameter of the model. For large-scale architectures, this
+choice leads to several critical issues:
+\begin{compactitemize}
+    \item \textbf{Huge computational demands}: training often requires thousands of GPUs running
+    in parallel and extremely long training times;
+    \item \textbf{High memory footprint}: storing gradients, optimizer states, and multiple task
+    checkpoints is prohibitively expensive;
+    \item \textbf{High energy consumption}: the cost in terms of energy makes large-scale
+    fine-tuning environmentally and economically unsustainable;
+    \item \textbf{Redundancy across tasks}: fine-tuning the full model for each downstream task
+    results in multiple nearly identical copies of the same model;
+    \item \textbf{Loss of generalization}: full fine-tuning can overwrite pretrained knowledge,
+    leading to catastrophic forgetting and reduced performance on tasks outside the fine-tuned
+    domain.
+\end{compactitemize}
+
+In short, as model sizes continue to grow, full fine-tuning becomes inefficient and increasingly
+unsuitable for real-world deployment.
+
+\subsection{What Is Needed}
+Given these limitations, there is strong motivation to explore \textbf{more efficient
+alternatives} that preserve adaptation quality while drastically reducing resource
+requirements.
+
+\textbf{Parameter-Efficient Fine-Tuning (PEFT)} techniques offer a solution by updating only a
+small subset of parameters or introducing lightweight trainable components, while keeping the
+original model mostly frozen.
+
+A concrete example highlights this advantage: fine-tuning large generative models from scratch
+may require tens of gigabytes of GPU memory, whereas PEFT methods such as low-rank adaptation can
+reduce memory requirements by a large margin, making fine-tuning accessible to a broader range
+of systems and users.
+
+\subsection{Parameter-Efficient Fine-Tuning Approaches}
+Several families of PEFT methods have been proposed, differing in how and where the model is
+modified:
+
+\begin{compactitemize}
+    \item \textbf{Prompt tuning}: introduce a small number of learnable tokens prepended to the
+    input prompt, while keeping the model weights frozen. This approach adapts behavior through
+    input manipulation rather than parameter updates;
+    \item \textbf{Prefix tuning}: extend prompt tuning by adding learnable tokens at every layer
+    of the model, influencing the internal activations throughout the network;
+    \item \textbf{Adapter-based fine-tuning}: insert small, trainable modules into the network
+    layers that specialize the model for a target task without modifying the original weights;
+    \item \textbf{Reparameterization-based methods}: constrain updates to a low-dimensional
+    subspace by reparameterizing weight updates, significantly reducing the number of trainable
+    parameters.
+\end{compactitemize}
+
+These approaches represent a shift from \emph{updating the entire model} to \emph{strategically
+modifying only what is necessary}, enabling scalable, flexible, and sustainable fine-tuning of
+large language models.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9
+    \textwidth]{images/PI1.png}
+    \caption{Overview}
+    \label{fig:MHA2}
+\end{figure}
+
+\section{Prompt Tuning}
+\textbf{Transformers} are the foundation of many modern deep neural networks, leveraging
+self-attention mechanisms and deep contextual representations.
+
+The figure below shows a \textbf{Vision Transformer (ViT)}, which is composed only of an
+encoder stack. In this architecture, an input image is split into a set of fixed-size patches,
+each of which is projected into a vector and treated as a token for the Transformer.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/PI2.png}
+    \caption{Overview of a Vision Transformer}
+    \label{fig:MHA2}
+\end{figure}
+
+In this context, a \textbf{token} represents a basic unit of input (e.g., a word, a subword, or an
+image patch), while a \textbf{prompt} is a sequence of such tokens that conditions the behavior
+of the model during training or inference.
+
+\begin{infobox}[What is updated during full fine-tuning of a ViT?]
+In standard full fine-tuning, all trainable parameters of the Vision Transformer are updated,
+including:
+\begin{compactitemize}
+    \item the weights of the \textbf{Multi-Head Self-Attention} layers (queries, keys, and values);
+    \item the weights of the \textbf{MLP} blocks;
+    \item the learnable parameters of the \textbf{Layer Normalization} layers.
+\end{compactitemize}
+\end{infobox}
+
+\subsection{Prompt Tuning}
+\textbf{Prompt Tuning} is one of the most lightweight techniques within the family of
+\textbf{Parameter-Efficient Fine-Tuning (PEFT)} methods.
+
+The core idea is to introduce a small number of \textbf{learnable tokens} that are prepended to
+the input sequence. These tokens are optimized during training, while all other model
+parameters remain frozen. In particular, the weights of the Transformer—including the linear
+layers and the attention projections (queries, keys, and values)—are not updated.
+
+By learning only the prompt embeddings, the model adapts its behavior without modifying its
+internal representations. This makes prompt tuning extremely parameter-efficient and memory
+efficient.
+
+Prompt tuning is especially effective in \textbf{zero-shot} and \textbf{few-shot learning}
+scenarios, where labeled data is limited. It has been successfully applied to a wide range of
+tasks, including text classification, question answering, summarization, dialogue systems, and
+multi-task learning.
+
+\subsection{Prompt Tuning -- Visual Prompt Tuning (VPT)}
+\textbf{Visual Prompt Tuning (VPT)} is a vision-oriented variant of prompt tuning that adapts
+prompt-based learning to visual models such as Vision Transformers. Instead of modifying the
+model weights, VPT introduces a small set of \textbf{learnable visual prompt tokens} that are
+added to the input token sequence.
+
+These visual prompts are optimized during training, while the backbone of the vision model
+remains frozen. In this way, VPT achieves adaptation to new tasks with minimal parameter updates.
+
+Two main variants of VPT are commonly used:
+\begin{compactitemize}
+    \item \textbf{Shallow VPT}: visual prompt tokens are added only to the input layer of the
+    Transformer. The prompts influence the model indirectly through the attention mechanism as
+    they propagate through the network;
+    \item \textbf{Deep VPT}: prompt tokens are injected at multiple layers of the Transformer,
+    providing stronger and more direct control over the internal representations at different
+    depths.
+\end{compactitemize}
+
+\begin{infobox}[Intuition and Parallelism with Human Prompting]
+The intuition behind VPT closely parallels how humans interact with large language models.
+When crafting a prompt for an LLM, we do not change the model's parameters; instead, we carefully
+design the input to steer the model toward the desired behavior.
+
+Similarly, in Visual Prompt Tuning, we learn prompts that instruct the model \emph{how to
+process the input} rather than changing what the model has learned. From a mechanistic point of
+view, prompts directly affect the \textbf{attention mechanism}: by introducing additional
+tokens, we modify the attention patterns, guiding the model to focus on specific visual cues or
+regions. In essence, prompt tuning learns how to control attention, thereby altering the model’s
+behavior without updating its core parameters.
+\end{infobox}
+
+\subsection{VPT Shallow}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI3.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+In the simplest variant of Visual Prompt Tuning, referred to as \textbf{VPT Shallow}, a small
+number of learnable prompt tokens are added to the input sequence of a Vision Transformer.
+These tokens are concatenated to the input embeddings and are used to adapt the model to the
+target task.
+
+During fine-tuning, \textbf{all parameters of the Transformer backbone are frozen}. Only:
+\begin{compactitemize}
+    \item the \textbf{visual prompt tokens}, and
+    \item the \textbf{classification head}
+\end{compactitemize}
+are updated.  
+Each prompt token is represented as a learnable vector in $\mathbb{R}^d$, where $d$ is the
+hidden dimension of the Transformer. A set of $p$ prompt tokens is denoted as:
+\[
+\mathcal{P} = \{ p_k \in \mathbb{R}^d \mid 1 \leq k \leq p \}.
+\]
+
+In VPT Shallow, the prompts are injected only at the input of the first Transformer encoder
+layer $L_1$. Formally, the forward pass can be written as:
+\[
+[x_1, Z_1, E_1] = L_1([x_0,\; \underbrace{\mathcal{P}}_{\text{trainable}},\; E_0]),
+\]
+\[
+[x_i, Z_i, E_i] = L_i([x_{i-1}, Z_{i-1}, E_{i-1}]), \quad i = 2, \dots, N,
+\]
+\[
+y = \underbrace{\text{Head}}_{\text{trainable}}([x_N]),
+\]
+where:
+\begin{compactitemize}
+    \item $E_i$ denotes the patch embeddings at layer $i$;
+    \item $Z_i$ represents the features computed by the $i$-th Transformer layer;
+    \item $x_i$ is the \texttt{[CLS]} token.
+\end{compactitemize}
+
+Even though the prompts are only applied at the first layer, their effect propagates through the
+entire network via self-attention. This allows VPT Shallow to modify the model’s behavior in a
+parameter-efficient way, while keeping the main computational backbone fully frozen.
+
+\subsection{VPT Deep}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI4.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+\textbf{VPT Deep} extends the shallow variant by injecting learnable prompt tokens at the input
+of \textbf{every Transformer encoder layer}, rather than only at the first layer. This provides
+stronger and more direct control over the internal representations across different depths of
+the model.
+
+For the $(i+1)$-th Transformer encoder layer $L_{i+1}$, a collection of learnable prompt tokens
+is introduced and denoted as:
+\[
+\mathcal{P}_i = \{ p_i^k \in \mathbb{R}^d \mid 1 \leq k \leq m \},
+\]
+where $d$ is the hidden dimension of the model and $m$ is the number of prompts per layer.
+
+The prompted forward pass of the model is defined as:
+\[
+[x_i, E_i] = L_i([x_{i-1},\; \underbrace{\mathcal{P}_{i-1}}_{\text{trainable}},\; E_{i-1}]),
+\quad i = 1, 2, \dots, N,
+\]
+\[
+y = \underbrace{\text{Head}}_{\text{trainable}}([x_N]),
+\]
+where:
+\begin{compactitemize}
+    \item $x_i$ denotes the \texttt{[CLS]} token at layer $i$;
+    \item $E_i$ represents the patch embeddings after the $i$-th layer;
+    \item all backbone parameters remain frozen, while the prompts and the head are trainable.
+\end{compactitemize}
+
+By introducing prompts at every layer, VPT Deep enables more expressive adaptation, as each
+layer can be guided independently through attention modulation. This typically leads to
+higher performance compared to VPT Shallow, at the cost of a slightly increased number of
+trainable parameters, while still remaining highly parameter-efficient.
+
+\newpage
+\section{Prefix Tuning}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI5.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+\textbf{Prefix Tuning} is a \textbf{Parameter-Efficient Fine-Tuning (PEFT)} technique designed to
+adapt large pretrained Transformer models using a very small number of trainable parameters.
+Instead of modifying the input tokens or the model weights, Prefix Tuning intervenes directly
+inside the self-attention mechanism.
+
+In a standard Transformer layer, self-attention is computed as:
+\[
+\text{Attention}(Q, K, V) =
+\text{softmax}\!\left(\frac{QK^{\top}}{\sqrt{d_k}}\right) V
+\]
+
+Prefix Tuning prepends a set of \textbf{learnable prefix vectors} to the keys and values at
+\emph{every} Transformer layer. These prefix vectors are optimized during task-specific training,
+while all other parameters—including queries, attention projections, and feed-forward
+networks—remain frozen.
+
+Formally, for each layer, trainable prefix key and value vectors $P_K$ and $P_V$ of length $l$
+are introduced:
+\[
+K' = [P_K \parallel K],
+\qquad
+V' = [P_V \parallel V]
+\]
+
+The prefix vectors can either be:
+\begin{compactitemize}
+    \item directly learned as free parameters, or
+    \item generated by a small prefix encoder (typically an MLP), shared across layers or
+    layer-specific.
+\end{compactitemize}
+
+By modifying only the keys and values, prefix tuning indirectly controls the attention
+distributions, guiding the model toward task-relevant behavior without altering its pretrained
+representations.
+
+\begin{infobox}[Why Prefix Tuning Preserves Output Length]
+In Prefix Tuning, only the \textbf{key} and \textbf{value} projections are modified by prepending
+learnable prefix vectors, while the \textbf{query} projections remain unchanged.
+Since queries determine which tokens produce outputs, keeping $Q$ fixed ensures that the number
+of output tokens remains exactly the same as the number of input tokens.  
+This preserves a fundamental property of Transformer blocks: they maintain a one-to-one
+correspondence between input and output tokens, while still allowing flexible context
+conditioning through attention.
+\end{infobox}
+
+    
+
+\subsection{Prompt vs Prefix Tuning: Benefits and Trade-offs}
+Both Prompt Tuning and Prefix Tuning belong to the family of
+\textbf{Parameter-Efficient Fine-Tuning (PEFT)} methods and share several important advantages.
+In both approaches, less than 1\% of the model parameters are updated, avoiding full model
+duplication and making them suitable for multi-task learning and low-resource settings.
+Moreover, since the core Transformer weights remain frozen, pretrained knowledge is preserved,
+reducing the risk of catastrophic forgetting.
+
+\textbf{Prompt Tuning} represents the simplest form of parameter-efficient adaptation. It
+introduces a set of trainable tokens that are prepended to the input sequence and optimized
+during training. By operating only in the input embedding space, prompt tuning is extremely
+lightweight and easy to implement. However, its expressiveness is limited, as it influences the
+model only indirectly through attention. For this reason, it is particularly well suited for
+zero-shot or few-shot scenarios and for efficient deployments under strict resource constraints.
+
+\textbf{Prefix Tuning}, on the other hand, provides a more expressive mechanism for adaptation.
+Instead of modifying the input tokens, it injects learned key and value vectors into every
+attention layer of the Transformer. This results in stronger and more direct control over the
+attention process and often leads to better performance on complex tasks. The trade-off is a
+slightly higher overhead, as it requires modifying the internal attention mechanism, although
+the approach remains highly parameter-efficient.
+
+\section{Adapter-based Fine-Tuning}
+Adapter-based fine-tuning is a PEFT approach that introduces small, learnable modules
+(e.g., MLPs) into the layers of a pretrained model.
+These modules are called \textbf{adapters} and are used to fine-tune the model while keeping the
+original parameters frozen.
+
+\subsection{An Example: AdaptFormer}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI6.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+\textbf{AdaptFormer} is an adapter-based fine-tuning method designed to efficiently adapt large
+pretrained Transformer models using a small number of additional parameters. Instead of
+updating the full set of model weights, AdaptFormer introduces lightweight \textbf{adapters}
+within the intermediate layers of the Transformer.
+
+The key idea is to modify the standard Transformer MLP block by replacing it with an
+\textbf{AdaptMLP} module composed of two parallel branches:
+\begin{compactitemize}
+    \item a \textbf{frozen branch}, corresponding to the original MLP, which preserves the general-purpose knowledge learned during pretraining;
+    \item a \textbf{trainable branch}, implemented as a low-rank adapter with a down-projection, non-linear activation, and up-projection.
+\end{compactitemize}
+
+This dual-branch structure allows AdaptFormer to retain strong pretrained representations while
+providing sufficient flexibility to adapt the model to a new task.
+
+Formally, given an input feature vector $x'_l$ at layer $l$, the adapter branch computes adapted
+features as:
+\[
+\tilde{x}_l = \text{ReLU}\bigl(\text{LN}(x'_l)\, W_{\text{down}}\bigr)\, W_{\text{up}},
+\]
+where $W_{\text{down}}$ and $W_{\text{up}}$ are the learnable weights of the low-rank adapter,
+corresponding to the down- and up-projection layers, respectively.
+
+The final output of the AdaptMLP module is obtained by fusing the original MLP output, the input
+features, and the adapter contribution through a residual connection:
+\[
+x_l = \text{MLP}\bigl(\text{LN}(x'_l)\bigr) + x'_l + s \cdot \tilde{x}_l,
+\]
+where $s$ is a scaling factor controlling the contribution of the adapter branch.
+
+By updating only the lightweight adapter parameters, AdaptFormer enables efficient task
+adaptation with minimal computational and memory overhead, while preserving the core knowledge
+encoded in the pretrained Transformer.
+
+\subsection{AdaptFormer: Scaling Factor}
+AdaptFormer introduces a \textbf{scaling factor} $s$ to balance the contributions of two
+complementary components:
+\begin{compactitemize}
+    \item \textbf{task-agnostic features} produced by the frozen MLP branch;
+    \item \textbf{task-specific features} produced by the trainable adapter branch.
+\end{compactitemize}
+
+The scaling factor directly controls how strongly the adapter influences the final
+representation. By adjusting $s$, it is possible to trade off preservation of pretrained
+knowledge against task-specific adaptation.
+
+Empirical studies show that, in \textbf{vision tasks}, using a relatively small scaling value
+improves both stability and performance. In particular, AdaptFormer achieves optimal results
+with $s = 0.10$, allowing the adapter to refine representations without overpowering the frozen
+backbone.
+
+When $s$ is set too large (e.g., $s > 1$, a common choice in some NLP settings), the model becomes
+prone to instability and performance degradation in vision scenarios, as task-specific features
+can dominate and disrupt pretrained representations. Conversely, choosing $s$ too small limits
+the expressive power of the adapter, leading to a slight drop in performance.
+
+Overall, the scaling factor plays a crucial role in ensuring that AdaptFormer effectively
+integrates task-specific adaptations while maintaining the robustness of the pretrained model.
+
+\subsection{AdaptFormer: Number of Parameters}
+The trainable adapter branch in AdaptFormer is implemented as a bottleneck module composed of
+two linear projections. Given an input feature vector $x'_l \in \mathbb{R}^{d}$, the adapter
+computes:
+\[
+\tilde{x}_l = \text{ReLU}\bigl(\text{LN}(x'_l)\, W_{\text{down}}\bigr)\, W_{\text{up}},
+\]
+where $d$ is the input feature dimension and $\hat{d}$ is the intermediate bottleneck dimension,
+with $\hat{d} \ll d$.
+
+The two projection matrices have the following shapes:
+\begin{compactitemize}
+    \item $W_{\text{down}} \in \mathbb{R}^{d \times \hat{d}}$,
+    \item $W_{\text{up}} \in \mathbb{R}^{\hat{d} \times d}$.
+\end{compactitemize}
+
+Including bias terms for both linear layers, the total number of trainable parameters for a
+single adapter is:
+\[
+d \cdot \hat{d} + \hat{d} \cdot d + \hat{d} + d
+= 2 d \hat{d} + \hat{d} + d.
+\]
+
+Thanks to the use of a low-dimensional bottleneck, this parameter count remains small compared
+to the full MLP block, making AdaptFormer highly parameter-efficient while still providing
+sufficient capacity for task-specific adaptation.
+
+\subsection{Serial Adapters vs. Parallel Adapters}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI7.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Adapter-based fine-tuning methods differ in how the adapter modules are integrated into the
+Transformer architecture.
+
+\textbf{AdaptFormer} is an example of a method that employs \textbf{parallel adapters}. In this
+design, the adapter receives the \emph{same input} as the layer to which it is attached. The
+output of the adapter branch is then combined with the output of the original frozen module,
+typically through a residual connection. This parallel structure allows task-specific features
+to be injected without interfering directly with the forward computation of the pretrained
+layer.
+
+An alternative design is \textbf{serial adapters}. In this case, the adapter is inserted
+\emph{in sequence} within the Transformer layer, and its input is the output of the previous
+module (e.g., after the attention block or after the MLP). The adapter thus directly transforms
+the representation produced by the backbone before passing it to the next component.
+
+Conceptually, parallel adapters emphasize the preservation of pretrained representations by
+adding task-specific information alongside them, while serial adapters modify the data flow
+more directly. As a result, parallel adapters often provide greater stability, whereas serial
+adapters can offer stronger adaptation at the cost of potentially greater interference with
+the pretrained model.
+
+\section{Fine-Tuning through Reparameterization}
+
+\subsection{Reparameterization-Based Fine-Tuning}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI8.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Reparameterization-based fine-tuning is a \textbf{Parameter-Efficient Fine-Tuning (PEFT)}
+strategy in which model adaptation is not performed by directly updating the full weight
+matrices of a pretrained model. Instead, updates are expressed through
+\textbf{structured, low-dimensional transformations} controlled by a small set of trainable
+parameters.
+
+Given a pretrained weight matrix $W_0$, the adapted weights are written as:
+\[
+W_1 = W_0 + \Delta W,
+\qquad \Delta W = f_{\theta}(\cdot),
+\]
+where $f_{\theta}$ is a learnable function parameterized by $\theta$. Rather than learning the
+update $\Delta W$ explicitly, the model learns the function $f_{\theta}$ that generates it.
+This constrains the update to lie in a structured subspace, introducing an inductive bias on
+how pretrained weights can be modified.
+
+By parameterizing $\Delta W$ in this way, reparameterization-based methods drastically reduce
+the number of trainable parameters while still enabling effective task-specific adaptation.
+This approach also mitigates overfitting and preserves pretrained knowledge.
+
+Constraining the update $\Delta W$ to a low-dimensional or structured form (e.g., low-rank,
+sparse, or generated by a small auxiliary network) yields several advantages:
+\begin{compactitemize}
+    \item fewer trainable parameters;
+    \item improved generalization in low-data regimes;
+    \item reduced storage and deployment costs;
+    \item lower computational overhead during training.
+\end{compactitemize}
+
+The most common instantiation of reparameterization-based fine-tuning relies on
+\textbf{low-rank factorization} of weight updates, although alternative structures can also be
+used.
+
+\newpage
+\subsection{Low-Rank Adaptation (LoRA)}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI9.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Low-Rank Adaptation (LoRA) is a \textbf{reparameterization-based fine-tuning} method that freezes
+the pretrained weights of a model and introduces a low-rank, trainable update in order to reduce
+the number of parameters learned during adaptation. LoRA is a general and flexible technique
+that can be applied to a wide range of architectures, including vision models, language models,
+and multimodal systems.
+
+Given a pretrained weight matrix $W_0 \in \mathbb{R}^{d \times k}$, LoRA constrains the update by
+representing it through a low-rank decomposition:
+\[
+W' = W_0 + \Delta W = W_0 + BA,
+\]
+where $B \in \mathbb{R}^{d \times r}$ and $A \in \mathbb{R}^{r \times k}$ are learnable matrices,
+and $r \ll \min(d, k)$ is the rank of the decomposition. The rank $r$ is a tunable hyperparameter
+and is typically set to small values (e.g., 8 or 16), much smaller than the hidden dimension of
+the model.
+
+\subsubsection{Number of Parameters}
+In the original pretrained model, the weight matrix $W_0$ contains $d \cdot k$ parameters, all of
+which remain frozen during fine-tuning.  
+With LoRA, the number of trainable parameters is reduced to those in the low-rank matrices:
+\[
+d \cdot r + r \cdot k,
+\]
+which is significantly smaller than $d \cdot k$ when $r \ll \min(d, k)$. This results in a
+substantial reduction in memory usage and storage cost.
+
+\subsubsection{Training}
+During training, the pretrained weights $W_0$ are frozen and do not receive gradient updates.
+Only the parameters of the low-rank matrices $A$ and $B$ are optimized.  
+For an input vector $x$, the forward pass becomes:
+\[
+h = W_0 x + \Delta W x = W_0 x + BAx.
+\]
+Both $W_0$ and the low-rank update $\Delta W = BA$ are applied to the same input, and their outputs
+are summed coordinate-wise. This allows the model to adapt while preserving the original
+pretrained representations.
+
+\subsubsection{Initialization}
+LoRA adopts a specific initialization strategy to ensure stable training. The matrix $A$ is
+initialized using a random Gaussian distribution, while the matrix $B$ is initialized to zero.
+As a result, at the beginning of training:
+\[
+\Delta W = BA = 0,
+\]
+and the model behaves exactly like the pretrained one. This prevents disruptive changes during
+early training and allows the adaptation to emerge gradually.
+
+\subsubsection{Inference}
+The low-rank decomposition is only required during training. At inference time, the update can be
+merged into a single weight matrix:
+\[
+W' = W_0 + BA.
+\]
+Consequently, there is no additional computational overhead during inference, and the final model
+has the same size and efficiency as the original pretrained model.
+
+\subsection{DyLoRA}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI10.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+DyLoRA is an extension of LoRA designed to address one of its main practical challenges: the
+selection of an appropriate low-rank dimension. In standard LoRA, the rank $r$ is a fixed
+hyperparameter that must be chosen in advance, often requiring costly tuning.
+
+DyLoRA introduces a \textbf{dynamic and search-free strategy} in which the effective rank is
+adapted during training. At each training iteration, a rank $r$ is randomly selected from a
+predefined range:
+\[
+\mathcal{R} = \{r_{\min}, \dots, r_{\max}\}.
+\]
+
+Given the full LoRA matrices $W_{\text{down}}$ and $W_{\text{up}}$, DyLoRA constructs truncated
+versions:
+\[
+W_{\text{down}}^{\downarrow r} = W_{\text{down}}[1:r, :], \qquad
+W_{\text{up}}^{\downarrow r} = W_{\text{up}}[:, 1:r],
+\]
+and restricts both the forward and backward passes to these truncated matrices for the current
+iteration. As a result, only the parameters corresponding to the chosen rank $r$ are involved in
+computation and gradient updates.
+
+By exposing the model to multiple ranks throughout training, DyLoRA encourages robustness across
+different low-rank configurations and removes the need for explicit rank selection. This
+dynamic mechanism significantly reduces the training time required to identify an effective
+LoRA rank, while preserving the parameter-efficiency and adaptability of the original method.
+
+\subsection{VeRA}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI11.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+VeRA is a reparameterization-based fine-tuning method that further improves the parameter
+efficiency of LoRA by significantly reducing the number of trainable parameters. Instead of
+learning the low-rank matrices directly, VeRA employs \textbf{frozen random low-rank matrices}
+that are shared across all layers and adapts them using small, learnable scaling vectors.
+
+Concretely, VeRA uses fixed random matrices $W_{\text{up}}$ and $W_{\text{down}}$, while introducing
+two learnable diagonal scaling matrices $\Lambda_b$ and $\Lambda_d$. The reparameterized forward
+pass takes the form:
+\[
+h_{\text{out}} = W_0 x + \Lambda_b W_{\text{up}} \Lambda_d W_{\text{down}} x,
+\]
+where $W_0$ denotes the frozen pretrained weights.
+
+The key insight is that only the diagonal elements of $\Lambda_b$ and $\Lambda_d$ are learnable.
+As a result, the number of trainable parameters per adapted layer is reduced to just:
+\[
+r + d,
+\]
+where $r$ is the low-rank dimension and $d$ is the input feature dimension. This represents a
+substantial reduction compared to standard LoRA.
+
+For stable training, $\Lambda_b$ is initialized to zero and $\Lambda_d$ to the identity matrix,
+ensuring that the initial update is zero and the model starts with the exact behavior of the
+pretrained backbone. The matrices $W_{\text{up}}$ and $W_{\text{down}}$ are initialized once using
+random Gaussian distributions and remain frozen throughout training.
+
+By fixing the low-rank projections and learning only lightweight scaling factors, VeRA achieves
+extreme parameter efficiency while still enabling effective task-specific adaptation.
+
+\subsection{Singular Value Fine-Tuning (SVFT)}
+Singular Value Fine-Tuning (SVFT) is a reparameterization-based fine-tuning method that exploits
+the \textbf{Singular Value Decomposition (SVD)} of weight matrices to achieve parameter-efficient
+adaptation.
+
+Given a weight matrix $W \in \mathbb{R}^{m \times n}$, Singular Value Decomposition factorizes it as:
+\[
+W = U \Sigma V^{\top},
+\]
+where $U \in \mathbb{R}^{m \times r}$ contains the left singular vectors, $\Sigma \in
+\mathbb{R}^{r \times r}$ is a diagonal matrix of singular values, and $V^{\top} \in
+\mathbb{R}^{r \times n}$ contains the right singular vectors.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/PI12.png}
+    \label{fig:MHA2}
+\end{figure}
+In SVFT, the pretrained weight matrix $W_0$ is first decomposed using SVD and then kept frozen.
+Fine-tuning is performed by learning an additive update in the singular value space:
+\[
+h = W_0 x + \Delta W x = U (\Sigma + M) V^{\top} x,
+\]
+where $M$ is the only learnable component. By updating $M$, SVFT adapts the contribution of the
+singular components while preserving the original singular vectors.
+
+Different structures for the matrix $M$ can be used to control the flexibility of the
+adaptation:
+\begin{compactitemize}
+    \item \textbf{Plain}: $M$ is diagonal, allowing adaptation of only the singular values and
+    effectively reweighting the frozen singular vectors;
+    \item \textbf{Banded}: $M$ is a banded matrix, progressively enabling off-diagonal elements.
+    For constants $z_1$ and $z_2$, $M_{ij} = 0$ if $j < i - z_1$ or $j > i + z_2$, with $z_1, z_2 \geq 0$;
+    \item \textbf{Random}: a randomly selected subset of elements in $M$ is made learnable;
+    \item \textbf{Top-$k$}: only the $k$ largest elements of $M$ are learnable.
+\end{compactitemize}
+
+In the \textbf{plain} SVFT setting, the number of trainable parameters is equal to the hidden
+dimension $d$, making SVFT extremely parameter-efficient. By constraining adaptation to the
+singular value space, SVFT introduces a strong inductive bias that promotes stable and efficient
+fine-tuning of large pretrained models.
