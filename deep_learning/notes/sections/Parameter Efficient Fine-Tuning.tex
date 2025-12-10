@@ -668,3 +668,206 @@ In the \textbf{plain} SVFT setting, the number of trainable parameters is equal 
 dimension $d$, making SVFT extremely parameter-efficient. By constraining adaptation to the
 singular value space, SVFT introduces a strong inductive bias that promotes stable and efficient
 fine-tuning of large pretrained models.
+
+\section{Scale-and-Shift Fine-Tuning}
+
+Scale-and-shift methods are a class of
+\textbf{Parameter-Efficient Fine-Tuning (PEFT)} techniques that adapt pretrained models by
+introducing lightweight, trainable \textbf{affine transformations} applied to internal
+activations.
+
+Rather than modifying the model weights, these approaches adjust the model’s behavior by
+learning how to \textbf{rescale and shift} intermediate representations produced by a frozen
+backbone. In this way, adaptation is achieved by modulating existing features instead of
+learning new ones.
+
+Given an activation $x$ from a frozen pretrained model, the scale-and-shift transformation is
+defined as:
+\[
+x' = \gamma \cdot x + \beta,
+\]
+where:
+\begin{compactitemize}
+    \item $x$ denotes the original activation;
+    \item $\gamma$ is a learnable \textbf{scaling} parameter;
+    \item $\beta$ is a learnable \textbf{shifting} parameter;
+    \item all other model parameters remain frozen during fine-tuning.
+\end{compactitemize}
+
+From an intuitive perspective, deep pretrained models already encode rich and transferable
+representations. Scale-and-shift fine-tuning leverages this property by learning how strongly
+each feature should be emphasized or suppressed through $\gamma$, and how representations
+should be re-centered through $\beta$.
+
+By operating directly in the activation space, these methods provide a highly efficient form
+of adaptation, requiring only a small number of task-specific parameters while preserving the
+full expressive power of the pretrained backbone.
+
+\subsection{Bias-Terms Fine-Tuning (BitFit)}
+
+\textbf{Bias-Terms Fine-Tuning (BitFit)} is a simple yet effective
+\textbf{Parameter-Efficient Fine-Tuning (PEFT)} method that adapts pretrained models by
+updating \textbf{only the bias parameters}, while keeping all weight matrices frozen.
+
+The key intuition behind BitFit is that modern pretrained models already learn powerful
+feature representations through their weight matrices. Small task-specific adjustments can
+therefore be achieved by shifting internal activations via bias terms, without modifying the
+core transformations of the network.
+
+Consider an attention-based Transformer block. The query, key, and value projections are
+defined as:
+\[
+Q(x) = W_q x + b_q, \qquad
+K(x) = W_k x + b_k, \qquad
+V(x) = W_v x + b_v,
+\]
+where $W_q$, $W_k$, and $W_v$ are frozen weight matrices, and $b_q$, $b_k$, $b_v$ are bias
+vectors.
+
+After the attention operation, the output is processed by the MLP block:
+\[
+h_2 = \text{Dropout}\bigl(W_{m1} \cdot \text{att}(Q,K,V) + b_{m1}\bigr),
+\]
+\[
+h_3 = \text{GELU}\bigl(W_{m2} \cdot h_2 + b_{m2}\bigr),
+\]
+followed by Layer Normalization:
+\[
+\text{out} =
+\frac{g_{\text{LN}} \odot h_3 + \text{att}(Q,K,V) - \mu}{\sigma}
++ b_{\text{LN}},
+\]
+where $g_{\text{LN}}$ denotes the learnable gain parameter, and $b_{\text{LN}}$ is the bias
+term of Layer Normalization.
+
+In BitFit, \textbf{only the bias terms} are updated during fine-tuning:
+\[
+\{ b_q,\, b_k,\, b_v,\, b_{m1},\, b_{m2},\, b_{\text{LN}} \},
+\]
+while all weight matrices and other parameters remain frozen.
+
+Despite its simplicity, BitFit has been shown to achieve competitive performance on a wide
+range of NLP tasks, especially in low-data regimes. Its extremely low number of trainable
+parameters makes it one of the most lightweight PEFT methods, with minimal memory and
+computational overhead.
+
+From a conceptual standpoint, BitFit can be interpreted as a special case of
+\textbf{shift-only fine-tuning}, where task adaptation is achieved by translating internal
+representations rather than rescaling or rotating them in feature space.
+
+\subsection{Infused Adapter by Inhibiting and Amplifying Inner Activations ((IA)$^3$)}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI14.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+\textbf{Infused Adapter by Inhibiting and Amplifying Inner Activations ((IA)$^3$)} is a
+\textbf{Parameter-Efficient Fine-Tuning (PEFT)} method that adapts pretrained Transformer
+models by introducing \textbf{learnable scaling factors} within the self-attention mechanism.
+
+Rather than modifying model weights or adding explicit adapter modules, (IA)$^3$ intervenes
+directly on the internal activations of the attention block by selectively inhibiting or
+amplifying features along the query, key, and value dimensions.
+
+In a standard Transformer layer, self-attention is computed as:
+\[
+\text{Attention}(Q, K, V)
+=
+\text{softmax}
+\!\left(
+\frac{Q K^{\top}}{\sqrt{d_k}}
+\right)
+V,
+\]
+where $Q$, $K$, and $V$ denote the query, key, and value matrices.
+
+In (IA)$^3$, each of these components is modulated by an element-wise learnable scaling vector:
+\[
+\text{Attention}(Q, K, V)
+=
+\text{softmax}
+\!\left(
+\frac{(s_q \odot Q)\,(s_k \odot K)^{\top}}{\sqrt{d_k}}
+\right)
+(s_v \odot V),
+\]
+where:
+\begin{compactitemize}
+    \item $s_q$, $s_k$, and $s_v$ are learnable scaling vectors;
+    \item $\odot$ denotes element-wise multiplication;
+    \item all backbone parameters remain frozen during fine-tuning.
+\end{compactitemize}
+
+Each scaling vector has dimensionality equal to the hidden size of the corresponding projection
+and is shared across all tokens in the sequence. As a result, (IA)$^3$ modulates attention
+globally by amplifying task-relevant features and suppressing irrelevant ones.
+
+From a geometric perspective, (IA)$^3$ performs a \textbf{feature-wise rescaling} of the
+attention representations. Unlike low-rank or adapter-based methods, it does not introduce
+new directions in feature space, but instead controls the relative importance of existing ones.
+
+Thanks to its simplicity, (IA)$^3$ is extremely parameter-efficient and computationally cheap.
+At the same time, by acting directly inside the attention mechanism, it provides expressive
+control over the information flow of the Transformer, making it particularly effective in
+low-resource and multi-task learning scenarios.
+
+\subsection{Scaling \& Shifting Your Features (SSF)}
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/PI15.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+\textbf{Scaling \& Shifting Your Features (SSF)} is a
+\textbf{Parameter-Efficient Fine-Tuning (PEFT)} method that adapts pretrained models by
+applying learnable \textbf{scaling and shifting transformations} to internal activations after
+each major operation in the network.
+
+Specifically, SSF inserts an \textbf{SSF-ADA} layer after:
+\begin{compactitemize}
+    \item Multi-Head Self-Attention (MSA);
+    \item Feed-Forward Networks (FFN);
+    \item Layer Normalization layers.
+\end{compactitemize}
+
+Given an activation $x$ produced by a frozen pretrained operation, the SSF-ADA layer computes:
+\[
+y = \gamma \odot x + \beta,
+\]
+where:
+\begin{compactitemize}
+    \item $\gamma$ is a learnable \textbf{scaling} vector;
+    \item $\beta$ is a learnable \textbf{shifting} vector;
+    \item $\odot$ denotes element-wise multiplication.
+\end{compactitemize}
+
+Both $\gamma$ and $\beta$ have dimensionality equal to the hidden size of the activation and are
+shared across all tokens, resulting in a global yet feature-wise adaptation mechanism.
+
+Since the underlying operations of the Transformer block (linear projections, MSA, and FFN) are
+linear with respect to their parameters, the SSF transformation can be reparameterized directly
+in terms of the original weights.
+
+Consider a generic linear operation:
+\[
+x = w * t + b,
+\]
+where $w$ and $b$ denote the frozen weight and bias parameters, and $t$ is the input. Applying
+the SSF-ADA layer yields:
+\[
+y = \gamma \odot (w * t + b) + \beta
+     = (\gamma \odot w) * t + \gamma \odot b + \beta.
+\]
+
+This reparameterization shows that SSF is functionally equivalent to rescaling the frozen
+weights and shifting the biases, while still updating only the lightweight parameters
+$\gamma$ and $\beta$. As a result, SSF achieves expressive task adaptation without modifying the
+original pretrained parameters.
+
+From a conceptual standpoint, SSF generalizes both \textbf{scale-only} and \textbf{shift-only}
+fine-tuning methods. It can be seen as a unifying framework that subsumes approaches such as
+BitFit (shift-only) and (IA)$^3$ (scale-only), while retaining strong parameter efficiency and
+training stability.
