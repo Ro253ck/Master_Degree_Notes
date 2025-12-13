@@ -163,3 +163,222 @@ In conclusione, l’expected utilization of the server costituisce una misura ch
     \includegraphics[width=0.8\textwidth]{images/QQ2.png}
     \label{fig:student_markov_chain}
 \end{figure}
+
+\section{Inventory System}
+\subsection{Problem Statement: Inventory System}
+
+Si considera un \textbf{sistema di gestione delle scorte} con l’obiettivo di confrontare
+politiche di riordino alternative. Una società vende un singolo prodotto e deve
+decidere quante unità mantenere in inventario in ciascuno dei successivi $n$ mesi,
+tenendo conto dell’incertezza della domanda e dei costi associati agli ordini.
+
+La domanda dei clienti è modellata come un processo stocastico. In particolare, i
+\textbf{tempi di interarrivo della domanda} sono variabili casuali indipendenti e
+identicamente distribuite (IID), con distribuzione esponenziale e valore medio pari a
+$0.1$ mesi. La \textbf{dimensione della domanda} è indipendente dai tempi di arrivo ed è
+descritta dalla seguente distribuzione discreta:
+\[
+D =
+\begin{cases}
+1 & \text{con probabilità } \frac{1}{6}, \\
+2 & \text{con probabilità } \frac{1}{3}, \\
+3 & \text{con probabilità } \frac{1}{3}, \\
+4 & \text{con probabilità } \frac{1}{6}.
+\end{cases}
+\]
+
+All’inizio di ciascun mese, l’azienda effettua una revisione del livello di inventario e
+decide se effettuare un ordine al fornitore. Se viene effettuato un ordine di ampiezza
+$Z$, il costo associato è dato da:
+\[
+C = K + i \cdot Z,
+\]
+dove $K$ rappresenta il \textbf{costo fisso di setup} dell’ordine, mentre $i$ è il
+\textbf{costo incrementale unitario}. Il \textbf{lead time} (o delivery lag), ossia il
+tempo che intercorre tra l’ordine e la consegna, è una variabile casuale con
+distribuzione uniforme.
+
+La politica di riordino adottata è una \textbf{politica stazionaria $(s,S)$}. Indicando
+con $I$ il livello di inventario all’inizio del mese, la quantità ordinata $Z$ è definita
+come:
+\[
+Z =
+\begin{cases}
+S - I & \text{se } I < s, \\
+0     & \text{se } I \ge s.
+\end{cases}
+\]
+I parametri $s$ e $S$ caratterizzano completamente la politica, mentre $Z$ rappresenta
+la quantità ordinata al fornitore.
+
+La dinamica del sistema di inventario è la seguente:
+\begin{compactitemize}
+    \item quando si verifica una domanda, essa viene soddisfatta immediatamente se
+    il livello di inventario è sufficiente, ovvero se $I(t) \ge D_t$;
+    \item se la domanda eccede il livello di inventario disponibile, l’eccesso viene
+    \textbf{backlogged} e soddisfatto tramite consegne future;
+    \item quando avviene una consegna, essa viene utilizzata prioritariamente per
+    soddisfare eventuali arretrati di domanda; l’eventuale rimanenza viene aggiunta
+    all’inventario.
+\end{compactitemize}
+
+Di conseguenza, il livello di inventario $I(t)$ può assumere sia valori positivi sia
+valori negativi, a seconda della presenza di scorte o di domanda arretrata. Questo
+modello consente di analizzare in modo realistico il compromesso tra costi di
+ordinazione, livelli di scorta e qualità del servizio, e si presta naturalmente a uno
+studio tramite simulazione per confrontare diverse politiche $(s,S)$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/OD10.png}
+    \label{fig:student_markov_chain}
+\end{figure}
+
+\subsection{Costs}
+
+Nel sistema di inventario considerato, le prestazioni di una politica di riordino sono
+valutate sulla base dei \textbf{costi totali}, che includono costi di ordinazione,
+di mantenimento delle scorte e di carenza (shortage). Tali costi sono definiti come
+medie nel tempo sull’orizzonte di simulazione.
+
+\paragraph{Ordering costs}
+Quando l’azienda effettua un ordine di ampiezza $Z$, il costo di ordinazione è dato da:
+\[
+C = K + i \cdot Z,
+\]
+dove $K$ è il \textbf{costo fisso di setup} associato all’emissione dell’ordine, mentre
+$i$ rappresenta il \textbf{costo incrementale unitario} per ciascun articolo ordinato.
+
+\paragraph{Holding costs}
+I costi di mantenimento delle scorte sono proporzionali al livello di inventario
+positivo. Indicando con $I(t)$ il livello di inventario al tempo $t$, si definisce:
+\[
+I^{+}(t) = \max\{I(t), 0\}.
+\]
+Il costo di holding istantaneo è quindi:
+\[
+H(t) = h \cdot I^{+}(t),
+\]
+dove $h$ rappresenta il costo unitario di mantenimento. Tali costi riflettono spese
+come affitto del magazzino, assicurazione, tasse, manutenzione e costi opportunità del
+capitale immobilizzato.
+
+La misura di performance associata al livello medio di scorte è definita come
+\textbf{media nel tempo}:
+\[
+I^{+} = \frac{1}{n} \int_{0}^{n} I^{+}(t)\, dt.
+\]
+
+\paragraph{Shortage costs}
+Analogamente, i costi di carenza sono legati al livello di inventario negativo, che
+rappresenta la domanda arretrata (backlog). Si definisce:
+\[
+I^{-}(t) = \max\{-I(t), 0\}.
+\]
+Il costo di shortage istantaneo è:
+\[
+S(t) = \pi \cdot I^{-}(t),
+\]
+dove $\pi$ è il costo unitario di carenza, che tipicamente riflette costi di gestione,
+perdita di goodwill dei clienti e potenziali mancate vendite future.
+
+Il livello medio di backlog è anch’esso definito come media nel tempo:
+\[
+I^{-} = \frac{1}{n} \int_{0}^{n} I^{-}(t)\, dt.
+\]
+
+In conclusione, tutti i costi rilevanti nel sistema di inventario sono espressi come
+\textbf{time-averages}, rendendo il problema particolarmente adatto a un’analisi tramite
+simulazione di tipo nonterminating, finalizzata al confronto di politiche di riordino
+alternative sulla base del costo medio di lungo periodo.
+
+\subsection{Parameters}
+
+Nel seguente studio di simulazione, il sistema di inventario è caratterizzato da un
+insieme di parametri numerici fissati, che definiscono il comportamento della domanda,
+dei costi e delle condizioni iniziali.
+
+I \textbf{tempi di interarrivo della domanda} sono modellati come variabili casuali
+esponenziali con valore medio pari a:
+\[
+E[A] = 0.1 \text{ mesi},
+\]
+corrispondente a un tasso medio di domanda $\mu = 0.1$.
+
+La \textbf{dimensione della domanda} è indipendente dai tempi di arrivo ed è descritta
+dalla seguente distribuzione discreta:
+\[
+D =
+\begin{cases}
+1 & \text{con probabilità } \frac{1}{6}, \\
+2 & \text{con probabilità } \frac{1}{3}, \\
+3 & \text{con probabilità } \frac{1}{3}, \\
+4 & \text{con probabilità } \frac{1}{6}.
+\end{cases}
+\]
+
+I parametri di costo associati al sistema di inventario sono:
+\begin{compactitemize}
+    \item costo fisso di setup dell’ordine: $K = 32$;
+    \item costo incrementale unitario: $i = 3$;
+    \item costo unitario di holding: $h = 1$;
+    \item costo unitario di shortage: $\pi = 5$.
+\end{compactitemize}
+
+Il \textbf{lead time} del fornitore, ossia il tempo di consegna degli ordini, è una
+variabile casuale uniforme con supporto:
+\[
+L \sim U(0.5, 1) \text{ mesi}.
+\]
+
+Il livello di inventario iniziale è fissato pari a:
+\[
+I(0) = 60.
+\]
+
+L’orizzonte temporale della simulazione è di:
+\[
+n = 120 \text{ mesi},
+\]
+che rappresenta un periodo sufficientemente lungo da consentire l’analisi delle
+prestazioni di lungo periodo del sistema.
+
+Questi parametri definiscono completamente l’istanza del problema di inventario
+considerata e costituiscono la base per il confronto, tramite simulazione, di diverse
+politiche di riordino $(s,S)$ in termini di costo medio e qualità del servizio.
+
+\subsection{Objective}
+
+L’obiettivo dello studio di simulazione è il confronto di un insieme di
+\textbf{nove diverse politiche di inventario} di tipo stazionario $(s,S)$, al fine di
+valutarne le prestazioni in termini di costo complessivo.
+
+Le politiche considerate sono definite dalle seguenti coppie di parametri:
+\[
+\begin{array}{c|ccccccccc}
+s & 20 & 20 & 20 & 20 & 40 & 40 & 40 & 60 & 60 \\
+S & 40 & 60 & 80 & 100 & 60 & 80 & 100 & 80 & 100
+\end{array}
+\]
+
+Ciascuna coppia $(s,S)$ rappresenta una diversa strategia di riordino, che bilancia in
+modo differente la frequenza degli ordini, il livello medio di scorte e il rischio di
+carenze.
+
+La \textbf{misura di performance} utilizzata per il confronto tra le politiche è il
+\textbf{costo totale medio mensile}, definito come:
+\[
+C_{\text{Tot}} = C + H + S,
+\]
+dove:
+\begin{compactitemize}
+    \item $C$ rappresenta il costo medio di ordinazione;
+    \item $H$ rappresenta il costo medio di mantenimento delle scorte;
+    \item $S$ rappresenta il costo medio di shortage.
+\end{compactitemize}
+
+Tutti i termini sono espressi come \textbf{medie nel tempo} sull’orizzonte di simulazione.
+Il confronto tra le diverse politiche $(s,S)$ si basa quindi sul valore stimato di
+$C_{\text{Tot}}$, consentendo di identificare la strategia che minimizza il costo medio
+complessivo e offre il miglior compromesso tra efficienza operativa e livello di
+servizio.

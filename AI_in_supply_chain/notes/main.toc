@@ -247,23 +247,48 @@
 \contentsline {subsection}{\numberline {11.1.2}Expected Average Delay in Queue}{125}{subsection.11.1.2}%
 \contentsline {subsection}{\numberline {11.1.3}Expected Average Queue Size}{126}{subsection.11.1.3}%
 \contentsline {subsection}{\numberline {11.1.4}Expected Utilization of the Server}{127}{subsection.11.1.4}%
-\contentsline {chapter}{\numberline {12}Queueing Models}{129}{chapter.12}%
-\contentsline {section}{\numberline {12.1}Introduction to Queueing Models}{129}{section.12.1}%
-\contentsline {subsection}{\numberline {12.1.1}Calling Population}{130}{subsection.12.1.1}%
-\contentsline {subsection}{\numberline {12.1.2}System Capacity}{131}{subsection.12.1.2}%
-\contentsline {subsection}{\numberline {12.1.3}Arrival Process (Infinite Population Case)}{132}{subsection.12.1.3}%
-\contentsline {subsection}{\numberline {12.1.4}Arrival Process (Finite Population Case)}{132}{subsection.12.1.4}%
-\contentsline {subsection}{\numberline {12.1.5}Queue Behaviour and Queue Discipline}{133}{subsection.12.1.5}%
-\contentsline {subsection}{\numberline {12.1.6}Service Times and the Service Mechanism}{134}{subsection.12.1.6}%
-\contentsline {subsection}{\numberline {12.1.7}Queueing Notation}{135}{subsection.12.1.7}%
-\contentsline {subsection}{\numberline {12.1.8}Time-Average Number in System L}{136}{subsection.12.1.8}%
-\contentsline {subsection}{\numberline {12.1.9}Time-Average Number in Queue $L_Q$}{138}{subsection.12.1.9}%
-\contentsline {subsection}{\numberline {12.1.10}Average Time Spent in System and in Queue}{138}{subsection.12.1.10}%
-\contentsline {subsection}{\numberline {12.1.11}Conservation Equation (Little’s Law)}{139}{subsection.12.1.11}%
-\contentsline {subsection}{\numberline {12.1.12}Server Utilization}{140}{subsection.12.1.12}%
-\contentsline {subsection}{\numberline {12.1.13}Exercise 1: Bank with Multiple Clerks}{142}{subsection.12.1.13}%
-\contentsline {subsection}{\numberline {12.1.14}Exercise 2: Scheduled Physician Appointments}{142}{subsection.12.1.14}%
-\contentsline {subsection}{\numberline {12.1.15}Infinite Population Markovian Models}{143}{subsection.12.1.15}%
-\contentsline {subsection}{\numberline {12.1.16}Example: Shoe Repair Shop}{144}{subsection.12.1.16}%
-\contentsline {subsection}{\numberline {12.1.17}Sources of Delays in M/G/1 Queues}{146}{subsection.12.1.17}%
-\contentsline {subsubsection}{\numberline {12.1.17.1}Piccolo esempio}{146}{subsubsection.12.1.17.1}%
+\contentsline {section}{\numberline {11.2}Inventory System}{129}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}Problem Statement: Inventory System}{129}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Costs}{130}{subsection.11.2.2}%
+\contentsline {paragraph}{Ordering costs}{130}{section*.49}%
+\contentsline {paragraph}{Holding costs}{130}{section*.50}%
+\contentsline {paragraph}{Shortage costs}{131}{section*.51}%
+\contentsline {subsection}{\numberline {11.2.3}Parameters}{131}{subsection.11.2.3}%
+\contentsline {subsection}{\numberline {11.2.4}Objective}{132}{subsection.11.2.4}%
+\contentsline {chapter}{\numberline {12}Queueing Models}{134}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Introduction to Queueing Models}{134}{section.12.1}%
+\contentsline {subsection}{\numberline {12.1.1}Calling Population}{135}{subsection.12.1.1}%
+\contentsline {subsection}{\numberline {12.1.2}System Capacity}{136}{subsection.12.1.2}%
+\contentsline {subsection}{\numberline {12.1.3}Arrival Process (Infinite Population Case)}{137}{subsection.12.1.3}%
+\contentsline {subsection}{\numberline {12.1.4}Arrival Process (Finite Population Case)}{137}{subsection.12.1.4}%
+\contentsline {subsection}{\numberline {12.1.5}Queue Behaviour and Queue Discipline}{138}{subsection.12.1.5}%
+\contentsline {subsection}{\numberline {12.1.6}Service Times and the Service Mechanism}{139}{subsection.12.1.6}%
+\contentsline {subsection}{\numberline {12.1.7}Queueing Notation}{140}{subsection.12.1.7}%
+\contentsline {subsection}{\numberline {12.1.8}Time-Average Number in System L}{141}{subsection.12.1.8}%
+\contentsline {subsection}{\numberline {12.1.9}Time-Average Number in Queue $L_Q$}{143}{subsection.12.1.9}%
+\contentsline {subsection}{\numberline {12.1.10}Average Time Spent in System and in Queue}{143}{subsection.12.1.10}%
+\contentsline {subsection}{\numberline {12.1.11}Conservation Equation (Little’s Law)}{144}{subsection.12.1.11}%
+\contentsline {subsection}{\numberline {12.1.12}Server Utilization}{145}{subsection.12.1.12}%
+\contentsline {subsection}{\numberline {12.1.13}Exercise 1: Bank with Multiple Clerks}{147}{subsection.12.1.13}%
+\contentsline {subsection}{\numberline {12.1.14}Exercise 2: Scheduled Physician Appointments}{147}{subsection.12.1.14}%
+\contentsline {subsection}{\numberline {12.1.15}Infinite Population Markovian Models}{148}{subsection.12.1.15}%
+\contentsline {subsection}{\numberline {12.1.16}Example: Shoe Repair Shop}{149}{subsection.12.1.16}%
+\contentsline {subsection}{\numberline {12.1.17}Sources of Delays in M/G/1 Queues}{151}{subsection.12.1.17}%
+\contentsline {subsubsection}{\numberline {12.1.17.1}Piccolo esempio}{151}{subsubsection.12.1.17.1}%
+\contentsline {chapter}{\numberline {13}Output Data Analysis}{153}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Introduction}{153}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Stochastic Processes}{154}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Transient and Steady-State Behaviour}{155}{section.13.3}%
+\contentsline {section}{\numberline {13.4}Types of Simulations and Output Analysis}{157}{section.13.4}%
+\contentsline {section}{\numberline {13.5}Output Analysis for Terminating Simulations}{158}{section.13.5}%
+\contentsline {section}{\numberline {13.6}Fixed-sample-size procedure}{159}{section.13.6}%
+\contentsline {section}{\numberline {13.7}Precisione assoluta}{159}{section.13.7}%
+\contentsline {section}{\numberline {13.8}Sequential procedure e precisione relativa}{160}{section.13.8}%
+\contentsline {section}{\numberline {13.9}Estimating Other Measures of Performance}{160}{section.13.9}%
+\contentsline {section}{\numberline {13.10}Statistical Analysis for Steady-State Parameters}{161}{section.13.10}%
+\contentsline {section}{\numberline {13.11}The Problem of the Initial Transient}{162}{section.13.11}%
+\contentsline {section}{\numberline {13.12}Welch’s Procedure}{163}{section.13.12}%
+\contentsline {section}{\numberline {13.13}Replication/Deletion Approach}{165}{section.13.13}%
+\contentsline {section}{\numberline {13.14}Estimating Other Measures of Performance}{166}{section.13.14}%
+\contentsline {section}{\numberline {13.15}Statistical Analysis for Steady-State Cycle Parameters}{167}{section.13.15}%
+\contentsline {section}{\numberline {13.16}Multiple Measures of Performance}{168}{section.13.16}%
