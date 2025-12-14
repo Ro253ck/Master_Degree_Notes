@@ -1,3 +1,4 @@
+
 \chapter{Continual Learning}
 
 \section{Introduction}
@@ -472,7 +473,7 @@ a memory buffer. These samples are replayed during training on new tasks to prev
 forgetting. Replay is effective and conceptually straightforward, but performance generally
 increases with the size of the memory buffer, making memory constraints a practical issue.
 
-\section{(A) Architectural Methods}
+\section{Architectural Methods}
 
 \subsection{Weight Sharing}
 A major source of \textbf{catastrophic forgetting} in neural networks is the \textbf{shared set of parameters} across multiple tasks. When a model learns
@@ -669,3 +670,505 @@ parameters for the selected task.
 
 (4) \textbf{Output}: The network produces the prediction for that task. Since weights from
 previous tasks are frozen, the model does not forget how to solve earlier tasks.
+
+\section{Regularization Approaches}
+\subsection{Regularization Approaches}
+
+Regularization approaches mitigate catastrophic forgetting by introducing explicit
+regularization terms in the loss function. The goal is to balance the learning of new
+tasks with the preservation of performance on previously learned ones.
+
+Unlike architectural methods, these approaches rely on \textbf{weight sharing} across
+tasks and do not instantiate additional parameters when new tasks are introduced.
+As a result, they have a \textbf{reduced memory footprint}. A representative example
+discussed in previous sections is \textbf{Elastic Weight Consolidation (EWC)}.
+
+However, regularization-based methods usually require storing auxiliary information
+from past tasks. In particular, the regularization objective often depends on a
+\textbf{frozen copy of the old model}, which acts as a reference to constrain learning
+on the current task.
+
+Depending on the \textbf{target of the regularization}, these methods can be divided
+into two main directions: \textbf{weight regularization} and \textbf{function
+regularization}.
+
+\subsubsection{Weight Regularization}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/CL16.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Weight regularization approaches explicitly constrain the variation of network
+parameters that were important for previously learned tasks. The underlying idea
+is that not all parameters contribute equally to task performance: some weights are
+crucial for solving old tasks, while others are more redundant.
+
+During training on a new task, changes to important parameters are penalized,
+typically through a \textbf{quadratic regularization term} added to the loss
+function. The strength of this penalty depends on an estimate of each parameter’s
+importance for the old tasks. As a result, parameters that strongly affect past
+performance are prevented from drifting too far, while less important ones remain
+free to adapt.
+
+This class of methods directly regularizes the \textbf{weights} of the model and
+therefore operates at the parameter level. Well-known examples include
+\textbf{EWC}, \textbf{Synaptic Intelligence (SI)}, \textbf{Memory Aware Synapses
+(MAS)}, and \textbf{RWalk}.
+
+\subsubsection{Function Regularization}
+
+Function regularization approaches aim to preserve the \textbf{behavior} of the
+model rather than its exact parameter values. Instead of constraining individual
+weights, they encourage the network to maintain similar outputs or internal
+representations for previously learned tasks.
+
+These methods are commonly formulated within a \textbf{teacher--student paradigm}.
+The model trained on previous tasks acts as a teacher with frozen parameters, while
+the current model is trained as a student on data from the new task. During training,
+the student is encouraged to mimic the teacher’s responses on old tasks, even though
+no old-task data are available.
+
+A prominent example of function regularization is \textbf{Learning without Forgetting
+(LwF)}, which uses \textbf{knowledge distillation} to transfer information from the
+old model to the new one. This allows the network to retain past knowledge at the
+functional level while adapting to new tasks.
+
+\subsection{Learning without Forgetting (LwF)}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/CL17.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+The goal of \textbf{Learning without Forgetting (LwF)} is to train a neural network that
+performs well on both previously learned tasks and newly introduced ones, \textbf{while
+having access only to data from the new task}. This setting is particularly challenging,
+since no training samples from old tasks are available during learning.
+
+LwF preserves previously acquired knowledge by regularizing the \textbf{function}
+implemented by the network rather than its parameters. To achieve this, it relies on
+\textbf{Knowledge Distillation (KD)} within a teacher--student framework. The model trained
+on previous tasks acts as a \emph{teacher} with frozen parameters, while the model being
+trained on the new task acts as the \emph{student}.
+
+Training proceeds in two main steps.
+
+\textbf{(1)} Given an input image from the new task, a forward pass is performed through
+the network trained at the end of the previous task (the teacher). The resulting output
+distribution over the old-task classes is recorded and treated as an additional
+\textbf{pseudo label} for the new-task data. Even though the input does not belong to an
+old-task dataset, the teacher’s output still encodes valuable information about the
+previously learned decision boundaries.
+
+\textbf{(2)} The student network is then trained using only examples from the new task,
+but with a composite objective. The model is optimized to correctly predict the
+\textbf{ground-truth labels} of the new task, while simultaneously matching the teacher’s
+responses on the old tasks through a distillation loss. This forces the student to retain
+the functional behavior of the old model while adapting to the new task.
+
+Compared to standard fine-tuning, which typically overwrites previously learned
+knowledge, LwF explicitly constrains the model to remain consistent with its past
+predictions. Unlike joint training, it does not require access to old-task data, and
+unlike feature extraction, it allows the entire network to adapt instead of freezing
+most of its layers.
+
+Overall, Learning without Forgetting provides a simple and effective function
+regularization strategy for continual learning, enabling models to accumulate knowledge
+over time without catastrophic forgetting even when old training data are unavailable.
+\newpage
+\subsection{Regularization approaches: a summary}
+\vspace{0.3cm}
+
+\begin{center}
+    \hrule
+    \vspace{0.3cm}
+    
+    \begin{minipage}[t]{0.47\textwidth}
+    \centering
+    \textbf{Advantages of Regularization Approaches}
+    
+    \vspace{0.2cm}
+    \hrule
+    \vspace{0.2cm}
+    
+    $\rightarrow$ \textbf{Bounded memory cost}: no need to store full datasets from previous tasks,
+    since regularization relies on auxiliary information rather than replaying data.
+    
+    \vspace{0.15cm}
+    
+    $\rightarrow$ \textbf{Knowledge distillation from unlabeled data}: these methods can further
+    distill knowledge from large streams of unlabeled data that may be available in real-world
+    scenarios.
+    
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.47\textwidth}
+    \centering
+    \textbf{Disadvantages of Regularization Approaches}
+    
+    \vspace{0.2cm}
+    \hrule
+    \vspace{0.2cm}
+    
+    $\rightarrow$ \textbf{Limited effectiveness over long task sequences}: performance typically
+    degrades as the number of tasks increases.
+    
+    \vspace{0.15cm}
+    
+    $\rightarrow$ \textbf{Sensitivity to domain shift}: when new tasks differ significantly from old
+    ones, the regularization constraints may become ineffective.
+   
+    \end{minipage}
+    
+    \vspace{0.3cm}
+\hrule
+\end{center}
+
+\vspace{0.3cm}
+
+A possible solution disadvantages migh be provide a few training example from old tasks, this approach is called \textbf{replaying approaches}.
+
+\section{Rehearsal Approaches}
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/CL18.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Rehearsal approaches address catastrophic forgetting by explicitly \textbf{storing a subset
+of previously seen training examples} and reusing them during the learning of new tasks.
+Unlike regularization methods, which rely on constraints derived from the old model,
+rehearsal methods directly reintroduce past data into the training process.
+
+The core idea is simple: instead of discarding old data completely, the model maintains a
+\textbf{memory buffer} containing examples from previous tasks. When training on a new
+task, the model is optimized not only on the current data, but also on the stored samples,
+thereby reinforcing previously learned knowledge.
+
+A classic and widely used rehearsal method is \textbf{Experience Replay (ER)}. Despite its
+simplicity, ER is a surprisingly strong baseline in continual learning and often serves as
+a reference point for more sophisticated methods.
+
+The principle of Experience Replay can be summarized as follows.
+
+\textbf{(1)} During training, a subset of previously encountered examples, together with
+their labels, is stored in a fixed-size memory buffer.
+
+\textbf{(2)} When a new task arrives, the model is trained jointly on the current task data
+and on samples drawn from the memory buffer. This replay process counteracts the tendency
+of the network to overwrite earlier knowledge.
+
+By repeatedly revisiting old examples, ER directly approximates joint training, even
+though only a limited amount of past data is retained. As a result, catastrophic forgetting
+is significantly reduced.
+
+Experience Replay is conceptually straightforward and easy to implement. However, its
+performance is strongly tied to the size of the memory buffer: larger buffers generally
+lead to better retention of past tasks. This creates an inherent trade-off between memory
+usage and performance. Moreover, storing raw data from previous tasks may conflict with
+\textbf{privacy or data retention constraints}, which can limit the applicability of
+rehearsal methods in real-world scenarios.
+
+\subsection{Experience Replay (ER)}
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/CL19.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+Experience Replay (ER) is one of the simplest and most effective rehearsal-based methods
+for continual learning. The main idea is to store a small number of previously seen training
+examples in a \textbf{memory buffer} $\mathcal{B}$ with fixed capacity, and to reuse them
+during training on new tasks.
+
+The memory buffer has a limited size and can only contain a small subset of past data.
+For example, it may store only a few hundred samples (e.g., 500 examples) from all
+previous tasks. Despite this strong constraint, replaying even a small amount of past
+data can significantly reduce catastrophic forgetting.
+
+During training on a task $t$, the model is optimized using both the current task data
+and samples drawn from the memory buffer. Formally, the Experience Replay loss is defined
+as:
+\[
+\mathcal{L}_{\text{ER}}
+=
+\mathbb{E}_{(x,y)\sim D_t}
+\bigl[\ell(y, f_\theta(x))\bigr]
++
+\mathbb{E}_{(x,y)\sim \mathcal{B}}
+\bigl[\ell(y, f_\theta(x))\bigr],
+\]
+where the first term corresponds to the standard cross-entropy loss on a batch from the
+current task, and the second term corresponds to the loss computed on a batch sampled
+from the memory buffer $\mathcal{B}$.
+
+In practice, ER alternates between learning new information and reinforcing old knowledge
+by replaying stored samples. This simple mechanism allows the model to approximate joint
+training, even though only a small fraction of past data is retained.
+
+A common strategy to manage the limited memory buffer is \textbf{Reservoir Sampling},
+which ensures that each example seen so far has the same probability of being stored in
+the buffer. The overall training procedure for Experience Replay with reservoir sampling
+can be summarized as follows.
+
+
+\noindent\rule{\textwidth}{0.8pt}
+
+\noindent\textbf{Algorithm 1} Experience Replay (ER) with Reservoir Sampling
+
+\noindent\textbf{procedure} \textsc{Train}$(D, \theta, \alpha, k)$
+
+\noindent\hspace{0.6cm}$M \leftarrow \{\}$
+
+\noindent\hspace{0.6cm}\textbf{for} $t = 1, \ldots, T$ \textbf{do}
+
+\noindent\hspace{1.2cm}\textbf{for} $(x, y) \in D_t$ \textbf{do}
+
+\noindent\hspace{1.8cm}// Draw batch from buffer:
+
+\noindent\hspace{1.8cm}$B \leftarrow sample(x, y, k, M)$
+
+\noindent\hspace{1.8cm}// Update parameters with mini-batch SGD:
+
+\noindent\hspace{1.8cm}$\theta \leftarrow SGD(B, \theta, \alpha)$
+
+\noindent\hspace{1.8cm}// Memory buffer update:
+
+\noindent\hspace{1.8cm}$M \leftarrow M \cup \{(x, y)\}$
+
+\noindent\hspace{1.2cm}\textbf{end for}
+
+\noindent\hspace{0.6cm}\textbf{end for}
+
+\noindent\textbf{return} $\theta, M$
+
+\noindent\rule{\textwidth}{0.8pt}
+
+At each training step, a mini-batch is formed by combining the current example with a
+batch sampled from the memory buffer. The model parameters are updated using stochastic
+gradient descent, and the current example is then considered for inclusion in the buffer.
+Over time, this procedure maintains a representative subset of past data while respecting
+the fixed memory budget.
+
+\subsection{Challenges:How to Build the Memory Buffer}
+
+A crucial aspect of rehearsal-based approaches is the construction of the
+\textbf{memory buffer}. Since the storage space is extremely limited, it is not
+possible to retain all previously seen examples. The effectiveness of replay
+methods therefore depends heavily on how the memory buffer is built and managed
+over time.
+
+The main challenges arise from the need to both \textbf{construct} and
+\textbf{exploit} the memory buffer efficiently. From a construction perspective,
+the preserved training samples must be carefully selected in order to retain as
+much information as possible about past tasks while respecting strict memory
+constraints. Poor selection strategies may lead to biased buffers that fail to
+represent earlier data distributions, ultimately resulting in forgetting.
+
+In addition to selection, stored samples may need to be \textbf{compressed},
+\textbf{augmented}, or periodically \textbf{updated} as new tasks arrive. These
+operations help the buffer adapt over time, allowing it to better capture the
+relevant information from past tasks even when only a small number of examples
+can be stored.
+
+Overall, designing an effective memory buffer is a non-trivial problem. It
+requires balancing representativeness, adaptability, and memory efficiency in
+order to recover past information as accurately as possible during replay.
+
+\subsubsection{Reservoir Sampling}
+
+Reservoir sampling provides an \textbf{online strategy} to construct the memory buffer
+under strict memory constraints. The core problem it addresses is the following: given
+a stream of $N$ examples arriving sequentially, how can we retain only $M \ll N$ samples
+such that each example seen so far has the same probability $\frac{M}{N}$ of being stored,
+\textbf{without knowing $N$ in advance}?
+
+This setting is particularly relevant in continual learning, where data arrive as a
+stream and the total number of samples is unknown beforehand. Reservoir sampling solves
+this problem by dynamically deciding whether to keep or discard each incoming example
+based on a simple randomized rule, while guaranteeing unbiased sampling over time.
+
+The algorithm maintains a buffer of fixed size $M$. When fewer than $M$ examples have
+been seen, all incoming samples are stored. Once the buffer is full, each new example
+has a decreasing probability of replacing an existing one, ensuring that all previously
+seen samples remain equally likely to be kept.
+
+
+\noindent\rule{\textwidth}{0.8pt}
+
+\noindent\textbf{Algorithm 2} Reservoir Sampling
+
+\noindent\textbf{procedure} \textsc{Reservoir}$(M, N, x, y)$
+
+\noindent\hspace{0.6cm}\textbf{if} $M > N$ \textbf{then}
+
+\noindent\hspace{1.2cm}$\mathcal{M}[N] \leftarrow (x, y)$
+
+\noindent\hspace{0.6cm}\textbf{else}
+
+\noindent\hspace{1.2cm}$j \leftarrow \text{randint}(0, N)$
+
+\noindent\hspace{1.2cm}\textbf{if} $j < M$ \textbf{then}
+
+\noindent\hspace{1.8cm}$\mathcal{M}[j] \leftarrow (x, y)$
+
+\noindent\hspace{1.2cm}\textbf{end if}
+
+\noindent\hspace{0.6cm}\textbf{end if}
+
+\noindent\textbf{return} $\mathcal{M}$
+
+\noindent\rule{\textwidth}{0.8pt}
+
+
+Reservoir sampling is simple, memory-efficient, and task-agnostic. However, since it
+relies purely on random selection, it does not explicitly account for class balance,
+sample difficulty, or diversity, which motivates more advanced buffer construction
+strategies.
+
+\subsubsection{Other Sampling Strategies}
+
+Beyond reservoir sampling, several alternative strategies have been proposed to improve
+the quality and representativeness of the memory buffer. These methods aim to better
+capture past information under strict memory constraints.
+
+\begin{compactitemize}
+    \item \textbf{Ring Buffer}: allocates a fixed portion of the memory to each class or
+    task, ensuring a more balanced number of stored examples per class.
+    
+    \item \textbf{Weighted Reservoir Sampling}: assigns higher retention probability to
+    more informative or difficult examples, typically based on loss values or prediction
+    confidence.
+    
+    \item \textbf{Mean-of-Feature}: selects an equal number of examples per class that are
+    closest to the class feature mean, storing prototypical samples.
+    
+    \item \textbf{Gradient-based strategies}: methods such as \textbf{Gradient-based
+    Sample Selection (GSS)} explicitly promote diversity by selecting samples with
+    diverse gradients.
+    
+    \item \textbf{Clustering-based methods}: approaches such as \textbf{k-means} select
+    representative samples by clustering data in feature space and retaining cluster
+    centroids or nearby examples.
+\end{compactitemize}
+
+\subsection{Experience Replay: Issues}
+
+Due to its simplicity, \textbf{Experience Replay (ER)} represents an ideal starting point
+for developing strong continual learning methods. By explicitly replaying past examples,
+ER significantly reduces catastrophic forgetting and provides a solid baseline for more
+advanced approaches.
+
+However, despite its effectiveness, ER suffers from some important limitations.
+
+First, the model repeatedly optimizes on a \textbf{very small memory buffer}. Since the
+same stored samples are replayed many times across training iterations, the model may
+overfit the buffer, reducing its ability to generalize to unseen data from past tasks.
+
+Second, when learning a sequence of tasks or classes incrementally, ER still exhibits an
+\textbf{implicit bias toward newer tasks}. Even though old samples are replayed, the
+current task data typically dominate the training process, causing the network to adapt
+more strongly to recent tasks at the expense of older ones.
+
+\textbf{Solution}: A common strategy to mitigate these issues is to combine Experience
+Replay with \textbf{Knowledge Distillation}. Instead of relying solely on hard labels from
+the memory buffer, the model can distill information from a previous version of itself,
+encouraging consistency in the output distributions across tasks. This idea leads to more
+robust replay-based methods, which will be discussed next.
+\newpage
+\subsection{Dark Experience Replay (DER)}
+\begin{wrapfigure}{r}{0.25\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/CL20.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+\textbf{Dark Experience Replay (DER)} is a replay-based continual learning method that
+extends Experience Replay by explicitly leveraging \textbf{dark knowledge} to retain past
+experiences. While standard ER stores past input--label pairs, DER stores richer
+information in the memory buffer.
+
+Similarly to ER, DER maintains a memory buffer $\mathcal{B}$ containing a subset of past
+examples. However, instead of storing only the ground-truth labels, DER also stores the
+\textbf{network responses} (logits) produced by the model at the time those examples were
+originally seen. These stored responses encode valuable information about previously
+learned tasks.
+
+During training on the current task, DER optimizes a composite objective. In addition to
+the loss on the current task $\mathcal{L}_{t_c}$, the model is encouraged to preserve its
+past behavior by minimizing the distance between the current outputs and the stored ones
+for samples in the memory buffer:
+\[
+\mathcal{L}
+=
+\mathcal{L}_{t_c}
++
+\alpha \,
+\mathbb{E}_{(x, z)\sim \mathcal{B}}
+\bigl[
+\lVert z - h_\theta(x) \rVert_2^2
+\bigr],
+\]
+where $z$ denotes the stored logits associated with input $x$, and $h_\theta(x)$ denotes
+the current model output. This additional term acts as a form of \textbf{function
+regularization}, enforcing consistency between past and current network responses.
+\begin{wrapfigure}{r}{0.25\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/CL21.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
+The intuition behind DER is that logits contain more information than hard labels. While
+ground-truth labels provide only a single target class, logits encode \textbf{secondary
+information} about visual similarities and relationships between classes. For example,
+they reflect how confident the model was and how it distributed probability mass across
+classes at the time of learning. This richer signal allows DER to preserve past knowledge
+more effectively than replaying labels alone.
+
+An extension of this method, known as \textbf{DER++}, further strengthens learning by also
+asking the model to predict the ground-truth labels for past examples stored in the buffer.
+By combining supervision from both hard labels and stored logits, DER++ achieves more
+robust retention of past tasks while continuing to learn new ones.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9
+    \textwidth]{images/CL22.png}
+    \caption{Compared to existing approaches, ER, DER and DER++ achieve strong performance, despite
+    their simplicity}
+    \label{fig:MHA2}
+\end{figure}
+
+\section{Rehearsal-free approaches}
+
+\subsection{Problems with Replay-Based Approaches}
+
+Replay-based approaches mitigate catastrophic forgetting by storing a subset of past data
+and replaying it during training on new tasks. Despite their effectiveness, these methods
+suffer from several inherent limitations.
+
+A first issue is the need for an \textbf{episodic memory buffer}, which requires storing raw
+samples or feature embeddings from past tasks. As the number of tasks grows, the storage
+cost increases, leading to a clear \textbf{trade-off between memory usage and performance}.
+
+Replay methods also raise \textbf{privacy concerns}, since retaining past data may be
+infeasible in sensitive domains such as medical or personal-data applications. Although
+techniques like reservoir sampling or coreset selection reduce the required storage, they
+still rely on keeping data.
+
+Another challenge is \textbf{sample selection}. Choosing which examples to store strongly
+impacts performance, but optimal strategies such as reservoir sampling, herding, or
+class-balanced coresets are non-trivial to design and tune.
+
+Finally, due to the limited size of the buffer, replay methods may suffer from
+\textbf{distribution mismatch}. The stored samples may not faithfully represent the past
+data distribution, leading to biased updates and forgetting of underrepresented modes.
+Even large buffers cannot fully replicate the effect of joint training on all past data.
