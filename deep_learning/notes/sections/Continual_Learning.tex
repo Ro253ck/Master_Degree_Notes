@@ -1099,7 +1099,13 @@ examples. However, instead of storing only the ground-truth labels, DER also sto
 \textbf{network responses} (logits) produced by the model at the time those examples were
 originally seen. These stored responses encode valuable information about previously
 learned tasks.
-
+\begin{wrapfigure}{r}{0.25\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=\linewidth]{images/CL21.png}
+    \label{fig:Scaled Dot Product Attention}
+    \vspace{-10pt}
+\end{wrapfigure}
 During training on the current task, DER optimizes a composite objective. In addition to
 the loss on the current task $\mathcal{L}_{t_c}$, the model is encouraged to preserve its
 past behavior by minimizing the distance between the current outputs and the stored ones
@@ -1118,13 +1124,7 @@ for samples in the memory buffer:
 where $z$ denotes the stored logits associated with input $x$, and $h_\theta(x)$ denotes
 the current model output. This additional term acts as a form of \textbf{function
 regularization}, enforcing consistency between past and current network responses.
-\begin{wrapfigure}{r}{0.25\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/CL21.png}
-    \label{fig:Scaled Dot Product Attention}
-    \vspace{-10pt}
-\end{wrapfigure}
+
 The intuition behind DER is that logits contain more information than hard labels. While
 ground-truth labels provide only a single target class, logits encode \textbf{secondary
 information} about visual similarities and relationships between classes. For example,
@@ -1172,3 +1172,267 @@ Finally, due to the limited size of the buffer, replay methods may suffer from
 \textbf{distribution mismatch}. The stored samples may not faithfully represent the past
 data distribution, leading to biased updates and forgetting of underrepresented modes.
 Even large buffers cannot fully replicate the effect of joint training on all past data.
+
+\subsection{Motivation for Rehearsal-Free Continual Learning}
+
+A key takeaway from replay-based methods is that, although replay is highly effective at
+mitigating catastrophic forgetting, it comes with important \textbf{practical, ethical,
+and scalability limitations}. In many real-world scenarios, storing and replaying past data
+is either undesirable or outright infeasible.
+
+Rehearsal-free continual learning methods aim to address these issues by \textbf{avoiding
+the explicit storage of past data}. This choice brings several practical advantages:
+\begin{compactitemize}
+    \item easier deployment in \textbf{privacy-sensitive settings}, such as medical or
+    personal-data domains;
+    \item a \textbf{simpler training pipeline}, since no memory buffer or sample selection
+    strategy is required;
+    \item a \textbf{lower resource footprint}, making these methods suitable for edge
+    devices and large-scale deployments.
+\end{compactitemize}
+
+More fundamentally, rehearsal-free methods reflect a conceptual shift in continual
+learning: instead of \emph{remembering the data}, the goal becomes \textbf{preserving
+useful knowledge directly in the model}.
+
+This shift has been strongly enabled by the emergence of large \textbf{pretrained
+foundation models}, such as ViT, CLIP, and T5, which provide:
+\begin{compactitemize}
+    \item broad and general-purpose representations;
+    \item robustness to distribution shifts;
+    \item high transferability across downstream tasks.
+\end{compactitemize}
+
+The central idea is to treat the pretrained backbone as a \textbf{stable knowledge base}.
+If the representation remains fixed, new tasks can be learned by attaching lightweight,
+task-specific modules, thereby reducing interference with previously acquired knowledge.
+
+As a consequence, rehearsal-free approaches typically rely on
+\textbf{parameter-efficient adaptation techniques}, including prompts, adapters, and
+LoRA. These methods update only a small subset of parameters while keeping the backbone
+frozen, leading to improved stability across tasks and better scalability to long task
+sequences or multiple clients.
+
+The main open challenge in rehearsal-free continual learning is therefore how to
+\textbf{effectively steer a frozen model toward new tasks} while maintaining performance
+on old ones, without relying on replay and without incurring catastrophic forgetting.
+
+\subsection{Recall Prompting}
+
+Recall Prompting is a rehearsal-free continual learning strategy based on
+\textbf{prompting}. The core idea is to adapt a pretrained model to new tasks by adding a
+small number of \textbf{learnable prompt tokens} to the input, while keeping all backbone
+parameters frozen.
+
+Each prompt token is a learnable vector in $\mathbb{R}^d$. A set of $p$ prompt tokens is
+denoted as:
+\[
+\mathcal{P} = \{ p_k \in \mathbb{R}^d \mid k \in \mathbb{N}, \; 1 \leq k \leq p \}.
+\]
+During training, only these prompt vectors are optimized, making the approach highly
+\textbf{parameter-efficient} and well suited for rehearsal-free continual learning.
+
+A common strategy is \textbf{Shallow Prompt Tuning}, where the prompt tokens are injected
+only at the input of the first Transformer layer. Formally, the forward pass is defined
+as:
+\[
+[x_1, Z_1, E_1] = L_1([x_0, \underbrace{\mathcal{P}}_{\text{trainable}}, E_0]),
+\]
+\[
+[x_i, Z_i, E_i] = L_i([x_{i-1}, Z_{i-1}, E_{i-1}]), \quad i = 2, \dots, N,
+\]
+\[
+y = \underbrace{\text{Head}}_{\text{trainable}}([x_N]).
+\]
+
+Here, $E_i$ denotes the patch embeddings, $Z_i$ represents the features computed by the
+$i$-th Transformer layer, and $x_i$ is the \textbf{CLS token}. The classification head is
+also trainable, while the Transformer backbone remains frozen.
+
+The intuition behind Recall Prompting is that prompts act as a lightweight mechanism to
+\textbf{steer the frozen representation} toward the current task. Since the backbone is
+shared and unchanged across tasks, interference between tasks is reduced, which helps
+mitigate catastrophic forgetting. At the same time, different prompts can encode task-
+specific knowledge, enabling continual adaptation without replaying past data.
+
+\subsection{Prompting in Continual Learning}
+
+Prompting has recently emerged as a powerful paradigm for \textbf{rehearsal-free continual
+learning}. Its main appeal lies in the fact that the pretrained backbone remains frozen,
+which naturally limits catastrophic forgetting, while adaptation to new tasks is achieved
+by introducing a small number of task-specific parameters.
+
+In particular, prompting is useful in continual learning because:
+\begin{compactitemize}
+    \item the \textbf{backbone weights are kept frozen}, reducing interference between tasks;
+    \item only a \textbf{small set of task-specific parameters} is added in the form of
+    prompts;
+    \item prompts can be adapted, reused, or selected without modifying the core model.
+\end{compactitemize}
+
+By freezing the backbone and instantiating prompts as new parameters, prompting-based
+approaches achieve a favorable \textbf{stability--plasticity trade-off}. This is conceptually
+similar to architectural methods such as Progressive Neural Networks, but with a
+\textbf{negligible increase in the number of learnable parameters}.
+
+Several prompting strategies have been explored in the context of continual learning:
+\begin{compactitemize}
+    \item \textbf{Task-specific prompts}, where a separate set of prompts is learned for
+    each task;
+    \item \textbf{Dynamic prompt selection}, where prompts are reused or combined depending
+    on the input;
+    \item \textbf{Prompt merging}, which compresses previously learned prompts into more
+    compact representations.
+\end{compactitemize}
+
+These strategies offer several advantages. Prompting-based methods do not require a memory
+buffer, enable efficient incremental learning, and allow past knowledge to be encoded in a
+highly parameter-efficient manner.
+
+However, prompting in continual learning also poses a key challenge. In particular, an
+effective mechanism is required to \textbf{select the correct prompts for each input}.
+Without such a mechanism, prompting-based approaches struggle in \textbf{Class-Incremental
+Learning} scenarios, where task identity is not provided at test time.
+
+\subsection{L2P: Learning to Prompt for Continual Learning}
+
+\textbf{Learning to Prompt (L2P)} is a rehearsal-free continual learning method proposed by
+Wang et al.\ (CVPR 2022). The main objective of L2P is to achieve strong continual learning
+performance \textbf{without replaying past data and without requiring task identities at
+inference time}.
+
+The key idea is to leverage a large \textbf{pretrained and frozen Vision Transformer (ViT)}
+as a stable backbone, while learning a set of prompts that can be dynamically selected
+based on the input. Only the prompts and a lightweight classifier head are trained, making
+the method parameter-efficient and scalable.
+
+\subsubsection{Architecture}
+
+The architecture of L2P is built around a frozen ViT backbone and a learnable prompt pool.
+The prompt pool is defined as:
+\[
+\mathcal{P} = \{p_1, \dots, p_N\},
+\]
+where each $p_i$ is a learnable prompt vector.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9
+    \textwidth]{images/CL23.png}
+    \label{fig:MHA2}
+\end{figure}
+
+To select the most relevant prompts for a given input, L2P employs a \textbf{key--query
+mechanism}. For each input sample, a query embedding is computed from the input features
+and compared against a set of learned keys associated with the prompts. Based on a
+similarity measure, the top-$k$ prompts with the highest similarity scores are selected
+and injected into the Transformer.
+
+The classifier head is task-adaptive and updated over time, while the backbone remains
+frozen. The overall intuition is that \textbf{different inputs retrieve different prompts},
+enabling flexible task adaptation without modifying the core model parameters.
+
+\subsubsection{Training and Inference}
+
+During the training phase, L2P optimizes only the prompt pool and the classifier head using
+data from the current task. No rehearsal buffer is required, and the backbone weights are
+never updated. This significantly reduces both memory usage and the risk of catastrophic
+forgetting.
+
+At inference time, the model operates in a \textbf{task-agnostic} manner. Given an input,
+the query embedding is computed, the most relevant prompts are retrieved from the pool, and
+the input is processed through the frozen backbone and the classifier. Importantly, \textbf{no
+task identity is required at test time}, making L2P suitable for Class-Incremental Learning
+scenarios.
+
+\subsubsection{Advantages and Limitations}
+
+\vspace{0.3cm}
+
+\begin{center}
+    \hrule
+    \vspace{0.3cm}
+    
+    \begin{minipage}[t]{0.47\textwidth}
+    \centering
+    \textbf{Advantages of L2P}
+    
+    \vspace{0.2cm}
+    \hrule
+    \vspace{0.2cm}
+    
+    $\rightarrow$ \textbf{Rehearsal-free}: no storage of past data is required.
+    
+    \vspace{0.15cm}
+    
+    $\rightarrow$ \textbf{Task-agnostic inference}: task identity is not needed at test time.
+    
+    \vspace{0.15cm}
+    
+    $\rightarrow$ \textbf{Parameter-efficient}: only prompts and the classifier head are
+    trained.
+    
+    \vspace{0.15cm}
+    
+    $\rightarrow$ \textbf{Scalability}: scales well with an increasing number of tasks.
+    
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.47\textwidth}
+    \centering
+    \textbf{Limitations of L2P}
+    
+    \vspace{0.2cm}
+    \hrule
+    \vspace{0.2cm}
+    
+    $\rightarrow$ \textbf{Prompt pool capacity}: must be carefully tuned.
+    
+    \vspace{0.15cm}
+    
+    $\rightarrow$ \textbf{Task dissimilarity}: performance may degrade when tasks are highly
+    dissimilar.
+    
+    \vspace{0.15cm}
+    
+    $\rightarrow$ \textbf{Dependence on pretraining}: effectiveness strongly depends on the
+    quality of the pretrained backbone.
+    
+    \end{minipage}
+    
+    \vspace{0.3cm}
+\hrule
+\end{center}
+
+\vspace{0.3cm}
+
+\textbf{Empirical results.} L2P achieves strong performance on standard continual learning
+benchmarks such as Split CIFAR-100 and Split ImageNet, often surpassing several replay-based
+baselines while using \textbf{zero memory buffer}.
+
+
+Empirically, L2P demonstrates strong results on benchmarks such as Split CIFAR-100 and
+Split ImageNet, often surpassing many replay-based baselines while using \textbf{zero
+memory buffer}.
+
+\subsection{Summary: Rehearsal-Free Continual Learning with Prompting}
+
+Replay-based methods have proven to be highly effective in mitigating catastrophic
+forgetting, but they rely on storing and managing past data, which introduces practical,
+ethical, and scalability concerns. These limitations motivate the exploration of
+\textbf{rehearsal-free} alternatives.
+
+Rehearsal-free continual learning methods avoid explicit memory buffers by leveraging
+\textbf{pretrained models} as stable knowledge bases. Instead of replaying old data, they
+aim to preserve and reuse knowledge already embedded in the model’s representations.
+
+In this context, \textbf{prompting} emerges as a lightweight and parameter-efficient
+mechanism to steer frozen backbones toward new tasks. By learning only a small set of
+task-adaptive parameters, prompting reduces interference across tasks while enabling
+continual adaptation.
+
+Methods such as \textbf{Learning to Prompt (L2P)} demonstrate that effective prompt
+selection can replace replay, enabling scalable and efficient continual learning without
+access to past data or task identities at inference time.
+
+\textbf{Takeaway.} \emph{“Don’t remember the data. Learn how to prompt the knowledge you
+already have.”}
