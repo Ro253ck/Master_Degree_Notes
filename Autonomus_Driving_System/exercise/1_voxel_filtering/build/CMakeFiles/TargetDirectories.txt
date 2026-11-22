@@ -1,3 +1,0 @@
-/home/rocco/Desktop/Master_Degree_Notes/Autonomus_Driving_System/exercise/1_voxel_filtering/build/CMakeFiles/voxel_filtering.dir
-/home/rocco/Desktop/Master_Degree_Notes/Autonomus_Driving_System/exercise/1_voxel_filtering/build/CMakeFiles/edit_cache.dir
-/home/rocco/Desktop/Master_Degree_Notes/Autonomus_Driving_System/exercise/1_voxel_filtering/build/CMakeFiles/rebuild_cache.dir

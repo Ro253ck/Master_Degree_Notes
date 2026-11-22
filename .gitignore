@@ -1,15 +1,19 @@
-# Ignora tutto tranne le materie pubblicate
+# Pubblica solo le cartelle notes delle materie scelte
 /*
 !/.gitignore
 !/README.md
 !/AI_in_supply_chain/
+/AI_in_supply_chain/*
+!/AI_in_supply_chain/notes/
 !/deep_learning/
+/deep_learning/*
+!/deep_learning/notes/
 !/Autonomus_Driving_System/
+/Autonomus_Driving_System/*
+!/Autonomus_Driving_System/notes/
 !/machine_learning/
-
-# Materiale troppo grande o non da pubblicare
-deep_learning/exercises/CNN/data/
-Autonomus_Driving_System/assigment/
+/machine_learning/*
+!/machine_learning/notes/
 
 # File ausiliari di LaTeX
 *.aux
