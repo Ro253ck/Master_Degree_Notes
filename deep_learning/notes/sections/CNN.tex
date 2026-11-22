@@ -300,13 +300,6 @@ The architecture known as \textbf{LeNet} was introduced in one of the pioneering
 
 \subsection{VGGNet}
 \textbf{VGG}, introduced in 2014 by the \textbf{Oxford Visual Geometry Group (VGG)}, represents a family of deep convolutional neural networks that achieved remarkable success in large-scale image recognition tasks. It became widely recognized for its \textbf{simplicity, effectiveness, and influence} on subsequent network designs. The model \textbf{secured 1st and 2nd places} in the ImageNet 2014 localization and classification challenges, establishing a new standard for deep learning architectures.  
-\begin{wrapfigure}{r}{0.2\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/VGG.png}
-    \label{fig:forecast_prediction}
-    \vspace{-10pt}
-\end{wrapfigure}
 \begin{compactitemize}
     \item \textbf{Input:} Fixed-size \(224 \times 224\) RGB images, mean-subtracted during pre-processing.  
     \item \textbf{Architecture:} Consists of 16 weight layers (\textbf{VGG16}), including 13 convolutional and 3 fully connected layers.  
@@ -316,6 +309,11 @@ The architecture known as \textbf{LeNet} was introduced in one of the pioneering
     \item \textbf{Fully Connected Layers:} The last three layers are fully connected, with the first two containing \textbf{4096 neurons} each and the final one having \textbf{1000 neurons} for classification, followed by a \textbf{Softmax} activation.  
     \item \textbf{Pre-trained Weights:} Released publicly, enabling \textbf{transfer learning} and establishing VGG as a popular backbone for diverse computer vision tasks.    
 \end{compactitemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=0.4\textheight,keepaspectratio]{images/VGG.png}
+    \label{fig:forecast_prediction}
+\end{figure}
 
 The net contains approximately \textbf{138 million learnable parameters}, with about \textbf{70\% located in the fully connected layers}. Notably, a single fully connected layer is responsible for roughly \textbf{100 million parameters}.
 \begin{figure}[H]

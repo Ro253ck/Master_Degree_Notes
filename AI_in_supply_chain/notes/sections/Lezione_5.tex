@@ -1,88 +1,86 @@
 \chapter{Model-Free Control}
 
-La prima cosa che bisogna capire è la distinzione tra i seguenti due concetti:
+The first thing to understand is the distinction between the following two concepts:
 \begin{compactitemize}
-    \item \textbf{On-Policy Learning}: essenzialmente andiamo a utilizzare la stessa policy che andiamo ad aggiornare per muoverci all'intero dell'episodio: In termini tecnici si dice "Learn about policy $\pi$ from experience sampled from $\pi$.
-    \item \textbf{Off-Policy Learning}: essenzialmente andiamo a utilizzare una policy (behavior) per muoverci all'interno degli episodi, e con quello che otteniamo andiamo ad aggioranre un'altra policy (target). In termini tecnici si dice "Learn about policy $\pi$ from experience sampled from $\mu$.
+    \item \textbf{On-Policy Learning}: essentially we use the same policy that we are updating to move within the episode: In technical terms we say "Learn about policy $\pi$ from experience sampled from $\pi$.
+    \item \textbf{Off-Policy Learning}: essentially we use one policy (behavior) to move within the episodes, and with what we obtain we update another policy (target). In technical terms we say "Learn about policy $\pi$ from experience sampled from $\mu$.
 \end{compactitemize}
 
 \subsection{Policy Iteration with Monte Carlo Evaluation}
 
-Nel contesto del \textbf{model-free control}, l’obiettivo è determinare una policy ottimale senza assumere alcuna conoscenza esplicita del modello dell’MDP, ovvero senza conoscere né la funzione di transizione $P$ né la funzione di reward $R$. Questo vincolo ha conseguenze dirette sul modo in cui possono essere implementate le fasi di policy evaluation e policy improvement della policy iteration.
+In the context of \textbf{model-free control}, the goal is to determine an optimal policy without assuming any explicit knowledge of the MDP model, that is, without knowing either the transition function $P$ or the reward function $R$. This constraint has direct consequences on the way in which the policy evaluation and policy improvement phases of policy iteration can be implemented.
 
-Si consideri innanzitutto il caso in cui si voglia applicare una classica relazione di policy iteration utilizzando la \textbf{state-value function} $v^\pi$. In un contesto model-based, il policy improvement si ottiene rendendo la policy greedy rispetto a $v^\pi$, cioè scegliendo, per ogni stato $s$, l’azione che massimizza l’espressione:
+Consider first the case in which we want to apply a classic policy iteration relation using the \textbf{state-value function} $v^\pi$. In a model-based context, policy improvement is obtained by making the policy greedy with respect to $v^\pi$, that is, by choosing, for each state $s$, the action that maximizes the expression:
 \[
 R(s,a) + \gamma \sum_{s' \in \mathcal{S}} P(s' \mid s,a)\, v^\pi(s')
 \]
 
-Tuttavia, in un contesto model-free questa operazione non è realizzabile. Anche se fosse possibile stimare $v^\pi(s)$ tramite Monte Carlo, il passaggio di policy improvement richiede esplicitamente la conoscenza delle probabilità di transizione e dei reward attesi associati a ciascuna azione. In assenza del modello dell’MDP, non è possibile valutare l’effetto delle azioni sui futuri stati e, di conseguenza, non è possibile rendere la policy greedy rispetto alla state-value function.
+However, in a model-free context this operation cannot be carried out. Even if it were possible to estimate $v^\pi(s)$ through Monte Carlo, the policy improvement step explicitly requires knowledge of the transition probabilities and of the expected rewards associated with each action. Without the MDP model, it is not possible to evaluate the effect of the actions on the future states and, consequently, it is not possible to make the policy greedy with respect to the state-value function.
 
-Questo implica che una \textbf{policy iteration basata su $v^\pi$ non è compatibile con il paradigma model-free}. Il problema non risiede nella policy evaluation, che può essere effettuata tramite Monte Carlo usando l’esperienza episodica, bensì nel policy improvement, che richiede un one-step lookahead basato sul modello.
+This implies that a \textbf{policy iteration based on $v^\pi$ is not compatible with the model-free paradigm}. The problem does not lie in policy evaluation, which can be carried out through Monte Carlo using episodic experience, but rather in policy improvement, which requires a model-based one-step lookahead.
 
-Per superare questa limitazione, il control model-free utilizza la \textbf{action-value function} $q^\pi(s,a)$. La funzione $q^\pi$ rappresenta il return atteso partendo dallo stato $s$, eseguendo l’azione $a$ e seguendo successivamente la policy $\pi$. A differenza di $v^\pi(s)$, essa associa direttamente un valore a ciascuna coppia stato–azione e incorpora implicitamente l’effetto della dinamica dell’ambiente.
+To overcome this limitation, model-free control uses the \textbf{action-value function} $q^\pi(s,a)$. The function $q^\pi$ represents the expected return starting from state $s$, executing action $a$ and then following the policy $\pi$. Unlike $v^\pi(s)$, it directly associates a value with each state–action pair and implicitly incorporates the effect of the environment dynamics.
 
-Nel caso Monte Carlo, $q^\pi(s,a)$ può essere stimata come media dei ritorni osservati negli episodi ogni volta che la coppia $(s,a)$ viene visitata. Questo processo non richiede alcuna conoscenza del modello e si basa esclusivamente sull’esperienza campionata.
+In the Monte Carlo case, $q^\pi(s,a)$ can be estimated as the mean of the returns observed in the episodes each time the pair $(s,a)$ is visited. This process does not require any knowledge of the model and is based exclusively on sampled experience.
 
-Una volta ottenuta una stima di $q^\pi$, il policy improvement diventa immediato: la policy viene aggiornata scegliendo, in ogni stato, l’azione che massimizza il valore dell’action-value function:
+Once an estimate of $q^\pi$ has been obtained, policy improvement becomes immediate: the policy is updated by choosing, in every state, the action that maximizes the value of the action-value function:
 \[
 \pi'(s) = \arg\max_{a \in \mathcal{A}} q^\pi(s,a)
 \]
-\begin{wrapfigure}{r}{0.4\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/L51.png}
-    \label{fig:TDlambda}
-    \vspace{-10pt}
-\end{wrapfigure}
-Questo passo è completamente \textbf{model-free}, poiché non richiede né le probabilità di transizione né la funzione di reward. Tutta l’informazione necessaria per confrontare le azioni è contenuta nei valori stimati di $q^\pi$.
+This step is completely \textbf{model-free}, since it requires neither the transition probabilities nor the reward function. All the information needed to compare the actions is contained in the estimated values of $q^\pi$.
 
-Il processo complessivo può quindi essere descritto come una \textbf{policy iteration model-free basata su action-value functions}, in cui:
+The overall process can therefore be described as a \textbf{model-free policy iteration based on action-value functions}, in which:
 \begin{compactitemize}
-    \item la policy evaluation è realizzata tramite Monte Carlo estimation di $q^\pi$,
-    \item la policy improvement è ottenuta rendendo la policy greedy rispetto a $q^\pi$.
+    \item policy evaluation is carried out through Monte Carlo estimation of $q^\pi$,
+    \item policy improvement is obtained by making the policy greedy with respect to $q^\pi$.
 \end{compactitemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{images/L51.png}
+    \label{fig:TDlambda}
+\end{figure}
 
-Questo schema rientra nel quadro generale della \textbf{Generalized Policy Iteration}, in cui la stima di $q^\pi$ e l’aggiornamento della policy avvengono in modo iterativo fino alla convergenza verso l’action-value function ottimale $q^*$ e la policy ottimale $\pi^*$.
+This scheme falls within the general framework of \textbf{Generalized Policy Iteration}, in which the estimation of $q^\pi$ and the policy update take place iteratively until convergence to the optimal action-value function $q^*$ and the optimal policy $\pi^*$.
 
-In sintesi, nel model-free control la scelta di lavorare con la action-value function non è solo conveniente, ma necessaria: mentre la state-value function non consente il policy improvement senza il modello dell’MDP, la action-value function permette di eseguire sia la valutazione sia il miglioramento della policy utilizzando esclusivamente l’esperienza osservata.
+In summary, in model-free control the choice of working with the action-value function is not only convenient, but necessary: while the state-value function does not allow policy improvement without the MDP model, the action-value function makes it possible to perform both evaluation and improvement of the policy using exclusively the observed experience.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/L52.png}
-    \caption{Esempio che mostra come, in presenza di reward stocastici o variabili nel tempo, una scelta apparentemente ottimale basata su poche osservazioni possa risultare subottimale. Sebbene una porta sembri inizialmente migliore, ulteriori esplorazioni possono rivelare valori medi diversi. L’esempio evidenzia quindi la necessità di bilanciare sfruttamento ed esplorazione, poiché basarsi solo sulla prima azione che massimizza il reward osservato non garantisce una decisione ottimale nel lungo periodo.}
+    \caption{Example showing how, in the presence of stochastic or time-varying rewards, an apparently optimal choice based on a few observations can turn out to be suboptimal. Although one door initially seems better, further exploration can reveal different mean values. The example therefore highlights the need to balance exploitation and exploration, since relying only on the first action that maximizes the observed reward does not guarantee an optimal decision in the long run.}
     \label{fig:student_markov_chain}
 \end{figure}
 
-\section{$\epsilon$-Greedy Policies ed Exploration}
+\section{$\epsilon$-Greedy Policies and Exploration}
 
-Nel control model-free, un problema centrale è garantire che l’agente continui a esplorare lo spazio delle azioni pur migliorando progressivamente la policy. Una policy puramente greedy, che seleziona sempre l’azione con valore stimato massimo, rischia infatti di convergere prematuramente verso una soluzione subottimale a causa di stime iniziali imprecise dei valori.
+In model-free control, a central problem is ensuring that the agent keeps exploring the action space while progressively improving the policy. A purely greedy policy, which always selects the action with the maximum estimated value, risks in fact converging prematurely to a suboptimal solution because of inaccurate initial value estimates.
 
-Una delle strategie più semplici ed efficaci per affrontare questo problema è l’uso delle \textbf{$\epsilon$-greedy policies}. L’idea fondamentale consiste nel bilanciare lo sfruttamento delle informazioni attualmente disponibili con una esplorazione casuale controllata.
+One of the simplest and most effective strategies to address this problem is the use of \textbf{$\epsilon$-greedy policies}. The fundamental idea consists of balancing the exploitation of the currently available information with a controlled random exploration.
 
-Sia $Q(s,a)$ una stima dell’action-value function e sia $m = |\mathcal{A}|$ il numero di azioni disponibili. Una policy $\epsilon$-greedy rispetto a $Q$ è definita come:
+Let $Q(s,a)$ be an estimate of the action-value function and let $m = |\mathcal{A}|$ be the number of available actions. An $\epsilon$-greedy policy with respect to $Q$ is defined as:
 \[
 \pi(a \mid s) =
 \begin{cases}
-1 - \epsilon + \dfrac{\epsilon}{m} & \text{se } a \in \arg\max_{a' \in \mathcal{A}} Q(s,a') \\
-\dfrac{\epsilon}{m} & \text{altrimenti}
+1 - \epsilon + \dfrac{\epsilon}{m} & \text{if } a \in \arg\max_{a' \in \mathcal{A}} Q(s,a') \\
+\dfrac{\epsilon}{m} & \text{otherwise}
 \end{cases}
 \]
 
-Con probabilità $1 - \epsilon$ la policy seleziona un’azione greedy, ossia un’azione che massimizza il valore stimato $Q(s,a)$ nello stato $s$. Con probabilità $\epsilon$, invece, viene selezionata un’azione a caso, distribuita uniformemente tra tutte le azioni disponibili, incluse anche quelle greedy. In questo modo, tutte le azioni hanno sempre una probabilità strettamente positiva di essere esplorate.
+With probability $1 - \epsilon$ the policy selects a greedy action, that is, an action that maximizes the estimated value $Q(s,a)$ in state $s$. With probability $\epsilon$, instead, a random action is selected, uniformly distributed over all available actions, including the greedy ones. In this way, all actions always have a strictly positive probability of being explored.
 
-Questa proprietà è cruciale nel model-free learning: garantire che ogni coppia stato–azione venga visitata sufficientemente spesso permette di migliorare progressivamente le stime di $Q(s,a)$ e ridurre l’effetto degli errori iniziali.
+This property is crucial in model-free learning: ensuring that every state–action pair is visited often enough makes it possible to progressively improve the estimates of $Q(s,a)$ and reduce the effect of initial errors.
 
 
 \subsection{$\epsilon$-Greedy Policy Improvement}
 
-Le policy $\epsilon$-greedy non rappresentano soltanto una strategia di esplorazione, ma possono essere utilizzate anche come meccanismo di policy improvement all’interno della Generalized Policy Iteration.
+$\epsilon$-greedy policies are not only an exploration strategy, but can also be used as a policy improvement mechanism within Generalized Policy Iteration.
 
-Sia $\pi$ una policy $\epsilon$-greedy e sia $q^\pi$ la sua action-value function. Si consideri una nuova policy $\pi'$, definita come $\epsilon$-greedy rispetto a $q^\pi$. Per ogni stato $s$, il valore atteso di effettuare un’azione secondo $\pi'$ può essere scritto come:
+Let $\pi$ be an $\epsilon$-greedy policy and let $q^\pi$ be its action-value function. Consider a new policy $\pi'$, defined as $\epsilon$-greedy with respect to $q^\pi$. For each state $s$, the expected value of taking an action according to $\pi'$ can be written as:
 \[
 q^\pi\bigl(s, \pi'(s)\bigr)
 = \sum_{a \in \mathcal{A}} \pi'(a \mid s)\, q^\pi(s,a)
 \]
 
-Sostituendo la definizione di policy $\epsilon$-greedy si ottiene:
+Substituting the definition of $\epsilon$-greedy policy we obtain:
 \[
 q^\pi\bigl(s, \pi'(s)\bigr)
 =
@@ -91,7 +89,7 @@ q^\pi\bigl(s, \pi'(s)\bigr)
 (1 - \epsilon) \max_{a \in \mathcal{A}} q^\pi(s,a)
 \]
 
-Poiché il valore massimo di $q^\pi(s,a)$ è sempre maggiore o uguale a qualunque combinazione convessa dei valori, segue che:
+Since the maximum value of $q^\pi(s,a)$ is always greater than or equal to any convex combination of the values, it follows that:
 \[
 \frac{\epsilon}{m} \sum_{a \in \mathcal{A}} q^\pi(s,a)
 +
@@ -102,19 +100,19 @@ Poiché il valore massimo di $q^\pi(s,a)$ è sempre maggiore o uguale a qualunqu
 v^\pi(s)
 \]
 
-Da questa disuguaglianza segue il seguente risultato fondamentale.
+From this inequality the following fundamental result follows.
 
 \medskip
 
-\textbf{Teorema ($\epsilon$-Greedy Policy Improvement).}  
-Per ogni policy $\epsilon$-greedy $\pi$, la policy $\pi'$ che è $\epsilon$-greedy rispetto a $q^\pi$ soddisfa:
+\textbf{Theorem ($\epsilon$-Greedy Policy Improvement).}
+For every $\epsilon$-greedy policy $\pi$, the policy $\pi'$ that is $\epsilon$-greedy with respect to $q^\pi$ satisfies:
 \[
 v^{\pi'}(s) \ge v^\pi(s) \qquad \forall s \in \mathcal{S}
 \]
 
 \medskip
 
-Questo risultato mostra che il policy improvement non richiede necessariamente una policy puramente greedy. Anche introducendo esplorazione, è comunque garantito un miglioramento (o almeno un mantenimento) delle prestazioni in tutti gli stati.
+This result shows that policy improvement does not necessarily require a purely greedy policy. Even when exploration is introduced, an improvement (or at least a preservation) of performance in all states is still guaranteed.
 
 
 \subsection{Monte Carlo Policy Iteration}
@@ -125,22 +123,22 @@ Questo risultato mostra che il policy improvement non richiede necessariamente u
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-Nel contesto del control model-free, la policy iteration può essere realizzata combinando:
+In the context of model-free control, policy iteration can be realized by combining:
 \begin{compactitemize}
-    \item una \textbf{policy evaluation} ottenuta tramite Monte Carlo estimation dell’action-value function,
-    \item una \textbf{policy improvement} basata su una policy $\epsilon$-greedy.
+    \item a \textbf{policy evaluation} obtained through Monte Carlo estimation of the action-value function,
+    \item a \textbf{policy improvement} based on an $\epsilon$-greedy policy.
 \end{compactitemize}
 
-Il processo parte da una stima iniziale di $Q$ e da una policy iniziale $\pi$. A ogni iterazione, vengono generati episodi completi seguendo la policy corrente $\pi$. Per ciascuna coppia stato–azione visitata, il valore $Q(s,a)$ viene aggiornato stimando il return medio osservato, ottenendo una nuova approssimazione di $q^\pi$.
+The process starts from an initial estimate of $Q$ and an initial policy $\pi$. At each iteration, complete episodes are generated by following the current policy $\pi$. For each visited state–action pair, the value $Q(s,a)$ is updated by estimating the mean observed return, obtaining a new approximation of $q^\pi$.
 
-Successivamente, la policy viene aggiornata rendendola $\epsilon$-greedy rispetto alla nuova stima di $Q$. Il procedimento può essere riassunto schematicamente come:
+Then, the policy is updated by making it $\epsilon$-greedy with respect to the new estimate of $Q$. The procedure can be summarized schematically as:
 \[
 Q \;\longrightarrow\; \pi = \epsilon\text{-greedy}(Q)
 \;\longrightarrow\; Q \approx q^\pi
 \;\longrightarrow\; \pi'
 \]
 
-Questo schema rappresenta una forma concreta di \textbf{Generalized Policy Iteration}, in cui policy evaluation e policy improvement avvengono in modo iterativo, approssimato e interdipendente. Al crescere del numero di episodi, e sotto opportune condizioni di esplorazione, il processo converge verso l’action-value function ottimale $q^*$ e una policy ottimale $\pi^*$.
+This scheme represents a concrete form of \textbf{Generalized Policy Iteration}, in which policy evaluation and policy improvement take place in an iterative, approximate and interdependent way. As the number of episodes grows, and under suitable exploration conditions, the process converges to the optimal action-value function $q^*$ and an optimal policy $\pi^*$.
 
 \subsection{Monte Carlo Control}
 \begin{wrapfigure}{r}{0.3\textwidth}
@@ -150,30 +148,30 @@ Questo schema rappresenta una forma concreta di \textbf{Generalized Policy Itera
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-Nel Monte Carlo Control, la policy evaluation e la policy improvement vengono eseguite dopo ogni episodio. Ogni episodio contribuisce a migliorare la stima di $Q$ e, di conseguenza, a rendere la policy sempre più orientata verso le azioni migliori, pur mantenendo una componente di esplorazione controllata tramite il parametro $\epsilon$.
+In Monte Carlo Control, policy evaluation and policy improvement are executed after every episode. Each episode contributes to improving the estimate of $Q$ and, consequently, to making the policy increasingly oriented towards the best actions, while maintaining a controlled exploration component through the parameter $\epsilon$.
 
-In sintesi, l’uso di policy $\epsilon$-greedy consente di risolvere il problema del control in ambienti model-free garantendo contemporaneamente:
+In summary, the use of $\epsilon$-greedy policies makes it possible to solve the control problem in model-free environments while simultaneously guaranteeing:
 \begin{compactitemize}
-    \item esplorazione continua di tutte le azioni,
-    \item miglioramento monotono della policy,
-    \item convergenza verso una policy ottimale.
+    \item continuous exploration of all actions,
+    \item monotonic improvement of the policy,
+    \item convergence to an optimal policy.
 \end{compactitemize}
 
 \section{GLIE}
 
 \subsection{Greedy in the Limit with Infinite Exploration}
 
-Nel control model-free esiste una tensione fondamentale tra \textbf{esplorazione} e \textbf{sfruttamento}. Da un lato, per apprendere correttamente i valori delle azioni è necessario continuare a esplorare; dall’altro, per ottenere una policy ottimale nel lungo periodo è necessario agire in modo sempre più greedy rispetto alle stime dei valori.
+In model-free control there is a fundamental tension between \textbf{exploration} and \textbf{exploitation}. On the one hand, to correctly learn the values of the actions it is necessary to keep exploring; on the other hand, to obtain an optimal policy in the long run it is necessary to act in an increasingly greedy way with respect to the value estimates.
 
-Il concetto di \textbf{Greedy in the Limit with Infinite Exploration (GLIE)} formalizza una condizione che permette di risolvere questa tensione. Una sequenza di policy $\{\pi_k\}$ soddisfa la condizione GLIE se valgono entrambe le seguenti proprietà.
+The concept of \textbf{Greedy in the Limit with Infinite Exploration (GLIE)} formalizes a condition that makes it possible to resolve this tension. A sequence of policies $\{\pi_k\}$ satisfies the GLIE condition if both of the following properties hold.
 
-La prima proprietà è la \textbf{esplorazione infinita}. Ogni coppia stato–azione deve essere visitata un numero infinito di volte:
+The first property is \textbf{infinite exploration}. Every state–action pair must be visited an infinite number of times:
 \[
 \lim_{k \to \infty} N_k(s,a) = \infty \qquad \forall (s,a) \in \mathcal{S} \times \mathcal{A}
 \]
-Questa condizione garantisce che le stime dei valori non rimangano ancorate a osservazioni iniziali errate e che tutte le azioni abbiano la possibilità di essere valutate correttamente.
+This condition guarantees that the value estimates do not remain anchored to wrong initial observations and that all actions have the chance to be evaluated correctly.
 
-La seconda proprietà è la \textbf{convergenza greedily}. Nel limite, la policy deve diventare puramente greedy rispetto all’action-value function stimata:
+The second property is \textbf{greedy convergence}. In the limit, the policy must become purely greedy with respect to the estimated action-value function:
 \[
 \lim_{k \to \infty} \pi_k(a \mid s)
 =
@@ -181,33 +179,33 @@ La seconda proprietà è la \textbf{convergenza greedily}. Nel limite, la policy
 a = \arg\max_{a' \in \mathcal{A}} Q_k(s,a')
 \right)
 \]
-Nel lungo periodo, quindi, l’esplorazione viene progressivamente eliminata e la policy converge a una policy deterministica greedy.
+In the long run, therefore, exploration is progressively eliminated and the policy converges to a deterministic greedy policy.
 
-Un esempio classico di policy GLIE è la policy $\epsilon$-greedy con un parametro di esplorazione decrescente nel tempo, ad esempio:
+A classic example of a GLIE policy is the $\epsilon$-greedy policy with an exploration parameter that decreases over time, for example:
 \[
 \epsilon_k = \frac{1}{k}
 \]
-In questo caso, l’esplorazione è garantita per un tempo arbitrariamente lungo, ma tende a zero quando il numero di episodi cresce, assicurando una policy greedy nel limite.
+In this case, exploration is guaranteed for an arbitrarily long time, but it tends to zero as the number of episodes grows, ensuring a greedy policy in the limit.
 
 
 \subsection{GLIE Monte-Carlo Control}
 
-Il \textbf{GLIE Monte-Carlo Control} applica il principio GLIE all’algoritmo di Monte Carlo Control. L’idea è combinare:
+\textbf{GLIE Monte-Carlo Control} applies the GLIE principle to the Monte Carlo Control algorithm. The idea is to combine:
 \begin{compactitemize}
-    \item una stima Monte Carlo dell’action-value function $q^\pi$,
-    \item una policy $\epsilon$-greedy con $\epsilon$ decrescente nel tempo.
+    \item a Monte Carlo estimate of the action-value function $q^\pi$,
+    \item an $\epsilon$-greedy policy with $\epsilon$ decreasing over time.
 \end{compactitemize}
 
-Il procedimento opera episodio per episodio. Al $k$-esimo episodio, viene generata una sequenza completa di stati, azioni e reward seguendo la policy corrente $\pi_k$:
+The procedure operates episode by episode. At the $k$-th episode, a complete sequence of states, actions and rewards is generated by following the current policy $\pi_k$:
 \[
 S_1, A_1, R_2, \dots, S_T \sim \pi_k
 \]
 
-Per ogni coppia $(S_t, A_t)$ visitata nell’episodio, viene incrementato il numero di visite:
+For every pair $(S_t, A_t)$ visited in the episode, the visit counter is incremented:
 \[
 N(S_t, A_t) \leftarrow N(S_t, A_t) + 1
 \]
-e la stima dell’action-value function viene aggiornata tramite una media incrementale del return osservato:
+and the estimate of the action-value function is updated through an incremental mean of the observed return:
 \[
 Q(S_t, A_t)
 \leftarrow
@@ -219,100 +217,100 @@ G_t - Q(S_t, A_t)
 \Bigr)
 \]
 
-Una volta aggiornati i valori $Q$, la policy viene migliorata rendendola $\epsilon_k$-greedy rispetto alla nuova stima:
+Once the $Q$ values have been updated, the policy is improved by making it $\epsilon_k$-greedy with respect to the new estimate:
 \[
 \pi_{k+1} = \epsilon_k\text{-greedy}(Q)
 \]
-con $\epsilon_k \to 0$ quando $k \to \infty$.
+with $\epsilon_k \to 0$ as $k \to \infty$.
 
-Questo schema soddisfa entrambe le condizioni GLIE: tutte le coppie stato–azione vengono esplorate infinitamente spesso e la policy diventa greedily ottimale nel limite. Di conseguenza, vale il seguente risultato fondamentale.
+This scheme satisfies both GLIE conditions: all state–action pairs are explored infinitely often and the policy becomes greedily optimal in the limit. Consequently, the following fundamental result holds.
 
 \medskip
 
-\textbf{Teorema (Convergenza del GLIE Monte-Carlo Control).}  
-Assumendo che l’MDP sia finito e che la sequenza di policy sia GLIE, l’algoritmo di GLIE Monte-Carlo Control converge con probabilità $1$ all’action-value function ottimale:
+\textbf{Theorem (Convergence of GLIE Monte-Carlo Control).}
+Assuming that the MDP is finite and that the sequence of policies is GLIE, the GLIE Monte-Carlo Control algorithm converges with probability $1$ to the optimal action-value function:
 \[
 Q(s,a) \longrightarrow q^*(s,a)
 \qquad \forall (s,a) \in \mathcal{S} \times \mathcal{A}
 \]
-e la policy $\epsilon$-greedy converge a una policy ottimale $\pi^*$.
+and the $\epsilon$-greedy policy converges to an optimal policy $\pi^*$.
 
-Questo risultato fornisce una garanzia teorica forte sulla correttezza del Monte Carlo Control, a patto di accettare l’ipotesi di episodi completi e una esplorazione sufficientemente lunga.
+This result provides a strong theoretical guarantee on the correctness of Monte Carlo Control, provided that we accept the assumption of complete episodes and sufficiently long exploration.
 
 
 \subsection{Monte Carlo Control vs Temporal-Difference Control}
 
-Sebbene il GLIE Monte-Carlo Control goda di solide garanzie teoriche, presenta alcune limitazioni pratiche. In particolare, l’aggiornamento dei valori avviene solo al termine di un episodio completo, una volta che il return totale $G_t$ è stato osservato. Questo rende il metodo intrinsecamente \textbf{offline} e comporta un’elevata varianza nelle stime.
+Although GLIE Monte-Carlo Control enjoys solid theoretical guarantees, it has some practical limitations. In particular, the value update takes place only at the end of a complete episode, once the total return $G_t$ has been observed. This makes the method intrinsically \textbf{offline} and leads to high variance in the estimates.
 
-Il \textbf{Temporal-Difference (TD) Control} nasce dall’idea di sostituire la stima Monte Carlo del return con una stima incrementale basata su informazioni parziali osservabili a ogni time-step. Invece di attendere la fine dell’episodio, il TD Control aggiorna direttamente l’action-value function dopo ogni transizione.
+\textbf{Temporal-Difference (TD) Control} stems from the idea of replacing the Monte Carlo estimate of the return with an incremental estimate based on partial information observable at every time-step. Instead of waiting for the end of the episode, TD Control directly updates the action-value function after each transition.
 
-Dal punto di vista concettuale, il control TD mantiene la stessa struttura generale:
+From a conceptual point of view, TD control keeps the same general structure:
 \begin{compactitemize}
-    \item apprendimento diretto di $Q(s,a)$,
-    \item policy improvement tramite policy $\epsilon$-greedy.
+    \item direct learning of $Q(s,a)$,
+    \item policy improvement through an $\epsilon$-greedy policy.
 \end{compactitemize}
 
-La differenza risiede nel metodo di valutazione. Mentre il Monte Carlo utilizza il return completo $G_t$, il TD Control utilizza una stima bootstrap che combina reward immediati e stime correnti dei valori futuri. Questo comporta diversi vantaggi: una varianza più bassa, la possibilità di apprendere online e la capacità di operare anche in presenza di sequenze incomplete o continue.
+The difference lies in the evaluation method. While Monte Carlo uses the complete return $G_t$, TD Control uses a bootstrap estimate that combines immediate rewards and current estimates of future values. This brings several advantages: lower variance, the possibility of learning online and the ability to operate even in the presence of incomplete or continuing sequences.
 
-In questo senso, il TD Control può essere visto come un’evoluzione naturale del Monte Carlo Control, in cui la fase di policy evaluation viene resa più efficiente sostituendo il Monte Carlo con aggiornamenti temporally local. Questa idea costituisce la base di algoritmi fondamentali come SARSA e Q-learning, che rappresentano il fulcro del Reinforcement Learning model-free moderno.
+In this sense, TD Control can be seen as a natural evolution of Monte Carlo Control, in which the policy evaluation phase is made more efficient by replacing Monte Carlo with temporally local updates. This idea forms the basis of fundamental algorithms such as SARSA and Q-learning, which are the core of modern model-free Reinforcement Learning.
 
 \section{Sarsa Algorithm for On-Policy Control}
 
-Il metodo \textbf{SARSA} è un algoritmo di control model-free e on-policy che apprende direttamente l’action-value function associata alla policy corrente. Il nome SARSA deriva dalla sequenza di variabili coinvolte nell’aggiornamento: stato $S_t$, azione $A_t$, reward $R_{t+1}$, stato successivo $S_{t+1}$ e azione successiva $A_{t+1}$.
+The \textbf{SARSA} method is a model-free, on-policy control algorithm that directly learns the action-value function associated with the current policy. The name SARSA derives from the sequence of variables involved in the update: state $S_t$, action $A_t$, reward $R_{t+1}$, next state $S_{t+1}$ and next action $A_{t+1}$.
 
-Il controllo viene ottenuto applicando una \textbf{Generalized Policy Iteration} in cui policy evaluation e policy improvement avvengono a ogni time-step. L’algoritmo mantiene una stima $Q(s,a)$ dell’action-value function $q^\pi(s,a)$ e una policy $\pi$ tipicamente scelta come $\epsilon$-greedy rispetto a $Q$.
+Control is obtained by applying a \textbf{Generalized Policy Iteration} in which policy evaluation and policy improvement take place at every time-step. The algorithm maintains an estimate $Q(s,a)$ of the action-value function $q^\pi(s,a)$ and a policy $\pi$ typically chosen as $\epsilon$-greedy with respect to $Q$.
 
-Ad ogni passo temporale, osservata la transizione $(S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1})$, la stima di $Q$ viene aggiornata secondo la regola:
+At each time step, having observed the transition $(S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1})$, the estimate of $Q$ is updated according to the rule:
 \[
 Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha_t \, \delta_t
 \]
-dove il \textbf{TD-error} è definito come:
+where the \textbf{TD-error} is defined as:
 \[
 \delta_t = R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)
 \]
 
-Questo aggiornamento è un esempio di \textbf{Temporal-Difference learning}, in cui il valore corrente viene corretto utilizzando una stima bootstrap del valore futuro invece di attendere il return completo. Poiché l’azione $A_{t+1}$ è selezionata dalla stessa policy che viene valutata, SARSA è un algoritmo intrinsecamente on-policy.
+This update is an example of \textbf{Temporal-Difference learning}, in which the current value is corrected using a bootstrap estimate of the future value instead of waiting for the complete return. Since the action $A_{t+1}$ is selected by the same policy that is being evaluated, SARSA is an intrinsically on-policy algorithm.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/L54.png}
-    \caption{Algortimo Sarsa}
+    \caption{Sarsa Algorithm}
     \label{fig:student_markov_chain}
 \end{figure}
 \subsection{Convergence of Sarsa}
 
-Sotto opportune condizioni, SARSA converge all’action-value function ottimale $q^*$ e la policy associata converge a una policy ottimale.
+Under suitable conditions, SARSA converges to the optimal action-value function $q^*$ and the associated policy converges to an optimal policy.
 
-In particolare, la convergenza è garantita se la sequenza di policy $\{\pi_t\}$ soddisfa la condizione di \textbf{GLIE} e se i learning rates $\{\alpha_t\}$ soddisfano le condizioni di Robbins–Monro:
+In particular, convergence is guaranteed if the sequence of policies $\{\pi_t\}$ satisfies the \textbf{GLIE} condition and if the learning rates $\{\alpha_t\}$ satisfy the Robbins–Monro conditions:
 \[
 \sum_{t=1}^{\infty} \alpha_t = \infty,
 \qquad
 \sum_{t=1}^{\infty} \alpha_t^2 < \infty
 \]
 
-La prima condizione assicura che ogni coppia stato–azione venga esplorata infinite volte, mentre la seconda garantisce che l’ampiezza degli aggiornamenti decresca sufficientemente nel tempo da stabilizzare le stime. Sotto queste ipotesi, la stima $Q(s,a)$ converge con probabilità $1$ alla funzione ottimale $q^*(s,a)$ e la policy $\epsilon$-greedy converge a una policy ottimale nel limite.
+The first condition ensures that every state–action pair is explored infinitely many times, while the second guarantees that the magnitude of the updates decreases sufficiently over time to stabilize the estimates. Under these assumptions, the estimate $Q(s,a)$ converges with probability $1$ to the optimal function $q^*(s,a)$ and the $\epsilon$-greedy policy converges to an optimal policy in the limit.
 
 
 \subsection{n-Step Sarsa}
 
-La versione standard di SARSA utilizza un aggiornamento a un singolo passo temporale (one-step), in cui il return è approssimato usando un solo reward futuro e la stima del valore al passo successivo. Questa idea può essere generalizzata introducendo i \textbf{n-step returns}, che combinano informazioni provenienti da più passi futuri.
+The standard version of SARSA uses a single time-step (one-step) update, in which the return is approximated using only one future reward and the value estimate at the next step. This idea can be generalized by introducing \textbf{n-step returns}, which combine information coming from several future steps.
 
-Per $n = 1$, il one-step SARSA utilizza il return:
+For $n = 1$, one-step SARSA uses the return:
 \[
 q_t^{(1)} = R_{t+1} + \gamma Q(S_{t+1}, A_{t+1})
 \]
 
-Per $n = 2$, si ottiene:
+For $n = 2$, we obtain:
 \[
 q_t^{(2)} = R_{t+1} + \gamma R_{t+2} + \gamma^2 Q(S_{t+2}, A_{t+2})
 \]
 
-Nel caso limite $n = \infty$, il return coincide con il return Monte Carlo:
+In the limit case $n = \infty$, the return coincides with the Monte Carlo return:
 \[
 q_t^{(\infty)} = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots + \gamma^{T-1} R_T
 \]
 
-In generale, l’n-step Q-return è definito come:
+In general, the n-step Q-return is defined as:
 \[
 q_t^{(n)} =
 R_{t+1}
@@ -322,20 +320,20 @@ R_{t+1}
 + \gamma^n Q(S_{t+n}, A_{t+n})
 \]
 
-L’aggiornamento di n-step SARSA diventa quindi:
+The n-step SARSA update therefore becomes:
 \[
 Q(S_t, A_t) \leftarrow Q(S_t, A_t)
 + \alpha \bigl( q_t^{(n)} - Q(S_t, A_t) \bigr)
 \]
 
-Variando il parametro $n$ è possibile ottenere un compromesso tra bias e varianza: valori piccoli di $n$ inducono maggiore bias ma minore varianza, mentre valori grandi di $n$ si avvicinano al comportamento Monte Carlo.
+By varying the parameter $n$ it is possible to obtain a trade-off between bias and variance: small values of $n$ induce more bias but less variance, while large values of $n$ approach the Monte Carlo behaviour.
 
 
 \subsection{Forward View Sarsa($\lambda$)}
 
-L’algoritmo Sarsa($\lambda$) fornisce un meccanismo per combinare in modo continuo tutti gli n-step returns, senza dover scegliere esplicitamente un valore di $n$.
+The Sarsa($\lambda$) algorithm provides a mechanism to continuously combine all the n-step returns, without having to explicitly choose a value of $n$.
 
-Nel \textbf{forward view}, si definisce il $\lambda$-return come una combinazione convessa di tutti gli n-step returns, pesata geometricamente:
+In the \textbf{forward view}, the $\lambda$-return is defined as a convex combination of all the n-step returns, weighted geometrically:
 \[
 q_t^{\lambda}
 =
@@ -345,9 +343,9 @@ q_t^{\lambda}
 q_t^{(n)}
 \]
 
-Il parametro $\lambda \in [0,1]$ controlla l’importanza dei contributi a lungo termine. Per $\lambda = 0$ si ottiene il one-step SARSA, mentre per $\lambda \to 1$ il return tende al return Monte Carlo.
+The parameter $\lambda \in [0,1]$ controls the importance of the long-term contributions. For $\lambda = 0$ we obtain one-step SARSA, while for $\lambda \to 1$ the return tends to the Monte Carlo return.
 
-L’aggiornamento forward-view di Sarsa($\lambda$) è quindi:
+The forward-view update of Sarsa($\lambda$) is therefore:
 \[
 Q(S_t, A_t)
 \leftarrow
@@ -355,63 +353,63 @@ Q(S_t, A_t)
 + \alpha \bigl( q_t^{\lambda} - Q(S_t, A_t) \bigr)
 \]
 
-Questa formulazione è principalmente di interesse teorico, poiché richiederebbe la conoscenza di ritorni futuri non ancora osservati.
+This formulation is mainly of theoretical interest, since it would require knowledge of future returns that have not yet been observed.
 
 
 \subsection{Backward View Sarsa($\lambda$)}
 
-Per ottenere un algoritmo implementabile online, il forward view viene reso equivalente attraverso il \textbf{backward view}, che utilizza il concetto di \textbf{eligibility traces}. In questo approccio, viene mantenuta una traccia di eleggibilità per ogni coppia stato–azione.
+To obtain an algorithm that can be implemented online, the forward view is made equivalent through the \textbf{backward view}, which uses the concept of \textbf{eligibility traces}. In this approach, an eligibility trace is maintained for each state–action pair.
 
-Le eligibility traces sono inizializzate a zero:
+The eligibility traces are initialized to zero:
 \[
 E_0(s,a) = 0 \qquad \forall (s,a)
 \]
 
-Ad ogni time-step, le tracce vengono aggiornate secondo:
+At each time-step, the traces are updated according to:
 \[
 E_t(s,a) = \gamma \lambda E_{t-1}(s,a)
 + \mathbf{1}(S_t = s, A_t = a)
 \]
 
-In questo modo, le coppie stato–azione visitate recentemente mantengono un’eleggibilità elevata, che decade esponenzialmente nel tempo.
+In this way, recently visited state–action pairs maintain a high eligibility, which decays exponentially over time.
 
-Il TD-error viene calcolato come nel SARSA standard:
+The TD-error is computed as in standard SARSA:
 \[
 \delta_t = R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)
 \]
 
-Infine, l’action-value function viene aggiornata per tutte le coppie $(s,a)$ in proporzione al TD-error e alla rispettiva eligibility trace:
+Finally, the action-value function is updated for all pairs $(s,a)$ in proportion to the TD-error and to the respective eligibility trace:
 \[
 Q(s,a) \leftarrow Q(s,a) + \alpha \, \delta_t \, E_t(s,a)
 \]
 
-Il backward view Sarsa($\lambda$) è computazionalmente efficiente, completamente online e, sotto opportune condizioni, equivalente al forward view in termini di comportamento asintotico.
+Backward view Sarsa($\lambda$) is computationally efficient, fully online and, under suitable conditions, equivalent to the forward view in terms of asymptotic behaviour.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/L55.png}
-    \caption{Algortimo Sarsa($\lambda$)}
+    \caption{Sarsa($\lambda$) Algorithm}
     \label{fig:student_markov_chain}
 \end{figure}
 
 \section{Off-Policy Learning}
 
-Nel Reinforcement Learning, il termine \emph{off-policy learning} indica la possibilità di valutare o migliorare una policy \emph{target} $\pi$ utilizzando esperienza generata da una policy diversa, detta \emph{behaviour policy} $\mu$. In questo contesto, l’obiettivo è stimare quantità come $v^\pi(s)$ o $q^\pi(s,a)$ mentre l’agente segue effettivamente la policy $\mu$.
+In Reinforcement Learning, the term \emph{off-policy learning} refers to the possibility of evaluating or improving a \emph{target} policy $\pi$ using experience generated by a different policy, called the \emph{behaviour policy} $\mu$. In this context, the goal is to estimate quantities such as $v^\pi(s)$ or $q^\pi(s,a)$ while the agent is actually following the policy $\mu$.
 
-Questa impostazione è particolarmente importante in diversi scenari pratici. Consente di apprendere osservando il comportamento di altri agenti o di esseri umani, di riutilizzare dati raccolti in passato con policy diverse e di apprendere una policy ottimale continuando a seguire una policy fortemente esplorativa. Inoltre, permette di valutare più policy differenti a partire da un’unica sorgente di esperienza.
+This setting is particularly important in several practical scenarios. It allows learning by observing the behaviour of other agents or of humans, reusing data collected in the past with different policies, and learning an optimal policy while continuing to follow a strongly exploratory policy. Moreover, it makes it possible to evaluate several different policies starting from a single source of experience.
 
-Il problema centrale dell’off-policy learning è che le distribuzioni di probabilità indotte da $\pi$ e $\mu$ sugli episodi e sulle transizioni non coincidono. Per correggere questo disallineamento e ottenere stime corrette, è necessario introdurre il concetto di \textbf{importance sampling}.
+The central problem of off-policy learning is that the probability distributions induced by $\pi$ and $\mu$ over the episodes and the transitions do not coincide. To correct this mismatch and obtain correct estimates, it is necessary to introduce the concept of \textbf{importance sampling}.
 
 
 \subsection{Importance Sampling}
 
-L’importance sampling è una tecnica statistica che consente di stimare il valore atteso di una funzione rispetto a una distribuzione di probabilità utilizzando campioni generati da una distribuzione diversa.
+Importance sampling is a statistical technique that makes it possible to estimate the expected value of a function with respect to a probability distribution using samples generated from a different distribution.
 
-Sia $X$ una variabile aleatoria e sia $f(X)$ una funzione integrabile. Il valore atteso di $f$ rispetto a una distribuzione $P$ è:
+Let $X$ be a random variable and let $f(X)$ be an integrable function. The expected value of $f$ with respect to a distribution $P$ is:
 \[
 \mathbb{E}_{X \sim P}[f(X)] = \sum_x P(x) f(x)
 \]
 
-Introducendo una seconda distribuzione $Q$, tale che $Q(x) > 0$ ogni volta che $P(x) > 0$, è possibile riscrivere l’aspettativa come:
+By introducing a second distribution $Q$, such that $Q(x) > 0$ whenever $P(x) > 0$, it is possible to rewrite the expectation as:
 \[
 \mathbb{E}_{X \sim P}[f(X)]
 =
@@ -423,16 +421,16 @@ Introducendo una seconda distribuzione $Q$, tale che $Q(x) > 0$ ogni volta che $
 \right]
 \]
 
-Il rapporto $\frac{P(X)}{Q(X)}$ è detto \textbf{importance sampling ratio} e misura quanto il campione estratto da $Q$ sia rappresentativo della distribuzione $P$. Applicando questa idea al Reinforcement Learning, l’importance sampling permette di correggere l’esperienza generata dalla behaviour policy $\mu$ affinché possa essere utilizzata per stimare quantità associate alla target policy $\pi$.
+The ratio $\frac{P(X)}{Q(X)}$ is called the \textbf{importance sampling ratio} and measures how representative the sample drawn from $Q$ is of the distribution $P$. Applying this idea to Reinforcement Learning, importance sampling makes it possible to correct the experience generated by the behaviour policy $\mu$ so that it can be used to estimate quantities associated with the target policy $\pi$.
 
-Una condizione fondamentale è che $\mu(a \mid s) > 0$ ogni volta che $\pi(a \mid s) > 0$; in caso contrario, il rapporto di importance sampling non è definito e l’apprendimento off-policy diventa impossibile.
+A fundamental condition is that $\mu(a \mid s) > 0$ whenever $\pi(a \mid s) > 0$; otherwise, the importance sampling ratio is not defined and off-policy learning becomes impossible.
 
 
 \subsection{Importance Sampling for Off-Policy Monte-Carlo}
 
-Nel contesto Monte-Carlo, l’obiettivo è stimare il return atteso sotto la policy target $\pi$ utilizzando episodi generati seguendo la behaviour policy $\mu$.
+In the Monte-Carlo context, the goal is to estimate the expected return under the target policy $\pi$ using episodes generated by following the behaviour policy $\mu$.
 
-Poiché un episodio completo è una sequenza di azioni, è necessario correggere l’intero return utilizzando un prodotto di rapporti di importance sampling. Per un episodio che parte dal tempo $t$ e termina al tempo $T$, il coefficiente di correzione è definito come:
+Since a complete episode is a sequence of actions, it is necessary to correct the entire return using a product of importance sampling ratios. For an episode that starts at time $t$ and ends at time $T$, the correction coefficient is defined as:
 \[
 \rho_{t:T}
 =
@@ -440,12 +438,12 @@ Poiché un episodio completo è una sequenza di azioni, è necessario correggere
 \frac{\pi(A_k \mid S_k)}{\mu(A_k \mid S_k)}
 \]
 
-Il return corretto diventa quindi:
+The corrected return therefore becomes:
 \[
 G_t^{\pi/\mu} = \rho_{t:T} \, G_t
 \]
 
-La stima del valore viene aggiornata muovendosi verso questo return corretto:
+The value estimate is updated by moving towards this corrected return:
 \[
 V(S_t)
 \leftarrow
@@ -455,16 +453,16 @@ G_t^{\pi/\mu} - V(S_t)
 \bigr)
 \]
 
-Questo aggiornamento è una stima non distorta di $v^\pi(s)$, ma presenta una criticità importante: poiché il coefficiente $\rho_{t:T}$ è un prodotto di molti termini, può crescere o decrescere molto rapidamente, causando un’elevata varianza nelle stime. In particolare, se $\pi$ e $\mu$ differiscono significativamente lungo l’episodio, il contributo di un singolo episodio può dominare l’intero apprendimento.
+This update is an unbiased estimate of $v^\pi(s)$, but it has an important critical issue: since the coefficient $\rho_{t:T}$ is a product of many terms, it can grow or shrink very quickly, causing high variance in the estimates. In particular, if $\pi$ and $\mu$ differ significantly along the episode, the contribution of a single episode can dominate the whole learning process.
 
-Per questo motivo, l’importance sampling Monte-Carlo è teoricamente corretto ma spesso poco stabile nella pratica.
+For this reason, Monte-Carlo importance sampling is theoretically correct but often not very stable in practice.
 
 
 \subsection{Importance Sampling for Off-Policy Temporal-Difference}
 
-Nel caso dei metodi Temporal-Difference, l’off-policy learning può essere realizzato in modo più efficiente. A differenza del Monte-Carlo, gli aggiornamenti TD non dipendono dall’intero episodio, ma solo da una singola transizione.
+In the case of Temporal-Difference methods, off-policy learning can be realized more efficiently. Unlike Monte-Carlo, TD updates do not depend on the entire episode, but only on a single transition.
 
-Nel TD off-policy, il target viene corretto applicando l’importance sampling relativo a un solo passo temporale. L’aggiornamento assume la forma:
+In off-policy TD, the target is corrected by applying importance sampling relative to a single time step. The update takes the form:
 \[
 V(S_t)
 \leftarrow
@@ -481,24 +479,24 @@ V(S_t)
 \right)
 \]
 
-In questo caso, il rapporto di importance sampling coinvolge soltanto la probabilità dell’azione effettivamente eseguita al tempo $t$. Non è necessario moltiplicare i rapporti lungo l’intero episodio, il che riduce drasticamente la varianza dell’aggiornamento.
+In this case, the importance sampling ratio involves only the probability of the action actually executed at time $t$. It is not necessary to multiply the ratios along the entire episode, which drastically reduces the variance of the update.
 
-Questa proprietà rende i metodi TD particolarmente adatti all’off-policy learning: le policy $\pi$ e $\mu$ devono essere sufficientemente compatibili solo localmente, su un singolo step, e non lungo l’intera traiettoria. Per questo motivo, i metodi off-policy basati su TD, come il Q-learning, risultano molto più stabili ed efficaci rispetto alle loro controparti Monte-Carlo basate su importance sampling.
+This property makes TD methods particularly suitable for off-policy learning: the policies $\pi$ and $\mu$ need to be sufficiently compatible only locally, over a single step, and not along the entire trajectory. For this reason, off-policy methods based on TD, such as Q-learning, turn out to be much more stable and effective than their Monte-Carlo counterparts based on importance sampling.
 
 \section{Q-Learning}
 
-Il \textbf{Q-learning} è un algoritmo di control model-free e off-policy che apprende direttamente l’action-value function ottimale $q^*(s,a)$. A differenza di SARSA, il Q-learning separa esplicitamente la policy seguita dall’agente durante l’interazione con l’ambiente dalla policy utilizzata per la valutazione e il miglioramento, consentendo un apprendimento off-policy stabile ed efficiente.
+\textbf{Q-learning} is a model-free, off-policy control algorithm that directly learns the optimal action-value function $q^*(s,a)$. Unlike SARSA, Q-learning explicitly separates the policy followed by the agent during the interaction with the environment from the policy used for evaluation and improvement, allowing stable and efficient off-policy learning.
 
-L’obiettivo del Q-learning è stimare $q^*(s,a)$ senza assumere alcuna conoscenza del modello dell’MDP, utilizzando esclusivamente l’esperienza raccolta attraverso l’interazione con l’ambiente.
+The goal of Q-learning is to estimate $q^*(s,a)$ without assuming any knowledge of the MDP model, using exclusively the experience collected through interaction with the environment.
 
 
 \subsection{Off-Policy Control with Q-Learning}
 
-Nel Q-learning, l’agente seleziona le azioni seguendo una \textbf{behaviour policy} $\mu$, tipicamente scelta come $\epsilon$-greedy rispetto alla stima corrente di $Q(s,a)$. Questa policy garantisce un’adeguata esplorazione dello spazio delle azioni.
+In Q-learning, the agent selects actions by following a \textbf{behaviour policy} $\mu$, typically chosen as $\epsilon$-greedy with respect to the current estimate of $Q(s,a)$. This policy guarantees adequate exploration of the action space.
 
-Tuttavia, l’aggiornamento dell’action-value function non dipende dall’azione effettivamente selezionata nel passo successivo, bensì dall’azione che massimizza il valore stimato nello stato successivo. In altre parole, la \textbf{target policy} $\pi$ è scelta come policy greedy rispetto a $Q$.
+However, the update of the action-value function does not depend on the action actually selected at the next step, but rather on the action that maximizes the estimated value in the next state. In other words, the \textbf{target policy} $\pi$ is chosen as the greedy policy with respect to $Q$.
 
-Formalmente, osservata la transizione $(S_t, A_t, R_{t+1}, S_{t+1})$, l’aggiornamento del Q-learning è definito come:
+Formally, having observed the transition $(S_t, A_t, R_{t+1}, S_{t+1})$, the Q-learning update is defined as:
 \[
 Q(S_t, A_t)
 \leftarrow
@@ -516,42 +514,42 @@ Q(S_t, A_t)
 \Bigr)
 \]
 
-Il termine di bootstrap utilizza il massimo sulle azioni possibili nello stato successivo, indipendentemente dall’azione scelta dalla behaviour policy. Questo consente di apprendere direttamente la policy ottimale continuando a seguire una policy esplorativa.
+The bootstrap term uses the maximum over the possible actions in the next state, regardless of the action chosen by the behaviour policy. This makes it possible to directly learn the optimal policy while continuing to follow an exploratory policy.
 
-Una caratteristica cruciale del Q-learning è che questo aggiornamento non richiede alcuna correzione tramite importance sampling. Poiché il target è definito rispetto a un’azione massimizzante, e non rispetto all’azione effettivamente eseguita, l’algoritmo è intrinsecamente off-policy.
+A crucial characteristic of Q-learning is that this update does not require any correction through importance sampling. Since the target is defined with respect to a maximizing action, and not with respect to the action actually executed, the algorithm is intrinsically off-policy.
 
 
 \subsection{Convergence of Q-Learning}
 
-Il Q-learning gode di solide garanzie di convergenza. In particolare, se l’MDP è finito, se tutte le coppie stato–azione vengono visitate infinite volte e se i learning rates $\{\alpha_t\}$ soddisfano le condizioni di Robbins–Monro:
+Q-learning enjoys solid convergence guarantees. In particular, if the MDP is finite, if all state–action pairs are visited infinitely many times and if the learning rates $\{\alpha_t\}$ satisfy the Robbins–Monro conditions:
 \[
 \sum_{t=1}^{\infty} \alpha_t = \infty,
 \qquad
 \sum_{t=1}^{\infty} \alpha_t^2 < \infty,
 \]
-allora la stima $Q(s,a)$ converge con probabilità $1$ all’action-value function ottimale:
+then the estimate $Q(s,a)$ converges with probability $1$ to the optimal action-value function:
 \[
 Q(s,a) \longrightarrow q^*(s,a)
 \qquad \forall (s,a) \in \mathcal{S} \times \mathcal{A}
 \]
 
-Di conseguenza, la policy greedy rispetto a $Q$ converge a una policy ottimale $\pi^*$.
+Consequently, the greedy policy with respect to $Q$ converges to an optimal policy $\pi^*$.
 
-È importante notare che, a differenza di SARSA, il Q-learning converge alla policy ottimale \emph{indipendentemente} dalla policy esplorativa utilizzata, purché questa garantisca un’esplorazione sufficiente. Questo rende il Q-learning particolarmente robusto e adatto a scenari in cui è necessario mantenere un’elevata esplorazione per lunghi periodi.
+It is important to note that, unlike SARSA, Q-learning converges to the optimal policy \emph{regardless} of the exploratory policy used, as long as it guarantees sufficient exploration. This makes Q-learning particularly robust and suitable for scenarios in which it is necessary to maintain a high level of exploration for long periods.
 
 
 \subsection{Q-Learning Control Algorithm}
 
-Il Q-learning può essere interpretato come una forma di Generalized Policy Iteration in cui policy evaluation e policy improvement sono completamente integrate in un singolo aggiornamento. A ogni time-step, il valore associato alla coppia $(S_t, A_t)$ viene spinto verso un target che include implicitamente il miglioramento greedy.
+Q-learning can be interpreted as a form of Generalized Policy Iteration in which policy evaluation and policy improvement are completely integrated into a single update. At each time-step, the value associated with the pair $(S_t, A_t)$ is pushed towards a target that implicitly includes the greedy improvement.
 
-L’algoritmo può essere descritto come segue. A ogni passo temporale:
+The algorithm can be described as follows. At each time step:
 \begin{enumerate}
-    \item dalla behaviour policy $\mu$ viene selezionata un’azione $A_t$ nello stato $S_t$;
-    \item viene osservato il reward $R_{t+1}$ e lo stato successivo $S_{t+1}$;
-    \item la stima di $Q(S_t, A_t)$ viene aggiornata tramite il target greedy.
+    \item an action $A_t$ is selected in state $S_t$ by the behaviour policy $\mu$;
+    \item the reward $R_{t+1}$ and the next state $S_{t+1}$ are observed;
+    \item the estimate of $Q(S_t, A_t)$ is updated through the greedy target.
 \end{enumerate}
 
-Formalmente, l’aggiornamento è:
+Formally, the update is:
 \[
 Q(S_t, A_t)
 \leftarrow
@@ -568,11 +566,11 @@ Q(S_t, A_t)
 \Bigr)
 \]
 
-Nel lungo periodo, questo schema consente di apprendere simultaneamente la value function ottimale e la policy ottimale, costituendo uno dei pilastri fondamentali del Reinforcement Learning model-free.
+In the long run, this scheme makes it possible to simultaneously learn the optimal value function and the optimal policy, making it one of the fundamental pillars of model-free Reinforcement Learning.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/L56.png}
-    \caption{Algortimo Q-Learning}
+    \caption{Q-Learning Algorithm}
     \label{fig:student_markov_chain}
 \end{figure}
 

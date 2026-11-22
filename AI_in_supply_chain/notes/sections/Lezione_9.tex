@@ -1,69 +1,70 @@
 \chapter{Exploration and Exploitation}
-L'online decision-making comprende due scelte fondamentali, che sono:
+Online decision-making involves two fundamental choices, which are:
 \begin{compactitemize}
-    \item \textbf{Exploitation}: prendere la migliore decisione utilizzando le informazioni correnti.
-    \item \textbf{Exploration}: raccogliere più informazioni
+    \item \textbf{Exploitation}: making the best decision using the current information.
+    \item \textbf{Exploration}: gathering more information
 \end{compactitemize}
-Tipicamente le soluzioni migliori a lungo termine si trovano sacrificando qualcosa nel breve termine, cioè si preferisce non ottenere tutto subito per avere di più in futuro.
+Typically the best long-term solutions are found by sacrificing something in the short term, that is, we prefer not to get everything right away in order to have more in the future.
 
-Noi vedremo due approcci per esplorare, che sono:
+We will see two approaches to exploration, which are:
 \begin{compactitemize}
-    \item \textbf{Random Exploration}: che consiste nel prendere delle decisioni in maniera randomica, o aggiungere rumore alla greedy policy.
-    \item \textbf{Optimism in the face of the uncertainty}: essenzialemente qua calcoliamo l'incertezza delle azioni e prendiamo quella con più incertezza, questo perchè visto che non conosciamo a cosa porta la scelta di quell'azione la esplortiamo sperando porti ad una soluzione migliore. Quindi a differenza di prende l'azione viene presa secono una qaulche base.
+    \item \textbf{Random Exploration}: which consists of making decisions randomly, or adding noise to the greedy policy.
+    \item \textbf{Optimism in the face of the uncertainty}: essentially here we compute the uncertainty of the actions and take the one with the most uncertainty, because, since we do not know where choosing that action leads, we explore it hoping it leads to a better solution. So, unlike the previous approach, the action is chosen according to some criterion.
 \end{compactitemize}
 
-Esistono due modi principali per effettuare un'esplorazione sistematica:
+There are two main ways to perform systematic exploration:
 
 \begin{compactitemize}
-    \item \textbf{State/Action Exploration}: consiste nell'esplorare sistematicamente lo spazio degli stati e delle azioni.  
-    Ad esempio, ogni volta che uno stato $S$ viene visitato, si seleziona un'azione $A$ diversa per coprire lo spazio delle possibilità.
+    \item \textbf{State/Action Exploration}: it consists of systematically exploring the space of states and actions.
+    For example, every time a state $S$ is visited, a different action $A$ is selected to cover the space of possibilities.
 
-    \item \textbf{Parameter Exploration}: la policy viene parametrizzata come $\pi(A \mid S, \mathbf{w})$.  
-    L'esplorazione viene eseguita provando differenti configurazioni dei parametri $\mathbf{w}$ per un certo periodo di tempo.
+    \item \textbf{Parameter Exploration}: the policy is parametrized as $\pi(A \mid S, \mathbf{w})$.
+    Exploration is performed by trying different configurations of the parameters $\mathbf{w}$ for a certain period of time.
     \begin{compactitemize}
-        \item \textbf{Vantaggio}: esplorazione coerente.
-        \item \textbf{Svantaggio}: non tiene conto direttamente dello spazio stato/azione.
+        \item \textbf{Advantage}: consistent exploration.
+        \item \textbf{Disadvantage}: it does not directly take the state/action space into account.
     \end{compactitemize}
 \end{compactitemize}
 
-Nel seguito ci concentreremo sull'esplorazione \textbf{stato-azione}.
+In the following we will focus on \textbf{state-action} exploration.
 
 \section{Multi-Armed Bandit}
-Il problema del \emph{multi-armed bandit} è uno dei modelli fondamentali nel Reinforcement Learning, poiché cattura in modo essenziale il dilemma tra esplorazione e sfruttamento. Un bandit è definito come una tupla $\langle \mathcal{A}, \mathcal{R} \rangle$, dove $\mathcal{A}$ è un insieme noto di $m$ azioni, spesso chiamate ``braccia'' della slot machine, mentre $\mathcal{R}^a(r) = \mathbb{P}[R=r \mid A=a]$ rappresenta una distribuzione di probabilità sconosciuta sui possibili reward associati a ciascuna azione $a$.
+The \emph{multi-armed bandit} problem is one of the fundamental models in Reinforcement Learning, since it captures in an essential way the dilemma between exploration and exploitation. A bandit is defined as a tuple $\langle \mathcal{A}, \mathcal{R} \rangle$, where $\mathcal{A}$ is a known set of $m$ actions, often called the ``arms'' of the slot machine, while $\mathcal{R}^a(r) = \mathbb{P}[R=r \mid A=a]$ represents an unknown probability distribution over the possible rewards associated with each action $a$.
 
-Ad ogni istante temporale $t$, l'agente seleziona un'azione $a_t \in \mathcal{A}$ e l'ambiente genera un reward $r_t \sim \mathcal{R}_{a_t}$. Poiché le distribuzioni dei reward non sono note in anticipo, l'obiettivo dell'agente è quello di imparare a stimare quali azioni abbiano in media un ritorno più elevato, così da massimizzare la somma cumulata dei reward ricevuti:
+At each time instant $t$, the agent selects an action $a_t \in \mathcal{A}$ and the environment generates a reward $r_t \sim \mathcal{R}_{a_t}$. Since the reward distributions are not known in advance, the goal of the agent is to learn to estimate which actions have a higher average return, so as to maximize the cumulative sum of the rewards received:
 \[
 \sum_{\tau=1}^t r_\tau .
 \]
 
-Per caratterizzare il comportamento delle azioni, si definisce il \emph{valore} di un'azione $a$ come il suo reward atteso:
+To characterize the behaviour of the actions, the \emph{value} of an action $a$ is defined as its expected reward:
 \[
 Q(a) = \mathbb{E}[r \mid a].
 \]
-Tra tutte le azioni, esiste una scelta ottimale $a^*$ con valore massimo, e il corrispondente valore ottimale è:
+Among all actions, there is an optimal choice $a^*$ with maximum value, and the corresponding optimal value is:
 \[
 V^* = Q(a^*) = \max_{a \in \mathcal{A}} Q(a).
 \]
 
-Poiché l'agente non conosce i valori delle azioni, ogni decisione comporta un potenziale costo di opportunità. Questo costo è formalizzato attraverso il concetto di \emph{regret}. Il regret istantaneo è definito come:
+Since the agent does not know the values of the actions, every decision involves a potential opportunity cost. This cost is formalized through the concept of \emph{regret}. The instantaneous regret is defined as:
 \[
 l_t = \mathbb{E}\!\left[ V^* - Q(a_t) \right],
 \]
-ossia la perdita attesa dovuta al fatto che l'azione selezionata non è necessariamente quella ottimale. La somma nel tempo dei regret istantanei definisce il regret totale:
+that is, the expected loss due to the fact that the selected action is not necessarily the optimal one. The sum over time of the instantaneous regrets defines the total regret:
 \[
 L_t = \mathbb{E}\!\left[ \sum_{\tau=1}^t \left( V^* - Q(a_\tau) \right) \right].
 \]
-Massimizzare il reward cumulato equivale quindi a minimizzare il regret totale.
+Maximizing the cumulative reward is therefore equivalent to minimizing the total regret.
 
-Il regret può essere analizzato anche in funzione delle scelte effettuate. Se indichiamo con $N_t(a)$ il numero di volte in cui l'azione $a$ è stata selezionata fino al tempo $t$, e introduciamo per ogni azione $a$ il \emph{gap}:
+The regret can also be analysed as a function of the choices made. If we denote by $N_t(a)$ the number of times action $a$ has been selected up to time $t$, and we introduce for each action $a$ the \emph{gap}:
 \[
 \Delta_a = V^* - Q(a),
 \]
-allora il regret totale può essere riscritto come:
+then the total regret can be rewritten as:
 \[
 L_t = \sum_{a \in \mathcal{A}} \mathbb{E}[N_t(a)] \, \Delta_a.
 \]
-Questa forma mostra chiaramente come il regret dipenda da quante volte vengono selezionate azioni sub-ottimali (quelle con $\Delta_a > 0$). Un buon algoritmo deve quindi riuscire a mantenere basso il numero di selezioni di azioni con gap elevato. Tuttavia, i gap $\Delta_a$ non sono noti a priori, quindi un algoritmo efficace deve bilanciare esplorazione delle azioni poco conosciute e sfruttamento di quelle che sembrano migliori.
+This form clearly shows how the regret depends on how many times sub-optimal actions (those with $\Delta_a > 0$) are selected. A good algorithm must therefore manage to keep the number of selections of actions with a large gap low. However, the gaps $\Delta_a$ are not known a priori, so an effective algorithm must balance exploration of little-known actions and exploitation of those that seem better.
+
 \begin{wrapfigure}{r}{0.5\textwidth}
     \centering
     \vspace{-10pt}
@@ -71,188 +72,188 @@ Questa forma mostra chiaramente come il regret dipenda da quante volte vengono s
     \label{fig:Scaled Dot Product Attention}
     \vspace{-10pt}
 \end{wrapfigure}
-Infine, è importante osservare che né un'esplorazione infinita né un completo abbandono dell'esplorazione portano a buone prestazioni. Un algoritmo che continua ad esplorare per sempre accumulerà un regret lineare nel tempo, mentre un algoritmo che non esplora affatto rischia di convergere su un'azione sub-ottimale, anch'esso con regret lineare. Il punto cruciale del problema del multi-armed bandit è proprio determinare se e come sia possibile ottenere un regret sublineare nel tempo, cioè crescere più lentamente di $t$, dimostrando così che l'agente impara effettivamente a comportarsi in modo vicino all'ottimo.
+Finally, it is important to observe that neither infinite exploration nor a complete abandonment of exploration leads to good performance. An algorithm that keeps exploring forever will accumulate a regret that is linear in time, while an algorithm that does not explore at all risks converging on a sub-optimal action, also with linear regret. The crucial point of the multi-armed bandit problem is precisely to determine whether and how it is possible to obtain a regret that is sublinear in time, that is, that grows more slowly than $t$, thus showing that the agent actually learns to behave close to optimally.
 
 \subsection{Greedy Algorithm}
 
-Per affrontare il problema del multi-armed bandit, una prima classe di algoritmi consiste nello stimare il valore di ciascuna azione mediante valutazione Monte Carlo. L'idea è quella di costruire una stima $\hat{Q}_t(a)$ del valore reale $Q(a)$ a partire dai reward osservati. Per ogni azione $a$, la stima viene aggiornata come media dei reward ottenuti ogni volta che tale azione è stata selezionata. Formalmente, se indichiamo con $N_t(a)$ il numero di volte in cui l'azione $a$ è stata scelta entro il tempo $t$, allora la stima Monte Carlo è:
+To address the multi-armed bandit problem, a first class of algorithms consists of estimating the value of each action through Monte Carlo evaluation. The idea is to build an estimate $\hat{Q}_t(a)$ of the true value $Q(a)$ starting from the observed rewards. For each action $a$, the estimate is updated as the mean of the rewards obtained every time that action has been selected. Formally, if we denote by $N_t(a)$ the number of times action $a$ has been chosen by time $t$, then the Monte Carlo estimate is:
 \[
 \hat{Q}_t(a) = \frac{1}{N_t(a)} \sum_{\tau = 1}^{t} r_{\tau} \, \mathbf{1}(a_\tau = a),
 \]
-dove $\mathbf{1}(\cdot)$ è la funzione indicatrice che vale $1$ quando l'azione al tempo $\tau$ coincide con $a$ e $0$ altrimenti.
+where $\mathbf{1}(\cdot)$ is the indicator function that equals $1$ when the action at time $\tau$ coincides with $a$ and $0$ otherwise.
 
-Sulla base di questa stima, l'algoritmo \emph{greedy} sceglie semplicemente l'azione che al tempo $t$ presenta il valore stimato più alto. In altre parole, l'azione selezionata è:
+Based on this estimate, the \emph{greedy} algorithm simply chooses the action that at time $t$ has the highest estimated value. In other words, the selected action is:
 \[
 a_t^* = \arg\max_{a \in \mathcal{A}} \hat{Q}_t(a).
 \]
-Questo approccio sfrutta sempre l'informazione disponibile al meglio, scegliendo l'azione che sembra la migliore sulla base dei dati raccolti finora. Tuttavia, il comportamento greedy presenta un limite cruciale: se inizialmente un'azione sub-ottimale riceve per caso reward leggermente migliori, lo stimatore potrebbe sovrastimarne il valore, inducendo l'agente a selezionarla ripetutamente. In questo modo l'algoritmo può ``bloccarsi'' su un'azione non ottimale, senza esplorare sufficientemente le alternative.
+This approach always exploits the available information as well as possible, choosing the action that seems the best based on the data collected so far. However, greedy behaviour has a crucial limitation: if initially a sub-optimal action happens to receive slightly better rewards, the estimator could overestimate its value, inducing the agent to select it repeatedly. In this way the algorithm can get ``stuck'' on a non-optimal action, without sufficiently exploring the alternatives.
 
-L'algortimo greedy ha un total regret \textbf{lineare.}
+The greedy algorithm has a \textbf{linear} total regret.
 
 \subsection{Optimistic Initialization}
-Un modo semplice per favorire l'esplorazione è inizializzare le stime dei valori delle azioni a un valore molto alto, tipicamente $\hat{Q}_t(a) = r_{\max}$ per ogni azione $a$. Con tutte le azioni inizialmente valutate come ottimali, l'agente, pur agendo in modo greedy,
+A simple way to encourage exploration is to initialize the estimates of the action values to a very high value, typically $\hat{Q}_t(a) = r_{\max}$ for every action $a$. With all actions initially evaluated as optimal, the agent, while acting greedily,
 \[
 a_t = \arg\max_a \hat{Q}_t(a),
 \]
-finisce per esplorarle tutte almeno una volta.
+ends up exploring all of them at least once.
 
-Tuttavia, questa spinta all'esplorazione è solo iniziale: man mano che le stime vengono aggiornate, i valori $\hat{Q}_t(a)$ scendono verso le loro medie reali e l'algoritmo diventa rapidamente equivalente a un greedy puro, senza più alcun meccanismo di esplorazione. Di conseguenza, poche osservazioni sfortunate possono far scartare definitivamente un'azione ottimale, e anche l'optimistic initialization porta a un regret totale lineare nel tempo.
+However, this push towards exploration is only initial: as the estimates are updated, the values $\hat{Q}_t(a)$ drop towards their true means and the algorithm quickly becomes equivalent to a pure greedy, with no exploration mechanism left. Consequently, a few unlucky observations can permanently discard an optimal action, and optimistic initialization also leads to a total regret that is linear in time.
 
-\subsection{$\varepsilon$-Greedy e $\varepsilon_t$-Decaying}
+\subsection{$\varepsilon$-Greedy and $\varepsilon_t$-Decaying}
 
-Un modo semplice per mantenere l'esplorazione continua nel problema del multi-armed bandit è l'algoritmo $\varepsilon$-greedy. In questo approccio, ad ogni passo l'agente:
+A simple way to maintain continuous exploration in the multi-armed bandit problem is the $\varepsilon$-greedy algorithm. In this approach, at each step the agent:
 
 \begin{compactitemize}
-    \item con probabilità $1-\varepsilon$ seleziona l'azione con valore stimato più alto,
+    \item with probability $1-\varepsilon$ selects the action with the highest estimated value,
     \[
     a = \arg\max_{a \in \mathcal{A}} \hat{Q}_t(a),
     \]
-    \item con probabilità $\varepsilon$ sceglie un'azione a caso tra tutte le possibili.
+    \item with probability $\varepsilon$ chooses a random action among all the possible ones.
 \end{compactitemize}
 
-In questo modo, l'algoritmo continua a esplorare indefinitamente. La scelta di un $\varepsilon$ costante garantisce che il regret istantaneo abbia un limite inferiore:
+In this way, the algorithm keeps exploring indefinitely. The choice of a constant $\varepsilon$ guarantees that the instantaneous regret has a lower bound:
 \[
 l_t \ge \frac{\varepsilon}{|\mathcal{A}|} \sum_{a \in \mathcal{A}} \Delta_a,
 \]
-e quindi il regret totale rimane lineare nel tempo.
+and therefore the total regret remains linear in time.
 
-Per ridurre il regret nel lungo periodo, è possibile utilizzare una versione con $\varepsilon$ decrescente nel tempo, detta $\varepsilon_t$-greedy. In questo caso si sceglie una sequenza $\varepsilon_1, \varepsilon_2, \dots$ decrescente, ad esempio:
+To reduce the regret in the long run, it is possible to use a version with $\varepsilon$ decreasing over time, called $\varepsilon_t$-greedy. In this case a decreasing sequence $\varepsilon_1, \varepsilon_2, \dots$ is chosen, for example:
 \[
 \varepsilon_t = \min \left\{ 1, \frac{c|\mathcal{A}|}{d^2 t} \right\}, \quad c>0, \quad d = \min_{a:\Delta_a>0} \Delta_a,
 \]
-così che all’inizio l’agente esplori molto e poi gradualmente si comporti in modo quasi greedy. Con questa scelta di decrescita, il regret totale asintotico cresce solo in modo logaritmico con il tempo.
+so that at the beginning the agent explores a lot and then gradually behaves in an almost greedy way. With this choice of decay, the asymptotic total regret grows only logarithmically with time.
 
-Tuttavia, questo schema richiede di conoscere a priori i gap $\Delta_a$, il che non è realistico nella maggior parte dei casi. L’obiettivo rimane quindi trovare algoritmi capaci di garantire un regret sublineare senza conoscenze preliminari sulle differenze di valore tra le azioni.
+However, this scheme requires knowing the gaps $\Delta_a$ a priori, which is not realistic in most cases. The goal therefore remains to find algorithms capable of guaranteeing a sublinear regret without preliminary knowledge of the value differences between the actions.
 
 \subsection{Lower Bound of Regret}
 
-La difficoltà del problema dipende dalla similarità tra l'azione ottimale e le azioni sub-ottimali. Quando due azioni generano reward con distribuzioni molto simili, l'agente deve raccogliere molte osservazioni per distinguerle, e questo porta inevitabilmente ad accumulare regret. Tale similarità è descritta dalla divergenza di Kullback–Leibler tra le distribuzioni dei reward:
+The difficulty of the problem depends on the similarity between the optimal action and the sub-optimal actions. When two actions generate rewards with very similar distributions, the agent must collect many observations to distinguish them, and this inevitably leads to accumulating regret. This similarity is described by the Kullback–Leibler divergence between the reward distributions:
 \[
 KL(R_a \,\|\, R_{a^*}).
 \]
 
-Il teorema classico di Lai e Robbins mostra che ogni algoritmo coerente deve subire un regret almeno logaritmico nel tempo. In particolare:
+The classic theorem of Lai and Robbins shows that every consistent algorithm must suffer a regret that is at least logarithmic in time. In particular:
 \[
 \lim_{t \to \infty} L_t \;\ge\; \log t \sum_{a:\,\Delta_a>0} \frac{\Delta_a}{KL(R_a \,\|\, R_{a^*})}.
 \]
 
-Questo limite indica che il costo dell'esplorazione è inevitabile: per distinguere correttamente le azioni, un algoritmo deve selezionare le azioni sub-ottimali un numero di volte che cresce almeno come $\log t$, rendendo impossibile ottenere regret sub-logaritmico.
+This bound indicates that the cost of exploration is unavoidable: to correctly distinguish the actions, an algorithm must select the sub-optimal actions a number of times that grows at least as $\log t$, making it impossible to obtain sub-logarithmic regret.
 
 \subsection{Optimism in the Face of Uncertainty}
 
-Nel contesto del multi-armed bandit, il principio dell'\emph{Optimism in the Face of Uncertainty} stabilisce che, quando dobbiamo scegliere tra più azioni, dovremmo preferire quelle sulle quali abbiamo maggiore incertezza. L'idea è che un'azione poco esplorata potrebbe in realtà avere un valore molto più alto di quanto stimato finora, e quindi vale la pena indagarla meglio.
+In the context of the multi-armed bandit, the principle of \emph{Optimism in the Face of Uncertainty} states that, when we must choose between several actions, we should prefer those about which we have the greatest uncertainty. The idea is that a little-explored action could actually have a much higher value than estimated so far, and therefore it is worth investigating it further.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/A2.png}
     \label{fig:student_markov_chain}
 \end{figure}
-Nell'immagine iniziale sono mostrate tre azioni, ciascuna rappresentata da una distribuzione di probabilità sul valore atteso del reward. La curva verde rappresenta un'azione che, secondo le informazioni correnti, sembra avere un valore atteso più alto; la curva rossa un’azione plausibilmente intermedia; mentre quella blu è molto incerta, cioè molto più larga rispetto alle altre. Una distribuzione più larga indica che abbiamo pochi dati su quell'azione, quindi la nostra stima del suo valore è imprecisa.
+The initial image shows three actions, each represented by a probability distribution over the expected value of the reward. The green curve represents an action that, according to the current information, seems to have a higher expected value; the red curve a plausibly intermediate action; while the blue one is very uncertain, that is, much wider than the others. A wider distribution indicates that we have few data about that action, so our estimate of its value is imprecise.
 
-Il punto centrale dell'approccio ottimistico è proprio questo: un'azione con alta incertezza potrebbe rivelarsi migliore di quanto stimato. Per questo motivo l'algoritmo sceglie di esplorare l'azione blu, nonostante attualmente sembri peggiore di quella verde. Questa scelta “ottimistica” deriva dal considerare non solo il valore atteso stimato, ma anche l’incertezza attorno a tale stima.
+The central point of the optimistic approach is precisely this: an action with high uncertainty could turn out to be better than estimated. For this reason the algorithm chooses to explore the blue action, even though it currently seems worse than the green one. This “optimistic” choice derives from considering not only the estimated expected value, but also the uncertainty around that estimate.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/A3.png}
     \label{fig:student_markov_chain}
 \end{figure}
-Nella seconda immagine vediamo cosa accade dopo aver selezionato l’azione più incerta (la blu). Avendola campionata, la distribuzione si restringe: ora conosciamo meglio il suo valore e quindi siamo meno incerti su di essa. Questa riduzione dell'incertezza elimina la porzione della distribuzione blu che poteva superare le altre, rendendo meno probabile sceglierla nuovamente. Di conseguenza, l’algoritmo inizierà a esplorare altre azioni, come la rossa, continuando questo processo finché non individua l’azione che effettivamente offre il miglior valore atteso.
+In the second image we see what happens after selecting the most uncertain action (the blue one). Having sampled it, the distribution narrows: we now know its value better and are therefore less uncertain about it. This reduction of uncertainty eliminates the portion of the blue distribution that could exceed the others, making it less likely to be chosen again. Consequently, the algorithm will start exploring other actions, such as the red one, continuing this process until it identifies the action that actually offers the best expected value.
 
-In sintesi, l’ottimismo di fronte all’incertezza guida l’esplorazione in modo intelligente: selezioniamo le azioni non solo in base alla stima attuale dei loro valori, ma anche in base alla possibilità che queste stime siano troppo conservative. Esplorando sistematicamente le azioni più incerte, l’agente riesce a distinguere meglio tra le diverse distribuzioni di reward e a convergere sull’azione ottimale.
+In summary, optimism in the face of uncertainty guides exploration in an intelligent way: we select actions not only based on the current estimate of their values, but also based on the possibility that these estimates are too conservative. By systematically exploring the most uncertain actions, the agent manages to better distinguish between the different reward distributions and to converge on the optimal action.
 
 \subsection{Upper Confidence Bounds (UCB)}
 
-L'idea alla base degli \emph{Upper Confidence Bounds} è quella di stimare non solo il valore medio di un'azione, ma anche un intervallo di confidenza entro cui tale valore potrebbe trovarsi. Poiché la nostra stima $Q_t(a)$ è basata su un numero limitato di osservazioni, essa è soggetta a incertezza. Per questo motivo definiamo un termine di confidenza $U_t(a)$ tale che, con alta probabilità,
+The idea behind \emph{Upper Confidence Bounds} is to estimate not only the mean value of an action, but also a confidence interval within which that value could lie. Since our estimate $Q_t(a)$ is based on a limited number of observations, it is subject to uncertainty. For this reason we define a confidence term $U_t(a)$ such that, with high probability,
 \[
 q(a) \le Q_t(a) + U_t(a).
 \]
 
-Questo intervallo dipende fortemente dal numero di volte $N_t(a)$ in cui l'azione $a$ è stata selezionata:
+This interval depends strongly on the number of times $N_t(a)$ action $a$ has been selected:
 \begin{compactitemize}
-    \item se $N_t(a)$ è piccolo, allora $U_t(a)$ è grande: significa che conosciamo poco l'azione e la stima è molto incerta;
-    \item se $N_t(a)$ è grande, allora $U_t(a)$ è piccolo: la nostra stima di $Q_t(a)$ è più affidabile.
+    \item if $N_t(a)$ is small, then $U_t(a)$ is large: it means that we know little about the action and the estimate is very uncertain;
+    \item if $N_t(a)$ is large, then $U_t(a)$ is small: our estimate of $Q_t(a)$ is more reliable.
 \end{compactitemize}
 
-Seguendo il principio dell'ottimismo nell'incertezza, l'agente seleziona l'azione che massimizza la somma tra valore stimato e banda di confidenza:
+Following the principle of optimism in the face of uncertainty, the agent selects the action that maximizes the sum of the estimated value and the confidence band:
 \[
 a_t = \arg\max_a \left( Q_t(a) + U_t(a) \right).
 \]
 
-Questo permette di bilanciare automaticamente esplorazione e sfruttamento: le azioni meno esplorate avranno $U_t(a)$ maggiore e quindi verranno selezionate più spesso.
+This makes it possible to automatically balance exploration and exploitation: the less explored actions will have a larger $U_t(a)$ and will therefore be selected more often.
 
 \subsection{Hoeffding's Inequality}
 
-Per costruire concretamente il termine di confidenza $U_t(a)$ utilizziamo la disuguaglianza di Hoeffding. Siano $X_1, \dots, X_t$ variabili i.i.d.\ in $[0,1]$ e sia
+To concretely build the confidence term $U_t(a)$ we use Hoeffding's inequality. Let $X_1, \dots, X_t$ be i.i.d.\ variables in $[0,1]$ and let
 \[
 \bar{X}_t = \frac{1}{t} \sum_{\tau=1}^t X_\tau
 \]
-la media campionaria. Hoeffding garantisce che
+be the sample mean. Hoeffding guarantees that
 \[
 \mathbb{P}\!\left( \mathbb{E}[X] > \bar{X}_t + u \right) \le e^{-2tu^2},
 \]
-cioè la probabilità che il valore atteso superi la stima empirica più $u$ decresce esponenzialmente con il numero di osservazioni.
+that is, the probability that the expected value exceeds the empirical estimate plus $u$ decreases exponentially with the number of observations.
 
-Applicando questa disuguaglianza al reward di un'azione $a$ condizionato sulla selezione di tale azione otteniamo:
+Applying this inequality to the reward of an action $a$ conditioned on the selection of that action we obtain:
 \[
 \mathbb{P}\!\left( q(a) > Q_t(a) + U_t(a) \right)
 \le e^{-2 N_t(a)\, U_t(a)^2}.
 \]
 
-Questa è l’intuizione matematica che ci permette di costruire una banda di confidenza in modo rigoroso.
+This is the mathematical intuition that allows us to build a confidence band rigorously.
 
-\subsection{Calcolo della Banda di Confidenza}
+\subsection{Computing the Confidence Band}
 
-Per calcolare $U_t(a)$ scegliamo una probabilità $p$ che rappresenti il rischio che il valore reale superi la banda di confidenza. Impostiamo:
+To compute $U_t(a)$ we choose a probability $p$ that represents the risk that the true value exceeds the confidence band. We set:
 \[
 e^{-2 N_t(a)\, U_t(a)^2} = p.
 \]
 
-Risolviamo rispetto a $U_t(a)$:
+We solve for $U_t(a)$:
 \[
 U_t(a) = \sqrt{\frac{-\log p}{2N_t(a)}}.
 \]
 
-Possiamo far variare $p$ nel tempo, ad esempio ponendolo come funzione $p=f(t)$ che diminuisce all'aumentare del numero di osservazioni. In questo modo, man mano che raccogliamo dati, l'intervallo di confidenza si restringe e l'algoritmo converge verso l'azione ottimale.
+We can let $p$ vary over time, for example by setting it as a function $p=f(t)$ that decreases as the number of observations increases. In this way, as we collect data, the confidence interval narrows and the algorithm converges to the optimal action.
 
 \subsection{UCB1}
 
-Utilizzando come scelta $p = t^{-4}$ otteniamo una forma particolarmente semplice ed efficace, che dà origine all'algoritmo \textbf{UCB1}. In questo caso la banda di confidenza diventa:
+Choosing $p = t^{-4}$ we obtain a particularly simple and effective form, which gives rise to the \textbf{UCB1} algorithm. In this case the confidence band becomes:
 \[
 U_t(a) = \sqrt{\frac{2\log t}{N_t(a)}},
 \]
-e la regola di selezione delle azioni risulta:
+and the action selection rule turns out to be:
 \[
 a_t = \arg\max_a \left[ Q_t(a) + \sqrt{\frac{2\log t}{N_t(a)}} \right].
 \]
 
-L'algoritmo UCB1 garantisce un regret totale asintotico logaritmico:
+The UCB1 algorithm guarantees a logarithmic asymptotic total regret:
 \[
-\lim_{t \to \infty} L_t \le 
+\lim_{t \to \infty} L_t \le
 8 \log t \sum_{a : \Delta_a > 0} \frac{1}{\Delta_a}.
 \]
 
-Questo risultato è notevole perché raggiunge (a costanti moltiplicative) il lower bound di Lai e Robbins, rendendo UCB uno degli algoritmi ottimali per il problema del multi-armed bandit.
+This result is remarkable because it reaches (up to multiplicative constants) the Lai and Robbins lower bound, making UCB one of the optimal algorithms for the multi-armed bandit problem.
 
 \subsection{Bayesian Bandits}
 
-Finora non abbiamo fatto alcuna assunzione sulla forma delle distribuzioni di reward. I \emph{Bayesian bandits}, invece, sfruttano conoscenza a priori sulle distribuzioni dei reward.  
-L’idea è quella di modellare il valore delle azioni tramite un insieme di parametri $\mathbf{w}$, ad esempio assumendo che ogni azione abbia una distribuzione gaussiana indipendente con media e varianza ignote:
+So far we have not made any assumption about the form of the reward distributions. \emph{Bayesian bandits}, instead, exploit prior knowledge about the reward distributions.
+The idea is to model the value of the actions through a set of parameters $\mathbf{w}$, for example assuming that each action has an independent Gaussian distribution with unknown mean and variance:
 \[
 \mathbf{w} = [\mu_1, \sigma_1^2, \dots, \mu_k, \sigma_k^2].
 \]
 
-A partire da un prior $p(\mathbf{w})$ e dai reward osservati, possiamo calcolare la distribuzione a posteriori al tempo $t$:
+Starting from a prior $p(\mathbf{w})$ and from the observed rewards, we can compute the posterior distribution at time $t$:
 \[
 p(Q(a)\mid h_t) = p(Q(a)\mid \mathbf{w})\, p(\mathbf{w} \mid h_t),
 \]
-dove $h_t$ rappresenta la storia delle osservazioni fino al tempo $t$.
+where $h_t$ represents the history of observations up to time $t$.
 
-La conoscenza a posteriori viene poi utilizzata per guidare l’esplorazione. Due metodi molto comuni sono:
+The posterior knowledge is then used to guide exploration. Two very common methods are:
 
 \begin{compactitemize}
-    \item \textbf{Bayesian UCB}: utilizza la distribuzione a posteriori per costruire una stima ottimistica del valore;
-    \item \textbf{Probability Matching}: seleziona un’azione in proporzione alla probabilità che sia ottimale.
+    \item \textbf{Bayesian UCB}: it uses the posterior distribution to build an optimistic estimate of the value;
+    \item \textbf{Probability Matching}: it selects an action in proportion to the probability that it is optimal.
 \end{compactitemize}
 
-Se il prior è accurato, i Bayesian bandits possono ottenere prestazioni migliori rispetto ai metodi frequentisti.
+If the prior is accurate, Bayesian bandits can achieve better performance than frequentist methods.
 
 \begin{figure}[H]
     \centering
@@ -261,49 +262,49 @@ Se il prior è accurato, i Bayesian bandits possono ottenere prestazioni miglior
 \end{figure}
 \subsection{Bayesian UCB}
 
-Consideriamo il caso in cui le distribuzioni dei reward siano gaussiane:
+Consider the case in which the reward distributions are Gaussian:
 \[
 R_a(r) = \mathcal{N}(r; \mu_a, \sigma_a^2).
 \]
 
-Utilizzando la legge di Bayes, possiamo calcolare la distribuzione a posteriori sui parametri $\mu_a$ e $\sigma_a^2$ combinando il prior con i reward osservati. La distribuzione a posteriori del valore di un’azione $a$ ha quindi una deviazione standard $\sigma_a$ che misura l’incertezza residua.
+Using Bayes' law, we can compute the posterior distribution over the parameters $\mu_a$ and $\sigma_a^2$ by combining the prior with the observed rewards. The posterior distribution of the value of an action $a$ therefore has a standard deviation $\sigma_a$ that measures the residual uncertainty.
 
-L’idea del \emph{Bayesian UCB} è quella di costruire un limite superiore di confidenza direttamente dalla posterior:
+The idea of \emph{Bayesian UCB} is to build an upper confidence bound directly from the posterior:
 \[
 U_t(a) = c\, \sigma_a,
 \]
-dove $c$ è un parametro che controlla quanto essere “ottimisti”.
+where $c$ is a parameter that controls how “optimistic” to be.
 
-L’azione selezionata è quindi:
+The selected action is therefore:
 \[
 a_t = \arg\max_a \left( Q_t(a) + c\, \sigma_a \right).
 \]
 
-In questo modo, un’azione molto incerta (varianza alta) riceve un aumento maggiore del proprio valore stimato e viene scelta più spesso, coerentemente con il principio dell’ottimismo nell’incertezza.
+In this way, a very uncertain action (high variance) receives a larger increase of its estimated value and is chosen more often, consistently with the principle of optimism in the face of uncertainty.
 
 \subsection{Probability Matching}
 
-Il \emph{Probability Matching} seleziona l’azione $a$ in proporzione alla probabilità che essa sia realmente l’azione ottimale. Formalmente:
+\emph{Probability Matching} selects action $a$ in proportion to the probability that it is actually the optimal action. Formally:
 \[
 \pi(a) = \mathbb{P}\!\left( Q(a) = \max_{a'} Q(a') \,\middle|\, R_1, \dots, R_{t-1} \right).
 \]
 
-Questo metodo è naturalmente ottimista: se un’azione è molto incerta, la posterior assegna una probabilità non trascurabile che possa essere la migliore, e quindi quell’azione verrà selezionata più spesso. Tuttavia, calcolare esattamente queste probabilità può essere difficile in modo analitico.
+This method is naturally optimistic: if an action is very uncertain, the posterior assigns a non-negligible probability that it could be the best one, and therefore that action will be selected more often. However, computing these probabilities exactly can be analytically difficult.
 
 \subsection{Thompson Sampling}
 
-Il \emph{Thompson Sampling} è una versione campionata del probability matching. L’idea è molto semplice:
+\emph{Thompson Sampling} is a sampled version of probability matching. The idea is very simple:
 
 \begin{enumerate}
-    \item Si calcola la distribuzione a posteriori $p(\mathbf{w}\mid R_1,\dots,R_{t-1})$ tramite la legge di Bayes.
-    \item Si estrae un campione di una funzione valore $Q(a)$ dalla posterior.
-    \item Si seleziona l’azione con il valore più alto nel campione:
+    \item The posterior distribution $p(\mathbf{w}\mid R_1,\dots,R_{t-1})$ is computed through Bayes' law.
+    \item A sample of a value function $Q(a)$ is drawn from the posterior.
+    \item The action with the highest value in the sample is selected:
     \[
     a_t = \arg\max_a Q(a).
     \]
 \end{enumerate}
 
-Ripetendo questo schema a ogni passo, la probabilità di selezionare un’azione coincide con la probabilità che essa sia ottimale secondo il posterior: questo realizza esattamente il probability matching in modo semplice ed efficiente.
+By repeating this scheme at every step, the probability of selecting an action coincides with the probability that it is optimal according to the posterior: this realizes probability matching exactly, in a simple and efficient way.
 
-Un risultato fondamentale è che il Thompson Sampling raggiunge il lower bound di Lai e Robbins nei bandit di tipo Bernoulli, risultando quindi ottimalmente efficiente dal punto di vista del regret asintotico.
+A fundamental result is that Thompson Sampling reaches the Lai and Robbins lower bound in Bernoulli-type bandits, thus being optimally efficient from the point of view of asymptotic regret.
 

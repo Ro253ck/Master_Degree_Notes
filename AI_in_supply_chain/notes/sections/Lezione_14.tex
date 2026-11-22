@@ -2,17 +2,19 @@
 
 \section{Introduction}
 
-Nelle \textbf{simulation studies}, una parte significativa delle risorse disponibili viene spesso dedicata alla fase di modellazione del sistema e alla sua implementazione software. Tuttavia, in molti casi, un’attenzione relativamente modesta viene riservata alla corretta \textbf{analisi dei dati di output} prodotti dalla simulazione. Questo squilibrio può compromettere seriamente la validità e l’affidabilità dei risultati ottenuti.
+In \textbf{simulation studies}, a significant part of the available resources is often devoted to the modelling phase of the system and to its software implementation. However, in many cases, relatively little attention is paid to the correct \textbf{analysis of the output data} produced by the simulation. This imbalance can seriously compromise the validity and reliability of the results obtained.
 
-Una pratica purtroppo comune consiste nell’eseguire una singola replica della simulazione e nel trattare le stime risultanti come se rappresentassero le vere caratteristiche del sistema modellato. In realtà, tali stime non sono valori deterministici, ma \textbf{realizzazioni di variabili casuali}, spesso caratterizzate da una varianza non trascurabile. Di conseguenza, una singola esecuzione della simulazione può produrre risultati significativamente diversi dai valori medi di lungo periodo del modello.
+An unfortunately common practice consists of running a single replication of the simulation and treating the resulting estimates as if they represented the true characteristics of the modelled system. In reality, these estimates are not deterministic values, but \textbf{realizations of random variables}, often characterized by a non-negligible variance. Consequently, a single run of the simulation can produce results significantly different from the long-run average values of the model.
 
-Questo aspetto introduce un rischio concreto di \textbf{inferenze errate}. In particolare, decisioni progettuali o operative basate su una singola osservazione simulativa possono risultare subottimali o addirittura fuorvianti. In termini probabilistici, esiste una non trascurabile probabilità che una specifica realizzazione della simulazione si discosti in modo rilevante dalle reali prestazioni attese del sistema.
+This aspect introduces a concrete risk of \textbf{wrong inferences}. In particular, design or operational decisions based on a single simulation observation can turn out to be suboptimal or even misleading. In probabilistic terms, there is a non-negligible probability that a specific realization of the simulation deviates substantially from the real expected performance of the system.
 
-Affinché i risultati di uno studio di simulazione abbiano un reale significato, è quindi essenziale adottare \textbf{tecniche statistiche appropriate} per la progettazione degli esperimenti e per l’analisi dei dati di output. Tali tecniche devono tenere conto delle peculiarità dei processi simulati, che spesso presentano caratteristiche di \textbf{non stazionarietà} e \textbf{autocorrelazione}.
+For the results of a simulation study to be truly meaningful, it is therefore essential to adopt \textbf{appropriate statistical techniques} for the design of experiments and for the analysis of output data. These techniques must take into account the peculiarities of simulated processes, which often exhibit \textbf{non-stationarity} and \textbf{autocorrelation}.
 
-A differenza delle osservazioni classiche utilizzate in molti contesti statistici, i dati di output di una simulazione non possono in generale essere considerati indipendenti e identicamente distribuiti (IID). Di conseguenza, le tecniche statistiche tradizionali basate su questa ipotesi non sono direttamente applicabili. L’output data analysis si pone quindi l’obiettivo di sviluppare e utilizzare metodi statistici in grado di fornire stime affidabili delle prestazioni del sistema e di quantificare l’incertezza associata a tali stime.
+Unlike the classic observations used in many statistical contexts, the output data of a simulation cannot in general be considered independent and identically distributed (IID). Consequently, traditional statistical techniques based on this assumption are not directly applicable. Output data analysis therefore aims to develop and use statistical methods capable of providing reliable estimates of the system performance and of quantifying the uncertainty associated with these estimates.
 
-\section{Stochastic Processes}
+\section{Stochastic Processes and Output Behaviour}
+
+\subsection{Stochastic Processes}
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \vspace{-10pt}
@@ -20,62 +22,62 @@ A differenza delle osservazioni classiche utilizzate in molti contesti statistic
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-La maggior parte dei modelli di simulazione utilizza \textbf{variabili casuali} come input, ad esempio per descrivere i tempi di interarrivo, i tempi di servizio o le decisioni operative dei clienti. Di conseguenza, anche le \textbf{variabili di output} generate dalla simulazione sono di natura casuale. L’output di una simulazione non è quindi costituito da singole osservazioni indipendenti, ma da sequenze strutturate di variabili casuali.
+Most simulation models use \textbf{random variables} as inputs, for example to describe interarrival times, service times or customers' operational decisions. Consequently, the \textbf{output variables} generated by the simulation are also random in nature. The output of a simulation therefore does not consist of single independent observations, but of structured sequences of random variables.
 
-In questo contesto, l’output della simulazione viene naturalmente descritto tramite un \textbf{processo stocastico}. Un processo stocastico è una collezione di variabili casuali ``simili’’ tra loro, ordinate nel tempo e definite su un medesimo spazio campionario. Formalmente, esso rappresenta l’evoluzione nel tempo di una certa grandezza casuale associata al sistema simulato.
+In this context, the output of the simulation is naturally described through a \textbf{stochastic process}. A stochastic process is a collection of ``similar'' random variables, ordered in time and defined on the same sample space. Formally, it represents the evolution over time of a certain random quantity associated with the simulated system.
 
-Il \textbf{state space} di un processo stocastico è l’insieme di tutti i valori che le variabili casuali del processo possono assumere. A seconda della natura del tempo, i processi stocastici possono essere classificati come:
+The \textbf{state space} of a stochastic process is the set of all the values that the random variables of the process can take. Depending on the nature of time, stochastic processes can be classified as:
 \begin{compactitemize}
-    \item \textbf{discrete-time stochastic processes}, se l’indice temporale assume valori discreti;
-    \item \textbf{continuous-time stochastic processes}, se l’evoluzione avviene su un asse temporale continuo.
+    \item \textbf{discrete-time stochastic processes}, if the time index takes discrete values;
+    \item \textbf{continuous-time stochastic processes}, if the evolution takes place on a continuous time axis.
 \end{compactitemize}
 
-Un esempio classico di processo stocastico generato da una simulazione è fornito da una coda \textbf{$M/M/1$}. In questo modello:
+A classic example of a stochastic process generated by a simulation is provided by an \textbf{$M/M/1$} queue. In this model:
 \begin{compactitemize}
-    \item $A_1, A_2, \dots$ sono i tempi di interarrivo, variabili casuali IID;
-    \item $S_1, S_2, \dots$ sono i tempi di servizio, anch’essi variabili casuali IID;
-    \item la disciplina di servizio è FIFO.
+    \item $A_1, A_2, \dots$ are the interarrival times, IID random variables;
+    \item $S_1, S_2, \dots$ are the service times, also IID random variables;
+    \item the service discipline is FIFO.
 \end{compactitemize}
 
-Indicando con $D_1, D_2, \dots$ i ritardi (delay) sperimentati dai clienti, si ottiene un \textbf{processo stocastico a tempo discreto} che descrive l’evoluzione dei tempi di attesa nel sistema. Tali ritardi soddisfano la relazione ricorsiva:
+Denoting by $D_1, D_2, \dots$ the delays experienced by the customers, we obtain a \textbf{discrete-time stochastic process} that describes the evolution of the waiting times in the system. These delays satisfy the recursive relation:
 \[
 D_0 = 0, \qquad
 D_{i+1} = \max\{D_i + S_i - A_{i+1},\, 0\}
 \]
-La simulazione realizza quindi una mappatura dalle variabili casuali di input $(A_i, S_i)$ al processo stocastico di output $(D_i)$.
+The simulation therefore realizes a mapping from the input random variables $(A_i, S_i)$ to the output stochastic process $(D_i)$.
 
-Per poter trarre inferenze significative sul comportamento di un sistema a partire dai dati di output simulati, è spesso necessario introdurre alcune \textbf{ipotesi semplificative} sulla struttura del processo stocastico, anche quando tali ipotesi non sono perfettamente verificate nella pratica. Una delle ipotesi più utilizzate nell’output data analysis è quella di \textbf{covariance-stationarity}.
+In order to draw meaningful inferences about the behaviour of a system from simulated output data, it is often necessary to introduce some \textbf{simplifying assumptions} about the structure of the stochastic process, even when these assumptions are not perfectly satisfied in practice. One of the most used assumptions in output data analysis is \textbf{covariance-stationarity}.
 
-Un processo stocastico a tempo discreto $X_1, X_2, \dots$ si dice \textbf{covariance-stationary} se soddisfa le seguenti condizioni:
+A discrete-time stochastic process $X_1, X_2, \dots$ is said to be \textbf{covariance-stationary} if it satisfies the following conditions:
 \begin{itemize}
-    \item il valore atteso è costante nel tempo:
+    \item the expected value is constant over time:
     \[
-    \mu_i = \mu \quad \text{per } i = 1,2,\dots, \qquad -\infty < \mu < \infty;
+    \mu_i = \mu \quad \text{for } i = 1,2,\dots, \qquad -\infty < \mu < \infty;
     \]
-    \item la varianza è costante e finita:
+    \item the variance is constant and finite:
     \[
-    \sigma_i^2 = \sigma^2 \quad \text{per } i = 1,2,\dots, \qquad \sigma^2 < \infty;
+    \sigma_i^2 = \sigma^2 \quad \text{for } i = 1,2,\dots, \qquad \sigma^2 < \infty;
     \]
-    \item la covarianza tra $X_i$ e $X_{i+j}$ dipende solo dal ritardo $j$ e non dall’istante $i$:
+    \item the covariance between $X_i$ and $X_{i+j}$ depends only on the lag $j$ and not on the instant $i$:
     \[
-    C_{i,i+j} = \operatorname{Cov}(X_i, X_{i+j}) = C_j \quad \text{per } j = 1,2,\dots
+    C_{i,i+j} = \operatorname{Cov}(X_i, X_{i+j}) = C_j \quad \text{for } j = 1,2,\dots
     \]
 \end{itemize}
 
-In un processo covariance-stationary, quindi, la media e la varianza sono stazionarie nel tempo, mentre la dipendenza tra due osservazioni è funzione esclusivamente della loro separazione temporale, detta \textbf{lag}.
+In a covariance-stationary process, therefore, the mean and the variance are stationary over time, while the dependence between two observations is a function exclusively of their temporal separation, called the \textbf{lag}.
 
-Per tali processi, la covarianza e la correlazione tra $X_i$ e $X_{i+j}$ vengono comunemente indicate rispettivamente con $C_j$ e $\rho_j$, dove:
+For such processes, the covariance and the correlation between $X_i$ and $X_{i+j}$ are commonly denoted by $C_j$ and $\rho_j$ respectively, where:
 \[
 \rho_j = \frac{C_{i,i+j}}{\sigma_i \sigma_{i+j}} = \frac{C_j}{\sigma^2}
 \]
 
-Questa struttura rende i processi covariance-stationary particolarmente adatti all’analisi statistica dell’output di simulazione, poiché consente di caratterizzare la dipendenza temporale dei dati attraverso funzioni di autocovarianza e autocorrelazione, che giocano un ruolo centrale nelle tecniche di output data analysis.
+This structure makes covariance-stationary processes particularly suitable for the statistical analysis of simulation output, since it allows the temporal dependence of the data to be characterized through autocovariance and autocorrelation functions, which play a central role in output data analysis techniques.
 
-\section{Transient and Steady-State Behaviour}
+\subsection{Transient and Steady-State Behaviour}
 
-Si consideri un generico \textbf{processo stocastico di output} generato da una simulazione, indicato con $Y_1, Y_2, \dots$, dove $Y_i$ rappresenta l’osservazione dell’output al tempo (o indice) $i$. Il comportamento statistico di tale processo dipende in modo cruciale dalle \textbf{condizioni iniziali} del sistema.
+Consider a generic \textbf{output stochastic process} generated by a simulation, denoted by $Y_1, Y_2, \dots$, where $Y_i$ represents the output observation at time (or index) $i$. The statistical behaviour of this process depends crucially on the \textbf{initial conditions} of the system.
 
-Sia $I$ l’insieme delle condizioni iniziali della simulazione. Per ogni istante $i$, si definisce la funzione di distribuzione:
+Let $I$ be the set of initial conditions of the simulation. For each instant $i$, the distribution function is defined as:
 \[
 F_i(y \mid I) = P(Y_i \le y \mid I)
 \]
@@ -86,17 +88,18 @@ F_i(y \mid I) = P(Y_i \le y \mid I)
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-Tale funzione è detta \textbf{distribuzione transitoria} (transient distribution) del processo di output al tempo $i$, dato l’insieme di condizioni iniziali $I$.
+This function is called the \textbf{transient distribution} of the output process at time $i$, given the set of initial conditions $I$.
 
-In generale, durante la fase iniziale della simulazione, la distribuzione di $Y_i$ dipende fortemente dalle condizioni iniziali. Questa fase è detta \textbf{transient}. Tuttavia, per molte classi di sistemi stocastici stabili, l’influenza delle condizioni iniziali tende a diminuire nel tempo. Se vale che:
+In general, during the initial phase of the simulation, the distribution of $Y_i$ depends strongly on the initial conditions. This phase is called \textbf{transient}. However, for many classes of stable stochastic systems, the influence of the initial conditions tends to decrease over time. If it holds that:
 \[
-F_i(y \mid I) \longrightarrow F(y) \quad \text{per } i \to \infty
+F_i(y \mid I) \longrightarrow F(y) \quad \text{for } i \to \infty
 \]
-allora la distribuzione limite $F(y)$ è detta \textbf{steady-state distribution} del processo di output.
+then the limit distribution $F(y)$ is called the \textbf{steady-state distribution} of the output process.
 
-Una volta raggiunto lo steady-state, la distribuzione delle osservazioni non dipende più dalle condizioni iniziali. Inoltre, la sequenza di output $Y_{k+1}, Y_{k+2}, \dots$ non è in generale costituita da osservazioni indipendenti, ma forma un \textbf{processo covariance-stationary}. In particolare, la media e la varianza rimangono costanti nel tempo e la dipendenza tra osservazioni è funzione esclusivamente del lag.
+Once steady-state has been reached, the distribution of the observations no longer depends on the initial conditions. Moreover, the output sequence $Y_{k+1}, Y_{k+2}, \dots$ is not in general made up of independent observations, but forms a \textbf{covariance-stationary process}. In particular, the mean and the variance remain constant over time and the dependence between observations is a function exclusively of the lag.
 
-Un aspetto fondamentale nell’output data analysis è la \textbf{velocità di convergenza} dallo stato transitorio allo steady-state. Tale velocità è fortemente influenzata dalle condizioni iniziali della simulazione. Condizioni iniziali ``lontane’’ dall’equilibrio possono produrre lunghi periodi transitori, introducendo bias significativi nelle stime delle misure di performance.
+A fundamental aspect in output data analysis is the \textbf{speed of convergence} from the transient state to steady-state. This speed is strongly influenced by the initial conditions of the simulation. Initial conditions ``far'' from equilibrium can produce long transient periods, introducing significant bias in the estimates of the performance measures.
+
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \vspace{-10pt}
@@ -104,119 +107,119 @@ Un aspetto fondamentale nell’output data analysis è la \textbf{velocità di c
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-Per illustrare questo fenomeno, si consideri il processo stocastico dei ritardi $D_1, D_2, \dots$ in una coda \textbf{$M/M/1$} con server utilization pari a $\rho = 0.9$. Poiché il sistema è altamente carico, il tempo necessario per raggiungere lo steady-state può essere molto lungo. In particolare, se la simulazione viene avviata da uno stato vuoto ($D_0 = 0$), i ritardi iniziali risultano artificialmente bassi rispetto ai valori tipici di regime.
+To illustrate this phenomenon, consider the stochastic process of the delays $D_1, D_2, \dots$ in an \textbf{$M/M/1$} queue with server utilization equal to $\rho = 0.9$. Since the system is highly loaded, the time needed to reach steady-state can be very long. In particular, if the simulation is started from an empty state ($D_0 = 0$), the initial delays turn out to be artificially low compared to the typical steady-state values.
 
-In tali condizioni, l’utilizzo diretto delle osservazioni iniziali per stimare le prestazioni del sistema porta a una sottostima sistematica dei ritardi medi. Questo esempio mette in evidenza l’importanza di distinguere correttamente tra fase transitoria e fase stazionaria e di adottare tecniche appropriate, come l’eliminazione del periodo di warm-up, per ridurre l’effetto delle condizioni iniziali sull’analisi dei dati di output.
+Under these conditions, the direct use of the initial observations to estimate the system performance leads to a systematic underestimation of the average delays. This example highlights the importance of correctly distinguishing between the transient phase and the stationary phase and of adopting appropriate techniques, such as the deletion of the warm-up period, to reduce the effect of the initial conditions on the analysis of output data.
 
-\section{Types of Simulations and Output Analysis}
+\subsection{Terminating and Nonterminating Simulations}
 
-Le simulazioni possono essere classificate in due categorie fondamentali, a seconda della natura temporale del sistema studiato e degli obiettivi dell’analisi: \textbf{terminating simulations} e \textbf{nonterminating simulations}. Questa distinzione ha un impatto diretto sulle tecniche di output data analysis da utilizzare.
+Simulations can be classified into two fundamental categories, depending on the temporal nature of the system studied and on the objectives of the analysis: \textbf{terminating simulations} and \textbf{nonterminating simulations}. This distinction has a direct impact on the output data analysis techniques to be used.
 
-Una \textbf{terminating simulation} è caratterizzata dalla presenza di un evento naturale $E$ che determina la fine di ogni esecuzione, o \emph{replication}, della simulazione. Tale evento si verifica tipicamente quando il sistema viene completamente svuotato oppure quando viene raggiunto un orizzonte temporale prefissato, spesso imposto da vincoli organizzativi o gestionali.
+A \textbf{terminating simulation} is characterized by the presence of a natural event $E$ that determines the end of each run, or \emph{replication}, of the simulation. This event typically occurs when the system is completely emptied or when a prefixed time horizon is reached, often imposed by organizational or managerial constraints.
 
-In questo contesto, tutte le repliche della simulazione iniziano da condizioni iniziali comparabili e terminano al verificarsi dell’evento $E$. Di conseguenza, le variabili casuali di output ottenute dalle diverse repliche risultano \textbf{indipendenti e identicamente distribuite (IID)}, consentendo l’applicazione diretta delle tecniche statistiche classiche.
+In this context, all the replications of the simulation start from comparable initial conditions and end when the event $E$ occurs. Consequently, the output random variables obtained from the different replications turn out to be \textbf{independent and identically distributed (IID)}, allowing the direct application of classic statistical techniques.
 
-Un esempio tipico di terminating simulation è rappresentato da una \textbf{banca che chiude ogni sera}. Se la banca è aperta dalle 9:00 alle 17:00, l’obiettivo della simulazione può essere la stima della qualità del servizio offerto durante la giornata lavorativa. In questo caso, l’evento di terminazione può essere definito come:
+A typical example of a terminating simulation is represented by a \textbf{bank that closes every evening}. If the bank is open from 9:00 to 17:00, the goal of the simulation can be the estimation of the quality of the service offered during the working day. In this case, the termination event can be defined as:
 \[
-E = \{\text{sono trascorse almeno 8 ore di tempo simulato e il sistema è vuoto}\}
+E = \{\text{at least 8 hours of simulated time have elapsed and the system is empty}\}
 \]
-Le condizioni iniziali della simulazione sono date dal numero di clienti presenti nel sistema all’istante $t = 0$.
+The initial conditions of the simulation are given by the number of customers present in the system at instant $t = 0$.
 
-Al contrario, una \textbf{nonterminating simulation} è una simulazione per la quale non esiste un evento naturale che ne determini la conclusione. Questo tipo di simulazione è tipicamente utilizzato quando l’obiettivo dello studio riguarda il \textbf{comportamento di lungo periodo} del sistema. In tali casi, l’attenzione è rivolta a misure di performance che sono caratteristiche della distribuzione stazionaria di un processo stocastico di output $Y_1, Y_2, \dots$.
+On the contrary, a \textbf{nonterminating simulation} is a simulation for which there is no natural event that determines its conclusion. This type of simulation is typically used when the goal of the study concerns the \textbf{long-run behaviour} of the system. In such cases, the attention is focused on performance measures that are characteristics of the stationary distribution of an output stochastic process $Y_1, Y_2, \dots$.
 
-Una misura di performance è detta \textbf{steady-state parameter} se è una caratteristica della steady-state distribution del processo di output. Un esempio classico è il valore atteso $E[Y]$ in regime stazionario.
+A performance measure is called a \textbf{steady-state parameter} if it is a characteristic of the steady-state distribution of the output process. A classic example is the expected value $E[Y]$ in steady-state.
 
-Un esempio di nonterminating simulation è fornito da un \textbf{sistema manifatturiero} che opera su due turni giornalieri, per un totale di 16 ore al giorno, con work-in-process che viene trasferito da un giorno al successivo. In questo caso, l’operazione produttiva è essenzialmente continua e le condizioni finali di una giornata coincidono con le condizioni iniziali della successiva. Pertanto, non è possibile identificare un evento naturale di terminazione.
+An example of a nonterminating simulation is provided by a \textbf{manufacturing system} that operates on two daily shifts, for a total of 16 hours per day, with work-in-process that is transferred from one day to the next. In this case, the production operation is essentially continuous and the final conditions of one day coincide with the initial conditions of the next. Therefore, it is not possible to identify a natural termination event.
 
-È importante osservare che molti sistemi reali non ammettono una vera steady-state distribution, poiché le loro caratteristiche possono variare nel tempo. Ad esempio, in un sistema di produzione, le regole di schedulazione o la configurazione dell’impianto possono essere modificate. Tuttavia, un \textbf{modello di simulazione}, che rappresenta un’astrazione della realtà, può essere costruito assumendo parametri invarianti nel tempo, rendendo possibile l’esistenza di una steady-state distribution.
+It is important to observe that many real systems do not admit a true steady-state distribution, since their characteristics can vary over time. For example, in a production system, the scheduling rules or the plant configuration can be modified. However, a \textbf{simulation model}, which represents an abstraction of reality, can be built assuming time-invariant parameters, making the existence of a steady-state distribution possible.
 
-Inoltre, uno stesso sistema può essere modellato come terminating o nonterminating a seconda degli obiettivi specifici dello studio di simulazione.
+Moreover, the same system can be modelled as terminating or nonterminating depending on the specific objectives of the simulation study.
 
-Infine, si consideri una nonterminating simulation associata a un processo stocastico di output $Y_1, Y_2, \dots$ che non possiede una steady-state distribution. In tali casi, una tecnica comune consiste nel suddividere l’asse temporale in intervalli contigui di uguale durata, detti \textbf{cycles}. Sia $Y_i^C$ la variabile casuale definita sul $i$-esimo ciclo, e si assuma che le variabili $Y_1^C, Y_2^C, \dots$ siano confrontabili.
+Finally, consider a nonterminating simulation associated with an output stochastic process $Y_1, Y_2, \dots$ that does not have a steady-state distribution. In such cases, a common technique consists of dividing the time axis into contiguous intervals of equal duration, called \textbf{cycles}. Let $Y_i^C$ be the random variable defined on the $i$-th cycle, and assume that the variables $Y_1^C, Y_2^C, \dots$ are comparable.
 
-Se il processo ciclico $Y_1^C, Y_2^C, \dots$ ammette una steady-state distribution $F_C$ e se $Y^C \sim F_C$, allora una misura di performance è detta \textbf{steady-state cycle parameter} se rappresenta una caratteristica della distribuzione $F_C$, come ad esempio il valore atteso:
+If the cyclic process $Y_1^C, Y_2^C, \dots$ admits a steady-state distribution $F_C$ and if $Y^C \sim F_C$, then a performance measure is called a \textbf{steady-state cycle parameter} if it represents a characteristic of the distribution $F_C$, such as the expected value:
 \[
 E[Y^C]
 \]
 
-Questo approccio consente di estendere l’analisi di steady-state anche a sistemi che, nel tempo continuo, non presentano una distribuzione stazionaria ben definita.
+This approach makes it possible to extend steady-state analysis also to systems that, in continuous time, do not have a well-defined stationary distribution.
 
 \section{Output Analysis for Terminating Simulations}
 
-Si consideri una \textbf{terminating simulation}, ovvero una simulazione caratterizzata da un evento naturale di terminazione $E$ che definisce la durata di ciascuna esecuzione. Supponiamo di effettuare $n$ \textbf{repliche indipendenti} della simulazione, tutte con le stesse condizioni iniziali e lo stesso evento terminale.  
-L’indipendenza tra le repliche è garantita utilizzando differenti stream di numeri casuali per ciascuna esecuzione.
+Consider a \textbf{terminating simulation}, that is, a simulation characterized by a natural termination event $E$ that defines the duration of each run. Suppose we perform $n$ \textbf{independent replications} of the simulation, all with the same initial conditions and the same terminal event.
+Independence between the replications is guaranteed by using different random number streams for each run.
 
-Per semplicità, si assuma che vi sia una sola misura di performance di interesse. Sia $X_j$ la variabile casuale definita sulla $j$-esima replica, con $j = 1,2,\dots,n$. Poiché le repliche sono comparabili e indipendenti, le variabili $X_1, X_2, \dots, X_n$ possono essere considerate \textbf{IID}.
+For simplicity, assume that there is only one performance measure of interest. Let $X_j$ be the random variable defined on the $j$-th replication, with $j = 1,2,\dots,n$. Since the replications are comparable and independent, the variables $X_1, X_2, \dots, X_n$ can be considered \textbf{IID}.
 
-Un esempio tipico è il caso in cui $X_j$ rappresenti il \textbf{ritardo medio giornaliero} osservato nella $j$-esima replica di una simulazione bancaria:
+A typical example is the case in which $X_j$ represents the \textbf{average daily delay} observed in the $j$-th replication of a bank simulation:
 \[
 X_j = D_j = \frac{1}{N} \sum_{i=1}^{N} D_i
 \]
-dove $D_i$ è il ritardo del cliente $i$ durante quella giornata simulata.
+where $D_i$ is the delay of customer $i$ during that simulated day.
 
-L’obiettivo è stimare il vero valore medio:
+The goal is to estimate the true mean value:
 \[
 \mu = E[X]
 \]
-e costruire un \textbf{intervallo di confidenza} per $\mu$.
+and to build a \textbf{confidence interval} for $\mu$.
 
-\section{Fixed-sample-size procedure}
-Dato un numero fissato di repliche $n$, si utilizza la media campionaria:
+\subsection{Fixed-Sample-Size Procedure}
+Given a fixed number of replications $n$, the sample mean is used:
 \[
 \bar{X}_n = \frac{1}{n} \sum_{j=1}^{n} X_j
 \]
-e la varianza campionaria:
+together with the sample variance:
 \[
 S^2(n) = \frac{1}{n-1} \sum_{j=1}^{n} (X_j - \bar{X}_n)^2
 \]
 
-Un intervallo di confidenza approssimato al livello $100(1-\alpha)\%$ per $\mu$ è dato da:
+An approximate $100(1-\alpha)\%$ confidence interval for $\mu$ is given by:
 \[
 \bar{X}_n \pm t_{n-1,\,1-\alpha/2} \sqrt{\frac{S^2(n)}{n}}
 \]
-dove $t_{n-1,\,1-\alpha/2}$ è il quantile della distribuzione $t$ di Student con $n-1$ gradi di libertà.
+where $t_{n-1,\,1-\alpha/2}$ is the quantile of the Student's $t$ distribution with $n-1$ degrees of freedom.
 
-Uno svantaggio principale della procedura a numerosità fissata è che l’analista \textbf{non ha controllo diretto sulla precisione} dell’intervallo di confidenza. In particolare, la semilarghezza dell’intervallo dipende dalla varianza di $X$ e, per un dato $n$, può risultare eccessivamente grande.
+A main disadvantage of the fixed-sample-size procedure is that the analyst \textbf{has no direct control over the precision} of the confidence interval. In particular, the half-width of the interval depends on the variance of $X$ and, for a given $n$, can turn out to be excessively large.
 
-\section{Precisione assoluta}
-Si definisca $\beta$ come \textbf{errore assoluto} dell’estimatore:
+\subsection{Absolute Precision}
+Define $\beta$ as the \textbf{absolute error} of the estimator:
 \[
 \beta = |\bar{X} - \mu|
 \]
-Se si effettuano repliche fino a quando la semilarghezza dell’intervallo di confidenza è minore o uguale a $\beta$, allora:
+If replications are performed until the half-width of the confidence interval is less than or equal to $\beta$, then:
 \[
 P(|\bar{X} - \mu| \le \beta) \approx 1 - \alpha
 \]
-ossia l’estimatore $\bar{X}$ ha errore assoluto al più pari a $\beta$ con probabilità approssimativamente $1-\alpha$.
+that is, the estimator $\bar{X}$ has an absolute error at most equal to $\beta$ with probability approximately $1-\alpha$.
 
-Il numero di repliche richiesto può essere stimato come:
+The number of replications required can be estimated as:
 \[
 n_\beta^* = \min \left\{ i \ge n :
 t_{i-1,\,1-\alpha/2} \sqrt{\frac{S^2(n)}{i}} \le \beta \right\}
 \]
-In pratica, tale valore viene determinato in modo iterativo, aggiornando progressivamente la stima della varianza.
+In practice, this value is determined iteratively, progressively updating the variance estimate.
 
-\section{Sequential procedure e precisione relativa}
-Un approccio alternativo è la \textbf{procedura sequenziale}, in cui le repliche vengono aggiunte una alla volta. Si definisce così l’errore relativo:
+\subsection{Sequential Procedure and Relative Precision}
+An alternative approach is the \textbf{sequential procedure}, in which replications are added one at a time. The relative error is thus defined as:
 \[
 \gamma = \frac{|\bar{X} - \mu|}{\mu}
 \]
 
-La procedura è la seguente:
+The procedure is the following:
 \begin{enumerate}
-    \item eseguire un numero iniziale di repliche $n_0 \ge 10$;
-    \item calcolare $\bar{X}(n)$ e la semilarghezza dell’intervallo:
+    \item run an initial number of replications $n_0 \ge 10$;
+    \item compute $\bar{X}(n)$ and the half-width of the interval:
     \[
     \delta_{n,\alpha} =
     t_{n-1,\,1-\alpha/2} \sqrt{\frac{S^2(n)}{n}};
     \]
-    \item se $\delta_{n,\alpha} / \bar{X}(n) \le \gamma$, allora $\bar{X}(n)$ è accettato come stima di $\mu$;
-    \item altrimenti, incrementare $n$ di una unità, eseguire una nuova replica e tornare al passo precedente.
+    \item if $\delta_{n,\alpha} / \bar{X}(n) \le \gamma$, then $\bar{X}(n)$ is accepted as the estimate of $\mu$;
+    \item otherwise, increment $n$ by one, run a new replication and go back to the previous step.
 \end{enumerate}
 
-È importante notare che in questa procedura la stima della varianza viene aggiornata dopo ogni replica e che il numero totale di repliche richieste è esso stesso una \textbf{variabile casuale}. Questo approccio consente un controllo diretto della precisione della stima, rendendolo particolarmente adatto all’analisi dell’output di simulazioni terminating.
+It is important to note that in this procedure the variance estimate is updated after each replication and that the total number of replications required is itself a \textbf{random variable}. This approach allows direct control of the precision of the estimate, making it particularly suitable for the output analysis of terminating simulations.
 
-\section{Estimating Other Measures of Performance}
+\subsection{Estimating Proportions and Other Measures}
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \vspace{-10pt}
@@ -224,34 +227,36 @@ La procedura è la seguente:
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-Valutare sistemi o politiche alternative esclusivamente sulla base del \textbf{valore medio} di una misura di performance può talvolta condurre a conclusioni fuorvianti. In molte applicazioni di operations e supply chain management, è infatti rilevante considerare anche \textbf{misure non medie}, come probabilità, proporzioni o percentuali di tempo in cui il sistema soddisfa determinati requisiti di prestazione.
+Evaluating alternative systems or policies exclusively on the basis of the \textbf{mean value} of a performance measure can sometimes lead to misleading conclusions. In many operations and supply chain management applications, it is in fact relevant to also consider \textbf{non-mean measures}, such as probabilities, proportions or percentages of time in which the system satisfies certain performance requirements.
 
-Le \textbf{proporzioni} rappresentano una classe importante di misure di performance. Sia $X$ una variabile casuale definita su una singola replica di una simulazione terminating. Si supponga di voler stimare la probabilità:
+\textbf{Proportions} represent an important class of performance measures. Let $X$ be a random variable defined on a single replication of a terminating simulation. Suppose we want to estimate the probability:
 \[
 p = P(X \in B),
 \]
-dove $B \subset \mathbb{R}$ è un insieme di valori di interesse. Ad esempio, $B$ potrebbe rappresentare l’insieme dei valori per cui il ritardo supera una certa soglia, oppure i valori per cui il livello di servizio è ritenuto accettabile.
+where $B \subset \mathbb{R}$ is a set of values of interest. For example, $B$ could represent the set of values for which the delay exceeds a certain threshold, or the values for which the service level is considered acceptable.
 
-Si effettuino $n$ repliche indipendenti della simulazione e si indichino con $X_1, X_2, \dots, X_n$ le corrispondenti osservazioni, che possono essere considerate \textbf{IID}. Sia:
+Perform $n$ independent replications of the simulation and denote by $X_1, X_2, \dots, X_n$ the corresponding observations, which can be considered \textbf{IID}. Let:
 \[
 S = \sum_{j=1}^{n} \mathbb{I}\{X_j \in B\}
 \]
-il numero di osservazioni che cadono nell’insieme $B$, dove $\mathbb{I}\{\cdot\}$ è la funzione indicatrice.
+be the number of observations that fall in the set $B$, where $\mathbb{I}\{\cdot\}$ is the indicator function.
 
-Poiché ciascuna osservazione ha probabilità $p$ di appartenere a $B$, la variabile casuale $S$ segue una \textbf{distribuzione binomiale} con parametri $n$ e $p$. Un estimatore non distorto di $p$ è quindi dato dalla proporzione campionaria:
+Since each observation has probability $p$ of belonging to $B$, the random variable $S$ follows a \textbf{binomial distribution} with parameters $n$ and $p$. An unbiased estimator of $p$ is therefore given by the sample proportion:
 \[
 \hat{p} = \frac{S}{n}
 \]
 
-Per $n$ sufficientemente grande, la distribuzione di $\hat{p}$ può essere approssimata da una distribuzione normale. Un intervallo di confidenza approssimato al livello $100(1-\alpha)\%$ per la probabilità $p$ è allora:
+For sufficiently large $n$, the distribution of $\hat{p}$ can be approximated by a normal distribution. An approximate $100(1-\alpha)\%$ confidence interval for the probability $p$ is then:
 \[
 \hat{p} \pm z_{1-\alpha/2} \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
 \]
-dove $z_{1-\alpha/2}$ è il quantile della distribuzione normale standard.
+where $z_{1-\alpha/2}$ is the quantile of the standard normal distribution.
 
-Questo approccio consente di stimare in modo rigoroso probabilità e proporzioni di interesse, fornendo una visione più completa delle prestazioni del sistema rispetto alla sola analisi dei valori medi. In particolare, esso è particolarmente utile nel confronto tra sistemi alternativi, quando la probabilità di eventi critici o di violazioni di soglie operative riveste un ruolo centrale nel processo decisionale.
+This approach makes it possible to rigorously estimate probabilities and proportions of interest, providing a more complete view of the system performance than the analysis of mean values alone. In particular, it is especially useful when comparing alternative systems, when the probability of critical events or of violations of operational thresholds plays a central role in the decision-making process.
 
-\section{Statistical Analysis for Steady-State Parameters}
+\section{Output Analysis for Nonterminating Simulations}
+
+\subsection{Steady-State Parameters and Initial Conditions}
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \vspace{-10pt}
@@ -259,47 +264,47 @@ Questo approccio consente di stimare in modo rigoroso probabilità e proporzioni
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-Si consideri un \textbf{processo stocastico di output} $Y_1, Y_2, \dots$ ottenuto da una singola esecuzione di una \textbf{nonterminating simulation}. Supponiamo che la distribuzione delle osservazioni converga nel tempo, ossia che:
+Consider an \textbf{output stochastic process} $Y_1, Y_2, \dots$ obtained from a single run of a \textbf{nonterminating simulation}. Suppose that the distribution of the observations converges over time, that is:
 \[
 P(Y_i \le y) = F_i(y) \longrightarrow F(y) = P(Y \le y)
-\quad \text{per } i \to \infty,
+\quad \text{for } i \to \infty,
 \]
-dove $Y$ è la variabile casuale di interesse in \textbf{steady-state}, con funzione di distribuzione $F$.
+where $Y$ is the random variable of interest in \textbf{steady-state}, with distribution function $F$.
 
-Una quantità $\phi$ è detta \textbf{steady-state parameter} se rappresenta una caratteristica della distribuzione stazionaria di $Y$. Esempi tipici di steady-state parameters includono:
+A quantity $\phi$ is called a \textbf{steady-state parameter} if it represents a characteristic of the stationary distribution of $Y$. Typical examples of steady-state parameters include:
 \begin{compactitemize}
-    \item il valore atteso $E[Y]$;
-    \item una probabilità del tipo $P(Y \le y)$;
-    \item un quantile della distribuzione di $Y$.
+    \item the expected value $E[Y]$;
+    \item a probability of the type $P(Y \le y)$;
+    \item a quantile of the distribution of $Y$.
 \end{compactitemize}
 
-Una difficoltà fondamentale nella stima di $\phi$ è dovuta al fatto che, in generale, la distribuzione delle osservazioni iniziali $Y_i$ non coincide con la distribuzione stazionaria $F$. Questo accade perché non è normalmente possibile scegliere condizioni iniziali $I$ che siano realmente rappresentative del comportamento di steady-state del sistema.
+A fundamental difficulty in estimating $\phi$ is due to the fact that, in general, the distribution of the initial observations $Y_i$ does not coincide with the stationary distribution $F$. This happens because it is not normally possible to choose initial conditions $I$ that are truly representative of the steady-state behaviour of the system.
 
-La conseguenza diretta è che uno stimatore di $\phi$ basato sulle osservazioni $Y_1, Y_2, \dots, Y_m$ risulta \textbf{non rappresentativo} del regime stazionario. Ad esempio, la media campionaria:
+The direct consequence is that an estimator of $\phi$ based on the observations $Y_1, Y_2, \dots, Y_m$ turns out to be \textbf{not representative} of the stationary regime. For example, the sample mean:
 \[
 \bar{Y}_m = \frac{1}{m} \sum_{i=1}^{m} Y_i
 \]
-è un estimatore \textbf{biased} del valore atteso stazionario $E[Y]$ per qualunque valore finito di $m$. Questo fenomeno è noto come \textbf{problem of the initial transient}, o anche \textbf{startup problem}.
+is a \textbf{biased} estimator of the stationary expected value $E[Y]$ for any finite value of $m$. This phenomenon is known as the \textbf{problem of the initial transient}, or also the \textbf{startup problem}.
 
-Per chiarire questo aspetto, si consideri il processo dei ritardi $D_1, D_2, \dots$ in una coda \textbf{$M/M/1$} con server utilization $\rho < 1$. Dalla teoria delle code è noto che la distribuzione stazionaria del ritardo $D$ è:
+To clarify this aspect, consider the process of the delays $D_1, D_2, \dots$ in an \textbf{$M/M/1$} queue with server utilization $\rho < 1$. From queueing theory it is known that the stationary distribution of the delay $D$ is:
 \[
 P(D \le y) = 1 - \rho + \rho\left(1 - e^{-(\mu - \lambda)y}\right).
 \]
 
-Se il numero di clienti presenti nel sistema all’istante iniziale $t=0$ è pari a zero, allora $D_1 = 0$ e, più in generale, vale che:
+If the number of customers present in the system at the initial instant $t=0$ is equal to zero, then $D_1 = 0$ and, more generally, it holds that:
 \[
-E[D_i] \neq E[D] = d \quad \text{per ogni } i,
+E[D_i] \neq E[D] = d \quad \text{for every } i,
 \]
-ossia nessuna delle osservazioni iniziali ha media uguale al valore medio stazionario.
+that is, none of the initial observations has a mean equal to the stationary mean value.
 
-Al contrario, se il numero iniziale di clienti nel sistema è scelto in accordo con la \textbf{distribuzione stazionaria del numero di clienti nel sistema}, allora le osservazioni risultano immediatamente rappresentative del regime di steady-state, e vale che:
+On the contrary, if the initial number of customers in the system is chosen according to the \textbf{stationary distribution of the number of customers in the system}, then the observations are immediately representative of the steady-state regime, and it holds that:
 \[
 P(D_i \le y) = P(D \le y), \qquad E[D_i] = d.
 \]
 
-Questo esempio evidenzia come la scelta delle condizioni iniziali influenzi in modo sostanziale l’analisi statistica dei parametri stazionari e motiva la necessità di tecniche specifiche per gestire il problema del transitorio iniziale nelle simulazioni nonterminating.
+This example highlights how the choice of the initial conditions substantially influences the statistical analysis of stationary parameters and motivates the need for specific techniques to handle the initial transient problem in nonterminating simulations.
 
-\section{The Problem of the Initial Transient}
+\subsection{The Problem of the Initial Transient}
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \vspace{-10pt}
@@ -307,45 +312,45 @@ Questo esempio evidenzia come la scelta delle condizioni iniziali influenzi in m
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-Si supponga di voler stimare il \textbf{valore medio in steady-state}:
+Suppose we want to estimate the \textbf{steady-state mean value}:
 \[
 \nu = E[Y],
 \]
-che può essere formalmente definito come:
+which can be formally defined as:
 \[
 \nu = \lim_{i \to \infty} E[Y_i],
 \]
-dove $Y_1, Y_2, \dots$ è un processo stocastico di output generato da una nonterminating simulation.
+where $Y_1, Y_2, \dots$ is an output stochastic process generated by a nonterminating simulation.
 
-La conseguenza più rilevante del \textbf{problema del transitorio iniziale} è che, in generale,
+The most relevant consequence of the \textbf{initial transient problem} is that, in general,
 \[
 E[\bar{Y}_m] \neq \nu,
 \]
-dove:
+where:
 \[
 \bar{Y}_m = \frac{1}{m} \sum_{i=1}^{m} Y_i
 \]
-è la media campionaria calcolata sulle prime $m$ osservazioni. Ciò implica che, per qualunque valore finito di $m$, la media campionaria risulta un estimatore \textbf{biased} del valore medio stazionario.
+is the sample mean computed on the first $m$ observations. This implies that, for any finite value of $m$, the sample mean is a \textbf{biased} estimator of the stationary mean value.
 
-La tecnica più comunemente adottata per ridurre l’effetto del transitorio iniziale è il cosiddetto \textbf{warming up} del modello, noto anche come \textbf{initial-data deletion}. L’idea è quella di eliminare un certo numero di osservazioni iniziali, che sono maggiormente influenzate dalle condizioni iniziali del sistema, e utilizzare solo le osservazioni rimanenti per stimare $\nu$.
+The most commonly adopted technique to reduce the effect of the initial transient is the so-called \textbf{warming up} of the model, also known as \textbf{initial-data deletion}. The idea is to delete a certain number of initial observations, which are most influenced by the initial conditions of the system, and to use only the remaining observations to estimate $\nu$.
 
-Formalmente, fissato un intero $l \ge 0$, si definisce lo stimatore:
+Formally, given an integer $l \ge 0$, the estimator is defined as:
 \[
 \bar{Y}_{m,l} = \frac{1}{m-l} \sum_{i=l+1}^{m} Y_i.
 \]
 
-L’intuizione alla base di questo approccio è che $\bar{Y}_{m,l}$ dovrebbe presentare un bias inferiore rispetto a $\bar{Y}_m$, poiché le osservazioni all’inizio della simulazione potrebbero non essere rappresentative del comportamento in steady-state.
+The intuition behind this approach is that $\bar{Y}_{m,l}$ should have a lower bias than $\bar{Y}_m$, since the observations at the beginning of the simulation may not be representative of the steady-state behaviour.
 
-La scelta del \textbf{warm-up period} $l$ rappresenta tuttavia un problema delicato. In particolare, si desidera selezionare $l$ (e $m$) in modo tale che:
+The choice of the \textbf{warm-up period} $l$, however, is a delicate problem. In particular, we want to select $l$ (and $m$) such that:
 \[
 E[\bar{Y}_{m,l}] \approx \nu.
 \]
 
-Se $l$ e $m$ sono scelti troppo piccoli, il bias residuo dovuto al transitorio iniziale può essere ancora significativo, compromettendo l’accuratezza della stima. Al contrario, se $l$ è scelto troppo grande, si eliminano inutilmente molte osservazioni, con il risultato di aumentare la varianza di $\bar{Y}_{m,l}$.
+If $l$ and $m$ are chosen too small, the residual bias due to the initial transient can still be significant, compromising the accuracy of the estimate. On the contrary, if $l$ is chosen too large, many observations are needlessly deleted, with the result of increasing the variance of $\bar{Y}_{m,l}$.
 
-È quindi necessario trovare un compromesso tra riduzione del bias e contenimento della varianza. Una tecnica semplice e di uso generale per determinare un valore appropriato di $l$ è rappresentata da una \textbf{procedura grafica}, che consente di individuare empiricamente il punto a partire dal quale il processo di output può essere considerato sufficientemente vicino al regime stazionario.
+It is therefore necessary to find a compromise between bias reduction and variance containment. A simple and general-purpose technique to determine an appropriate value of $l$ is a \textbf{graphical procedure}, which makes it possible to empirically identify the point from which the output process can be considered sufficiently close to the stationary regime.
 
-\section{Welch’s Procedure}
+\subsection{Welch’s Procedure}
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \vspace{-10pt}
@@ -353,58 +358,58 @@ Se $l$ e $m$ sono scelti troppo piccoli, il bias residuo dovuto al transitorio i
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-Come discusso in precedenza, una tecnica semplice e di uso generale per determinare il
-\textbf{warm-up period} $l$ è una procedura grafica, nota come \textbf{Welch’s procedure}.
-Lo stimatore utilizzato per il valore medio in steady-state è:
+As discussed previously, a simple and general-purpose technique to determine the
+\textbf{warm-up period} $l$ is a graphical procedure, known as \textbf{Welch’s procedure}.
+The estimator used for the steady-state mean value is:
 \[
 \bar{Y}_{m,l} = \frac{1}{m-l} \sum_{i=l+1}^{m} Y_i,
 \]
-dove $l$ rappresenta il numero di osservazioni iniziali eliminate e $m$ la lunghezza totale
-della simulazione.
+where $l$ represents the number of initial observations deleted and $m$ the total length
+of the simulation.
 
-L’obiettivo della Welch’s procedure è determinare un valore di $l$ tale che:
+The goal of Welch’s procedure is to determine a value of $l$ such that:
 \[
 E[\bar{Y}_{m,l}] \approx \nu,
 \]
-dove $\nu$ è il valore medio in steady-state. In modo equivalente, il problema consiste
-nell’individuare l’istante a partire dal quale la curva del valore atteso transitorio
-$E[Y_i]$ si stabilizza (``flattens-out'') attorno al livello $\nu$.
+where $\nu$ is the steady-state mean value. Equivalently, the problem consists of
+identifying the instant from which the curve of the transient expected value
+$E[Y_i]$ stabilizes (``flattens-out'') around the level $\nu$.
 
-Poiché è in generale molto difficile identificare tale punto a partire da una singola
-replica, a causa dell’elevata variabilità del processo stocastico, la Welch’s procedure
-utilizza più repliche e tecniche di smoothing.
+Since it is in general very difficult to identify this point from a single
+replication, because of the high variability of the stochastic process, Welch’s procedure
+uses several replications and smoothing techniques.
 
-La procedura può essere descritta come segue:
+The procedure can be described as follows:
 \begin{enumerate}
-    \item eseguire $n$ repliche indipendenti della simulazione ($n \ge 5$), ciascuna di
-    lunghezza $m$ sufficientemente grande. Sia $Y_{ji}$ l’osservazione $i$-esima della
-    $j$-esima replica;
-    \item calcolare, per ogni $i$, la media sulle repliche:
+    \item run $n$ independent replications of the simulation ($n \ge 5$), each of
+    sufficiently large length $m$. Let $Y_{ji}$ be the $i$-th observation of the
+    $j$-th replication;
+    \item compute, for each $i$, the average over the replications:
     \[
     \tilde{Y}_i = \frac{1}{n} \sum_{j=1}^{n} Y_{ji},
     \]
-    che soddisfa $E[\tilde{Y}_i] = E[Y_i]$ e
+    which satisfies $E[\tilde{Y}_i] = E[Y_i]$ and
     $\operatorname{Var}(\tilde{Y}_i) = \operatorname{Var}(Y_i)/n$;
-    \item per ridurre le oscillazioni ad alta frequenza, definire una media mobile
+    \item to reduce the high-frequency oscillations, define a moving average
     $\tilde{Y}_i^{(w)}$:
     \[
     \tilde{Y}_i^{(w)} =
     \begin{cases}
     \displaystyle
-    \frac{1}{2w+1} \sum_{s=-w}^{w} \tilde{Y}_{i+s}, 
+    \frac{1}{2w+1} \sum_{s=-w}^{w} \tilde{Y}_{i+s},
     & i = w+1, \dots, m-w, \\[8pt]
     \displaystyle
     \frac{1}{2i+1} \sum_{s=-(i-1)}^{i-1} \tilde{Y}_{i+s},
     & i = 1, \dots, w;
     \end{cases}
     \]
-    \item tracciare il grafico di $\tilde{Y}_i^{(w)}$ e scegliere $l$ come il primo indice
-    temporale oltre il quale la curva appare stabilizzata.
+    \item plot $\tilde{Y}_i^{(w)}$ and choose $l$ as the first time index
+    beyond which the curve appears to have stabilized.
 \end{enumerate}
 
-Il valore di $l$ così ottenuto viene quindi utilizzato nello stimatore
-$\bar{Y}_{m,l}$ per eliminare l’effetto del transitorio iniziale nelle analisi di
-steady-state.
+The value of $l$ obtained in this way is then used in the estimator
+$\bar{Y}_{m,l}$ to eliminate the effect of the initial transient in
+steady-state analyses.
 
 \begin{figure}[H]
     \centering
@@ -422,154 +427,154 @@ steady-state.
     \label{STMCR}
 \end{figure}
 
-\section{Replication/Deletion Approach}
+\subsection{Replication/Deletion Approach}
 
-Una volta determinato il valore del \textbf{warm-up period} $l$ mediante la Welch’s graphical
-procedure, è possibile utilizzare il \textbf{replication/deletion approach} per ottenere
-una stima puntuale e un intervallo di confidenza per il valore medio in steady-state
+Once the value of the \textbf{warm-up period} $l$ has been determined through Welch’s graphical
+procedure, it is possible to use the \textbf{replication/deletion approach} to obtain
+a point estimate and a confidence interval for the steady-state mean value
 \[
 \nu = E[Y].
 \]
 
-L’idea di base consiste nell’eseguire più repliche indipendenti della simulazione e,
-all’interno di ciascuna replica, eliminare le osservazioni iniziali corrispondenti al
-periodo transitorio.
+The basic idea consists of running several independent replications of the simulation and,
+within each replication, deleting the initial observations corresponding to the
+transient period.
 
-Si effettuino $n'$ repliche indipendenti della simulazione, ciascuna di lunghezza $m'$,
-con $m' \gg l$. Si indichi con $Y_{ji}$ l’osservazione $i$-esima della $j$-esima replica.
-Per ciascuna replica, si definisce la variabile casuale:
+Perform $n'$ independent replications of the simulation, each of length $m'$,
+with $m' \gg l$. Denote by $Y_{ji}$ the $i$-th observation of the $j$-th replication.
+For each replication, the random variable is defined:
 \[
 X_j = \frac{1}{m' - l} \sum_{i=l+1}^{m'} Y_{ji},
 \qquad j = 1,2,\dots,n'.
 \]
 
-Poiché le osservazioni iniziali sono state eliminate, ciascuna variabile $X_j$ può essere
-considerata una stima del valore medio in steady-state, e vale approssimativamente:
+Since the initial observations have been deleted, each variable $X_j$ can be
+considered an estimate of the steady-state mean value, and approximately:
 \[
 E[X_j] \approx \nu.
 \]
 
-Assumendo l’indipendenza tra le repliche, le variabili $X_1, X_2, \dots, X_{n'}$ possono
-essere trattate come \textbf{IID}. Di conseguenza, è possibile applicare le tecniche
-statistiche standard per stimare $\nu$.
+Assuming independence between the replications, the variables $X_1, X_2, \dots, X_{n'}$ can
+be treated as \textbf{IID}. Consequently, it is possible to apply standard statistical
+techniques to estimate $\nu$.
 
-La media campionaria:
+The sample mean:
 \[
 \bar{X}_{n'} = \frac{1}{n'} \sum_{j=1}^{n'} X_j
 \]
-fornisce una stima puntuale di $\nu$, mentre la varianza campionaria:
+provides a point estimate of $\nu$, while the sample variance:
 \[
 S^2(n') = \frac{1}{n'-1} \sum_{j=1}^{n'} (X_j - \bar{X}_{n'})^2
 \]
-è utilizzata per quantificare la variabilità tra le repliche.
+is used to quantify the variability between the replications.
 
-Un intervallo di confidenza approssimato al livello $100(1-\alpha)\%$ per il valore medio
-in steady-state è quindi dato da:
+An approximate $100(1-\alpha)\%$ confidence interval for the steady-state mean value
+is therefore given by:
 \[
 \bar{X}_{n'} \pm t_{n'-1,\,1-\alpha/2} \sqrt{\frac{S^2(n')}{n'}}.
 \]
 
-Il replication/deletion approach combina quindi due idee fondamentali dell’output data
-analysis: l’eliminazione del transitorio iniziale all’interno di ciascuna replica e
-l’utilizzo di repliche indipendenti per ottenere stime affidabili e intervalli di
-confidenza statisticamente validi per i parametri di steady-state.
+The replication/deletion approach therefore combines two fundamental ideas of output data
+analysis: the deletion of the initial transient within each replication and
+the use of independent replications to obtain reliable estimates and statistically valid
+confidence intervals for steady-state parameters.
 
-\section{Estimating Other Measures of Performance}
+\subsection{Estimating Steady-State Probabilities}
 
-Come discusso in precedenza, il valore medio di una misura di performance non è
-sempre sufficiente a descrivere in modo completo il comportamento di un sistema.
-In molti contesti applicativi, basarsi esclusivamente sulla media può condurre a
-conclusioni fuorvianti, specialmente quando la distribuzione delle prestazioni
-presenta elevata variabilità o code pesanti.
+As discussed previously, the mean value of a performance measure is not
+always sufficient to completely describe the behaviour of a system.
+In many application contexts, relying exclusively on the mean can lead to
+misleading conclusions, especially when the distribution of performance
+has high variability or heavy tails.
 
-Per questo motivo, risulta spesso necessario stimare \textbf{parametri di steady-state}
-$\phi$ diversi dalla media
+For this reason, it is often necessary to estimate \textbf{steady-state parameters}
+$\phi$ other than the mean
 \[
 \nu = E[Y],
 \]
-dove $Y$ rappresenta la variabile casuale di interesse in steady-state.
+where $Y$ represents the random variable of interest in steady-state.
 
-Un esempio particolarmente importante è la stima di una \textbf{probabilità di
-steady-state}. Si supponga di voler stimare:
+A particularly important example is the estimation of a \textbf{steady-state
+probability}. Suppose we want to estimate:
 \[
 p = P(Y \in B),
 \]
-dove $B$ è un sottoinsieme dei numeri reali che rappresenta una condizione di
-interesse (ad esempio, un ritardo superiore a una certa soglia).
+where $B$ is a subset of the real numbers that represents a condition of
+interest (for example, a delay above a certain threshold).
 
-Tale problema può essere ricondotto alla stima di una media introducendo una
-variabile indicatrice $Z$ definita come:
+This problem can be traced back to the estimation of a mean by introducing an
+indicator variable $Z$ defined as:
 \[
 Z =
 \begin{cases}
-1 & \text{se } Y \in B, \\
-0 & \text{altrimenti}.
+1 & \text{if } Y \in B, \\
+0 & \text{otherwise}.
 \end{cases}
 \]
 
-Per definizione, vale che:
+By definition, it holds that:
 \[
 P(Y \in B) = P(Z = 1).
 \]
-Osservando che:
+Observing that:
 \[
 E[Z] = 1 \cdot P(Z = 1) + 0 \cdot P(Z = 0) = P(Z = 1),
 \]
-si ottiene:
+we obtain:
 \[
 P(Y \in B) = E[Z].
 \]
 
-Ne segue che la stima di una probabilità di steady-state è un caso particolare
-della stima del valore medio di una variabile casuale. Di conseguenza, tutte le
-tecniche sviluppate per la stima della media in steady-state, come il
-replication/deletion approach o altre procedure di output data analysis, possono
-essere applicate direttamente anche alla stima di probabilità e, più in generale,
-di altri parametri di performance basati su funzioni indicatrici.
+It follows that the estimation of a steady-state probability is a special case
+of the estimation of the mean value of a random variable. Consequently, all the
+techniques developed for estimating the steady-state mean, such as the
+replication/deletion approach or other output data analysis procedures, can
+be applied directly also to the estimation of probabilities and, more generally,
+of other performance parameters based on indicator functions.
 
-Questo approccio consente di estendere in modo naturale l’analisi delle prestazioni
-a misure più informative rispetto alla sola media, migliorando la capacità di
-valutare e confrontare sistemi o politiche alternative.
+This approach makes it possible to naturally extend performance analysis
+to measures that are more informative than the mean alone, improving the ability to
+evaluate and compare alternative systems or policies.
 
-\section{Statistical Analysis for Steady-State Cycle Parameters}
+\subsection{Steady-State Cycle Parameters}
 
-In alcuni sistemi reali, il processo di output
+In some real systems, the output process
 \[
 Y_1, Y_2, \dots
 \]
-non ammette una distribuzione di steady-state. Ciò può avvenire, ad esempio, quando
-le caratteristiche del sistema evolvono nel tempo oppure quando il processo presenta
-andamenti ciclici intrinseci.
+does not admit a steady-state distribution. This can happen, for example, when
+the characteristics of the system evolve over time or when the process exhibits
+intrinsic cyclic patterns.
 
-Si supponga tuttavia che sia possibile individuare una \textbf{definizione appropriata
-di ciclo} tale per cui, suddividendo l’evoluzione del sistema in cicli consecutivi,
-il processo associato ai cicli:
+Suppose, however, that it is possible to identify an \textbf{appropriate definition
+of cycle} such that, by dividing the evolution of the system into consecutive cycles,
+the process associated with the cycles:
 \[
 Y_1^{C}, Y_2^{C}, \dots
 \]
-ammetta una distribuzione di steady-state, indicata con $F_C$. In questo caso, la
-variabile casuale $Y^{C}$, con distribuzione $F_C$, rappresenta l’output di interesse
-a livello di ciclo.
+admits a steady-state distribution, denoted by $F_C$. In this case, the
+random variable $Y^{C}$, with distribution $F_C$, represents the output of interest
+at the cycle level.
 
-Una \textbf{steady-state cycle parameter} è quindi definita come una qualsiasi
-caratteristica della distribuzione di $Y^{C}$, ad esempio:
+A \textbf{steady-state cycle parameter} is therefore defined as any
+characteristic of the distribution of $Y^{C}$, for example:
 \[
-E[Y^{C}], \quad P(Y^{C} \le y), \quad \text{oppure un quantile di } Y^{C}.
+E[Y^{C}], \quad P(Y^{C} \le y), \quad \text{or a quantile of } Y^{C}.
 \]
 
-È importante osservare che la stima di un parametro di steady-state a livello di ciclo
-non introduce concetti statisticamente nuovi: essa rappresenta semplicemente un
-\textbf{caso particolare della stima di un parametro di steady-state}. Di conseguenza,
-tutte le tecniche sviluppate per l’analisi statistica dei parametri di steady-state
-possono essere applicate direttamente alle variabili casuali di ciclo
+It is important to observe that the estimation of a steady-state parameter at the cycle level
+does not introduce statistically new concepts: it simply represents a
+\textbf{special case of the estimation of a steady-state parameter}. Consequently,
+all the techniques developed for the statistical analysis of steady-state parameters
+can be applied directly to the cycle random variables
 \[
 Y_1^{C}, Y_2^{C}, \dots
 \]
 
-In pratica, una volta definito correttamente il ciclo e verificata l’esistenza di una
-distribuzione stazionaria per il processo ciclico, l’output data analysis procede in
-modo del tutto analogo ai casi già studiati, consentendo di ottenere stime puntuali e
-intervalli di confidenza per i parametri di interesse.
+In practice, once the cycle has been correctly defined and the existence of a
+stationary distribution for the cyclic process has been verified, output data analysis proceeds
+in a completely analogous way to the cases already studied, making it possible to obtain point estimates and
+confidence intervals for the parameters of interest.
 
 \begin{figure}[H]
     \centering
@@ -589,62 +594,62 @@ intervalli di confidenza per i parametri di interesse.
 
 \section{Multiple Measures of Performance}
 
-Fino a questo punto sono state considerate procedure statistiche per la costruzione
-di intervalli di confidenza relativi a una singola misura di performance. Tuttavia,
-nelle applicazioni reali della simulazione è frequente che l’analista sia interessato
-a valutare \textbf{più misure di performance simultaneamente}, come ritardi medi,
-utilization delle risorse, probabilità di congestione e throughput.
+So far, statistical procedures have been considered for building
+confidence intervals for a single performance measure. However,
+in real simulation applications it is common for the analyst to be interested
+in evaluating \textbf{several performance measures simultaneously}, such as average delays,
+resource utilization, congestion probabilities and throughput.
 
-Si supponga che, per ciascuna misura di performance $\mu_s$, con
+Suppose that, for each performance measure $\mu_s$, with
 \[
 s = 1,2,\dots,k,
 \]
-sia stato costruito un intervallo di confidenza $I_s$ al livello
-$100(1-\alpha_s)\%$.
+a confidence interval $I_s$ at level
+$100(1-\alpha_s)\%$ has been built.
 
-L’interesse è rivolto alla probabilità che \emph{tutti} gli intervalli di confidenza
-contengano simultaneamente i rispettivi valori veri. Tale probabilità è limitata
-inferiormente dalla \textbf{disuguaglianza di Bonferroni}, secondo la quale vale:
+The interest is in the probability that \emph{all} the confidence intervals
+simultaneously contain the respective true values. This probability is bounded
+from below by the \textbf{Bonferroni inequality}, according to which:
 \[
-P\left( \mu_s \in I_s \text{ per tutti } s = 1,2,\dots,k \right)
+P\left( \mu_s \in I_s \text{ for all } s = 1,2,\dots,k \right)
 \;\ge\;
 1 - \sum_{s=1}^{k} \alpha_s.
 \]
 
-Questa relazione mostra che, all’aumentare del numero di misure di performance $k$,
-la probabilità complessiva che tutti gli intervalli siano simultaneamente corretti
-può ridursi in modo significativo.
+This relation shows that, as the number of performance measures $k$ increases,
+the overall probability that all the intervals are simultaneously correct
+can decrease significantly.
 
-Ad esempio, se si costruiscono $k=10$ intervalli di confidenza al $90\%$ per ciascuna
-misura, si ha $\alpha_s = 0.1$ per ogni $s$ e quindi:
+For example, if $k=10$ confidence intervals at $90\%$ are built for each
+measure, we have $\alpha_s = 0.1$ for every $s$ and therefore:
 \[
 1 - \sum_{s=1}^{10} \alpha_s = 1 - 1 = 0.
 \]
-In questo caso, non è possibile garantire alcun livello di confidenza complessivo
-positivo per l’insieme degli intervalli, nonostante ciascun intervallo singolo abbia
-un’elevata affidabilità.
+In this case, it is not possible to guarantee any positive overall confidence level
+for the set of intervals, even though each single interval has
+high reliability.
 
-Una \textbf{soluzione pratica} consiste nello scegliere i livelli di significatività
-$\alpha_s$ in modo tale che:
+A \textbf{practical solution} consists of choosing the significance levels
+$\alpha_s$ such that:
 \[
 \sum_{s=1}^{k} \alpha_s = \alpha,
 \]
-dove $\alpha$ rappresenta il livello di significatività complessivo desiderato.
+where $\alpha$ represents the desired overall significance level.
 
-Ad esempio, se si desidera un livello di confidenza globale di almeno $90\%$
-($\alpha = 0.1$) per $k=10$ misure di performance, è possibile costruire dieci
-intervalli di confidenza al $99\%$ per ciascuna misura. In questo modo, la probabilità
-che tutti gli intervalli contengano i rispettivi valori veri è garantita essere almeno
-pari al $90\%$.
+For example, if a global confidence level of at least $90\%$
+($\alpha = 0.1$) is desired for $k=10$ performance measures, it is possible to build ten
+$99\%$ confidence intervals, one for each measure. In this way, the probability
+that all the intervals contain the respective true values is guaranteed to be at least
+$90\%$.
 
-Lo svantaggio di questo approccio è che i singoli intervalli di confidenza risultano
-più ampi rispetto a quelli costruiti senza tener conto del problema della
-simultaneità. Per questo motivo, una raccomandazione pratica è quella di limitare il
-numero di misure di performance considerate simultaneamente, tipicamente a
+The disadvantage of this approach is that the single confidence intervals turn out to be
+wider than those built without taking into account the
+simultaneity problem. For this reason, a practical recommendation is to limit the
+number of performance measures considered simultaneously, typically to
 \[
 k \le 10.
 \]
 
-Questa analisi evidenzia l’importanza di considerare la dipendenza tra inferenze
-statistiche quando si valutano più indicatori di performance all’interno di uno
-studio di simulazione.
+This analysis highlights the importance of considering the dependence between statistical
+inferences when evaluating several performance indicators within a
+simulation study.

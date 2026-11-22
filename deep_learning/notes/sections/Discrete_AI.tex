@@ -420,7 +420,8 @@ This proccess lead at the fact that this infernce cannot be parallelized and the
 \subsection{Causal Convolutions}
 
 In autoregressive models, such as PixelCNN, it is crucial to ensure that the prediction at position \((i,j)\) only depends on previously generated positions. This is necessary to avoid \textbf{information leakage}, i.e., the network accidentally using information from pixels it is supposed to predict.  
-\begin{wrapfigure}{r}{0.2\textwidth}
+
+\begin{wrapfigure}{r}{0.14\textwidth}
     \centering
     \vspace{-10pt}
     \includegraphics[width=\linewidth]{images/D7.png}

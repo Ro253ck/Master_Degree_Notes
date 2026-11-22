@@ -1,5 +1,5 @@
 \chapter{Simulation Modeling}
-In questo capitolo rispoderemo a quattro domande fondamentali, che sono:
+In this chapter we will answer four fundamental questions, which are:
 \begin{compactitemize}
     \item What is \textbf{Simulation}?
     \item What is a \textbf{System}?
@@ -9,10 +9,10 @@ In questo capitolo rispoderemo a quattro domande fondamentali, che sono:
 
 \section{What is Simulation?}
 
-La \textbf{simulation} può essere definita, in senso molto generale, come il processo di progettazione di un modello di un sistema reale e di conduzione di esperimenti su tale modello con l’obiettivo di:
+\textbf{Simulation} can be defined, in a very general sense, as the process of designing a model of a real system and conducting experiments on that model with the goal of:
 \begin{compactitemize}
-    \item comprendere il comportamento del sistema nel tempo;
-    \item valutare diverse strategie per il funzionamento del sistema.
+    \item understanding the behaviour of the system over time;
+    \item evaluating different strategies for the operation of the system.
 \end{compactitemize}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
@@ -22,43 +22,43 @@ La \textbf{simulation} può essere definita, in senso molto generale, come il pr
     \label{fig:Scaled Dot Product Attention}
     \vspace{-10pt}
 \end{wrapfigure}
-Questa è una definizione volutamente ampia e di alto livello: l’idea centrale è che, invece di intervenire direttamente sul sistema reale, si costruisce una sua rappresentazione semplificata e si studiano gli effetti delle decisioni in un ambiente controllato.
+This is a deliberately broad, high-level definition: the central idea is that, instead of intervening directly on the real system, a simplified representation of it is built and the effects of decisions are studied in a controlled environment.
 
-In modo più formale, una simulazione è l’imitazione del funzionamento di un sistema reale lungo l’asse temporale. Essa richiede innanzitutto la definizione di un insieme di assunzioni sul sistema, poi la generazione di una \emph{artificial history} del sistema stesso e infine l’osservazione di tale storia per trarre inferenze sulle caratteristiche operative del sistema.
+More formally, a simulation is the imitation of the operation of a real system along the time axis. It first of all requires the definition of a set of assumptions about the system, then the generation of an \emph{artificial history} of the system itself and finally the observation of that history to draw inferences about the operating characteristics of the system.
 
 \subsection{Objectives of Simulation}
 
-L’uso della simulazione risponde essenzialmente a due grandi obiettivi.  
-Il primo è l’osservazione del comportamento di un sistema così com’è, cioè una classica analisi \textbf{AS-IS}. In questo caso si vogliono misurare metriche di performance, individuare colli di bottiglia o comprendere le dinamiche interne del sistema.
+The use of simulation essentially responds to two main objectives.
+The first is observing the behaviour of a system as it is, that is, a classic \textbf{AS-IS} analysis. In this case we want to measure performance metrics, identify bottlenecks or understand the internal dynamics of the system.
 
-Il secondo obiettivo è l’ottimizzazione del sistema, in una logica \textbf{TO-BE}. Qui la simulazione viene usata per rispondere a domande di tipo \emph{what-if}: cosa succederebbe se modificassimo una componente del sistema? Se cambiassimo una regola decisionale? Se introducessimo una nuova tecnologia? In questo modo è possibile valutare alternative senza doverle implementare nel mondo reale.
+The second objective is the optimization of the system, in a \textbf{TO-BE} logic. Here simulation is used to answer \emph{what-if} questions: what would happen if we modified a component of the system? If we changed a decision rule? If we introduced a new technology? In this way it is possible to evaluate alternatives without having to implement them in the real world.
 
 \subsection{Simulation as a Process: System, Model, Simulation}
 
-È fondamentale chiarire che la simulazione è un \textbf{processo}, non un singolo oggetto.  
-Il processo segue uno schema concettuale molto preciso:
+It is fundamental to clarify that simulation is a \textbf{process}, not a single object.
+The process follows a very precise conceptual scheme:
 
 \begin{center}
 \textbf{System} $\longrightarrow$ \textbf{Model} $\longrightarrow$ \textbf{Simulation}
 \end{center}
 
-Il \textbf{system} è il sistema reale che vogliamo studiare, ad esempio una banca, un magazzino o una supply chain.  
-Dal sistema si costruisce un \textbf{model}, che non è altro che una \emph{approssimazione} e una \emph{semplificazione} del sistema reale. Il modello non include tutto, ma solo quegli aspetti che sono rilevanti per gli obiettivi dello studio.  
-Infine, dal modello si ottiene la \textbf{simulation}, ovvero l’esecuzione del modello nel tempo per produrre dati artificiali da analizzare.
+The \textbf{system} is the real system we want to study, for example a bank, a warehouse or a supply chain.
+From the system a \textbf{model} is built, which is nothing but an \emph{approximation} and a \emph{simplification} of the real system. The model does not include everything, but only those aspects that are relevant to the objectives of the study.
+Finally, from the model we obtain the \textbf{simulation}, that is, the execution of the model over time to produce artificial data to be analysed.
 
-Questo punto è cruciale: \emph{la simulazione non apprende nulla dal sistema reale direttamente}, ma solo da ciò che il modello rappresenta. Di conseguenza, la qualità dei risultati della simulazione dipende interamente dalla qualità del modello.
+This point is crucial: \emph{the simulation does not learn anything directly from the real system}, but only from what the model represents. Consequently, the quality of the simulation results depends entirely on the quality of the model.
 
 \subsection{Simulation Techniques}
 
-In alcuni casi i modelli sono sufficientemente semplici da poter essere analizzati con strumenti matematici classici, come la probabilità, il calcolo differenziale o la programmazione matematica. In queste situazioni è possibile ottenere soluzioni analitiche esatte.
+In some cases the models are simple enough to be analysed with classic mathematical tools, such as probability, differential calculus or mathematical programming. In these situations it is possible to obtain exact analytical solutions.
 
-Tuttavia, molti sistemi reali mostrano un elevato livello di complessità: comportamenti non lineari, interazioni multiple, eventi casuali e dipendenze temporali rendono impossibile o impraticabile una soluzione analitica. In questi casi si ricorre a modelli di simulazione basati su calcolo computazionale.
+However, many real systems show a high level of complexity: non-linear behaviours, multiple interactions, random events and temporal dependencies make an analytical solution impossible or impractical. In these cases we resort to simulation models based on computation.
 
 \subsection{When Simulation Is Appropriate}
 
-La simulazione è uno strumento particolarmente adatto quando si vuole studiare il funzionamento interno di un sistema complesso, analizzare l’effetto di cambiamenti organizzativi o ambientali, comprendere come le variazioni degli input influenzino gli output, verificare soluzioni analitiche oppure supportare attività di formazione e training.
+Simulation is a particularly suitable tool when we want to study the internal operation of a complex system, analyse the effect of organizational or environmental changes, understand how variations of the inputs affect the outputs, verify analytical solutions or support education and training activities.
 
-In tutti questi casi, il vantaggio principale è la possibilità di sperimentare senza rischi sul sistema reale.
+In all these cases, the main advantage is the possibility of experimenting without risks for the real system.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/L1.png}
@@ -66,69 +66,69 @@ In tutti questi casi, il vantaggio principale è la possibilità di sperimentare
 \end{figure}
 \subsection{When Simulation Is \emph{Not} the Appropriate Tool}
 
-È altrettanto importante capire quando \textbf{la simulazione non è lo strumento giusto}. Un uso improprio della simulazione può portare a risultati fuorvianti, spreco di risorse e decisioni errate.
+It is equally important to understand when \textbf{simulation is not the right tool}. An improper use of simulation can lead to misleading results, waste of resources and wrong decisions.
 
-Innanzitutto, la simulazione non è appropriata quando il problema può essere risolto facilmente con il buon senso o con una soluzione analitica semplice. In questi casi, costruire un modello di simulazione sarebbe inutilmente costoso.
+First of all, simulation is not appropriate when the problem can be easily solved with common sense or with a simple analytical solution. In these cases, building a simulation model would be unnecessarily expensive.
 
-La simulazione non è adatta nemmeno quando effettuare esperimenti diretti sul sistema reale è meno costoso, più veloce o più informativo rispetto alla costruzione di un modello.
+Simulation is not suitable either when carrying out direct experiments on the real system is cheaper, faster or more informative than building a model.
 
-Un altro limite importante riguarda la disponibilità di risorse: se non ci sono tempo, dati o competenze sufficienti, il risultato sarà un modello povero e poco affidabile.
+Another important limitation concerns the availability of resources: if there is not enough time, data or expertise, the result will be a poor and unreliable model.
 
-Il punto più critico, tuttavia, è il seguente: \textbf{se il modello non è validato, la simulazione non è affidabile}.  
-La simulazione lavora esclusivamente sul modello. Se il modello non rappresenta adeguatamente il sistema reale, allora la simulazione produrrà inevitabilmente risultati errati. In questo caso, non importa quanto sofisticata sia la simulazione o quanto accurata sia l’analisi: le conclusioni saranno sbagliate perché basate su una rappresentazione sbagliata del sistema.
+The most critical point, however, is the following: \textbf{if the model is not validated, the simulation is not reliable}.
+Simulation works exclusively on the model. If the model does not adequately represent the real system, then the simulation will inevitably produce wrong results. In this case, it does not matter how sophisticated the simulation is or how accurate the analysis is: the conclusions will be wrong because they are based on a wrong representation of the system.
 
-In altre parole:
+In other words:
 \begin{center}
 \emph{Invalid model $\Rightarrow$ invalid simulation $\Rightarrow$ invalid decisions}
 \end{center}
 
-Per questo motivo, la validazione del modello è uno dei passaggi più delicati e fondamentali in ogni studio di simulazione.
+For this reason, model validation is one of the most delicate and fundamental steps in every simulation study.
 
-Infine, la simulazione non è appropriata quando il livello di dettaglio richiesto per rispondere alle domande di interesse è talmente elevato da rendere il modello eccessivamente complesso, costoso e difficile da interpretare.
+Finally, simulation is not appropriate when the level of detail required to answer the questions of interest is so high that it makes the model excessively complex, expensive and difficult to interpret.
 
 \subsection{Advantages and Disadvantages of Simulation}
 
-Tra i principali vantaggi della simulazione vi è la possibilità di esplorare nuove politiche operative senza disturbare il sistema reale, testare nuovi design senza impegnare risorse, verificare ipotesi sul comportamento del sistema e comprendere meglio le interazioni tra le variabili e i colli di bottiglia.
+Among the main advantages of simulation is the possibility of exploring new operating policies without disturbing the real system, testing new designs without committing resources, verifying hypotheses about the behaviour of the system and better understanding the interactions between variables and the bottlenecks.
 
-D’altra parte, la simulazione richiede competenze specifiche, può essere costosa in termini di tempo e risorse computazionali e produce risultati che sono sempre stime o approssimazioni, influenzate dalla variabilità degli input.
+On the other hand, simulation requires specific expertise, can be expensive in terms of time and computational resources, and produces results that are always estimates or approximations, affected by the variability of the inputs.
 
 \subsection{Areas of Application}
 
-La simulazione trova applicazione in numerosi contesti, tra cui gestione del traffico, introduzione di nuove tecnologie di automazione, gestione delle disruption nella domanda, supply chain design, logistica dell’ultimo miglio, valutazioni finanziarie e problemi di controllo ottimale.
+Simulation finds application in numerous contexts, including traffic management, the introduction of new automation technologies, the management of disruptions in demand, supply chain design, last-mile logistics, financial evaluations and optimal control problems.
 
-In tutti questi casi, la simulazione fornisce un ambiente sicuro in cui sperimentare e prendere decisioni informate, a patto che il modello su cui si basa sia accuratamente costruito e validato.
+In all these cases, simulation provides a safe environment in which to experiment and make informed decisions, provided that the model on which it is based is accurately built and validated.
 
 \section{What is a System?}
 
-Per poter costruire un modello di simulazione è fondamentale chiarire innanzitutto che cosa si intende per \textbf{system}. In generale, un system è definito come un insieme di entità che interagiscono tra loro in modo regolare o interdipendente con lo scopo di raggiungere un certo obiettivo.
+In order to build a simulation model it is fundamental to first clarify what is meant by \textbf{system}. In general, a system is defined as a set of entities that interact with each other in a regular or interdependent way with the purpose of achieving a certain goal.
 
-Questa definizione mette in evidenza tre elementi essenziali: l’esistenza di più componenti, l’interazione tra tali componenti e la presenza di un fine o di una funzione che il system deve svolgere. Un system, quindi, non è semplicemente una collezione di oggetti, ma una struttura organizzata in cui le parti influenzano reciprocamente il comportamento complessivo.
+This definition highlights three essential elements: the existence of several components, the interaction between these components and the presence of a goal or a function that the system must perform. A system, therefore, is not simply a collection of objects, but an organized structure in which the parts mutually influence the overall behaviour.
 
-Un esempio classico è un sistema di produzione industriale, come una catena di montaggio per automobili. In questo caso, il system è l’intero processo produttivo; le entità sono macchine, lavoratori e componenti; l’obiettivo è la produzione di veicoli di alta qualità a un certo ritmo.
+A classic example is an industrial production system, such as a car assembly line. In this case, the system is the entire production process; the entities are machines, workers and components; the goal is the production of high-quality vehicles at a certain rate.
 
 \subsection{System, State, and Environment}
 
-Il significato pratico di system dipende sempre dagli obiettivi dello studio di simulazione. In base a ciò che si vuole analizzare, cambia infatti il modo in cui il system viene delimitato.
+The practical meaning of system always depends on the objectives of the simulation study. Depending on what we want to analyse, the way in which the system is delimited changes.
 
-Lo \textbf{state} di un system è definito come l’insieme delle variabili necessarie a descriverne lo stato in un dato istante di tempo. Se lo stato è noto, allora il comportamento futuro del system può essere determinato (in senso probabilistico o deterministico) a partire da esso.
+The \textbf{state} of a system is defined as the set of variables needed to describe it at a given instant of time. If the state is known, then the future behaviour of the system can be determined (in a probabilistic or deterministic sense) from it.
 
-L’\textbf{environment} comprende tutto ciò che è esterno al system ma che può influenzarne il comportamento. La distinzione tra system ed environment non è assoluta, ma dipende dalle scelte del modellatore e dallo scopo della simulazione.
+The \textbf{environment} includes everything that is external to the system but that can influence its behaviour. The distinction between system and environment is not absolute, but depends on the choices of the modeller and on the purpose of the simulation.
 
-La \textbf{boundary} rappresenta il confine concettuale che separa il system dall’environment. Ad esempio, in una simulazione di una banca, il processo di arrivo dei clienti può essere considerato parte dell’environment, poiché non è sotto il controllo della banca, mentre la politica di servizio (numero di sportelli, regole di priorità) è parte del system.
+The \textbf{boundary} represents the conceptual border that separates the system from the environment. For example, in a simulation of a bank, the customer arrival process can be considered part of the environment, since it is not under the control of the bank, while the service policy (number of counters, priority rules) is part of the system.
 
 \subsection{Components of a System}
 
-Per comprendere e modellare un system è necessario identificarne le componenti fondamentali. Una prima componente è l’\textbf{entity}, ovvero un oggetto di interesse all’interno del system, come un cliente, un prodotto o un veicolo.
+To understand and model a system it is necessary to identify its fundamental components. A first component is the \textbf{entity}, that is, an object of interest within the system, such as a customer, a product or a vehicle.
 
-Ogni entity è caratterizzata da uno o più \textbf{attributes}, che descrivono le sue proprietà. Nel caso di un sistema bancario, ad esempio, gli attributes di un cliente possono includere il saldo del conto, il rating creditizio o un identificativo univoco.
+Each entity is characterized by one or more \textbf{attributes}, which describe its properties. In the case of a banking system, for example, the attributes of a customer can include the account balance, the credit rating or a unique identifier.
 
-Un’\textbf{activity} rappresenta un periodo di tempo durante il quale si svolge un’operazione specifica, come l’erogazione di un servizio, un pagamento o una fase di lavorazione. Le attività hanno una durata che può essere deterministica o casuale.
+An \textbf{activity} represents a period of time during which a specific operation takes place, such as the delivery of a service, a payment or a processing phase. Activities have a duration that can be deterministic or random.
 
-Un \textbf{event} è invece un’istanza istantanea che provoca un cambiamento nello stato del system. L’arrivo di un cliente o il completamento di un servizio sono esempi tipici di eventi. Gli eventi possono essere esogeni, se originano dall’environment, oppure endogeni, se sono generati dal system stesso.
+An \textbf{event}, instead, is an instantaneous occurrence that causes a change in the state of the system. The arrival of a customer or the completion of a service are typical examples of events. Events can be exogenous, if they originate from the environment, or endogenous, if they are generated by the system itself.
 
-Infine, le \textbf{state variables} sono l’insieme minimo di variabili in grado di descrivere completamente lo stato del system in ogni istante di tempo, come il numero di server occupati o la lunghezza di una coda.
+Finally, the \textbf{state variables} are the minimal set of variables capable of completely describing the state of the system at every instant of time, such as the number of busy servers or the length of a queue.
 
-È importante sottolineare che non esiste una lista universale di componenti valida per ogni sistema: la scelta dipende sempre dagli obiettivi dello studio di simulazione.
+It is important to underline that there is no universal list of components valid for every system: the choice always depends on the objectives of the simulation study.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/L3.png}
@@ -136,53 +136,53 @@ Infine, le \textbf{state variables} sono l’insieme minimo di variabili in grad
 \end{figure}
 \subsection{Discrete and Continuous Systems}
 
-Un system è detto \textbf{discrete} se le sue state variables cambiano solo in corrispondenza di istanti discreti nel tempo, tipicamente quando avvengono eventi. Esempi classici sono una banca, un magazzino o una linea di produzione.
+A system is called \textbf{discrete} if its state variables change only at discrete instants of time, typically when events occur. Classic examples are a bank, a warehouse or a production line.
 
-Un system è invece \textbf{continuous} se le state variables evolvono in modo continuo nel tempo, come nel caso del livello dell’acqua in una diga o dell’andamento di una variabile finanziaria.
+A system is instead \textbf{continuous} if the state variables evolve continuously over time, as in the case of the water level in a dam or the trend of a financial variable.
 
-Questa distinzione è concettuale e non impone una corrispondenza rigida tra system e modello. Un system continuo può essere approssimato tramite un modello discreto e viceversa. La scelta dipende dalla natura del system e dallo scopo dell’analisi.
+This distinction is conceptual and does not impose a rigid correspondence between system and model. A continuous system can be approximated through a discrete model and vice versa. The choice depends on the nature of the system and on the purpose of the analysis.
 
-In conclusione, comprendere che cosa si intende per system, come definirne i confini e quali componenti includere è un passaggio essenziale prima di costruire un modello e, successivamente, una simulazione affidabile. Un’errata definizione del system porta inevitabilmente a modelli inadeguati e a simulazioni non rappresentative della realtà.
+In conclusion, understanding what is meant by system, how to define its boundaries and which components to include is an essential step before building a model and, subsequently, a reliable simulation. A wrong definition of the system inevitably leads to inadequate models and to simulations that are not representative of reality.
 
 \section{What is a Model?}
 
-Dopo aver definito che cosa sia un \textbf{system}, il passo successivo nel processo di simulazione è la costruzione di un \textbf{model}. Un model è una rappresentazione di un system, costruita con lo scopo di studiarne il comportamento, comprenderne le dinamiche interne oppure prevederne le prestazioni sotto differenti politiche decisionali.
+After having defined what a \textbf{system} is, the next step in the simulation process is the construction of a \textbf{model}. A model is a representation of a system, built with the purpose of studying its behaviour, understanding its internal dynamics or predicting its performance under different decision policies.
 
-Per definizione, un model è una \textbf{semplificazione} del system reale. Non è né possibile né desiderabile includere ogni dettaglio del mondo reale: l’obiettivo è invece quello di mantenere solo gli elementi rilevanti per il problema che si sta analizzando. Tuttavia, questa semplificazione deve essere bilanciata con attenzione, poiché il model deve essere sufficientemente dettagliato da consentire conclusioni valide e affidabili.
+By definition, a model is a \textbf{simplification} of the real system. It is neither possible nor desirable to include every detail of the real world: the goal is instead to keep only the elements relevant to the problem being analysed. However, this simplification must be carefully balanced, since the model must be detailed enough to allow valid and reliable conclusions.
 
-In questo senso vale il celebre principio di George Box: \emph{“All models are wrong, but some are useful”}. Ogni modello è inevitabilmente “sbagliato” perché non riproduce la realtà in modo perfetto, ma può comunque essere estremamente utile se cattura gli aspetti essenziali del system che influenzano il comportamento di interesse.
+In this sense the famous principle of George Box applies: \emph{“All models are wrong, but some are useful”}. Every model is inevitably “wrong” because it does not reproduce reality perfectly, but it can still be extremely useful if it captures the essential aspects of the system that influence the behaviour of interest.
 
 \subsection{Purpose of a Model}
 
-Un model viene costruito per uno scopo ben preciso. In alcuni casi l’obiettivo è comprendere le relazioni tra le componenti del system; in altri casi si vuole prevedere la performance del system sotto nuove condizioni operative o nuove politiche decisionali.
+A model is built for a very specific purpose. In some cases the goal is to understand the relations between the components of the system; in other cases we want to predict the performance of the system under new operating conditions or new decision policies.
 
-Sebbene in linea di principio si potrebbe studiare un system attraverso esperimenti diretti, nella pratica questo approccio è spesso impraticabile. Il system potrebbe non esistere ancora, come nel caso di un nuovo impianto produttivo, oppure potrebbe essere troppo costoso, rischioso o complesso da sperimentare direttamente. In questi casi, il model diventa lo strumento principale di analisi.
+Although in principle a system could be studied through direct experiments, in practice this approach is often impractical. The system might not exist yet, as in the case of a new production plant, or it might be too expensive, risky or complex to experiment on directly. In these cases, the model becomes the main analysis tool.
 
-È importante sottolineare che, se cambia lo scopo dello studio, deve cambiare anche il model. Un modello costruito per analizzare i tempi di attesa di un sistema potrebbe non essere adatto a valutare i costi energetici o la robustezza rispetto a guasti.
+It is important to underline that, if the purpose of the study changes, the model must change too. A model built to analyse the waiting times of a system might not be suitable for evaluating energy costs or robustness to failures.
 
 \subsection{Model Complexity and Trade-offs}
 
-La costruzione di un model richiede un compromesso tra semplicità e realismo. Un modello troppo semplice rischia di trascurare variabili importanti, portando a conclusioni fuorvianti. Al contrario, un modello eccessivamente complesso può diventare difficile da comprendere, da implementare e da validare, arrivando paradossalmente ad essere altrettanto opaco quanto il system reale.
+Building a model requires a compromise between simplicity and realism. A model that is too simple risks neglecting important variables, leading to misleading conclusions. On the contrary, an excessively complex model can become difficult to understand, implement and validate, paradoxically ending up being as opaque as the real system.
 
-All’aumentare del livello di dettaglio, aumentano anche i requisiti in termini di dati, tempo di sviluppo e costi computazionali. Per questo motivo, un buon model non è quello più complesso possibile, ma quello che include solo ciò che è necessario per rispondere alle domande poste dallo studio.
+As the level of detail increases, so do the requirements in terms of data, development time and computational costs. For this reason, a good model is not the most complex one possible, but the one that includes only what is necessary to answer the questions posed by the study.
 
 \subsection{Classification of Models}
 
-I modelli possono essere classificati secondo diverse dimensioni, a seconda delle loro caratteristiche fondamentali.
+Models can be classified along several dimensions, depending on their fundamental characteristics.
 
-Una prima distinzione è tra \textbf{physical models} e \textbf{mathematical models}. I physical models sono rappresentazioni tangibili, in scala, del system reale. I mathematical models descrivono invece il system attraverso relazioni logiche e quantitative, usando equazioni e simboli matematici. Nel contesto della simulazione, si lavora quasi esclusivamente con modelli matematici.
+A first distinction is between \textbf{physical models} and \textbf{mathematical models}. Physical models are tangible, scaled representations of the real system. Mathematical models instead describe the system through logical and quantitative relations, using equations and mathematical symbols. In the context of simulation, we work almost exclusively with mathematical models.
 
-I modelli possono inoltre essere \textbf{static} o \textbf{dynamic}. Un modello statico rappresenta il system in un singolo istante o senza una vera evoluzione temporale, come nel caso di alcune simulazioni Monte Carlo. Un modello dynamic, invece, rappresenta esplicitamente il cambiamento dello stato del system nel tempo ed è il tipo di modello più comune nella simulazione di processi reali.
+Models can also be \textbf{static} or \textbf{dynamic}. A static model represents the system at a single instant or without a real temporal evolution, as in the case of some Monte Carlo simulations. A dynamic model, instead, explicitly represents the change of the state of the system over time and is the most common type of model in the simulation of real processes.
 
-Un’ulteriore distinzione riguarda i modelli \textbf{deterministic} e \textbf{stochastic}. Nei modelli deterministici non sono presenti variabili casuali e, a parità di input, l’output è sempre identico. Nei modelli stocastici, invece, alcune componenti sono aleatorie e gli output sono quindi delle stime delle vere prestazioni del system.
+A further distinction concerns \textbf{deterministic} and \textbf{stochastic} models. In deterministic models there are no random variables and, for the same input, the output is always identical. In stochastic models, instead, some components are random and the outputs are therefore estimates of the true performance of the system.
 
-Infine, i modelli possono essere \textbf{discrete} o \textbf{continuous}. Nei modelli discreti lo stato del system cambia solo in corrispondenza di istanti discreti nel tempo, mentre nei modelli continui lo stato evolve in modo continuo. Non esiste una corrispondenza rigida tra system e model: un system continuo può essere modellato in modo discreto e viceversa, in funzione degli obiettivi dello studio.
+Finally, models can be \textbf{discrete} or \textbf{continuous}. In discrete models the state of the system changes only at discrete instants of time, while in continuous models the state evolves continuously. There is no rigid correspondence between system and model: a continuous system can be modelled in a discrete way and vice versa, depending on the objectives of the study.
 
 \subsection{Models and Simulation}
 
-Nel processo di simulazione, il model occupa una posizione centrale. Si parte da un system reale, che viene approssimato tramite un model; il model viene poi utilizzato per generare una simulazione, ovvero un’“artificial history” del system. Le conclusioni tratte dalla simulazione dipendono interamente dalla qualità del model.
+In the simulation process, the model occupies a central position. We start from a real system, which is approximated through a model; the model is then used to generate a simulation, that is, an “artificial history” of the system. The conclusions drawn from the simulation depend entirely on the quality of the model.
 
-Se il model non è appropriato o non è validato, la simulazione produrrà risultati fuorvianti. In altre parole, una simulazione non può mai compensare un cattivo modello: risultati precisi ottenuti da un modello sbagliato portano a decisioni sbagliate. Per questo motivo, la costruzione e la validazione del model sono tra le fasi più critiche di qualsiasi studio di simulazione.
+If the model is not appropriate or not validated, the simulation will produce misleading results. In other words, a simulation can never compensate for a bad model: precise results obtained from a wrong model lead to wrong decisions. For this reason, the construction and validation of the model are among the most critical phases of any simulation study.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/L4.png}
@@ -221,6 +221,7 @@ A discrete-event simulation study follows a structured process, which can be div
 The first phase is the discovery and orientation phase. This phase begins with problem formulation. The problem must be clearly understood before any modelling effort starts. A common mistake at this stage is developing a solution without a well-defined problem. Along with problem formulation, the objectives of the study are defined and an overall project plan is established. The objectives specify which questions the simulation is expected to answer, while the project plan addresses practical aspects such as time constraints, costs, and required resources.
 
 The second phase is the model building phase, which is the core of the simulation study. It starts with model conceptualization, where the essential features of the system are identified and translated into a conceptual model. This involves selecting the basic assumptions that characterise the system and deciding which elements are relevant for the study. Model construction is as much an art as it is a science: a common practice is to start with a simple model and progressively introduce complexity, ensuring that each added detail contributes useful information.
+
 \begin{wrapfigure}{r}{0.6\textwidth}
     \centering
     \vspace{-10pt}

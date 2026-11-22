@@ -25,7 +25,7 @@ Deeper models lead to \textbf{more parameters}, which implies the requirement fo
 This advantage is evident in pratical applications, such as transfer learning and domain adaptation.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.35\textwidth]{images/SP.png}
+    \includegraphics[width=0.25\textwidth]{images/SP.png}
     \caption{SOMAP embedding of functions represented by 50 networks w and w/o pre-training (Erhan et al., 2010).}
     \label{fig:MHA2}
 \end{figure}
@@ -38,7 +38,7 @@ Take the \textbf{MNIST} dataset as an example, the image were centred in a $28x2
 The problem is that most of ${2}^{784}$, or more in general of $R^N$, consists of \textbf{invalid inputs}. 
 
 Similary, if you generate a document by picking letters uniformly ar random, what is the probability that you will get a meaningful English-language text? \textbf{Almost zero}, because the distribution of natural leanguage sequences occupies a very little volume in total space of sequences of letters.
-\newpage
+
 \subsection{Manifold Assumption}
 Many machine learning problems seem hopeless if we except the machine learning algorithm to learn functions with interesting variations across all of $R^N$.
 \begin{wrapfigure}{r}{0.4\textwidth}
@@ -144,16 +144,17 @@ However:
 \end{compactitemize}
 
 \section{Autoencoders}
-\begin{wrapfigure}{r}{0.4\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/autoencoder+.png}
-    \label{fig:Scaled Dot Product Attention}
-    \vspace{-10pt}
-\end{wrapfigure}
+\noindent
+\begin{minipage}[c]{0.56\textwidth}
 An \textbf{autoencoder} is a feed-forward neural network trained to attempt to copy its input to its output.
 The network may be viewed as a consisting of two parts: an \textbf{encoder} function $h=f(x)$ and a \textbf{decoder} that produces a reconstruction $r=g(h)$.
 The aim is to induce in $h$ useful properties and the most salient features of the training data.
+\end{minipage}\hfill
+\begin{minipage}[c]{0.4\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/autoencoder+.png}
+    \label{fig:Scaled Dot Product Attention}
+\end{minipage}
 
 \begin{figure}[H]
     \centering
@@ -161,7 +162,7 @@ The aim is to induce in $h$ useful properties and the most salient features of t
     \caption{Autoencoders Pipeline}
     \label{fig:MHA2}
 \end{figure}
-\newpage
+
 With \textbf{nonlinear layers} before and after the code , it should be possible to represent data on or near a \textbf{nonlinear manifold}. The \textbf{encoder} maps from the data space ($\mathbf{x}$) to the \textbf{coordinates on the manifold} ($\mathbf{z}$). The \textbf{decoder} performs the \textbf{inverse transformation} ($\hat{\mathbf{x}}$). Both the encoder and the decoder can be rich, \textbf{multi-layer functions}.
 
 \subsection{Risk: Learning the Identity Function}
@@ -245,13 +246,6 @@ Given the input signal, the general idea is to find a short list of terms that b
 The new representation h has the dimensionality of the dictionary, much higher than the dimen- sionality of the input (overcompleteness)
 
 \subsection{Denoising Autoencoders}
-\begin{wrapfigure}{r}{0.4\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/DA.png}
-    \label{fig:Scaled Dot Product Attention}
-    \vspace{-10pt}
-\end{wrapfigure}
 To force to discover more \textbf{robust features}, a \textbf{denoising autoencoder} reconstruct the input $x$ from a  \textbf{corrupted version} $\hat{x}$ of it.
 \begin{equation}
     L_{DAE}=D(x,g(f(\hat{x}))) e.g., \hat{x} \sim N(x,\sigma^2 I)
@@ -259,6 +253,11 @@ To force to discover more \textbf{robust features}, a \textbf{denoising autoenco
 The corrupted input $\hat{x}$ can be obtained by applying on $x$ some form of noise, for example, additive white gaussian noise or dropout.
 
 Denoising autoencoders must therefore \textbf{undo} this corruption rather than simply copying their input.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/DA.png}
+    \label{fig:Scaled Dot Product Attention}
+\end{figure}
 
 \begin{infobox}[The size of code layer]
     In Denoising Autoencoders, unlike Sparse Autoencoders, the number of neurons in the code layer is usually smaller than the input layer. 

@@ -1,1 +1,21 @@
+# Ignora tutto tranne le materie pubblicate
+/*
+!/.gitignore
+!/README.md
+!/AI_in_supply_chain/
+!/deep_learning/
+!/Autonomus_Driving_System/
+!/machine_learning/
+
+# Materiale troppo grande o non da pubblicare
 deep_learning/exercises/CNN/data/
+Autonomus_Driving_System/assigment/
+
+# File ausiliari di LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz

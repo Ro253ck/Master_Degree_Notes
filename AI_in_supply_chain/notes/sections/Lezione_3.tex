@@ -2,55 +2,55 @@
 
 \section{Introduction}
 
-La Dynamic Programming (DP) è un insieme di metodi utilizzati per risolvere problemi decisionali caratterizzati da una struttura sequenziale o temporale. Il termine \emph{dynamic} indica che il problema evolve nel tempo, mentre \emph{programming} non si riferisce alla programmazione software, bensì all’ottimizzazione di un programma decisionale, ovvero di una policy.
+Dynamic Programming (DP) is a set of methods used to solve decision problems characterized by a sequential or temporal structure. The term \emph{dynamic} indicates that the problem evolves over time, while \emph{programming} does not refer to software programming, but rather to the optimization of a decision program, that is, a policy.
 
-La Dynamic Programming fornisce un approccio generale per affrontare problemi complessi, suddividendoli in sottoproblemi più semplici. Risolvendo questi sottoproblemi e combinandone le soluzioni, è possibile ottenere una soluzione ottimale per il problema originale. Questo approccio è particolarmente efficace quando gli stessi sottoproblemi si presentano ripetutamente durante il processo di risoluzione.
+Dynamic Programming provides a general approach to tackling complex problems by breaking them down into simpler subproblems. By solving these subproblems and combining their solutions, it is possible to obtain an optimal solution to the original problem. This approach is particularly effective when the same subproblems arise repeatedly during the solution process.
 
-Nel contesto del Reinforcement Learning, la Dynamic Programming viene utilizzata come metodo di \emph{planning}, cioè come tecnica che assume la conoscenza completa del modello dell’ambiente e consente di calcolare policy e value function senza interagire con l’ambiente.
+In the context of Reinforcement Learning, Dynamic Programming is used as a \emph{planning} method, that is, as a technique that assumes complete knowledge of the environment model and allows policies and value functions to be computed without interacting with the environment.
 
 
 \subsection{Requirements for Dynamic Programming}
 
-La Dynamic Programming è applicabile solo a problemi che soddisfano due proprietà fondamentali. La prima è la presenza di una struttura di \emph{optimal substructure}, formalizzata dal principio di ottimalità. Questo principio afferma che una policy ottimale ha la proprietà che, per qualsiasi stato iniziale, le azioni successive devono costituire una policy ottimale per il sottoproblema indotto dallo stato successivo. Di conseguenza, una soluzione ottimale globale può essere costruita a partire da soluzioni ottimali di sottoproblemi più piccoli.
+Dynamic Programming is applicable only to problems that satisfy two fundamental properties. The first is the presence of an \emph{optimal substructure}, formalized by the principle of optimality. This principle states that an optimal policy has the property that, for any initial state, the subsequent actions must constitute an optimal policy for the subproblem induced by the next state. Consequently, a globally optimal solution can be built from optimal solutions of smaller subproblems.
 
-La seconda proprietà è la presenza di \emph{overlapping subproblems}. Durante la risoluzione del problema, gli stessi sottoproblemi compaiono più volte, rendendo possibile memorizzarne le soluzioni e riutilizzarle. Questo meccanismo permette di ridurre significativamente il costo computazionale.
+The second property is the presence of \emph{overlapping subproblems}. While solving the problem, the same subproblems appear multiple times, which makes it possible to store their solutions and reuse them. This mechanism significantly reduces the computational cost.
 
-I Markov Decision Processes soddisfano naturalmente entrambe queste proprietà. In particolare, la dinamica markoviana garantisce la validità del principio di ottimalità, mentre la Bellman equation fornisce una decomposizione ricorsiva del problema. La value function rappresenta il mezzo attraverso il quale le soluzioni dei sottoproblemi vengono archiviate e riutilizzate.
+Markov Decision Processes naturally satisfy both of these properties. In particular, the Markovian dynamics guarantee the validity of the principle of optimality, while the Bellman equation provides a recursive decomposition of the problem. The value function is the means through which the solutions of the subproblems are stored and reused.
 
 
 \subsection{Planning for Dynamic Programming}
 
-La Dynamic Programming assume una conoscenza completa dell’MDP, ovvero dell’insieme degli stati $\mathcal{S}$, dell’insieme delle azioni $\mathcal{A}$, della funzione di transizione $P$, della reward function $R$ e del fattore di sconto $\gamma$. In questo contesto, la DP viene utilizzata per svolgere attività di planning.
+Dynamic Programming assumes complete knowledge of the MDP, that is, of the set of states $\mathcal{S}$, the set of actions $\mathcal{A}$, the transition function $P$, the reward function $R$ and the discount factor $\gamma$. In this context, DP is used to carry out planning tasks.
 
-Nel problema di \emph{prediction}, l’obiettivo è valutare una policy fissata $\pi$. L’input è un MDP descritto dalla tupla
+In the \emph{prediction} problem, the goal is to evaluate a fixed policy $\pi$. The input is an MDP described by the tuple
 \[
 \langle \mathcal{S}, \mathcal{A}, P, R, \gamma \rangle
 \]
-insieme alla policy $\pi$, mentre l’output è la corrispondente value function $v^\pi$.
+together with the policy $\pi$, while the output is the corresponding value function $v^\pi$.
 
-Nel problema di \emph{control}, invece, l’obiettivo è determinare la policy ottimale. In questo caso l’input è solo l’MDP e l’output consiste nella value function ottimale $v^*$ e nella policy ottimale $\pi^*$.
+In the \emph{control} problem, instead, the goal is to determine the optimal policy. In this case the input is only the MDP and the output consists of the optimal value function $v^*$ and the optimal policy $\pi^*$.
 
-In entrambi i casi, la Dynamic Programming utilizza le Bellman equations per propagare l’informazione sugli stati e ottenere soluzioni sempre più accurate tramite aggiornamenti iterativi.
+In both cases, Dynamic Programming uses the Bellman equations to propagate information about the states and obtain increasingly accurate solutions through iterative updates.
 
 
 \section{Iterative Policy Evaluation}
 
-L'Iterative Policy Evaluation calcola la value function $v^\pi$ di una policy fissata $\pi$ applicando in modo iterativo la Bellman expectation equation. Ad ogni iterazione $k+1$ si aggiorna il valore di ogni stato $s \in \mathcal{S}$ secondo:
+Iterative Policy Evaluation computes the value function $v^\pi$ of a fixed policy $\pi$ by iteratively applying the Bellman expectation equation. At each iteration $k+1$ the value of every state $s \in \mathcal{S}$ is updated according to:
 
 \[
-v_{k+1}(s) \;=\; \sum_{a \in \mathcal{A}} \pi(a \mid s) 
+v_{k+1}(s) \;=\; \sum_{a \in \mathcal{A}} \pi(a \mid s)
 \Bigg( R_s^a \;+\; \gamma \sum_{s' \in \mathcal{S}} P_{ss'}^a \, v_k(s') \Bigg)
 \]
 
-dove:
+where:
 \begin{compactitemize}
-    \item $R_s^a$ è il valore atteso della reward immediata eseguendo l'azione $a$ nello stato $s$,
-    \item $P_{ss'}^a$ è la probabilità di passare dallo stato $s$ allo stato $s'$ eseguendo l'azione $a$,
-    \item $v_k(s')$ è la stima del valore dello stato $s'$ all'iterazione $k$,
-    \item $\gamma$ è il fattore di sconto.
+    \item $R_s^a$ is the expected value of the immediate reward obtained by executing action $a$ in state $s$,
+    \item $P_{ss'}^a$ is the probability of moving from state $s$ to state $s'$ by executing action $a$,
+    \item $v_k(s')$ is the estimate of the value of state $s'$ at iteration $k$,
+    \item $\gamma$ is the discount factor.
 \end{compactitemize}
 
-Il procedimento parte da una stima iniziale $v_0(s)$ arbitraria e genera una sequenza di approssimazioni $v_1, v_2, \dots$ applicando ripetutamente l'aggiornamento per tutti gli stati. Ad ogni passo $k+1$, la nuova stima $v_{k+1}(s)$ viene calcolata usando solo i valori della precedente iterazione $v_k(s')$. Questo \emph{synchronous backup} garantisce che, al crescere di $k$, la sequenza $v_k$ converga alla value function corretta $v^\pi$ associata alla policy $\pi$.
+The procedure starts from an arbitrary initial estimate $v_0(s)$ and generates a sequence of approximations $v_1, v_2, \dots$ by repeatedly applying the update to all states. At each step $k+1$, the new estimate $v_{k+1}(s)$ is computed using only the values of the previous iteration $v_k(s')$. This \emph{synchronous backup} guarantees that, as $k$ grows, the sequence $v_k$ converges to the correct value function $v^\pi$ associated with the policy $\pi$.
 
 \begin{figure}[H]
     \centering
@@ -60,22 +60,20 @@ Il procedimento parte da una stima iniziale $v_0(s)$ arbitraria e genera una seq
 \end{figure}
 
 \subsection{Policy Iteration}
-\begin{wrapfigure}{r}{0.25\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/L32.png}
-    \label{fig:TDlambda}
-    \vspace{-10pt}
-\end{wrapfigure}
-La \emph{Policy Iteration} è il metodo di Dynamic Programming utilizzato per migliorare progressivamente una policy fino a ottenere una policy ottimale. L’idea di base consiste nell’alternare sistematicamente due fasi distinte: la valutazione della policy corrente e il suo miglioramento.
+\emph{Policy Iteration} is the Dynamic Programming method used to progressively improve a policy until an optimal policy is obtained. The basic idea consists of systematically alternating two distinct phases: the evaluation of the current policy and its improvement.
 
-Il processo parte da una policy iniziale arbitraria $\pi$. Nella fase di \emph{policy evaluation}, la policy $\pi$ viene valutata calcolando la corrispondente value function $v^\pi$. Questa funzione rappresenta il return atteso partendo da ciascuno stato e seguendo sempre la policy $\pi$, ed è definita come:
+The process starts from an arbitrary initial policy $\pi$. In the \emph{policy evaluation} phase, the policy $\pi$ is evaluated by computing the corresponding value function $v^\pi$. This function represents the expected return starting from each state and always following the policy $\pi$, and it is defined as:
 \[
 v^\pi(s) = \mathbb{E}_\pi \left[ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots \mid S_t = s \right]
 \]
-In pratica, $v^\pi$ viene stimata mediante l’Iterative Policy Evaluation, applicando ripetutamente la Bellman expectation equation fino alla convergenza.
+In practice, $v^\pi$ is estimated through Iterative Policy Evaluation, by repeatedly applying the Bellman expectation equation until convergence.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\textwidth]{images/L32.png}
+    \label{fig:TDlambda}
+\end{figure}
 
-Una volta ottenuta una stima accurata di $v^\pi$, si passa alla fase di \emph{policy improvement}. In questa fase, la policy viene aggiornata scegliendo, in ogni stato, l’azione che massimizza il valore atteso assumendo come riferimento la value function appena calcolata. La nuova policy $\pi'$ è definita come una policy greedy rispetto a $v^\pi$:
+Once an accurate estimate of $v^\pi$ has been obtained, we move on to the \emph{policy improvement} phase. In this phase, the policy is updated by choosing, in every state, the action that maximizes the expected value, taking the value function just computed as a reference. The new policy $\pi'$ is defined as a greedy policy with respect to $v^\pi$:
 \[
 \pi'(s) = \arg\max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} P_{ss'}^a \left[ R_s^a + \gamma v^\pi(s') \right]
 \]
@@ -86,22 +84,22 @@ Una volta ottenuta una stima accurata di $v^\pi$, si passa alla fase di \emph{po
     \label{fig:TDlambda}
     \vspace{-10pt}
 \end{wrapfigure}
-Questo passo garantisce che la nuova policy $\pi'$ sia almeno altrettanto buona della policy precedente, cioè $\pi' \ge \pi$ per ogni stato.
+This step guarantees that the new policy $\pi'$ is at least as good as the previous policy, that is, $\pi' \ge \pi$ for every state.
 
-In alcuni problemi semplici, come il classico Small Gridworld, una singola iterazione di policy improvement è sufficiente a ottenere direttamente la policy ottimale, ovvero si ha $\pi' = \pi^*$. In generale, tuttavia, è necessario ripetere più volte le due fasi di valutazione e miglioramento. Questo processo iterativo continua alternando policy evaluation e policy improvement fino a quando la policy non cambia più.
+In some simple problems, such as the classic Small Gridworld, a single iteration of policy improvement is sufficient to directly obtain the optimal policy, that is, $\pi' = \pi^*$. In general, however, it is necessary to repeat the two phases of evaluation and improvement several times. This iterative process continues, alternating policy evaluation and policy improvement, until the policy no longer changes.
 
-Un risultato fondamentale della Dynamic Programming è che la Policy Iteration, assumendo una conoscenza completa dell’MDP e uno spazio degli stati e delle azioni finito, converge sempre alla policy ottimale $\pi^*$. Questo rende la Policy Iteration uno degli algoritmi di riferimento per il problema di control nei Markov Decision Processes.
+A fundamental result of Dynamic Programming is that Policy Iteration, assuming complete knowledge of the MDP and a finite state and action space, always converges to the optimal policy $\pi^*$. This makes Policy Iteration one of the reference algorithms for the control problem in Markov Decision Processes.
 
 \subsection{Policy Improvement}
 
-La \emph{Policy Improvement} è il passo che consente di migliorare una policy a partire dalla sua value function. Si consideri una policy deterministica $\pi$, tale che a ogni stato $s$ venga associata un’azione $a = \pi(s)$. Supponendo di conoscere la value function $v^\pi$, è possibile definire la corrispondente action-value function $q^\pi(s,a)$, che rappresenta il return atteso partendo dallo stato $s$, eseguendo l’azione $a$ e seguendo successivamente la policy $\pi$.
+\emph{Policy Improvement} is the step that allows a policy to be improved starting from its value function. Consider a deterministic policy $\pi$, such that each state $s$ is associated with an action $a = \pi(s)$. Assuming the value function $v^\pi$ is known, it is possible to define the corresponding action-value function $q^\pi(s,a)$, which represents the expected return starting from state $s$, executing action $a$ and then following the policy $\pi$.
 
-L’idea fondamentale del policy improvement consiste nel costruire una nuova policy $\pi'$ che, in ogni stato, selezioni in modo greedy l’azione che massimizza $q^\pi$. Formalmente, la policy migliorata è definita come:
+The fundamental idea of policy improvement consists of building a new policy $\pi'$ that, in every state, greedily selects the action that maximizes $q^\pi$. Formally, the improved policy is defined as:
 \[
 \pi'(s) = \arg\max_{a \in \mathcal{A}} q^\pi(s,a)
 \]
 
-Questa scelta garantisce un miglioramento locale del valore, poiché per ogni stato $s$ vale:
+This choice guarantees a local improvement of the value, since for every state $s$ it holds that:
 \[
 q^\pi\bigl(s,\pi'(s)\bigr)
 = \max_{a \in \mathcal{A}} q^\pi(s,a)
@@ -109,7 +107,7 @@ q^\pi\bigl(s,\pi'(s)\bigr)
 = v^\pi(s)
 \]
 
-A partire da questa osservazione, è possibile dimostrare che la nuova policy $\pi'$ migliora la value function per tutti gli stati. In particolare:
+Starting from this observation, it is possible to prove that the new policy $\pi'$ improves the value function for all states. In particular:
 
 \[
 v^\pi(s)
@@ -131,13 +129,13 @@ q^\pi\bigl(s,\pi'(s)\bigr)
 v^{\pi'}(s)
 \]
 
-Da questa catena segue che:
+From this chain it follows that:
 \[
 v^{\pi'}(s) \ge v^\pi(s) \qquad \forall s \in \mathcal{S}
 \]
-ovvero la policy $\pi'$ è almeno altrettanto buona della policy $\pi$ in tutti gli stati.
+that is, the policy $\pi'$ is at least as good as the policy $\pi$ in all states.
 
-Se il processo di miglioramento non produce ulteriori cambiamenti, allora per ogni stato $s$ vale:
+If the improvement process does not produce any further changes, then for every state $s$ it holds that:
 \[
 q^\pi\bigl(s,\pi'(s)\bigr)
 =
@@ -148,101 +146,101 @@ q^\pi\bigl(s,\pi(s)\bigr)
 v^\pi(s)
 \]
 
-In questo caso, la value function soddisfa l’equazione di Bellman di ottimalità:
+In this case, the value function satisfies the Bellman optimality equation:
 \[
 v^\pi(s) = \max_{a \in \mathcal{A}} q^\pi(s,a)
 \]
 
-Di conseguenza:
+Consequently:
 \[
 v^\pi(s) = v^*(s) \qquad \forall s \in \mathcal{S}
 \]
-e quindi la policy $\pi$ è una policy ottimale.
+and therefore the policy $\pi$ is an optimal policy.
 
-\section{Modified Policy Iteration e Generalized Policy Iteration}
+\section{Modified Policy Iteration and Generalized Policy Iteration}
 
-Nella Policy Iteration classica, ad ogni passo si eseguono due fasi distinte: si valuta la policy corrente $\pi$ fino a convergenza ottenendo $v^\pi$, e poi si migliora la policy rendendola greedy rispetto a $v^\pi$. In pratica, però, non è sempre necessario portare la policy evaluation fino alla convergenza esatta.
+In classic Policy Iteration, two distinct phases are executed at each step: the current policy $\pi$ is evaluated until convergence, obtaining $v^\pi$, and then the policy is improved by making it greedy with respect to $v^\pi$. In practice, however, it is not always necessary to carry policy evaluation all the way to exact convergence.
 
-L’idea della \emph{Modified Policy Iteration} è proprio quella di \emph{interrompere prima} la policy evaluation. Invece di calcolare $v^\pi$ con accuratezza arbitraria, si può:
+The idea of \emph{Modified Policy Iteration} is precisely to \emph{stop policy evaluation earlier}. Instead of computing $v^\pi$ with arbitrary accuracy, one can:
 \begin{compactitemize}
-    \item fermare l’Iterative Policy Evaluation quando la value function cambia meno di una certa soglia $\varepsilon$ (criterio di $\varepsilon$-convergenza),
-    \item oppure semplicemente eseguire un numero fisso di iterazioni $k$ di policy evaluation e poi passare subito al policy improvement.
+    \item stop Iterative Policy Evaluation when the value function changes by less than a certain threshold $\varepsilon$ ($\varepsilon$-convergence criterion),
+    \item or simply execute a fixed number $k$ of policy evaluation iterations and then move immediately to policy improvement.
 \end{compactitemize}
 
-In altre parole, si alternano passi di valutazione \emph{parziale} della policy con passi di miglioramento greedy. Nel caso estremo in cui ci si fermi dopo una sola iterazione di policy evaluation ($k = 1$), la policy viene aggiornata ad ogni singola iterazione: questo caso limite risulta strettamente collegato alla \textbf{Value Iteration}.
+In other words, steps of \emph{partial} policy evaluation are alternated with greedy improvement steps. In the extreme case in which we stop after a single policy evaluation iteration ($k = 1$), the policy is updated at every single iteration: this limit case turns out to be closely related to \textbf{Value Iteration}.
 
-Questa visione più generale del processo prende il nome di \textbf{Generalized Policy Iteration} (GPI). In GPI, qualunque algoritmo di policy evaluation (anche approssimato o tronco) può essere combinato con qualunque schema di policy improvement (ad esempio improvement greedy o $\varepsilon$-greedy). L’idea di fondo è che valutazione e miglioramento vengano portati avanti insieme, influenzandosi a vicenda, fino alla convergenza verso una policy ottimale.
+This more general view of the process is called \textbf{Generalized Policy Iteration} (GPI). In GPI, any policy evaluation algorithm (even approximate or truncated) can be combined with any policy improvement scheme (for example greedy or $\varepsilon$-greedy improvement). The underlying idea is that evaluation and improvement are carried out together, influencing each other, until convergence to an optimal policy.
 
 
 \subsection{Principle of Optimality}
 
-Il \emph{principle of optimality} formalizza una proprietà chiave delle policy ottimali nei Markov Decision Processes. Intuitivamente, afferma che una policy è ottimale se, oltre a essere ottimale a partire dallo stato iniziale, \emph{continua ad essere ottimale da ogni stato raggiungibile}.
+The \emph{principle of optimality} formalizes a key property of optimal policies in Markov Decision Processes. Intuitively, it states that a policy is optimal if, besides being optimal starting from the initial state, it \emph{continues to be optimal from every reachable state}.
 
-Più precisamente, il teorema dice che una policy $\pi$ soddisfa
+More precisely, the theorem says that a policy $\pi$ satisfies
 \[
 v^\pi(s) = v^*(s)
 \]
-per uno stato $s$ se e solo se, per ogni stato $s'$ raggiungibile da $s$, la stessa policy è ottimale anche in $s'$, ossia
+for a state $s$ if and only if, for every state $s'$ reachable from $s$, the same policy is also optimal in $s'$, that is
 \[
-v^\pi(s') = v^*(s') \quad \text{per tutti gli stati } s' \text{ raggiungibili da } s.
+v^\pi(s') = v^*(s') \quad \text{for all states } s' \text{ reachable from } s.
 \]
 
-Un modo equivalente di interpretarlo è: una policy ottimale può essere vista come composta da due parti: una \emph{prima azione ottimale} $A^*$ nello stato corrente, seguita da una policy che è a sua volta ottimale a partire dallo stato successore $S'$. Questo giustifica l’uso di equazioni ricorsive come la Bellman optimality equation: se conosciamo la soluzione dei “sottoproblemi” (gli stati successivi), possiamo ricostruire la soluzione dallo stato corrente.
+An equivalent way of interpreting it is: an optimal policy can be seen as composed of two parts: an \emph{optimal first action} $A^*$ in the current state, followed by a policy that is in turn optimal starting from the successor state $S'$. This justifies the use of recursive equations such as the Bellman optimality equation: if we know the solution of the “subproblems” (the successor states), we can reconstruct the solution from the current state.
 
 
 \subsection{Deterministic Value Iteration}
 
-La Deterministic Value Iteration è un metodo di Dynamic Programming utilizzato per calcolare direttamente la value function ottimale $v^*$ assumendo una conoscenza completa del modello dell’MDP. L’idea centrale è che, se fossero già noti i valori ottimali degli stati successivi $v^*(s')$, allora il valore ottimale di uno stato $s$ potrebbe essere calcolato immediatamente effettuando un one-step lookahead.
+Deterministic Value Iteration is a Dynamic Programming method used to directly compute the optimal value function $v^*$, assuming complete knowledge of the MDP model. The central idea is that, if the optimal values of the successor states $v^*(s')$ were already known, then the optimal value of a state $s$ could be computed immediately by performing a one-step lookahead.
 
-Questo principio è formalizzato dalla Bellman optimality equation, che nella Value Iteration viene utilizzata come regola di aggiornamento iterativo:
+This principle is formalized by the Bellman optimality equation, which in Value Iteration is used as an iterative update rule:
 \[
 v^*(s) \leftarrow \max_{a \in \mathcal{A}} \left( R_s^a + \gamma \sum_{s' \in \mathcal{S}} P_{ss'}^a \, v^*(s') \right)
 \]
 
-Questa equazione esprime il seguente meccanismo: per ogni stato $s$, si considerano tutte le azioni disponibili e, per ciascuna azione, si valuta il reward immediato atteso sommato al valore scontato degli stati successivi. Tra tutte le azioni, viene scelta quella che massimizza questo valore atteso. Il risultato rappresenta il miglior valore ottenibile partendo da $s$ e agendo in modo ottimale.
+This equation expresses the following mechanism: for each state $s$, all available actions are considered and, for each action, the expected immediate reward plus the discounted value of the successor states is evaluated. Among all actions, the one that maximizes this expected value is chosen. The result represents the best value obtainable starting from $s$ and acting optimally.
 
-Poiché inizialmente i valori ottimali $v^*(s)$ non sono noti, la Value Iteration applica ripetutamente questo aggiornamento partendo da una stima iniziale arbitraria della value function. A ogni iterazione, i valori vengono raffinati utilizzando le stime precedenti, facendo dipendere il valore di uno stato dai valori degli stati successivi. In questo modo, l’informazione sui reward finali viene progressivamente propagata all’indietro nello spazio degli stati.
+Since the optimal values $v^*(s)$ are initially unknown, Value Iteration repeatedly applies this update starting from an arbitrary initial estimate of the value function. At each iteration, the values are refined using the previous estimates, making the value of a state depend on the values of the successor states. In this way, the information about the final rewards is progressively propagated backwards through the state space.
 
-L’intuizione è quella di iniziare dagli stati terminali, o dagli stati con reward noti, e lavorare a ritroso verso tutti gli altri stati. Anche in presenza di cicli e di dinamiche stocastiche, il processo converge grazie all’uso del valore atteso sulle transizioni e al fattore di sconto $\gamma$, che garantisce la stabilità dell’aggiornamento. Una volta che la value function è conversa , la policy ottimale può essere ottenuta scegliendo, in ogni stato, l’azione greedy rispetto alla value function ottimale.
+The intuition is to start from the terminal states, or from the states with known rewards, and work backwards towards all the other states. Even in the presence of loops and stochastic dynamics, the process converges thanks to the use of the expected value over the transitions and to the discount factor $\gamma$, which guarantees the stability of the update. Once the value function has converged, the optimal policy can be obtained by choosing, in every state, the greedy action with respect to the optimal value function.
 
 
-Nonostante il nome “deterministic value iteration” nei lucidi, l’algoritmo funziona perfettamente anche in MDP con transizioni stocastiche e con strutture con cicli (\emph{loopy MDP}), poiché le probabilità di transizione $P_{ss'}^a$ sono già incorporate nel calcolo dell’aspettativa. In sintesi, la Value Iteration aggiorna iterativamente i valori degli stati tramite la Bellman optimality equation finché la value function non si stabilizza; da questa, si estrae poi la policy ottimale come policy greedy rispetto a $v^*$.
+Despite the name “deterministic value iteration” in the slides, the algorithm works perfectly well also in MDPs with stochastic transitions and with loop structures (\emph{loopy MDP}), since the transition probabilities $P_{ss'}^a$ are already incorporated in the computation of the expectation. In summary, Value Iteration iteratively updates the state values through the Bellman optimality equation until the value function stabilizes; from it, the optimal policy is then extracted as the greedy policy with respect to $v^*$.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/L34.png}
+    \includegraphics[width=0.5\textwidth]{images/L34.png}
     \caption{Example of backward value iteration }
     \label{fig:student_markov_chain}
 \end{figure}
 
 \subsection{Value Iteration: Control}
 
-Il problema di control consiste nel determinare una policy ottimale $\pi^*$ partendo da una descrizione completa della dinamica dell’ambiente, ovvero dal modello dell’MDP. L’obiettivo è ottenere una policy che massimizzi il return atteso da ogni stato.
+The control problem consists of determining an optimal policy $\pi^*$ starting from a complete description of the dynamics of the environment, that is, from the MDP model. The goal is to obtain a policy that maximizes the expected return from every state.
 
-La Value Iteration risolve questo problema applicando iterativamente la Bellman optimality equation direttamente alla state-value function. A differenza della Policy Iteration, non viene mai mantenuta o valutata esplicitamente una policy durante il processo. L’algoritmo opera esclusivamente sui valori degli stati, aggiornandoli progressivamente fino alla convergenza verso la value function ottimale $v^*$.
+Value Iteration solves this problem by iteratively applying the Bellman optimality equation directly to the state-value function. Unlike Policy Iteration, no policy is ever explicitly maintained or evaluated during the process. The algorithm operates exclusively on the state values, progressively updating them until convergence to the optimal value function $v^*$.
 
-L’aggiornamento fondamentale della Value Iteration è:
+The fundamental update of Value Iteration is:
 \[
 v_{k+1}(s) = \max_{a \in \mathcal{A}} \left( R_s^a + \gamma \sum_{s' \in \mathcal{S}} P_{ss'}^a \, v_k(s') \right)
 \]
 
-A ogni iterazione $k+1$, per tutti gli stati $s \in \mathcal{S}$, il nuovo valore viene calcolato utilizzando esclusivamente i valori della precedente iterazione $v_k$. Questo aggiornamento è detto \emph{synchronous backup}, poiché tutti gli stati vengono aggiornati in parallelo a partire dalla stessa stima precedente.
+At each iteration $k+1$, for all states $s \in \mathcal{S}$, the new value is computed using exclusively the values of the previous iteration $v_k$. This update is called a \emph{synchronous backup}, since all states are updated in parallel starting from the same previous estimate.
 
-La sequenza di value function $v_1 \rightarrow v_2 \rightarrow \dots$ converge progressivamente verso $v^*$, il fixed point della Bellman optimality equation. Durante questo processo non esiste una policy esplicita: le value function intermedie potrebbero non corrispondere ad alcuna policy reale. Solo una volta che la value function ha raggiunto la convergenza è possibile derivare una policy ottimale scegliendo, in ogni stato, l’azione greedy rispetto a $v^*$.
+The sequence of value functions $v_1 \rightarrow v_2 \rightarrow \dots$ progressively converges to $v^*$, the fixed point of the Bellman optimality equation. During this process there is no explicit policy: the intermediate value functions may not correspond to any real policy. Only once the value function has reached convergence is it possible to derive an optimal policy by choosing, in every state, the greedy action with respect to $v^*$.
 
-In sintesi, la Value Iteration può essere vista come la Bellman optimality equation trasformata in una regola di aggiornamento iterativa che consente di risolvere direttamente il problema di control.
+In summary, Value Iteration can be seen as the Bellman optimality equation turned into an iterative update rule that allows the control problem to be solved directly.
 
 
 \subsection{Synchronous Dynamic Programming Algorithms}
 
-Gli algoritmi di Dynamic Programming sincroni condividono una struttura comune basata su aggiornamenti iterativi della value function. La distinzione principale tra i diversi algoritmi deriva dal tipo di equazione di Bellman utilizzata e dall’obiettivo del problema, che può essere di prediction o di control.
+Synchronous Dynamic Programming algorithms share a common structure based on iterative updates of the value function. The main distinction between the different algorithms derives from the type of Bellman equation used and from the goal of the problem, which can be prediction or control.
 
-Nel caso della prediction, l’obiettivo è stimare la value function $v^\pi$ associata a una policy fissata. In questo scenario viene utilizzata la Bellman expectation equation e l’algoritmo risultante è l’Iterative Policy Evaluation.
+In the case of prediction, the goal is to estimate the value function $v^\pi$ associated with a fixed policy. In this scenario the Bellman expectation equation is used and the resulting algorithm is Iterative Policy Evaluation.
 
-Nel caso del control, l’obiettivo è calcolare la value function ottimale $v^*$. Questo può essere ottenuto in due modi diversi. Utilizzando la Bellman expectation equation insieme a un passo esplicito di policy improvement si ottiene la Policy Iteration, che alterna valutazione e miglioramento della policy. Utilizzando invece direttamente la Bellman optimality equation si ottiene la Value Iteration, che incorpora il miglioramento della policy nell’aggiornamento dei valori.
+In the case of control, the goal is to compute the optimal value function $v^*$. This can be achieved in two different ways. Using the Bellman expectation equation together with an explicit policy improvement step yields Policy Iteration, which alternates evaluation and improvement of the policy. Using instead the Bellman optimality equation directly yields Value Iteration, which incorporates policy improvement into the value update.
 
-Tutti questi algoritmi operano tipicamente sulla state-value function. La complessità computazionale per ogni iterazione è dell’ordine di $O(mn^2)$, dove $n$ è il numero di stati e $m$ il numero di azioni. È possibile applicare concetti analoghi anche alla action-value function, ma in questo caso la complessità per iterazione cresce fino a $O(m^2 n^2)$, poiché è necessario considerare esplicitamente sia stati che coppie stato–azione.
+All these algorithms typically operate on the state-value function. The computational complexity per iteration is of the order of $O(mn^2)$, where $n$ is the number of states and $m$ the number of actions. Analogous concepts can also be applied to the action-value function, but in this case the complexity per iteration grows to $O(m^2 n^2)$, since it is necessary to explicitly consider both states and state–action pairs.
 
-Questa struttura sincrona, in cui tutti gli stati vengono aggiornati simultaneamente a ogni iterazione, rende gli algoritmi di Dynamic Programming concettualmente semplici e garantisce la convergenza, a patto di disporre di una conoscenza completa del modello dell’ambiente.
+This synchronous structure, in which all states are updated simultaneously at each iteration, makes Dynamic Programming algorithms conceptually simple and guarantees convergence, provided that complete knowledge of the environment model is available.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/F35.png}
@@ -251,13 +249,13 @@ Questa struttura sincrona, in cui tutti gli stati vengono aggiornati simultaneam
 
 \section{Asynchronous Dynamic Programming}
 
-Tutti i metodi di Dynamic Programming descritti finora utilizzano aggiornamenti sincroni (\emph{synchronous backups}), nei quali i valori di tutti gli stati vengono aggiornati in parallelo utilizzando la stessa stima precedente della value function. Questo approccio è concettualmente semplice, ma può risultare computazionalmente costoso quando il numero di stati è elevato.
+All the Dynamic Programming methods described so far use synchronous updates (\emph{synchronous backups}), in which the values of all states are updated in parallel using the same previous estimate of the value function. This approach is conceptually simple, but it can be computationally expensive when the number of states is large.
 
-L’Asynchronous Dynamic Programming introduce una strategia alternativa in cui gli stati vengono aggiornati individualmente, uno alla volta, e in un ordine arbitrario. A ogni passo, viene selezionato un singolo stato e su di esso viene applicato l’aggiornamento di Bellman appropriato, utilizzando immediatamente i valori più recenti disponibili. In questo modo, gli aggiornamenti non avvengono più in parallelo, ma in modo incrementale.
+Asynchronous Dynamic Programming introduces an alternative strategy in which states are updated individually, one at a time, and in an arbitrary order. At each step, a single state is selected and the appropriate Bellman update is applied to it, immediately using the most recent values available. In this way, the updates no longer happen in parallel, but incrementally.
 
-Questo approccio può ridurre significativamente il costo computazionale, poiché non è necessario aggiornare tutti gli stati a ogni iterazione. Inoltre, permette di concentrare il calcolo sugli stati più rilevanti o più frequentemente visitati. Nonostante la mancanza di sincronizzazione, è garantito che gli algoritmi asincroni convergano alla soluzione corretta, a patto che tutti gli stati continuino a essere selezionati e aggiornati nel tempo.
+This approach can significantly reduce the computational cost, since it is not necessary to update all states at every iteration. Moreover, it makes it possible to focus computation on the most relevant or most frequently visited states. Despite the lack of synchronization, asynchronous algorithms are guaranteed to converge to the correct solution, provided that all states continue to be selected and updated over time.
 
-Esistono diversi criteri per scegliere quale stato aggiornare a ogni passo. Uno dei più semplici e fondamentali è il seguente.
+There are several criteria for choosing which state to update at each step. One of the simplest and most fundamental is the following.
 
 \begin{compactitemize}
     \item \textbf{In-place Dynamic Programming}
@@ -267,55 +265,55 @@ Esistono diversi criteri per scegliere quale stato aggiornare a ogni passo. Uno 
 
 \subsection{In-Place Dynamic Programming}
 
-Nella Value Iteration sincrona classica, l’algoritmo mantiene due copie distinte della value function: una versione precedente $v_{\text{old}}$ e una versione aggiornata $v_{\text{new}}$. A ogni iterazione, per tutti gli stati $s \in \mathcal{S}$, il nuovo valore viene calcolato utilizzando esclusivamente $v_{\text{old}}$ secondo:
+In classic synchronous Value Iteration, the algorithm keeps two distinct copies of the value function: a previous version $v_{\text{old}}$ and an updated version $v_{\text{new}}$. At each iteration, for all states $s \in \mathcal{S}$, the new value is computed using exclusively $v_{\text{old}}$ according to:
 \[
 v_{\text{new}}(s) \leftarrow \max_{a \in \mathcal{A}} \left( R_s^a + \gamma \sum_{s' \in \mathcal{S}} P_{ss'}^a \, v_{\text{old}}(s') \right)
 \]
-Al termine dell’aggiornamento di tutti gli stati, la copia vecchia viene sostituita con la nuova:
+Once all states have been updated, the old copy is replaced with the new one:
 \[
 v_{\text{old}}(s) \leftarrow v_{\text{new}}(s) \qquad \forall s \in \mathcal{S}
 \]
-Questo schema garantisce che tutti i backup utilizzino la stessa value function di riferimento, ma richiede di memorizzare due copie della value function e rallenta la propagazione dell’informazione, perché i nuovi valori non vengono sfruttati finché l’intera iterazione non è terminata.
+This scheme guarantees that all backups use the same reference value function, but it requires storing two copies of the value function and slows down the propagation of information, because the new values are not exploited until the whole iteration is finished.
 
-Nell’In-Place Dynamic Programming, invece, si utilizza una sola copia della value function. Quando uno stato $s$ viene aggiornato, il suo valore viene immediatamente sovrascritto e reso disponibile per gli aggiornamenti successivi. L’aggiornamento assume la forma:
+In In-Place Dynamic Programming, instead, a single copy of the value function is used. When a state $s$ is updated, its value is immediately overwritten and made available for subsequent updates. The update takes the form:
 \[
 v(s) \leftarrow \max_{a \in \mathcal{A}} \left( R_s^a + \gamma \sum_{s' \in \mathcal{S}} P_{ss'}^a \, v(s') \right)
 \]
-In questo modo, se uno stato successore $s'$ è già stato aggiornato nella stessa passata, il nuovo valore di $v(s')$ viene immediatamente utilizzato; se non lo è, viene utilizzato il valore precedente. Questo schema accelera la propagazione dell’informazione nello spazio degli stati ed è concettualmente analogo al metodo di Gauss--Seidel per la risoluzione di sistemi lineari. Pur introducendo una dipendenza dall’ordine di aggiornamento, l’In-Place Dynamic Programming garantisce comunque la convergenza alla value function corretta, a condizione che tutti gli stati vengano aggiornati ripetutamente.
+In this way, if a successor state $s'$ has already been updated in the same sweep, the new value of $v(s')$ is used immediately; if it has not, the previous value is used. This scheme speeds up the propagation of information through the state space and is conceptually analogous to the Gauss--Seidel method for solving linear systems. Although it introduces a dependence on the update order, In-Place Dynamic Programming still guarantees convergence to the correct value function, provided that all states are updated repeatedly.
 
 
 
 \subsection{Prioritized Sweeping}
 
-Il Prioritized Sweeping è una strategia di Asynchronous Dynamic Programming che affronta esplicitamente il problema di decidere quali stati aggiornare per primi e in quale ordine. L’idea di base è concentrare il calcolo sugli stati per i quali l’aggiornamento potrebbe produrre il maggiore cambiamento nella value function.
+Prioritized Sweeping is an Asynchronous Dynamic Programming strategy that explicitly addresses the problem of deciding which states to update first and in what order. The basic idea is to focus computation on the states for which the update could produce the largest change in the value function.
 
-Per ogni stato $s$ viene calcolato il \emph{Bellman error}, definito come:
+For each state $s$ the \emph{Bellman error} is computed, defined as:
 \[
 \left| \max_{a \in \mathcal{A}} \left( R_s^a + \gamma \sum_{s' \in \mathcal{S}} P_{ss'}^a \, v(s') \right) - v(s) \right|
 \]
 
-Questo valore misura quanto l’attuale stima di $v(s)$ sia incoerente con la Bellman optimality equation. L’algoritmo seleziona quindi per l’aggiornamento lo stato con il Bellman error più grande, poiché è quello per cui l’update è potenzialmente più informativo.
+This value measures how inconsistent the current estimate of $v(s)$ is with the Bellman optimality equation. The algorithm therefore selects for the update the state with the largest Bellman error, since it is the one for which the update is potentially the most informative.
 
-Dopo aver aggiornato uno stato, anche gli stati che possono transire verso di esso (i cosiddetti predecessori) devono essere rivalutati, poiché il loro valore potrebbe dipendere dal nuovo valore appena calcolato. Questo richiede la conoscenza delle dinamiche inverse dell’ambiente. Dal punto di vista implementativo, il Prioritized Sweeping può essere realizzato in modo efficiente utilizzando una coda di priorità che ordina gli stati in base al loro Bellman error.
+After updating a state, the states that can transition to it (the so-called predecessors) must also be re-evaluated, since their value may depend on the newly computed value. This requires knowledge of the inverse dynamics of the environment. From an implementation point of view, Prioritized Sweeping can be realized efficiently using a priority queue that orders the states according to their Bellman error.
 
 
 \subsection{Real-Time Dynamic Programming}
 
-Il Real-Time Dynamic Programming (RTDP) combina i principi della Dynamic Programming con l’esperienza diretta di un agente che interagisce con l’ambiente. A differenza degli altri metodi, non viene considerato l’intero spazio degli stati, ma solo quelli effettivamente rilevanti per l’agente.
+Real-Time Dynamic Programming (RTDP) combines the principles of Dynamic Programming with the direct experience of an agent interacting with the environment. Unlike the other methods, the entire state space is not considered, but only the states that are actually relevant to the agent.
 
-L’algoritmo prevede che un agente esegua episodi nell’ambiente seguendo una policy (tipicamente greedy rispetto alla value function corrente). Dopo ogni time-step, una volta osservati lo stato $S_t$, l’azione $A_t$ e il reward $R_{t+1}$, viene aggiornato esclusivamente il valore dello stato corrente $S_t$ secondo:
+The algorithm has an agent run episodes in the environment following a policy (typically greedy with respect to the current value function). After each time-step, once the state $S_t$, the action $A_t$ and the reward $R_{t+1}$ have been observed, only the value of the current state $S_t$ is updated according to:
 \[
 v(S_t) \leftarrow \max_{a \in \mathcal{A}} \left( R_{S_t}^a + \gamma \sum_{s' \in \mathcal{S}} P_{S_t s'}^a \, v(s') \right)
 \]
 
-In questo modo, solo gli stati visitati dall’agente vengono aggiornati, evitando di sprecare calcolo su stati che non sono rilevanti per il comportamento reale. Il RTDP può essere visto come una forma di Dynamic Programming focalizzata online, che utilizza il modello dell’ambiente ma restringe gli aggiornamenti allo spazio di stati effettivamente esplorato. Se l’agente continua a visitare ripetutamente tutti gli stati rilevanti, il metodo converge alla value function ottimale.
+In this way, only the states visited by the agent are updated, avoiding wasting computation on states that are not relevant to the actual behaviour. RTDP can be seen as a form of online, focused Dynamic Programming, which uses the environment model but restricts the updates to the portion of the state space actually explored. If the agent keeps repeatedly visiting all the relevant states, the method converges to the optimal value function.
 
 \section{Full-Width Backups}
 
-I metodi di Dynamic Programming utilizzano \emph{full-width backups}, ovvero aggiornamenti in cui, per ogni stato selezionato, vengono considerati esplicitamente tutte le azioni disponibili e tutti gli stati successori. Sia nel caso di backup sincroni sia asincroni, l’aggiornamento di un singolo stato richiede l’uso completo del modello dell’MDP, includendo le probabilità di transizione e la reward function.
+Dynamic Programming methods use \emph{full-width backups}, that is, updates in which, for each selected state, all available actions and all successor states are explicitly considered. Both with synchronous and asynchronous backups, updating a single state requires full use of the MDP model, including the transition probabilities and the reward function.
 
-Questo approccio consente di calcolare aggiornamenti esatti e garantisce la convergenza agli obiettivi di prediction o control. Per questo motivo, la Dynamic Programming risulta efficace per problemi di dimensione media, anche con milioni di stati, purché il modello dell’ambiente sia noto e gestibile.
+This approach makes it possible to compute exact updates and guarantees convergence for prediction or control objectives. For this reason, Dynamic Programming is effective for medium-sized problems, even with millions of states, as long as the environment model is known and manageable.
 
-Tuttavia, nei problemi di grandi dimensioni, la Dynamic Programming è pesantemente limitata dalla cosiddetta \emph{Bellman’s curse of dimensionality}. Il numero di stati $n = |\mathcal{S}|$ cresce esponenzialmente con il numero di variabili di stato, rendendo rapidamente proibitivo il costo computazionale. In tali scenari, anche un singolo full-width backup può risultare troppo costoso, rendendo necessarie tecniche alternative basate su approssimazione, campionamento o apprendimento diretto dall’esperienza.
+However, in large problems, Dynamic Programming is heavily limited by the so-called \emph{Bellman’s curse of dimensionality}. The number of states $n = |\mathcal{S}|$ grows exponentially with the number of state variables, quickly making the computational cost prohibitive. In such scenarios, even a single full-width backup can be too expensive, making alternative techniques based on approximation, sampling or direct learning from experience necessary.
 
 

@@ -17,7 +17,7 @@ slides along two spatial dimensions of the input. The principal vantage of using
 \end{figure}
 If we want to use convolutions on sequence data, we can use \textbf{1D convolutions}, which slide the kernel along a single spatial dimension of the input. In this case, the kernel captures temporal relations among tokens in the sequence.
 The convolution don't preserve anymore the spatial relations among pixels, but it preserve the temporal dependencies in time series or syntactic order in text. 
-\begin{wrapfigure}{r}{0.4\textwidth}
+\begin{wrapfigure}[9]{r}{0.3\textwidth}
     \centering
     \vspace{-10pt}
     \includegraphics[width=\linewidth]{images/1D_convolution.png}
@@ -33,6 +33,7 @@ The discete 1D convolution is defined as:
 \end{equation}
 Where \textbf{x} is our input vector of lenght \textbf{n}, and \textbf{w} our kernel of lenght \textbf{k}.
 
+\newpage
 \begin{infobox}[Note]
     In the convolution formula we have $x(n - i)$, which implies that the kernel accesses only past values of the input signal. This corresponds to a \textit{causal convolution}, meaning that the output at time $n$ depends only on the current and previous inputs. This property is crucial for sequence modeling tasks, where future information should not be used to predict the next element in the sequence.
 \end{infobox}
@@ -55,7 +56,7 @@ To mitigate this problem we can increase the receptive field using \textbf{dilat
 \end{equation}
 where $d$ is the \textbf{dilation factor}
 
-\newpage
+
 \subsection{Casual Convolution}
 \begin{wrapfigure}{r}{0.3\textwidth}
     \centering
@@ -106,7 +107,7 @@ For example, in code understanding tasks, the opening of a \texttt{for} loop may
 An \textit{inductive bias} is a set of assumptions that a learning algorithm uses to generalize from training data to unseen data. In the case of TCNs, the inductive bias is that temporal dependencies can be captured using local convolutions with an expanding receptive field. This bias guides the model toward solutions that respect causality and local temporal structure, but it may limit the ability to learn non-local or irregular temporal patterns.
 \end{infobox}
 
-\newpage
+
 \subsection{Transformer Architecture}
 Transformer network are composed of two main components:
 \begin{compactitemize}
@@ -116,14 +117,14 @@ Transformer network are composed of two main components:
 Each part is built as a stack of $N=6$ layers, forming a deep architecture capable of learning complex dependencies.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/transformer.png}
+    \includegraphics[width=0.35\textwidth]{images/transformer.png}
     \caption{Transformer Architecture.}
     \label{fig:TCN}
 \end{figure}
 In this course, we will focus on understanding the \textbf{Encoder} part of the Transformer Architecture.
 
 \subsection{Transformer Encoder}
-\begin{wrapfigure}{r}{0.2\textwidth}
+\begin{wrapfigure}{r}{0.17\textwidth}
     \centering
     \vspace{-10pt}
     \includegraphics[width=\linewidth]{images/encoder.png}
@@ -200,7 +201,7 @@ The main concepts are:
     \textbf{return} $z$
 \end{algorithm}
 
-\begin{wrapfigure}{r}{0.35\textwidth}
+\begin{wrapfigure}{r}{0.28\textwidth}
     \centering
     \vspace{-10pt}
     \includegraphics[width=\linewidth]{images/QKV.png}
@@ -220,7 +221,7 @@ Since all three components originate from the same input ($X$), the attention me
 If the queries, keys, and values come from different sources, it is called \textbf{cross-attention}.
 
 \subsubsection{Single Head Attention}
-\begin{wrapfigure}{r}{0.2\textwidth}
+\begin{wrapfigure}{r}{0.12\textwidth}
     \centering
     \vspace{-10pt}
     \includegraphics[width=\linewidth]{images/sdpa.png}
@@ -244,7 +245,7 @@ The dimensionality of $Q$, $K$, and $V$ is $d_k = 64$, which serves as a \textbf
 \end{infobox}
 
 \subsubsection{Multi-Head Attention}
-\begin{wrapfigure}{r}{0.25\textwidth}
+\begin{wrapfigure}{r}{0.22\textwidth}
     \centering
     \vspace{-10pt}
     \includegraphics[width=\linewidth]{images/mha.png}
@@ -265,7 +266,7 @@ where each $Z$ is computed as:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/mha2.png}
+    \includegraphics[width=0.7\textwidth]{images/mha2.png}
     \caption{Multi Head Attention.}
     \label{fig:MHA2}
 \end{figure}
@@ -356,7 +357,7 @@ Both MAE and MSE assume \textbf{symmetric errors}: overestimating and underestim
 We may want to estimate not a single "average" value, but a range of possible outcomes, this motivates the use of \textbf{Quantile Loss}.
 
 \subsection{Understanding Quantiles}
-\begin{wrapfigure}{r}{0.35\textwidth}
+\begin{wrapfigure}{r}{0.22\textwidth}
     \centering
     \vspace{-10pt}
     \includegraphics[width=\linewidth]{images/dis.png}

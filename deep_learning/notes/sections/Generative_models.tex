@@ -159,19 +159,17 @@ Since the $D_{KL}$ term is always non-negative, this leads to the following ineq
 \mathrm{ELBO} = \mathbb{E}_{z \sim q(z \mid x)}[\log p(x \mid z)] 
 - D_{\mathrm{KL}} \big[q(z \mid x) \, \Vert \, p(z)\big]
 \]
-\begin{wrapfigure}{r}{0.45\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/ELBO.png}
-    \label{fig:Scaled Dot Product Attention}
-    \vspace{-10pt}
-\end{wrapfigure}
 Results:
 \begin{compactitemize}
     \item Maximizing the ELBO provides a lower bound on the true log-likelihood $\log p(x)$.
     \item Therefore, maximizing the ELBO is equivalent to making our model as close as possible to the true data distribution.
     \item If we maximize the ELBO, we simultaneously minimize the KL divergence between the true intractable posterior and the proposal/posterior (our initial goal).
 \end{compactitemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/ELBO.png}
+    \label{fig:Scaled Dot Product Attention}
+\end{figure}
 
 \subsection{Variational Autoencoder: the Encoder and the Decoder}
 A Variational Autoencoder (VAE) is an autoencoder trained to maximize the \textbf{Evidence Lower Bound (ELBO)}:

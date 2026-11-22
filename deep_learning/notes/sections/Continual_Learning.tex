@@ -185,7 +185,7 @@ When learning Task~B, the total loss optimized by EWC is:
 \sum_i \frac{\lambda}{2}
 F_i \bigl(\theta_i - \theta^{*}_{A,i}\bigr)^2.
 \]
-\newpage
+
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \vspace{-10pt}
@@ -276,13 +276,6 @@ Since EWC squares the gradient:
 \end{enumerate}
 
 \subsection{Second-Derivative Interpretation}
-\begin{wrapfigure}{r}{0.3\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/CL7.png}
-    \label{fig:Scaled Dot Product Attention}
-    \vspace{-10pt}
-\end{wrapfigure}
 There is also a geometric interpretation. Near a minimum, the second derivative of the loss
 describes the curvature of the local region:
 \begin{compactitemize}
@@ -298,6 +291,11 @@ describes the curvature of the local region:
 Thus, the FIM acts as a proxy for the local geometry of the loss landscape around
 $\theta_A^{*}$. This captures how many "degrees of freedom" the model has when adapting
 to Task~B without corrupting Task~A.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/CL7.png}
+    \label{fig:Scaled Dot Product Attention}
+\end{figure}
 
 \section{Continual Learning}
 
@@ -778,7 +776,7 @@ most of its layers.
 Overall, Learning without Forgetting provides a simple and effective function
 regularization strategy for continual learning, enabling models to accumulate knowledge
 over time without catastrophic forgetting even when old training data are unavailable.
-\newpage
+
 \subsection{Regularization approaches: a summary}
 \vspace{0.3cm}
 
@@ -1080,15 +1078,8 @@ Replay with \textbf{Knowledge Distillation}. Instead of relying solely on hard l
 the memory buffer, the model can distill information from a previous version of itself,
 encouraging consistency in the output distributions across tasks. This idea leads to more
 robust replay-based methods, which will be discussed next.
-\newpage
+
 \subsection{Dark Experience Replay (DER)}
-\begin{wrapfigure}{r}{0.25\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/CL20.png}
-    \label{fig:Scaled Dot Product Attention}
-    \vspace{-10pt}
-\end{wrapfigure}
 \textbf{Dark Experience Replay (DER)} is a replay-based continual learning method that
 extends Experience Replay by explicitly leveraging \textbf{dark knowledge} to retain past
 experiences. While standard ER stores past input--label pairs, DER stores richer
@@ -1099,6 +1090,12 @@ examples. However, instead of storing only the ground-truth labels, DER also sto
 \textbf{network responses} (logits) produced by the model at the time those examples were
 originally seen. These stored responses encode valuable information about previously
 learned tasks.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.2\textwidth]{images/CL20.png}
+    \label{fig:Scaled Dot Product Attention}
+\end{figure}
 \begin{wrapfigure}{r}{0.25\textwidth}
     \centering
     \vspace{-10pt}

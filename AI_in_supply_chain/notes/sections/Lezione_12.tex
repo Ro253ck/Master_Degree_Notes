@@ -4,62 +4,62 @@
 
 \subsection{Single-Server Queueing System}
 
-Uno dei modelli più semplici e allo stesso tempo più importanti nella simulazione a eventi discreti è il \textbf{single-server queueing system}.  
-Si tratta di un sistema costituito da un’unica risorsa di servizio (il server) e da una popolazione di clienti che arrivano nel tempo richiedendo tale servizio.
+One of the simplest and at the same time most important models in discrete-event simulation is the \textbf{single-server queueing system}.
+It is a system made up of a single service resource (the server) and a population of customers who arrive over time requesting that service.
 
-Nonostante la sua estrema semplicità strutturale, il single-server queue rappresenta un caso di studio fondamentale. Infatti, molti sistemi reali più complessi possono essere visti come estensioni o combinazioni di più code a singolo server. Per questo motivo, comprendere a fondo questo modello è essenziale per capire il funzionamento di simulazioni di complessità molto maggiore.
+Despite its extreme structural simplicity, the single-server queue is a fundamental case study. In fact, many more complex real systems can be seen as extensions or combinations of several single-server queues. For this reason, a thorough understanding of this model is essential to understand how much more complex simulations work.
 
-Il sistema è composto dai seguenti elementi principali:
+The system is made up of the following main elements:
 \begin{compactitemize}
-    \item un \textbf{server}, che può essere in stato idle o busy;
-    \item una \textbf{coda}, dove i clienti attendono se il server è occupato;
-    \item un flusso di \textbf{clienti in arrivo}, che richiedono il servizio;
-    \item eventi di \textbf{arrivo} e \textbf{partenza} (o completamento del servizio).
+    \item a \textbf{server}, which can be idle or busy;
+    \item a \textbf{queue}, where customers wait if the server is busy;
+    \item a flow of \textbf{arriving customers}, who request the service;
+    \item \textbf{arrival} and \textbf{departure} (or service completion) events.
 \end{compactitemize}
 
 \subsubsection{Problem Statement and Assumptions}
 
-Il comportamento del sistema è descritto da una serie di assunzioni fondamentali, che ne determinano la dinamica temporale.
+The behaviour of the system is described by a series of fundamental assumptions, which determine its temporal dynamics.
 
-I \textbf{tempi di interarrivo} dei clienti, indicati con $A_1, A_2, \dots$, sono modellati come variabili casuali \textbf{indipendenti e identicamente distribuite (IID)}. Ciò significa che il tempo che intercorre tra due arrivi consecutivi è casuale, ma segue sempre la stessa distribuzione di probabilità ed è indipendente dagli altri interarrivi.
+The \textbf{interarrival times} of the customers, denoted by $A_1, A_2, \dots$, are modelled as \textbf{independent and identically distributed (IID)} random variables. This means that the time between two consecutive arrivals is random, but always follows the same probability distribution and is independent of the other interarrival times.
 
-Analogamente, i \textbf{tempi di servizio} (o tempi di processamento), indicati con $S_1, S_2, \dots$, sono anch’essi variabili casuali IID. Inoltre, si assume che i tempi di servizio siano \textbf{indipendenti} dai tempi di interarrivo.
+Analogously, the \textbf{service times} (or processing times), denoted by $S_1, S_2, \dots$, are also IID random variables. Moreover, the service times are assumed to be \textbf{independent} of the interarrival times.
 
-Il sistema segue le seguenti regole operative:
+The system follows these operating rules:
 \begin{compactitemize}
-    \item se un cliente arriva e trova il server idle, entra immediatamente in servizio;
-    \item se il server è occupato, il cliente si mette in coda;
-    \item al termine di un servizio, il server seleziona il prossimo cliente dalla coda secondo una disciplina \textbf{first-in, first-out (FIFO)}.
+    \item if a customer arrives and finds the server idle, they immediately enter service;
+    \item if the server is busy, the customer joins the queue;
+    \item at the end of a service, the server selects the next customer from the queue according to a \textbf{first-in, first-out (FIFO)} discipline.
 \end{compactitemize}
 
 \subsubsection{Initial Conditions and Simulation Start}
 
-La simulazione del single-server queueing system inizia in una condizione iniziale ben definita, detta \textbf{empty-and-idle state}.  
-In questo stato iniziale:
+The simulation of the single-server queueing system starts from a well-defined initial condition, called the \textbf{empty-and-idle state}.
+In this initial state:
 \begin{compactitemize}
-    \item non ci sono clienti nel sistema;
-    \item il server è idle.
+    \item there are no customers in the system;
+    \item the server is idle.
 \end{compactitemize}
 
-Il tempo iniziale della simulazione è fissato a $t_0 = 0$. A partire da questo istante, il modello attende l’arrivo del primo cliente.  
-Per determinare il tempo di tale arrivo, viene generato il primo tempo di interarrivo $A_1$, con l’assunzione che $A_1 \neq 0$. Il primo evento di arrivo avviene quindi al tempo $t = A_1$.
+The initial simulation time is set to $t_0 = 0$. Starting from this instant, the model waits for the arrival of the first customer.
+To determine the time of this arrival, the first interarrival time $A_1$ is generated, with the assumption that $A_1 \neq 0$. The first arrival event therefore occurs at time $t = A_1$.
 
-Questa scelta delle condizioni iniziali è comune negli studi di simulazione, ma introduce potenziali effetti transitori. Per questo motivo, nelle analisi pratiche è spesso necessario considerare un periodo di warm-up prima di raccogliere statistiche affidabili.
+This choice of initial conditions is common in simulation studies, but it introduces potential transient effects. For this reason, in practical analyses it is often necessary to consider a warm-up period before collecting reliable statistics.
 
 \subsubsection{Measures of Performance}
 
-L’obiettivo principale della simulazione è la stima di specifiche \textbf{misure di performance}, che descrivono il comportamento medio del sistema nel lungo periodo.
+The main goal of the simulation is the estimation of specific \textbf{performance measures}, which describe the average behaviour of the system in the long run.
 
-Le principali misure considerate per il single-server queueing system sono:
+The main measures considered for the single-server queueing system are:
 \begin{compactitemize}
-    \item l’\textbf{expected average delay in queue}, indicato con $d(n)$;
-    \item l’\textbf{expected average number of customers in queue}, indicato con $q(n)$;
-    \item l’\textbf{expected utilization of the server}, indicato con $u(n)$.
+    \item the \textbf{expected average delay in queue}, denoted by $d(n)$;
+    \item the \textbf{expected average number of customers in queue}, denoted by $q(n)$;
+    \item the \textbf{expected utilization of the server}, denoted by $u(n)$.
 \end{compactitemize}
 
-Queste quantità non possono essere calcolate esattamente in forma chiusa per distribuzioni generiche di interarrivo e servizio. La simulazione a eventi discreti viene quindi utilizzata per ottenere \textbf{stime} di tali grandezze a partire dall’osservazione dell’artificial history del sistema.
+These quantities cannot be computed exactly in closed form for generic interarrival and service distributions. Discrete-event simulation is therefore used to obtain \textbf{estimates} of these quantities from the observation of the artificial history of the system.
 
-Il single-server queueing system rappresenta quindi un esempio ideale per introdurre e comprendere le logiche fondamentali della discrete-event simulation, mantenendo al contempo un forte legame con problemi reali di operations e supply chain management.
+The single-server queueing system is therefore an ideal example to introduce and understand the fundamental logic of discrete-event simulation, while maintaining a strong link with real operations and supply chain management problems.
 
 \begin{figure}[H]
     \centering
@@ -70,61 +70,61 @@ Il single-server queueing system rappresenta quindi un esempio ideale per introd
 
 \subsection{Expected Average Delay in Queue}
 
-Una delle principali misure di performance di un single-server queueing system è l’\textbf{expected average delay in queue}. Questa quantità rappresenta il tempo medio che un cliente trascorre in attesa nella coda prima di iniziare il servizio ed è quindi una misura di performance dal punto di vista del cliente.
+One of the main performance measures of a single-server queueing system is the \textbf{expected average delay in queue}. This quantity represents the average time a customer spends waiting in the queue before starting service and is therefore a performance measure from the customer's point of view.
 
-Il valore del ritardo sperimentato dai clienti dipende direttamente dalle realizzazioni delle variabili casuali che descrivono il sistema, in particolare:
+The value of the delay experienced by the customers depends directly on the realizations of the random variables that describe the system, in particular:
 \begin{compactitemize}
-    \item i tempi di interarrivo;
-    \item i tempi di servizio.
+    \item the interarrival times;
+    \item the service times.
 \end{compactitemize}
 
-Poiché tali grandezze sono aleatorie, anche il ritardo sperimentato da ciascun cliente è una variabile casuale. Di conseguenza, il delay medio osservato nel corso di una simulazione è esso stesso una variabile casuale, e l’obiettivo dello studio è la stima del suo \textbf{valore atteso}, indicato con $d(n)$.
+Since these quantities are random, the delay experienced by each customer is also a random variable. Consequently, the average delay observed during a simulation is itself a random variable, and the goal of the study is the estimation of its \textbf{expected value}, denoted by $d(n)$.
 
-Un primo estimatore naturale di questa misura è dato dalla media dei ritardi individuali osservati sui primi $n$ clienti serviti. Indicando con $D_1, D_2, \dots, D_n$ i ritardi in coda dei primi $n$ clienti, l’estimatore è definito come:
+A first natural estimator of this measure is given by the mean of the individual delays observed for the first $n$ customers served. Denoting by $D_1, D_2, \dots, D_n$ the queue delays of the first $n$ customers, the estimator is defined as:
 \[
 \hat{d}(n) = \frac{1}{n} \sum_{i=1}^{n} D_i
 \]
 
-È importante chiarire che il termine \emph{delay} include anche il caso in cui il cliente non attenda affatto. Se un cliente arriva quando il server è idle, entra immediatamente in servizio e il suo ritardo è pari a zero. Pertanto, osservazioni con $D_i = 0$ fanno parte a pieno titolo del campione e devono essere correttamente considerate nella stima del delay medio.
+It is important to clarify that the term \emph{delay} also includes the case in which the customer does not wait at all. If a customer arrives when the server is idle, they immediately enter service and their delay is equal to zero. Therefore, observations with $D_i = 0$ are fully part of the sample and must be correctly considered in the estimate of the average delay.
 
-Questo aspetto è rilevante dal punto di vista modellistico: stimare il delay medio senza tenere conto delle osservazioni nulle porterebbe a una valutazione distorta della performance del sistema, sovrastimando il livello di congestione percepito dai clienti.
+This aspect is relevant from a modelling point of view: estimating the average delay without taking into account the zero observations would lead to a biased evaluation of the system performance, overestimating the level of congestion perceived by the customers.
 
-Sebbene la forma di $\hat{d}(n)$ coincida con quella di una media aritmetica, tale estimatore non corrisponde alla ``media usuale'' della statistica classica. I ritardi individuali non sono osservazioni indipendenti e identicamente distribuite, poiché ciascun $D_i$ dipende dallo stato del sistema al momento dell’arrivo del cliente, il quale è influenzato dagli eventi precedenti.
+Although the form of $\hat{d}(n)$ coincides with that of an arithmetic mean, this estimator does not correspond to the ``usual mean'' of classical statistics. The individual delays are not independent and identically distributed observations, since each $D_i$ depends on the state of the system at the time of the customer's arrival, which is influenced by previous events.
 
-Per questa ragione, nella pratica della simulazione a eventi discreti risulta particolarmente importante adottare estimatori che tengano esplicitamente conto dell’intera evoluzione temporale del sistema, includendo sia periodi di congestione sia periodi in cui il server è idle e i ritardi sono nulli. Solo in questo modo è possibile ottenere stime affidabili e rappresentative della reale esperienza dei clienti.
+For this reason, in the practice of discrete-event simulation it is particularly important to adopt estimators that explicitly take into account the entire temporal evolution of the system, including both periods of congestion and periods in which the server is idle and the delays are zero. Only in this way is it possible to obtain reliable estimates that are representative of the real customer experience.
 
 \subsection{Expected Average Queue Size}
 
-Un’altra misura di performance fondamentale per il single-server queueing system è l’\textbf{expected average queue size}. Questa quantità rappresenta il numero medio di clienti presenti in coda ed è una misura di performance che riflette principalmente il \emph{punto di vista del manager o del decisore}, in quanto è direttamente collegata a problemi di congestione, utilizzo delle risorse e dimensionamento del sistema.
+Another fundamental performance measure for the single-server queueing system is the \textbf{expected average queue size}. This quantity represents the average number of customers present in the queue and is a performance measure that mainly reflects the \emph{point of view of the manager or decision maker}, since it is directly connected to problems of congestion, resource utilization and system sizing.
 
-Analogamente ad altre misure di performance, il numero di clienti in coda dipende dalle realizzazioni dei tempi di interarrivo e dei tempi di servizio. Di conseguenza, anche la dimensione media della coda è una variabile casuale e l’obiettivo della simulazione è stimare il suo \textbf{valore atteso}, indicato con $q(n)$.
+Analogously to other performance measures, the number of customers in queue depends on the realizations of the interarrival times and of the service times. Consequently, the average queue size is also a random variable and the goal of the simulation is to estimate its \textbf{expected value}, denoted by $q(n)$.
 
-A differenza del delay medio, l’average queue size viene definito come una \textbf{media nel tempo}. Ciò significa che non si effettua una media sui clienti, ma si osserva come evolve nel tempo la lunghezza della coda e si calcola una media pesata rispetto alla durata dei diversi stati del sistema.
+Unlike the average delay, the average queue size is defined as a \textbf{time average}. This means that we do not average over the customers, but we observe how the length of the queue evolves over time and compute a mean weighted by the duration of the different states of the system.
 
-Sia $Q(t)$ il numero di clienti in coda all’istante di tempo $t$. Durante l’evoluzione della simulazione, $Q(t)$ è sempre una variabile intera non negativa. Sia inoltre $T(n)$ il tempo totale necessario per osservare i primi $n$ ritardi in coda, ovvero l’orizzonte temporale della simulazione considerata.
+Let $Q(t)$ be the number of customers in queue at time instant $t$. During the evolution of the simulation, $Q(t)$ is always a non-negative integer variable. Moreover, let $T(n)$ be the total time needed to observe the first $n$ queue delays, that is, the time horizon of the simulation considered.
 
-Per ogni istante $t$ compreso tra $0$ e $T(n)$, il processo $Q(t)$ assume valori appartenenti all’insieme $\{0,1,2,\dots\}$. Indichiamo con $p_i$ la proporzione attesa del tempo in cui la coda ha lunghezza pari a $i$, cioè la frazione di tempo in cui vale la condizione $Q(t) = i$.
+For each instant $t$ between $0$ and $T(n)$, the process $Q(t)$ takes values in the set $\{0,1,2,\dots\}$. We denote by $p_i$ the expected proportion of time in which the queue has length equal to $i$, that is, the fraction of time in which the condition $Q(t) = i$ holds.
 
-L’expected average number of customers in queue può allora essere espresso come:
+The expected average number of customers in queue can then be expressed as:
 \[
 q(n) = \sum_{i=0}^{\infty} i \cdot p_i
 \]
 
-Questa espressione mette in evidenza che $q(n)$ è una \textbf{media pesata} dei possibili valori della lunghezza della coda, in cui ogni valore $i$ è pesato dalla proporzione di tempo in cui il sistema si trova in quello stato.
+This expression highlights that $q(n)$ is a \textbf{weighted average} of the possible values of the queue length, in which each value $i$ is weighted by the proportion of time the system spends in that state.
 
-Per stimare $q(n)$ tramite simulazione è quindi necessario stimare le quantità $p_i$. A tal fine, si definisce $T_i$ come il tempo totale, durante la simulazione, in cui la coda ha lunghezza pari a $i$. Un estimatore naturale di $p_i$ è dato da:
+To estimate $q(n)$ through simulation it is therefore necessary to estimate the quantities $p_i$. To this end, $T_i$ is defined as the total time, during the simulation, in which the queue has length equal to $i$. A natural estimator of $p_i$ is given by:
 \[
 \hat{p}_i = \frac{T_i}{T(n)}
 \]
 
-Sostituendo questa stima nell’espressione precedente, si ottiene l’estimatore della dimensione media della coda:
+Substituting this estimate in the previous expression, we obtain the estimator of the average queue size:
 \[
 \hat{q}(n) = \sum_{i=0}^{\infty} i \cdot \frac{T_i}{T(n)} = \frac{1}{T(n)} \sum_{i=0}^{\infty} i \cdot T_i
 \]
 
-Questo estimatore rappresenta il \textbf{time-average number of customers in queue}. La sua principale caratteristica è quella di tenere esplicitamente conto dell’evoluzione temporale del sistema, pesando maggiormente quegli stati della coda in cui il sistema trascorre più tempo.
+This estimator represents the \textbf{time-average number of customers in queue}. Its main characteristic is that it explicitly takes into account the temporal evolution of the system, giving more weight to those queue states in which the system spends more time.
 
-Per questo motivo, la queue size media calcolata come media nel tempo fornisce una descrizione più fedele del livello di congestione del sistema rispetto a una media calcolata sui clienti, risultando particolarmente adatta per supportare decisioni di gestione e dimensionamento delle risorse.
+For this reason, the average queue size computed as a time average provides a more faithful description of the level of congestion of the system than an average computed over the customers, making it particularly suitable to support resource management and sizing decisions.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/QQ1.png}
@@ -133,31 +133,31 @@ Per questo motivo, la queue size media calcolata come media nel tempo fornisce u
 
 \subsection{Expected Utilization of the Server}
 
-Un’ulteriore misura di performance fondamentale nel single-server queueing system è l’\textbf{expected utilization of the server}. Questa grandezza rappresenta la proporzione attesa di tempo durante la simulazione in cui il server risulta occupato, ovvero impegnato nell’erogazione del servizio a un cliente.
+A further fundamental performance measure in the single-server queueing system is the \textbf{expected utilization of the server}. This quantity represents the expected proportion of time during the simulation in which the server is busy, that is, engaged in delivering service to a customer.
 
-Dal punto di vista formale, l’utilization è una misura definita su \textbf{tempo continuo} ed è quindi anch’essa una variabile casuale, in quanto dipende dall’evoluzione stocastica del sistema. L’obiettivo della simulazione è stimare il valore atteso dell’utilizzazione del server, indicato con $u(n)$.
+From a formal point of view, utilization is a measure defined in \textbf{continuous time} and is therefore also a random variable, since it depends on the stochastic evolution of the system. The goal of the simulation is to estimate the expected value of the server utilization, denoted by $u(n)$.
 
-Per definire un estimatore, si introduce la funzione indicatrice $B(t)$, definita come:
+To define an estimator, the indicator function $B(t)$ is introduced, defined as:
 \[
 B(t) =
 \begin{cases}
-1 & \text{se il server è busy al tempo } t, \\
-0 & \text{se il server è idle al tempo } t.
+1 & \text{if the server is busy at time } t, \\
+0 & \text{if the server is idle at time } t.
 \end{cases}
 \]
 
-Sia inoltre $T(n)$ il tempo totale di osservazione della simulazione. Un estimatore naturale dell’utilization attesa del server è dato dalla media nel tempo di $B(t)$ sull’intervallo $[0, T(n)]$:
+Moreover, let $T(n)$ be the total observation time of the simulation. A natural estimator of the expected utilization of the server is given by the time average of $B(t)$ over the interval $[0, T(n)]$:
 \[
 \hat{u}(n) = \frac{1}{T(n)} \int_{0}^{T(n)} B(t)\, dt
 \]
 
-Questo estimatore rappresenta la proporzione di tempo in cui il server è stato effettivamente occupato durante la simulazione ed è noto come \textbf{continuous time-average utilization}.
+This estimator represents the proportion of time in which the server was actually busy during the simulation and is known as \textbf{continuous time-average utilization}.
 
-L’utilization del server è una misura estremamente informativa per l’analisi delle prestazioni del sistema. Valori di utilizzo prossimi al $100\%$ indicano che il server opera quasi sempre in condizioni di saturazione. Tali situazioni sono tipicamente associate a un’elevata congestione del sistema, caratterizzata da code lunghe e ritardi medi elevati. In questo caso, il server rappresenta un potenziale \textbf{bottleneck} del sistema.
+Server utilization is an extremely informative measure for the analysis of system performance. Utilization values close to $100\%$ indicate that the server operates almost always in saturation conditions. Such situations are typically associated with high system congestion, characterized by long queues and high average delays. In this case, the server represents a potential \textbf{bottleneck} of the system.
 
-D’altra parte, livelli di utilization significativamente inferiori, ad esempio al di sotto del $90\%$, possono essere indicativi di un’eccessiva capacità installata. Questo aspetto è particolarmente rilevante quando il server rappresenta una risorsa costosa, come nel caso di robot o macchinari avanzati nei sistemi manifatturieri, dove bassi livelli di utilizzo possono tradursi in inefficienze economiche.
+On the other hand, significantly lower utilization levels, for example below $90\%$, can indicate excessive installed capacity. This aspect is particularly relevant when the server represents an expensive resource, as in the case of robots or advanced machinery in manufacturing systems, where low utilization levels can translate into economic inefficiencies.
 
-In conclusione, l’expected utilization of the server costituisce una misura chiave per bilanciare efficienza operativa e livello di servizio. Analizzata congiuntamente a indicatori di congestione come la queue size media e il delay medio, permette di supportare decisioni informate sul dimensionamento e la gestione delle risorse.
+In conclusion, the expected utilization of the server is a key measure for balancing operational efficiency and service level. Analysed together with congestion indicators such as the average queue size and the average delay, it makes it possible to support informed decisions on the sizing and management of resources.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/QQ2.png}
@@ -167,66 +167,66 @@ In conclusione, l’expected utilization of the server costituisce una misura ch
 \section{Inventory System}
 \subsection{Problem Statement: Inventory System}
 
-Si considera un \textbf{sistema di gestione delle scorte} con l’obiettivo di confrontare
-politiche di riordino alternative. Una società vende un singolo prodotto e deve
-decidere quante unità mantenere in inventario in ciascuno dei successivi $n$ mesi,
-tenendo conto dell’incertezza della domanda e dei costi associati agli ordini.
+We consider an \textbf{inventory management system} with the goal of comparing
+alternative reorder policies. A company sells a single product and must
+decide how many units to keep in inventory in each of the next $n$ months,
+taking into account demand uncertainty and the costs associated with orders.
 
-La domanda dei clienti è modellata come un processo stocastico. In particolare, i
-\textbf{tempi di interarrivo della domanda} sono variabili casuali indipendenti e
-identicamente distribuite (IID), con distribuzione esponenziale e valore medio pari a
-$0.1$ mesi. La \textbf{dimensione della domanda} è indipendente dai tempi di arrivo ed è
-descritta dalla seguente distribuzione discreta:
+Customer demand is modelled as a stochastic process. In particular, the
+\textbf{demand interarrival times} are independent and
+identically distributed (IID) random variables, with exponential distribution and mean value equal to
+$0.1$ months. The \textbf{demand size} is independent of the arrival times and is
+described by the following discrete distribution:
 \[
 D =
 \begin{cases}
-1 & \text{con probabilità } \frac{1}{6}, \\
-2 & \text{con probabilità } \frac{1}{3}, \\
-3 & \text{con probabilità } \frac{1}{3}, \\
-4 & \text{con probabilità } \frac{1}{6}.
+1 & \text{with probability } \frac{1}{6}, \\
+2 & \text{with probability } \frac{1}{3}, \\
+3 & \text{with probability } \frac{1}{3}, \\
+4 & \text{with probability } \frac{1}{6}.
 \end{cases}
 \]
 
-All’inizio di ciascun mese, l’azienda effettua una revisione del livello di inventario e
-decide se effettuare un ordine al fornitore. Se viene effettuato un ordine di ampiezza
-$Z$, il costo associato è dato da:
+At the beginning of each month, the company reviews the inventory level and
+decides whether to place an order with the supplier. If an order of size
+$Z$ is placed, the associated cost is given by:
 \[
 C = K + i \cdot Z,
 \]
-dove $K$ rappresenta il \textbf{costo fisso di setup} dell’ordine, mentre $i$ è il
-\textbf{costo incrementale unitario}. Il \textbf{lead time} (o delivery lag), ossia il
-tempo che intercorre tra l’ordine e la consegna, è una variabile casuale con
-distribuzione uniforme.
+where $K$ represents the \textbf{fixed setup cost} of the order, while $i$ is the
+\textbf{incremental unit cost}. The \textbf{lead time} (or delivery lag), that is, the
+time between the order and the delivery, is a random variable with
+uniform distribution.
 
-La politica di riordino adottata è una \textbf{politica stazionaria $(s,S)$}. Indicando
-con $I$ il livello di inventario all’inizio del mese, la quantità ordinata $Z$ è definita
-come:
+The reorder policy adopted is a \textbf{stationary $(s,S)$ policy}. Denoting
+by $I$ the inventory level at the beginning of the month, the order quantity $Z$ is defined
+as:
 \[
 Z =
 \begin{cases}
-S - I & \text{se } I < s, \\
-0     & \text{se } I \ge s.
+S - I & \text{if } I < s, \\
+0     & \text{if } I \ge s.
 \end{cases}
 \]
-I parametri $s$ e $S$ caratterizzano completamente la politica, mentre $Z$ rappresenta
-la quantità ordinata al fornitore.
+The parameters $s$ and $S$ completely characterize the policy, while $Z$ represents
+the quantity ordered from the supplier.
 
-La dinamica del sistema di inventario è la seguente:
+The dynamics of the inventory system are the following:
 \begin{compactitemize}
-    \item quando si verifica una domanda, essa viene soddisfatta immediatamente se
-    il livello di inventario è sufficiente, ovvero se $I(t) \ge D_t$;
-    \item se la domanda eccede il livello di inventario disponibile, l’eccesso viene
-    \textbf{backlogged} e soddisfatto tramite consegne future;
-    \item quando avviene una consegna, essa viene utilizzata prioritariamente per
-    soddisfare eventuali arretrati di domanda; l’eventuale rimanenza viene aggiunta
-    all’inventario.
+    \item when a demand occurs, it is satisfied immediately if
+    the inventory level is sufficient, that is, if $I(t) \ge D_t$;
+    \item if the demand exceeds the available inventory level, the excess is
+    \textbf{backlogged} and satisfied through future deliveries;
+    \item when a delivery arrives, it is used first to
+    satisfy any demand backlog; any remainder is added
+    to the inventory.
 \end{compactitemize}
 
-Di conseguenza, il livello di inventario $I(t)$ può assumere sia valori positivi sia
-valori negativi, a seconda della presenza di scorte o di domanda arretrata. Questo
-modello consente di analizzare in modo realistico il compromesso tra costi di
-ordinazione, livelli di scorta e qualità del servizio, e si presta naturalmente a uno
-studio tramite simulazione per confrontare diverse politiche $(s,S)$.
+Consequently, the inventory level $I(t)$ can take both positive and
+negative values, depending on the presence of stock or of backlogged demand. This
+model makes it possible to realistically analyse the trade-off between ordering costs,
+stock levels and service quality, and it naturally lends itself to a
+simulation study to compare different $(s,S)$ policies.
 
 \begin{figure}[H]
     \centering
@@ -236,124 +236,124 @@ studio tramite simulazione per confrontare diverse politiche $(s,S)$.
 
 \subsection{Costs}
 
-Nel sistema di inventario considerato, le prestazioni di una politica di riordino sono
-valutate sulla base dei \textbf{costi totali}, che includono costi di ordinazione,
-di mantenimento delle scorte e di carenza (shortage). Tali costi sono definiti come
-medie nel tempo sull’orizzonte di simulazione.
+In the inventory system considered, the performance of a reorder policy is
+evaluated on the basis of the \textbf{total costs}, which include ordering, holding
+and shortage costs. These costs are defined as
+time averages over the simulation horizon.
 
 \paragraph{Ordering costs}
-Quando l’azienda effettua un ordine di ampiezza $Z$, il costo di ordinazione è dato da:
+When the company places an order of size $Z$, the ordering cost is given by:
 \[
 C = K + i \cdot Z,
 \]
-dove $K$ è il \textbf{costo fisso di setup} associato all’emissione dell’ordine, mentre
-$i$ rappresenta il \textbf{costo incrementale unitario} per ciascun articolo ordinato.
+where $K$ is the \textbf{fixed setup cost} associated with issuing the order, while
+$i$ represents the \textbf{incremental unit cost} for each item ordered.
 
 \paragraph{Holding costs}
-I costi di mantenimento delle scorte sono proporzionali al livello di inventario
-positivo. Indicando con $I(t)$ il livello di inventario al tempo $t$, si definisce:
+Holding costs are proportional to the positive inventory
+level. Denoting by $I(t)$ the inventory level at time $t$, we define:
 \[
 I^{+}(t) = \max\{I(t), 0\}.
 \]
-Il costo di holding istantaneo è quindi:
+The instantaneous holding cost is therefore:
 \[
 H(t) = h \cdot I^{+}(t),
 \]
-dove $h$ rappresenta il costo unitario di mantenimento. Tali costi riflettono spese
-come affitto del magazzino, assicurazione, tasse, manutenzione e costi opportunità del
-capitale immobilizzato.
+where $h$ represents the unit holding cost. These costs reflect expenses
+such as warehouse rent, insurance, taxes, maintenance and the opportunity cost of
+tied-up capital.
 
-La misura di performance associata al livello medio di scorte è definita come
-\textbf{media nel tempo}:
+The performance measure associated with the average stock level is defined as a
+\textbf{time average}:
 \[
 I^{+} = \frac{1}{n} \int_{0}^{n} I^{+}(t)\, dt.
 \]
 
 \paragraph{Shortage costs}
-Analogamente, i costi di carenza sono legati al livello di inventario negativo, che
-rappresenta la domanda arretrata (backlog). Si definisce:
+Analogously, shortage costs are related to the negative inventory level, which
+represents the backlogged demand (backlog). We define:
 \[
 I^{-}(t) = \max\{-I(t), 0\}.
 \]
-Il costo di shortage istantaneo è:
+The instantaneous shortage cost is:
 \[
 S(t) = \pi \cdot I^{-}(t),
 \]
-dove $\pi$ è il costo unitario di carenza, che tipicamente riflette costi di gestione,
-perdita di goodwill dei clienti e potenziali mancate vendite future.
+where $\pi$ is the unit shortage cost, which typically reflects handling costs,
+loss of customer goodwill and potential lost future sales.
 
-Il livello medio di backlog è anch’esso definito come media nel tempo:
+The average backlog level is also defined as a time average:
 \[
 I^{-} = \frac{1}{n} \int_{0}^{n} I^{-}(t)\, dt.
 \]
 
-In conclusione, tutti i costi rilevanti nel sistema di inventario sono espressi come
-\textbf{time-averages}, rendendo il problema particolarmente adatto a un’analisi tramite
-simulazione di tipo nonterminating, finalizzata al confronto di politiche di riordino
-alternative sulla base del costo medio di lungo periodo.
+In conclusion, all the relevant costs in the inventory system are expressed as
+\textbf{time-averages}, making the problem particularly suitable for an analysis through
+a nonterminating simulation, aimed at comparing alternative reorder
+policies on the basis of the long-run average cost.
 
 \subsection{Parameters}
 
-Nel seguente studio di simulazione, il sistema di inventario è caratterizzato da un
-insieme di parametri numerici fissati, che definiscono il comportamento della domanda,
-dei costi e delle condizioni iniziali.
+In the following simulation study, the inventory system is characterized by a
+set of fixed numerical parameters, which define the behaviour of the demand,
+of the costs and of the initial conditions.
 
-I \textbf{tempi di interarrivo della domanda} sono modellati come variabili casuali
-esponenziali con valore medio pari a:
+The \textbf{demand interarrival times} are modelled as exponential random variables
+with mean value equal to:
 \[
-E[A] = 0.1 \text{ mesi},
+E[A] = 0.1 \text{ months},
 \]
-corrispondente a un tasso medio di domanda $\mu = 0.1$.
+corresponding to an average demand rate $\mu = 0.1$.
 
-La \textbf{dimensione della domanda} è indipendente dai tempi di arrivo ed è descritta
-dalla seguente distribuzione discreta:
+The \textbf{demand size} is independent of the arrival times and is described
+by the following discrete distribution:
 \[
 D =
 \begin{cases}
-1 & \text{con probabilità } \frac{1}{6}, \\
-2 & \text{con probabilità } \frac{1}{3}, \\
-3 & \text{con probabilità } \frac{1}{3}, \\
-4 & \text{con probabilità } \frac{1}{6}.
+1 & \text{with probability } \frac{1}{6}, \\
+2 & \text{with probability } \frac{1}{3}, \\
+3 & \text{with probability } \frac{1}{3}, \\
+4 & \text{with probability } \frac{1}{6}.
 \end{cases}
 \]
 
-I parametri di costo associati al sistema di inventario sono:
+The cost parameters associated with the inventory system are:
 \begin{compactitemize}
-    \item costo fisso di setup dell’ordine: $K = 32$;
-    \item costo incrementale unitario: $i = 3$;
-    \item costo unitario di holding: $h = 1$;
-    \item costo unitario di shortage: $\pi = 5$.
+    \item fixed order setup cost: $K = 32$;
+    \item incremental unit cost: $i = 3$;
+    \item unit holding cost: $h = 1$;
+    \item unit shortage cost: $\pi = 5$.
 \end{compactitemize}
 
-Il \textbf{lead time} del fornitore, ossia il tempo di consegna degli ordini, è una
-variabile casuale uniforme con supporto:
+The supplier \textbf{lead time}, that is, the delivery time of the orders, is a
+uniform random variable with support:
 \[
-L \sim U(0.5, 1) \text{ mesi}.
+L \sim U(0.5, 1) \text{ months}.
 \]
 
-Il livello di inventario iniziale è fissato pari a:
+The initial inventory level is set equal to:
 \[
 I(0) = 60.
 \]
 
-L’orizzonte temporale della simulazione è di:
+The simulation time horizon is:
 \[
-n = 120 \text{ mesi},
+n = 120 \text{ months},
 \]
-che rappresenta un periodo sufficientemente lungo da consentire l’analisi delle
-prestazioni di lungo periodo del sistema.
+which represents a period long enough to allow the analysis of the
+long-run performance of the system.
 
-Questi parametri definiscono completamente l’istanza del problema di inventario
-considerata e costituiscono la base per il confronto, tramite simulazione, di diverse
-politiche di riordino $(s,S)$ in termini di costo medio e qualità del servizio.
+These parameters completely define the instance of the inventory problem
+considered and form the basis for the comparison, through simulation, of different
+$(s,S)$ reorder policies in terms of average cost and service quality.
 
 \subsection{Objective}
 
-L’obiettivo dello studio di simulazione è il confronto di un insieme di
-\textbf{nove diverse politiche di inventario} di tipo stazionario $(s,S)$, al fine di
-valutarne le prestazioni in termini di costo complessivo.
+The goal of the simulation study is the comparison of a set of
+\textbf{nine different stationary $(s,S)$ inventory policies}, in order to
+evaluate their performance in terms of overall cost.
 
-Le politiche considerate sono definite dalle seguenti coppie di parametri:
+The policies considered are defined by the following pairs of parameters:
 \[
 \begin{array}{c|ccccccccc}
 s & 20 & 20 & 20 & 20 & 40 & 40 & 40 & 60 & 60 \\
@@ -361,24 +361,24 @@ S & 40 & 60 & 80 & 100 & 60 & 80 & 100 & 80 & 100
 \end{array}
 \]
 
-Ciascuna coppia $(s,S)$ rappresenta una diversa strategia di riordino, che bilancia in
-modo differente la frequenza degli ordini, il livello medio di scorte e il rischio di
-carenze.
+Each pair $(s,S)$ represents a different reorder strategy, which balances
+the frequency of orders, the average stock level and the risk of
+shortages in a different way.
 
-La \textbf{misura di performance} utilizzata per il confronto tra le politiche è il
-\textbf{costo totale medio mensile}, definito come:
+The \textbf{performance measure} used to compare the policies is the
+\textbf{average total monthly cost}, defined as:
 \[
 C_{\text{Tot}} = C + H + S,
 \]
-dove:
+where:
 \begin{compactitemize}
-    \item $C$ rappresenta il costo medio di ordinazione;
-    \item $H$ rappresenta il costo medio di mantenimento delle scorte;
-    \item $S$ rappresenta il costo medio di shortage.
+    \item $C$ represents the average ordering cost;
+    \item $H$ represents the average holding cost;
+    \item $S$ represents the average shortage cost.
 \end{compactitemize}
 
-Tutti i termini sono espressi come \textbf{medie nel tempo} sull’orizzonte di simulazione.
-Il confronto tra le diverse politiche $(s,S)$ si basa quindi sul valore stimato di
-$C_{\text{Tot}}$, consentendo di identificare la strategia che minimizza il costo medio
-complessivo e offre il miglior compromesso tra efficienza operativa e livello di
-servizio.
+All terms are expressed as \textbf{time averages} over the simulation horizon.
+The comparison between the different $(s,S)$ policies is therefore based on the estimated value of
+$C_{\text{Tot}}$, making it possible to identify the strategy that minimizes the overall average
+cost and offers the best compromise between operational efficiency and service
+level.

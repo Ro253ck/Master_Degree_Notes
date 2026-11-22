@@ -1,8 +1,0 @@
-\babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Metodi basati sul gradiente}{2}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Selezione della direzione di discesa}{5}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}Metodo di Newton}{6}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}Metodo di Steepest descent scalato diagonalmente}{7}{subsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.1.3}Metodo di Newton modificato }{7}{subsection.1.1.3}%
-\contentsline {subsection}{\numberline {1.1.4}Metodo quasi Newton}{8}{subsection.1.1.4}%
-\contentsline {section}{\numberline {1.2}Selezione del parametro di lunghezza di passo}{9}{section.1.2}%

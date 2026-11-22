@@ -367,7 +367,7 @@ The final SimCLR objective is obtained by symmetrizing the loss over all positiv
 An important design choice in SimCLR is the use of the projection head $g(\cdot)$. By applying the contrastive loss in the projection space rather than directly on the encoder output $h$, the encoder $f(\cdot)$ is encouraged to preserve more general and transferable information. After pretraining, the projection head is discarded, and only the encoder $f(\cdot)$ is retained for downstream tasks.
 
 \subsubsection{Linear Evaluation on SimCLR Features}
-\begin{wrapfigure}{r}{0.45\textwidth}
+\begin{wrapfigure}{r}{0.38\textwidth}
     \centering
     \vspace{-10pt}
     \includegraphics[width=\linewidth]{images/SS24.png}
@@ -377,11 +377,12 @@ An important design choice in SimCLR is the use of the projection head $g(\cdot)
 This figure reports the performance of SimCLR representations evaluated through the \textbf{linear evaluation protocol}. The feature encoder is first pretrained on the entire ImageNet dataset using SimCLR, after which it is \textbf{frozen} and a linear classifier is trained on top using labeled data. The results show that SimCLR achieves performance comparable to, and in some cases surpassing, supervised pretraining, highlighting the quality and transferability of the learned representations.
 
 \subsubsection{Linear Evaluation on SimCLR Features}
-\begin{wrapfigure}{r}{0.45\textwidth}
+\noindent
+\begin{minipage}[c]{0.56\textwidth}
+This figure reports the performance of SimCLR representations evaluated through the \textbf{linear evaluation protocol}. The feature encoder is first pretrained on the entire ImageNet dataset using SimCLR, after which it is \textbf{frozen} and a linear classifier is trained on top using labeled data. The results show that SimCLR achieves performance comparable to, and in some cases surpassing, supervised pretraining, highlighting the quality and transferability of the learned representations.
+\end{minipage}\hfill
+\begin{minipage}[c]{0.38\textwidth}
     \centering
-    \vspace{-10pt}
     \includegraphics[width=\linewidth]{images/SS25.png}
     \label{fig:Scaled Dot Product Attention}
-    \vspace{-10pt}
-\end{wrapfigure}
-This figure reports the performance of SimCLR representations evaluated through the \textbf{linear evaluation protocol}. The feature encoder is first pretrained on the entire ImageNet dataset using SimCLR, after which it is \textbf{frozen} and a linear classifier is trained on top using labeled data. The results show that SimCLR achieves performance comparable to, and in some cases surpassing, supervised pretraining, highlighting the quality and transferability of the learned representations.
+\end{minipage}

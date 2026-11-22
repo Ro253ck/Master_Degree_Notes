@@ -468,7 +468,7 @@ complex model (the \textbf{teacher}) to a smaller and more efficient model (the 
 The main idea is to train the student not only using ground-truth labels, but also to mimic the
 output distribution produced by the teacher.
 
-\newpage
+
 The teacher model can be:
 \begin{compactitemize}
     \item a single, large and cumbersome model (e.g. deeper or wider architecture);
@@ -649,6 +649,7 @@ Attention Transfer (AT) is a knowledge distillation technique that focuses on tr
 feature maps—which may differ in dimensionality or structure—AT encourages the student to
 replicate the teacher’s attention, i.e., the regions of the input that the teacher considers most
 informative.
+
 \begin{wrapfigure}{r}{0.3\textwidth}
     \centering
     \vspace{-10pt}
@@ -697,16 +698,15 @@ FitNets extend standard knowledge distillation by transferring \textbf{intermedi
 representations} from the teacher to the student, rather than relying only on the final output
 logits. This is particularly useful when the student network is very deep but thin, a setting
 in which training from scratch can be difficult and unstable.
-\begin{wrapfigure}{r}{0.6\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/LT18.png}
-    \label{fig:Scaled Dot Product Attention}
-    \vspace{-10pt}
-\end{wrapfigure}
+
 The key motivation behind FitNets is that providing intermediate \emph{hints} from the teacher
 helps guide the optimization of the student, easing the learning of meaningful representations
 layer by layer instead of only through end-task supervision.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/LT18.png}
+    \label{fig:Scaled Dot Product Attention}
+\end{figure}
 
 The method works as follows:
 \begin{compactitemize}

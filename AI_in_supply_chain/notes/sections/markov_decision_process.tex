@@ -186,18 +186,18 @@ v(s) = \mathbb{E}[G_t \mid S_t = s]
 
 \subsection{Bellman Equation for MRPs}
 
-L’idea fondamentale alla base della Bellman equation per i Markov Reward Processes è che la value function ammette una \textbf{decomposizione ricorsiva}. Il valore di uno stato non dipende dall’intera sequenza futura di reward in modo diretto, ma può essere espresso come la somma di due contributi: il reward immediato e il valore atteso dello stato successivo, opportunamente scontato.
+The fundamental idea behind the Bellman equation for Markov Reward Processes is that the value function admits a \textbf{recursive decomposition}. The value of a state does not depend directly on the entire future sequence of rewards, but can be expressed as the sum of two contributions: the immediate reward and the expected value of the next state, appropriately discounted.
 
-Per definizione, la value function di uno stato $s$ è il valore atteso del return partendo da quello stato:
+By definition, the value function of a state $s$ is the expected value of the return starting from that state:
 \[
 v(s) = \mathbb{E}\!\left[ G_t \mid S_t = s \right]
 \]
-dove il return è definito come:
+where the return is defined as:
 \[
 G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots
 \]
 
-Esplicitando questa definizione, si ottiene:
+Making this definition explicit, we obtain:
 \[
 v(s)
 =
@@ -212,7 +212,7 @@ S_t = s
 \right]
 \]
 
-Raggruppando il primo termine e raccogliendo $\gamma$, il return può essere riscritto come:
+Grouping the first term and factoring out $\gamma$, the return can be rewritten as:
 \[
 v(s)
 =
@@ -230,7 +230,7 @@ S_t = s
 \right]
 \]
 
-Osservando che l’espressione tra parentesi coincide con il return a partire dal tempo $t+1$, si ottiene:
+Observing that the expression in parentheses coincides with the return starting from time $t+1$, we obtain:
 \[
 v(s)
 =
@@ -243,7 +243,7 @@ S_t = s
 \right]
 \]
 
-Poiché $G_{t+1}$ è, per definizione, il return a partire dallo stato $S_{t+1}$, il termine può essere espresso come la value function dello stato successivo:
+Since $G_{t+1}$ is, by definition, the return starting from state $S_{t+1}$, the term can be expressed as the value function of the next state:
 \[
 v(s)
 =
@@ -256,9 +256,9 @@ S_t = s
 \right]
 \]
 
-Questa equazione esprime in modo compatto il principio secondo cui il valore complessivo di uno stato è dato dal reward immediato atteso più il valore scontato dello stato successivo.
+This equation compactly expresses the principle according to which the overall value of a state is given by the expected immediate reward plus the discounted value of the next state.
 
-Nel caso di un Markov Reward Process, il reward atteso e le probabilità di transizione dipendono unicamente dallo stato corrente. Indicando con $\mathcal{R}_s$ il reward medio associato allo stato $s$ e con $\mathcal{P}_{ss'}$ la probabilità di transizione da $s$ a $s'$, l’aspettativa può essere resa esplicita:
+In the case of a Markov Reward Process, the expected reward and the transition probabilities depend only on the current state. Denoting by $\mathcal{R}_s$ the average reward associated with state $s$ and by $\mathcal{P}_{ss'}$ the transition probability from $s$ to $s'$, the expectation can be made explicit:
 \[
 v(s)
 =
@@ -269,7 +269,7 @@ v(s)
 \mathcal{P}_{ss'} \, v(s')
 \]
 
-Questa è la \textbf{Bellman equation per i Markov Reward Processes}. Essa fornisce una caratterizzazione ricorsiva della value function e costituisce il fondamento teorico di tutti gli algoritmi di prediction e control nel Reinforcement Learning.
+This is the \textbf{Bellman equation for Markov Reward Processes}. It provides a recursive characterization of the value function and is the theoretical foundation of all prediction and control algorithms in Reinforcement Learning.
 
 \subsection{Matrix Form}
 
@@ -406,14 +406,14 @@ These value functions form the basis for policy evaluation, policy improvement, 
 
 \subsubsection{Bellman Equations for MDPs}
 
-Anche nei Markov Decision Processes la value function ammette una decomposizione ricorsiva, analoga a quella dei Markov Reward Processes, con la differenza fondamentale che la dinamica dell’ambiente dipende ora anche dalle azioni selezionate secondo una policy $\pi$.
+In Markov Decision Processes too, the value function admits a recursive decomposition, analogous to that of Markov Reward Processes, with the fundamental difference that the dynamics of the environment now also depend on the actions selected according to a policy $\pi$.
 
-Si consideri una policy fissata $\pi$. La state-value function $v_\pi(s)$ è definita come il return atteso partendo dallo stato $s$ e seguendo la policy $\pi$:
+Consider a fixed policy $\pi$. The state-value function $v_\pi(s)$ is defined as the expected return starting from state $s$ and following the policy $\pi$:
 \[
 v_\pi(s) = \mathbb{E}_\pi \big[ G_t \mid S_t = s \big]
 \]
 
-Utilizzando la definizione di return e separando il primo termine, il valore dello stato può essere espresso come:
+Using the definition of return and separating the first term, the value of the state can be expressed as:
 \[
 v_\pi(s)
 =
@@ -424,7 +424,7 @@ R_{t+1} + \gamma G_{t+1}
 \big]
 \]
 
-Poiché $G_{t+1}$ rappresenta il return a partire dallo stato successivo $S_{t+1}$, si ottiene la prima forma della Bellman expectation equation:
+Since $G_{t+1}$ represents the return starting from the next state $S_{t+1}$, we obtain the first form of the Bellman expectation equation:
 \[
 v_\pi(s)
 =
@@ -435,7 +435,7 @@ R_{t+1} + \gamma v_\pi(S_{t+1})
 \big]
 \]
 
-In modo del tutto analogo, è possibile ottenere una decomposizione ricorsiva per la action-value function. La funzione $q_\pi(s,a)$ rappresenta il return atteso partendo dallo stato $s$, eseguendo l’azione $a$ e seguendo successivamente la policy $\pi$:
+In a completely analogous way, it is possible to obtain a recursive decomposition for the action-value function. The function $q_\pi(s,a)$ represents the expected return starting from state $s$, executing action $a$ and then following the policy $\pi$:
 \[
 q_\pi(s,a)
 =
@@ -446,14 +446,14 @@ R_{t+1} + \gamma q_\pi(S_{t+1}, A_{t+1})
 \big]
 \]
 
-Queste relazioni esprimono il principio generale secondo cui il valore atteso è dato dal reward immediato più il valore atteso del passo successivo.
+These relations express the general principle according to which the expected value is given by the immediate reward plus the expected value of the next step.
 
-Per rendere le equazioni completamente esplicite, si può eliminare l’operatore di aspettativa introducendo la policy $\pi$, la funzione di reward $\mathcal{R}$ e le probabilità di transizione $\mathcal{P}$. La state-value function può essere riscritta come media pesata delle action-value function:
+To make the equations completely explicit, the expectation operator can be eliminated by introducing the policy $\pi$, the reward function $\mathcal{R}$ and the transition probabilities $\mathcal{P}$. The state-value function can be rewritten as a weighted average of the action-value functions:
 \[
 v_\pi(s) = \sum_{a \in \mathcal{A}} \pi(a \mid s)\, q_\pi(s,a)
 \]
 
-A sua volta, la action-value function soddisfa:
+In turn, the action-value function satisfies:
 \[
 q_\pi(s,a)
 =
@@ -464,7 +464,7 @@ q_\pi(s,a)
 \mathcal{P}_{ss'}^a \, v_\pi(s')
 \]
 
-Sostituendo questa espressione nella definizione di $v_\pi(s)$, si ottiene la Bellman expectation equation per la state-value function:
+Substituting this expression into the definition of $v_\pi(s)$, we obtain the Bellman expectation equation for the state-value function:
 \[
 v_\pi(s)
 =
@@ -480,7 +480,7 @@ v_\pi(s)
 \right]
 \]
 
-Analogamente, sostituendo la definizione di $v_\pi(s')$ in termini di $q_\pi$, si ottiene la Bellman expectation equation per la action-value function:
+Analogously, substituting the definition of $v_\pi(s')$ in terms of $q_\pi$, we obtain the Bellman expectation equation for the action-value function:
 \[
 q_\pi(s,a)
 =
@@ -493,23 +493,23 @@ q_\pi(s,a)
 \pi(a' \mid s')\, q_\pi(s',a')
 \]
 
-Queste equazioni caratterizzano completamente la valutazione di una policy in un MDP e costituiscono la base teorica di tutti gli algoritmi di policy evaluation, sia model-based sia model-free. In particolare, esse mostrano come l’effetto delle azioni future venga incorporato nel valore attraverso l’aspettativa rispetto alla policy $\pi$.
+These equations completely characterize the evaluation of a policy in an MDP and are the theoretical basis of all policy evaluation algorithms, both model-based and model-free. In particular, they show how the effect of future actions is incorporated into the value through the expectation with respect to the policy $\pi$.
 
 \subsection{Optimal Value Functions}
 
-In un Markov Decision Process, l’obiettivo del problema di control è determinare la migliore performance ottenibile dall’agente su tutti gli stati. Questa informazione è catturata dalle \textbf{funzioni di valore ottimali}.
+In a Markov Decision Process, the goal of the control problem is to determine the best performance achievable by the agent over all states. This information is captured by the \textbf{optimal value functions}.
 
-La \textbf{optimal state-value function} è definita come il massimo valore ottenibile partendo dallo stato $s$ su tutte le policy possibili:
+The \textbf{optimal state-value function} is defined as the maximum value achievable starting from state $s$ over all possible policies:
 \[
 v^*(s) = \max_{\pi} v_\pi(s)
 \]
 
-Analogamente, la \textbf{optimal action-value function} è definita come il massimo valore ottenibile partendo dalla coppia stato–azione $(s,a)$ su tutte le policy:
+Analogously, the \textbf{optimal action-value function} is defined as the maximum value achievable starting from the state–action pair $(s,a)$ over all policies:
 \[
 q^*(s,a) = \max_{\pi} q_\pi(s,a)
 \]
 
-La funzione di valore ottimale rappresenta quindi il limite superiore delle prestazioni ottenibili in un MDP. Si dice che un MDP è \emph{risolto} quando è nota la funzione di valore ottimale, poiché da essa è possibile ricavare direttamente una policy ottimale.
+The optimal value function therefore represents the upper bound of the performance achievable in an MDP. An MDP is said to be \emph{solved} when the optimal value function is known, since an optimal policy can be derived directly from it.
 \begin{figure}[H]
     \centering
     \begin{minipage}{0.45\textwidth}
@@ -531,49 +531,49 @@ La funzione di valore ottimale rappresenta quindi il limite superiore delle pres
 
 \subsection{Optimal Policies}
 
-È possibile introdurre un ordinamento parziale tra policy confrontando i rispettivi valori di stato. Date due policy $\pi$ e $\pi'$, si dice che:
+It is possible to introduce a partial ordering between policies by comparing their respective state values. Given two policies $\pi$ and $\pi'$, we say that:
 \[
 \pi \ge \pi'
-\quad \text{se e solo se} \quad
+\quad \text{if and only if} \quad
 v_\pi(s) \ge v_{\pi'}(s) \quad \forall s \in \mathcal{S}
 \]
 
-Un risultato fondamentale del Reinforcement Learning afferma che, per ogni MDP, \textbf{esiste almeno una policy ottimale} $\pi^*$ tale che:
+A fundamental result of Reinforcement Learning states that, for every MDP, \textbf{there exists at least one optimal policy} $\pi^*$ such that:
 \[
 \pi^* \ge \pi \qquad \forall \pi
 \]
 
-Tutte le policy ottimali condividono le stesse funzioni di valore ottimali:
+All optimal policies share the same optimal value functions:
 \[
 v_{\pi^*}(s) = v^*(s),
 \qquad
 q_{\pi^*}(s,a) = q^*(s,a)
 \]
 
-Un fatto particolarmente importante è che, per ogni MDP, \textbf{esiste sempre una policy ottimale deterministica}. Ciò significa che non è necessario ricorrere a randomizzazione per ottenere un comportamento ottimale.
+A particularly important fact is that, for every MDP, \textbf{there always exists a deterministic optimal policy}. This means that it is not necessary to resort to randomization to obtain optimal behaviour.
 
-Se l’action-value function ottimale è nota, una policy ottimale può essere ottenuta direttamente scegliendo, in ogni stato, l’azione che massimizza $q^*(s,a)$:
+If the optimal action-value function is known, an optimal policy can be obtained directly by choosing, in every state, the action that maximizes $q^*(s,a)$:
 \[
 \pi^*(a \mid s) =
 \begin{cases}
-1 & \text{se } a \in \arg\max_{a' \in \mathcal{A}} q^*(s,a') \\
-0 & \text{altrimenti}
+1 & \text{if } a \in \arg\max_{a' \in \mathcal{A}} q^*(s,a') \\
+0 & \text{otherwise}
 \end{cases}
 \]
 
-Questa relazione mostra che la conoscenza di $q^*$ è sufficiente per determinare completamente una policy ottimale.
+This relation shows that knowing $q^*$ is sufficient to completely determine an optimal policy.
 
 
 \subsection{Bellman Optimality Equations}
 
-Le funzioni di valore ottimali soddisfano una relazione ricorsiva detta \textbf{Bellman optimality equation}. A differenza delle Bellman expectation equations, in questo caso l’aspettativa rispetto alla policy è sostituita da un’operazione di massimo, poiché si assume che l’agente agisca in modo ottimale.
+The optimal value functions satisfy a recursive relation called the \textbf{Bellman optimality equation}. Unlike the Bellman expectation equations, in this case the expectation with respect to the policy is replaced by a maximum operation, since the agent is assumed to act optimally.
 
-La Bellman optimality equation per la state-value function è:
+The Bellman optimality equation for the state-value function is:
 \[
 v^*(s) = \max_{a \in \mathcal{A}} q^*(s,a)
 \]
 
-Esprimendo esplicitamente la dinamica dell’MDP, la stessa equazione può essere scritta come:
+Explicitly expressing the dynamics of the MDP, the same equation can be written as:
 \[
 v^*(s)
 =
@@ -587,7 +587,7 @@ v^*(s)
 \right]
 \]
 
-Analogamente, la Bellman optimality equation per la action-value function è:
+Analogously, the Bellman optimality equation for the action-value function is:
 \[
 q^*(s,a)
 =
@@ -599,4 +599,4 @@ q^*(s,a)
 \max_{a' \in \mathcal{A}} q^*(s',a')
 \]
 
-Queste equazioni caratterizzano completamente il problema di control nei Markov Decision Processes. Le funzioni $v^*$ e $q^*$ sono i punti fissi di tali operatori di Bellman e costituiscono il fondamento teorico di tutti gli algoritmi di controllo, sia model-based sia model-free, come Value Iteration, Policy Iteration, SARSA e Q-learning.
+These equations completely characterize the control problem in Markov Decision Processes. The functions $v^*$ and $q^*$ are the fixed points of these Bellman operators and are the theoretical foundation of all control algorithms, both model-based and model-free, such as Value Iteration, Policy Iteration, SARSA and Q-learning.

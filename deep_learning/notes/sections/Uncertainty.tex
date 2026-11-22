@@ -60,6 +60,8 @@ There are two different types of uncertainty. Let's see them:
 \section{Methods for Uncertainty Quantification}
 
 \subsection{Deep Ensembles}
+Deep Ensembles are one of the simplest and most effective approaches for uncertainty quantification in deep neural networks. The idea is to train multiple independent neural networks, each initialized with different random seeds and exposed to different shufflings of the training data. Because of this randomness, each model converges to a different local minimum, yet all solutions remain consistent with the data. The degree to which these models agree or disagree provides a natural estimate of \textbf{epistemic uncertainty}: if all models produce similar predictions, confidence is high; if they diverge, uncertainty increases.
+
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \vspace{-10pt}
@@ -67,8 +69,6 @@ There are two different types of uncertainty. Let's see them:
     \label{fig:Scaled Dot Product Attention}
     \vspace{-10pt}
 \end{wrapfigure}
-Deep Ensembles are one of the simplest and most effective approaches for uncertainty quantification in deep neural networks. The idea is to train multiple independent neural networks, each initialized with different random seeds and exposed to different shufflings of the training data. Because of this randomness, each model converges to a different local minimum, yet all solutions remain consistent with the data. The degree to which these models agree or disagree provides a natural estimate of \textbf{epistemic uncertainty}: if all models produce similar predictions, confidence is high; if they diverge, uncertainty increases.
-
 More precisely, when networks operate in regions of the input space that are well covered by training samples, they tend to produce similar outputs. However, in data-scarce regions, their predictions diverge, and this disagreement becomes a strong indicator of model uncertainty. Beyond simple ensembling, several tricks exist for improving uncertainty estimation, especially in regression tasks or robustness-oriented training paradigms.
 
 \subsubsection{Predictive Uncertainty in Regression.}  
@@ -435,16 +435,15 @@ The answer is \emph{approximately 50}, but this holds if and only if the model i
 \subsection{Reliability Diagrams}
 
 Reliability diagrams are a standard tool used to visualize and evaluate the calibration of a model. The idea is to group predictions into confidence bins, for example $[0.0,0.1], [0.1,0.2], \dots, [0.9,1.0]$, according to their maximum predicted probability.
-\begin{wrapfigure}{r}{0.5\textwidth}
-    \centering
-    \vspace{-10pt}
-    \includegraphics[width=\linewidth]{images/V2.png}
-    \label{fig:Scaled Dot Product Attention}
-    \vspace{-10pt}
-\end{wrapfigure}
+
 For each bin, two quantities are computed: the average confidence of the samples in the bin and the empirical accuracy, defined as the fraction of correctly predicted samples. These values are then plotted against each other.
 
 If a model is perfectly calibrated, the points in the reliability diagram lie on the diagonal line $y=x$. Any deviation from this diagonal indicates miscalibration. When the accuracy is consistently below the confidence, the model is overconfident; when it is above, the model is underconfident.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/V2.png}
+    \label{fig:Scaled Dot Product Attention}
+\end{figure}
 
 Empirical results on datasets such as CIFAR-100 show that deep architectures like ResNet (right in the image above), despite achieving significantly higher accuracy than older models such as LeNet (left in the image above), are often much more miscalibrated. In contrast, simpler and older networks tend to produce confidence estimates that better reflect their true correctness likelihood, even if their overall accuracy is lower.
 

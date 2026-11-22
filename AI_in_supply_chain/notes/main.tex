@@ -1,222 +1,207 @@
-%\documentclass[12pt,a4paper]{report}
-\documentclass[12pt,a4paper,oneside,onecolumn,openright]{book}
-% set the document language
+\documentclass[11pt,a4paper,oneside,openany]{book}
+
+% ---------------------------------------------------------------------------
+% Lingua e codifica
+% ---------------------------------------------------------------------------
 \usepackage[english]{babel}
-% set the encoding used by your editor here (default is utf8)
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
 
+% ---------------------------------------------------------------------------
+% Layout pagina "stile Word": margini 1.8 cm, interlinea 1.15,
+% nessun rientro e piccolo spazio tra i paragrafi
+% ---------------------------------------------------------------------------
+\usepackage[a4paper,top=1.8cm,bottom=1.8cm,left=1.8cm,right=1.8cm,headheight=14pt]{geometry}
+\linespread{1.15}
+\usepackage[skip=4pt plus 1pt,indent=0pt]{parskip}
 
-% math packages
+% Titoli compatti (niente pagina "Chapter N" enorme)
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\normalfont\LARGE\bfseries}{\thechapter.}{0.5em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{12pt}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{0.5em}{}
+\titlespacing*{\subsubsection}{0pt}{8pt}{2pt}
+
+% Elenchi più compatti
+\usepackage{enumitem}
+\setlist{topsep=2pt, itemsep=1pt, parsep=0pt, partopsep=0pt}
+
+\newenvironment{compactitemize}{%
+\begin{itemize}[topsep=0pt, partopsep=0pt, itemsep=1pt, parsep=0pt]
+}{\end{itemize}}
+
+% Spaziatura attorno a float ed equazioni ridotta
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}%
+  \setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}%
+  \setlength{\abovedisplayshortskip}{2pt}%
+  \setlength{\belowdisplayshortskip}{4pt}%
+}
+
+% ---------------------------------------------------------------------------
+% Matematica
+% ---------------------------------------------------------------------------
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{lmodern}
-\usepackage{varwidth}
-\usepackage{xcolor}
-\usepackage[makeroom]{cancel}
-% page margins settings
-\usepackage[inner=1.5cm,outer=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
-%\usepackage{indentfirst}
-
-% other packages
-\usepackage{array}
-\usepackage{enumitem}
-
-\usepackage{graphicx}
-\usepackage{verbatim}
-\usepackage{listings}
-\usepackage{url}
-\usepackage[hidelinks]{hyperref}
-\usepackage[export]{adjustbox}
-\usepackage{latexsym}
-\usepackage{tabularx}
-\usepackage{ragged2e}
 \usepackage{mathtools}
+\usepackage{latexsym}
+\usepackage{gensymb}
+\usepackage[makeroom]{cancel}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
-% \usepackage{Mathematics}
-% custom colors
-\usepackage{color}
+\newcommand\myeq{\stackrel{\mathclap{\tiny\mbox{def}}}{=}}
+
+% ---------------------------------------------------------------------------
+% Algoritmi
+% ---------------------------------------------------------------------------
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% ---------------------------------------------------------------------------
+% Figure, tabelle, grafici
+% ---------------------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{float}
+\usepackage{placeins}
 \usepackage{wrapfig}
-\usepackage{gensymb}
 \usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{font=small, labelfont=bf, skip=4pt}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{varwidth}
+\usepackage{ragged2e}
 \usepackage{tikz}
+\usetikzlibrary{shadows}
+\usetikzlibrary{decorations.pathreplacing}
 \usepackage{forest}
 \usepackage{tikz-qtree}
 \usepackage{pgfplots}
-\usepackage{float}
-\usepackage{graphicx}
-\usepackage{subcaption}
 \pgfplotsset{compat=1.18}
+\graphicspath{ {./images/} }
 
-\newcommand\myeq{\stackrel{\mathclap{\tiny\mbox{def}}}{=}}
-
-\usepackage[many]{tcolorbox}
-\newtcolorbox{boxA}{
-    % fontupper = \bf,
-    boxrule = 1.5pt,
-    colframe = black % frame color
-}
-
-\usetikzlibrary{shadows}
+% ---------------------------------------------------------------------------
+% Colori
+% ---------------------------------------------------------------------------
+\usepackage{xcolor}
 \definecolor{light-gray}{gray}{0.96}
 \definecolor{cyan}{RGB}{230,230,255}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
-\definecolor{iceberg}{rgb}{0.44, 0.65, 0.82}
-% \definecolor{blue}{RGB}{44, 44, 210}
-
-\hypersetup{
-colorlinks=true,
-linkcolor=black,
-% filecolor=blue,
-urlcolor=blue,
-% pdftitle={Overleaf Example},
-}
-
-\urlstyle{same}
-\graphicspath{ {./images/} }
-
-% environment for bash code
-\lstset{ %
-  language=bash,                % the language of the code
-  basicstyle=\footnotesize,           % the size of the fonts that are used for the code
-  numbers=left,                   % where to put the line-numbers
-  numberstyle=\footnotesize,          % the size of the fonts that are used for the line-numbers
-  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
-                                  % will be numbered
-  numbersep=5pt,                  % how far the line-numbers are from the code
-  backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
-  showspaces=false,               % show spaces adding particular underscores
-  showstringspaces=false,         % underline spaces within strings
-  showtabs=false,                 % show tabs within strings adding particular underscores
-%  frame=single,                   % adds a frame around the code
-  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
-  tabsize=2,                      % sets default tabsize to 2 spaces
-  captionpos=b,                   % sets the caption-position to bottom
-  breaklines=true,                % sets automatic line breaking
-  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-  title=\lstname,                   % show the filename of files included with \lstinputlisting;
-                                  % also try caption instead of title
-  numberstyle=\tiny\color{gray},        % line number style
-  keywordstyle=\textbf,          % keyword style
-  commentstyle=\color{dkgreen},       % comment style
-%  stringstyle=\color{mauve},         % string literal style
-  escapeinside={\%*}{*)},            % if you want to add a comment within your code
-  morekeywords={*,...,insert,-}               % if you want to add more keywords to the setù
-}
-
-% environment for python code
-\lstset{
-	language=Python,
-	breaklines=true,
-	breakatwhitespace=true ,
-	backgroundcolor=\color{light-gray}
-}
-
-\newcommand{\grayScale}{0.95} % Can change the gray level here
-\definecolor{codeBackground}{rgb}{\grayScale ,\grayScale ,\grayScale}
+\definecolor{iceberg}{rgb}{0.44,0.65,0.82}
 \definecolor{forestGreen}{rgb}{0.13,0.55,0.13}
+\newcommand{\grayScale}{0.95}
+\definecolor{codeBackground}{rgb}{\grayScale,\grayScale,\grayScale}
 
+% ---------------------------------------------------------------------------
+% Link
+% ---------------------------------------------------------------------------
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue}
+\urlstyle{same}
+
+% ---------------------------------------------------------------------------
+% Codice
+% ---------------------------------------------------------------------------
+\usepackage{verbatim}
+\usepackage{listings}
 \lstset{
-    language=C,
+    language=Python,
     backgroundcolor=\color{codeBackground},
-    tabsize=4,
-    showstringspaces=false,
-    showtabs=false,
-    showspaces=false,
-    basicstyle=\ttfamily,
+    basicstyle=\ttfamily\footnotesize,
     identifierstyle=\ttfamily,
     keywordstyle=\color{blue},
     stringstyle=\color{red},
-    commentstyle=\color{gray},
-    numberstyle=\color{magenta},
-    morecomment=[l][\color{forestGreen}]{\#},
-    escapechar={|}, 
+    commentstyle=\color{forestGreen},
+    numberstyle=\tiny\color{gray},
+    tabsize=4,
+    breaklines=true,
+    breakatwhitespace=true,
+    showstringspaces=false,
+    showtabs=false,
+    showspaces=false,
+    captionpos=b,
+    escapechar={|},
 }
-% appendices package
-%\usepackage{appendix}
-% set Appendix name used in the toc
-%\renewcommand{\appendixtocname}{Appendice}
 
-% interline
-\linespread{1.5}
-% set numbers for subsections and show them in the toc
-\setcounter{tocdepth}{3} 
+% ---------------------------------------------------------------------------
+% Box
+% ---------------------------------------------------------------------------
+\usepackage[many]{tcolorbox}
+
+\newtcolorbox{codicebox}[1][Python Code Example]{
+    enhanced, breakable,
+    colback=light-gray!80,
+    colframe=black!50,
+    boxrule=0.5pt, arc=2pt,
+    left=4pt, right=4pt, top=4pt, bottom=4pt,
+    fonttitle=\bfseries,
+    title=#1,
+}
+
+\newtcolorbox{boxA}{
+    breakable,
+    boxrule=1.5pt,
+    colframe=black,
+}
+
+\newtcolorbox{examplebox}[1][Example]{
+    breakable,
+    colback=cyan!5,
+    colframe=cyan!60!black,
+    boxrule=1pt, arc=4pt,
+    left=6pt, right=6pt, top=4pt, bottom=4pt,
+    fonttitle=\bfseries,
+    title=#1,
+}
+
+\newtcolorbox{infobox}[1][]{
+    breakable,
+    colback=red!10,
+    colframe=red!60!black,
+    boxrule=1pt, arc=4pt,
+    left=6pt, right=6pt, top=4pt, bottom=4pt,
+    fonttitle=\bfseries,
+    coltitle=red!10!white,
+    title=#1,
+}
+
+% ---------------------------------------------------------------------------
+% Intestazioni
+% ---------------------------------------------------------------------------
+\setcounter{tocdepth}{1}
 \setcounter{secnumdepth}{3}
 
-% layout package, style and settings
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\nouppercase{\leftmark}}
+\fancyhead[R]{\footnotesize\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \fancyhead[R]{\footnotesize\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+}
 
-\fancypagestyle{mainmatter}{%		
-		\fancyhf{} 
-		\fancyhead{}
-		\fancyhead[LE,RO]{\thepage}
-		\fancyhead[LO]{\footnotesize{\leftmark}}
-		\fancyhead[RE]{\footnotesize{\rightmark}}
-		\fancyfoot{}
-		\addtolength{\headwidth}{\marginparsep}
-		\addtolength{\headheight}{2.5pt}
-		\renewcommand{\headrulewidth}{0.3pt}
-		\renewcommand{\footrulewidth}{0.0pt}
-		}
-\fancypagestyle{frontmatter}{%
-		\fancyhf{} 
-		\fancyhead[LE]{\footnotesize{\MakeUppercase{\thepage}}}
-		\fancyhead[RO]{\footnotesize{\MakeUppercase{\thepage}}}
-		\fancyhead[RE,LO]{}
-		\fancyfoot{}
-		\addtolength{\headwidth}{\marginparsep}
-		\addtolength{\headheight}{2.5pt}
-		\renewcommand{\headrulewidth}{0.0pt}
-		\renewcommand{\footrulewidth}{0.0pt}
-		}
-		
-		
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-		\fancyhf{} 
-		\fancyhead{}
-		\fancyhead[LE,RO]{\thepage} 
-		\fancyhead[LO]{\footnotesize{\leftmark}}
-		\fancyhead[RE]{\footnotesize{\rightmark}}
-		\fancyfoot{}
-		\addtolength{\headwidth}{\marginparsep}
-		\addtolength{\headheight}{2.5pt}
-		\renewcommand{\headrulewidth}{0.3pt}
-		\renewcommand{\footrulewidth}{0.0pt}
-
-% empty pages have no numbers
-\makeatletter
-\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
-\hbox{}
-  %Potresti voler togliere il commento dalla linea seguente
-  %Questa pagina ï¿½ stata lasciata intenzionalmente vuota.
-\thispagestyle{empty}
-\newpage
-\if@twocolumn\hbox{}\newpage\fi\fi\fi}
-\makeatother
-%????
-%\textwidth=450pt\oddsidemargin=0pt
-
-%\makeatletter 
-%  \DeclareRobustCommand*\textsubscript[1]{% 
-%    \@textsubscript{\selectfont#1}} 
-%  \newcommand{\@textsubscript}[1]{% 
-%    {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}} 
-\makeatother 
-
-
-
-\newenvironment{compactitemize}{
-\begin{itemize}[topsep=0pt, partopsep=0pt, itemsep=1pt, parsep=0pt]
-}{\end{itemize}}
-
+% ===========================================================================
 \begin{document}
 \begin{titlepage}
-  \newgeometry{top=2cm, bottom=2cm, left=1.5cm, right=1.5cm} % imposta i margini solo per questa pagina
+  \newgeometry{top=2cm, bottom=2cm, left=2cm, right=2cm}
   \begin{center}
   
       {\Large \textbf{Università degli Studi di Modena e Reggio Emilia}} \\[2mm]
@@ -253,9 +238,11 @@ urlcolor=blue,
 
   
 
-\setcounter{tocdepth}{1}
+\restoregeometry
+
 \tableofcontents
-\newpage  % Per iniziare il contenuto in una nuova pagina
+\clearpage
+
 \input{sections/introduction.tex}
 \input{sections/markov_decision_process.tex}
 \input{sections/Lezione_3.tex}
